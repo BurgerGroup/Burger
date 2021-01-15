@@ -2,7 +2,8 @@
 #define EXCEPTION_H
 #include <exception>
 #include <string>
-#include "CurrentThread.h"
+#include <cxxabi.h>
+#include <execinfo.h>
 namespace burger {
 
 class Exception : public std::exception {
@@ -11,6 +12,9 @@ public:
     ~Exception() noexcept override = default; 
     const char* what() const noexcept override;
     const char* stackTrace() const noexcept;
+
+private:
+    std::string stackTrace(bool demangle);
 
 private:
     std::string message_;
