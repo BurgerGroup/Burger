@@ -1,0 +1,16 @@
+add_executable(timestamp_unittest Timestamp_unittest.cc)
+target_link_libraries(timestamp_unittest burger_base)
+
+add_executable(atomic_unittest Atomic_unittest.cc)
+
+add_executable(exception_unittest Exception_unittest.cc)
+target_link_libraries(exception_unittest burger_base)
+
+add_executable(mutex_test mutex_test.cc)
+target_link_libraries(mutex_test burger_base)
+
+add_executable(BlockingQueue_test BlockingQueue_test.cc)
+target_link_libraries(BlockingQueue_test burger_base)
+
+add_executable(BlockingQueue_bench BlockingQueue_bench.cc)
+target_link_libraries(BlockingQueue_bench burger_base)
