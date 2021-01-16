@@ -17,3 +17,11 @@ target_link_libraries(BlockingQueue_bench burger_base)
 
 add_executable(BoundedBlockingQueue_test BoundedBlockingQueue_test.cc)
 target_link_libraries(BoundedBlockingQueue_test burger_base)
+
+# threadpool
+
+add_executable(Singleton_test Singleton_test.cc)
+
+add_executable(SingletonThreadLocal_test SingletonThreadLocal_test.cc)
+target_link_libraries(SingletonThreadLocal_test burger_base)
+
