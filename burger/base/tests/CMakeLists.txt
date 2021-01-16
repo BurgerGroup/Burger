@@ -14,3 +14,6 @@ target_link_libraries(BlockingQueue_test burger_base)
 
 add_executable(BlockingQueue_bench BlockingQueue_bench.cc)
 target_link_libraries(BlockingQueue_bench burger_base)
+
+add_executable(BoundedBlockingQueue_test BoundedBlockingQueue_test.cc)
+target_link_libraries(BoundedBlockingQueue_test burger_base)

@@ -1,8 +1,9 @@
 set(base_SRCS
   Timestamp.cc
   Exception.cc
-  CurrentThread.cc
+  # CurrentThread.cc
   CountDownLatch.cc
+  
 )
 
 add_library(burger_base ${base_SRCS})

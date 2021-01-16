@@ -20,7 +20,10 @@ public:
     void swap(Timestamp& that);
     std::string toString() const;
     int64_t microSecondsSinceEpoch() const;
+    bool valid() const { return microSecondsSinceEpoch_ > 0; }
+
     static Timestamp now();   
+    static Timestamp invalid() { return Timestamp(); }
     static const int kMicroSecondsPerSecond = 1000 * 1000;
 private:
     int64_t microSecondsSinceEpoch_;
