@@ -2,6 +2,7 @@
 
 using namespace burger;
 
+// why not RAII ? Why not automatically start 
 Threadpool::Threadpool(const std::string& name) 
         : name_(name), maxQueueSize_(0), running_(false)
 {}
@@ -87,6 +88,21 @@ void Threadpool::runInThread() {
         throw; // rethrow
     }
 }
+
+Threadpool::Task Threadpool::take() {
+    std::unique_lock<std::mutex> lock(mutex_);
+    cvNotEmpty_.wait(lock, [this] { return (!queue_.empty() || !running_); });
+    Task task;
+    if(!queue_.empty()) {
+        task = queue_.front();
+        queue_.pop_front();
+        if(maxQueueSize_ > 0) 
+            cvNotFull_.notify_one();
+    }
+    return task;
+}
+
+
 
 
 
