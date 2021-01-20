@@ -1,3 +1,4 @@
+
 add_executable(timestamp_unittest Timestamp_unittest.cc)
 target_link_libraries(timestamp_unittest burger_base)
 
@@ -25,4 +26,6 @@ add_executable(Singleton_test Singleton_test.cc)
 
 add_executable(SingletonThreadLocal_test SingletonThreadLocal_test.cc)
 target_link_libraries(SingletonThreadLocal_test burger_base)
+
+add_executable(spdlog_test spdlog_test.cc)
 

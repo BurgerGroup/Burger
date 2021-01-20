@@ -1,0 +1,3 @@
+
+add_executable(Reactor_test01 Reactor_test01.cc)
+target_link_libraries(Reactor_test01 burger_net)

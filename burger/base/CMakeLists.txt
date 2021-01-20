@@ -8,6 +8,9 @@ set(base_SRCS
 add_library(burger_base ${base_SRCS})
 target_link_libraries(burger_base pthread rt)
 # set_target_properties(burger_base PROPERTIES COMPILE_FLAGS "-std=c++11")
+# include_directories(
+#     ${CMAKE_SOURCE_DIR}/burger
+# )
 
 install(TARGETS burger_base DESTINATION lib)
 
