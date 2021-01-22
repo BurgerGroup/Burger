@@ -10,21 +10,19 @@ namespace {
 
 EventLoop::EventLoop() : 
     looping_(false),
-    threadId_(std::this_thread::get_id()) {
-    spdlog::set_level(spdlog::level::trace);
-    spdlog::set_pattern("%Y-%m-%d %H:%M:%S [%l] [%t] - <%s>|<%#>|<%!>,%v");
+    threadId_(util::gettid()) {
 }
 
 EventLoop::ptr EventLoop::create() {
-    std::shared_ptr<EventLoop> el = std::make_shared<EventLoop>();
+    auto el = std::make_shared<EventLoop>();
     el->init();
     return el;
 }
 
 void EventLoop::init() {
-    spdlog::trace("EventLoop created {} in thread ( {} )", fmt::ptr(this), util::threadIdToStr(threadId_));
+    TRACE("EventLoop created {} ", fmt::ptr(this));
     if(t_loopInthisThread) {
-        spdlog::critical("Another EventLoop {} exists in this Thread( tid = {} ) ...", fmt::ptr(t_loopInthisThread), util::threadIdToStr(threadId_)); 
+        CRITICAL("Another EventLoop {} exists in this Thread( tid = {} ) ...", fmt::ptr(t_loopInthisThread), util::gettid()); 
     } else {
         // Can pointer 'this' be a shared pointer?
         // https://stackoverflow.com/questions/37598634/can-pointer-this-be-a-shared-pointer
@@ -36,10 +34,9 @@ void EventLoop::loop() {
     assert(!looping_);
     assertInLoopThread();
     looping_ = true;
-    spdlog::trace("EventLoop {} start looping", fmt::ptr(this));
-    spdlog::trace("EventLoop {} start looping", fmt::ptr(this));
+    TRACE("EventLoop {} start looping", fmt::ptr(this));
     ::poll(NULL, 0, 5*1000);
-    spdlog::trace("EventLoop {} stop looping", fmt::ptr(this));
+    TRACE("EventLoop {} stop looping", fmt::ptr(this));
     looping_ = false;
 }
 
@@ -50,7 +47,7 @@ void EventLoop::assertInLoopThread() {
 }
 
 bool EventLoop::isInLoopThread() const {
-    return threadId_ == std::this_thread::get_id();
+    return threadId_ == util::gettid();
 }
 
 EventLoop::ptr EventLoop::getEventLoopOfCurrentThread() {
@@ -59,9 +56,9 @@ EventLoop::ptr EventLoop::getEventLoopOfCurrentThread() {
 
 void EventLoop::abortNotInLoopThread() {
     std::cout << "11" << std::endl;
-    spdlog::critical("EventLoop::abortNotInLoopThread - EventLoop {} was \
+    CRITICAL("EventLoop::abortNotInLoopThread - EventLoop {} was \
         created in threadId_ = {}, and current id = {} ...", 
-        fmt::ptr(this), util::threadIdToStr(threadId_), util::threadIdToStr((std::this_thread::get_id())));
+        fmt::ptr(this), threadId_, util::gettid());
 }
 
 

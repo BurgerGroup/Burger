@@ -1,57 +1,55 @@
 #ifndef LOG_H
 #define LOG_H
-
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
+// https://github.com/gabime/spdlog/issues/282  Why not use stream syntax
+// TODO : 需要异步 ？  
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/rotating_file_sink.h"
 #include "spdlog/sinks/daily_file_sink.h"
+#include "spdlog/sinks/basic_file_sink.h"
+
 #include "spdlog/sinks/stdout_color_sinks.h"
+#include "spdlog/async.h" //support for async logging.
+
 #include <iostream>
 #include <memory>
+#include <chrono>
+#include <thread>
+#include <sstream>
 #include <boost/noncopyable.hpp>
-
-// spd 带行号的打印，同时输出console和文件
-#define DEBUG(...) SPDLOG_LOGGER_DEBUG(spdlog::default_logger_raw(), __VA_ARGS__);SPDLOG_LOGGER_DEBUG(spdlog::get("daily_logger"), __VA_ARGS__)
-#define LOG(...) SPDLOG_LOGGER_INFO(spdlog::default_logger_raw(), __VA_ARGS__);SPDLOG_LOGGER_INFO(spdlog::get("daily_logger"), __VA_ARGS__)
-#define WARN(...) SPDLOG_LOGGER_WARN(spdlog::default_logger_raw(), __VA_ARGS__);SPDLOG_LOGGER_WARN(spdlog::get("daily_logger"), __VA_ARGS__)
-#define ERROR(...) SPDLOG_LOGGER_ERROR(spdlog::default_logger_raw(), __VA_ARGS__);SPDLOG_LOGGER_ERROR(spdlog::get("daily_logger"), __VA_ARGS__)
+// #include <boost/filesystem.hpp>
+#include <atomic> 
+// namespace fs = boost::filesystem;
 
 namespace burger {
-namespace log {
 
-class Logger : boost::noncopyable {
+class Logger final : boost::noncopyable {
 public:
-
+    static Logger& Instance();
+    bool init(const std::string& loggerName = "Logger", 
+        const std::string& filePath = "logs/test.txt", 
+        spdlog::level::level_enum level = spdlog::level::debug);
+    void setLevel(spdlog::level::level_enum level = spdlog::level::info);
+    static void shutdown() { spdlog::shutdown(); };
 private:
-    Logger();
-    ~Logger();
-        
+    Logger() = default;
+    ~Logger() = default;
+    Logger(const Logger&) = delete;
+    Logger& operator=(const Logger&) = delete;
+private:
+    std::atomic<bool> isInited_{false};
 };
-
-
-
-
-
-
-
-
-
-
-// todo : when  spdlog::drop_all(); fix me
-inline std::shared_ptr<spdlog::logger> logstart() {
-    // 每天2:30 am 新建一个日志文件
-    auto logger = spdlog::daily_logger_mt("daily_logger", "logs/daily.txt", 2, 30);
-    // 遇到warn flush日志，防止丢失
-    logger->flush_on(spdlog::level::warn);
-    // Set the default logger to file logger
-    auto console = spdlog::stdout_color_mt("console");
-    spdlog::set_default_logger(console);
-    spdlog::set_level(spdlog::level::trace); // Set global log level to trace
-    spdlog::set_pattern("%Y-%m-%d %H:%M:%S [%l] [tid : %t] [%s : %# <%!>] %v");
-    return logger;
-}
-}
     
+
 } // namespace burge 
 
+
+// spd 带行号的打印，同时输出console和文件
+#define TRACE(...) SPDLOG_LOGGER_TRACE(spdlog::default_logger_raw(), __VA_ARGS__);
+#define DEBUG(...) SPDLOG_LOGGER_DEBUG(spdlog::default_logger_raw(), __VA_ARGS__);
+#define INFO(...) SPDLOG_LOGGER_INFO(spdlog::default_logger_raw(), __VA_ARGS__);
+#define WARN(...) SPDLOG_LOGGER_WARN(spdlog::default_logger_raw(), __VA_ARGS__);
+#define ERROR(...) SPDLOG_LOGGER_ERROR(spdlog::default_logger_raw(), __VA_ARGS__);
+#define CRITICAL(...) SPDLOG_LOGGER_CRITICAL(spdlog::default_logger_raw(), __VA_ARGS__);
 
 #endif // LOG_H

@@ -1,31 +1,35 @@
 
-add_executable(timestamp_unittest Timestamp_unittest.cc)
-target_link_libraries(timestamp_unittest burger_base)
+# add_executable(timestamp_unittest Timestamp_unittest.cc)
+# target_link_libraries(timestamp_unittest burger_base)
 
-add_executable(atomic_unittest Atomic_unittest.cc)
+# add_executable(atomic_unittest Atomic_unittest.cc)
 
-add_executable(exception_unittest Exception_unittest.cc)
-target_link_libraries(exception_unittest burger_base)
+# add_executable(exception_unittest Exception_unittest.cc)
+# target_link_libraries(exception_unittest burger_base)
 
-add_executable(mutex_test mutex_test.cc)
-target_link_libraries(mutex_test burger_base)
+# add_executable(mutex_test mutex_test.cc)
+# target_link_libraries(mutex_test burger_base)
 
-add_executable(BlockingQueue_test BlockingQueue_test.cc)
-target_link_libraries(BlockingQueue_test burger_base)
+# add_executable(BlockingQueue_test BlockingQueue_test.cc)
+# target_link_libraries(BlockingQueue_test burger_base)
 
-add_executable(BlockingQueue_bench BlockingQueue_bench.cc)
-target_link_libraries(BlockingQueue_bench burger_base)
+# add_executable(BlockingQueue_bench BlockingQueue_bench.cc)
+# target_link_libraries(BlockingQueue_bench burger_base)
 
-add_executable(BoundedBlockingQueue_test BoundedBlockingQueue_test.cc)
-target_link_libraries(BoundedBlockingQueue_test burger_base)
+# add_executable(BoundedBlockingQueue_test BoundedBlockingQueue_test.cc)
+# target_link_libraries(BoundedBlockingQueue_test burger_base)
 
-add_executable(ThreadPool_test ThreadPool_test.cc)
-target_link_libraries(ThreadPool_test burger_base)
+# add_executable(ThreadPool_test ThreadPool_test.cc)
+# target_link_libraries(ThreadPool_test burger_base)
 
-add_executable(Singleton_test Singleton_test.cc)
+# add_executable(Singleton_test Singleton_test.cc)
 
-add_executable(SingletonThreadLocal_test SingletonThreadLocal_test.cc)
-target_link_libraries(SingletonThreadLocal_test burger_base)
+# add_executable(SingletonThreadLocal_test SingletonThreadLocal_test.cc)
+# target_link_libraries(SingletonThreadLocal_test burger_base)
 
-add_executable(spdlog_test spdlog_test.cc)
+# add_executable(spdlog_test spdlog_test.cc)
+
+add_executable(log_test log_test.cc)
+target_link_libraries(log_test burger_base)
+
 

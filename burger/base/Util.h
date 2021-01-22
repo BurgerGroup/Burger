@@ -1,6 +1,8 @@
 #include <sstream>
 #include <memory>
 #include <thread>
+#include <unistd.h>
+#include <sys/syscall.h>
 
 namespace burger {
 namespace util {
@@ -19,6 +21,13 @@ inline std::string threadIdToStr(const std::thread::id id) {
 template <typename T, typename... Args>
 std::unique_ptr<T> make_unique(Args&&... args) {
     return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+}
+
+/**
+ * @brief Get tid (Kernel)
+ */
+inline pid_t gettid() {
+    return static_cast<pid_t>(syscall(SYS_gettid));
 }
 
 } // namespace util

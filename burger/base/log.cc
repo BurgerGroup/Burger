@@ -1,92 +1,51 @@
-#include "log.h"
+#include "Log.h"
 
 using namespace burger;
 
-LogFormatter::LogFormatter(const std::string& pattern) 
-            : pattern_(pattern) {
+Logger& Logger::Instance() {
+    static Logger log;
+    return log;
 }
 
-std::string LogFormatter::format(LogEvent::ptr event) {
-    std::stringstream ss;
-    for(auto& item : items_) {
-        item->format(ss, event);
+bool Logger::init(const std::string& loggerName, 
+        const std::string& filePath, 
+        spdlog::level::level_enum level) {
+    if(isInited_) return true;
+    try {
+        // check log path and try to create log directory
+        // 这里需要文件操作吗?
+        // fs::path log_path(filePath);
+        // fs::path log_dir = log_path.parent_path();
+        // if (!fs::exists(log_path)) {
+        //     fs::create_directories(log_dir);
+        // }
+        // initialize spdlog
+        constexpr std::size_t log_buffer_size = 32 * 1024; // 32kb
+        spdlog::init_thread_pool(log_buffer_size, std::thread::hardware_concurrency());
+        // spdlog::set_level(level);  // todo 这里设置无法影响道logger 
+        // spdlog::set_pattern("%Y-%m-%d %H:%M:%S [%l] [tid : %t] [%s : %# <%!>] %v");
+        spdlog::flush_every(std::chrono::seconds(3));  // todo 这里能影响道logger吗
+        // spdlog::flush_on(spdlog::level::warn);
+
+        auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+        auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt> (filePath, 1024*1024*5, 5, false);
+        // auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(filePath, true);
+        // Async : https://github.com/gabime/spdlog/wiki/6.-Asynchronous-logging
+        std::vector<spdlog::sink_ptr> sinks{console_sink, file_sink};
+        std::shared_ptr<spdlog::logger> logger = std::make_shared<spdlog::logger>(loggerName,  sinks.begin(), sinks.end());
+        logger->set_level(level);    // 需要单独设置logger的level      
+        logger->set_pattern("%Y-%m-%d %H:%M:%S [%l] [tid : %t] [%s : %# <%!>] %v");
+        logger->flush_on(spdlog::level::warn);
+        spdlog::set_default_logger(logger);
+    } catch(const spdlog::spdlog_ex& ex) {
+        std::cout << "Log initialization failed: " << ex.what() << std::endl;
     }
-    return ss.str();
+    isInited_ = true;
+    return true;
 }
 
-void LogFormatter::init() {
-    
+void Logger::setLevel(spdlog::level::level_enum level) {
+    spdlog::set_level(level);  // 后面setlevel就可以影响logger了
 }
-
-Logger::Logger(const std::string& name) 
-    : name_(name) {
-}
-
-void Logger::log(LogLevel level, LogEvent::ptr event) {
-    if(level >= level_) {
-        for(auto& i : appenders_) {
-            i->log(level, event);
-        }
-    }
-}
-
-void Logger::debug(LogEvent::ptr event)  {
-    log(LogLevel::DEBUG, event);
-}
-
-void Logger::info(LogEvent::ptr event) {
-    log(LogLevel::INFO, event);
-}
-
-void Logger::warn(LogEvent::ptr event) {
-    log(LogLevel::WARN, event);
-}
-
-void Logger::error(LogEvent::ptr event) {
-    log(LogLevel::ERROR, event);
-}
-
-void Logger::fatal(LogEvent::ptr event) {
-    log(LogLevel::FATAL, event);
-}
-
-void Logger::addAppender(LogAppender::ptr appender) {
-    appenders_.push_back(appender);
-}
-
-void Logger::delAppender(LogAppender::ptr appender) {
-    for(auto it = appenders_.begin();
-            it!= appenders_.end(); it++) {
-        if(*it == appender) {
-            appenders_.erase(it);
-            break;
-        }
-    }
-}
-
-void StdoutLogAppender::log(LogLevel level, LogEvent::ptr event) {
-    if(level >= level_) {
-        std::cout << formatter_->format(event);
-    }
-}
-
-FileLogAppender::FileLogAppender(const std::string& filename) 
-                : filename_(filename) {
-}
-
-void FileLogAppender::log(LogLevel level, LogEvent::ptr event) {
-    if(level >= level_) {
-        filestream_ << formatter_->format(event);
-    }
-}
-
-bool FileLogAppender::reopen() {
-    if(filestream_) {
-        filestream_.close(); 
-    }
-    filestream_.open(filename_);
-    return !!filestream_;   // !!
-}
-
 
 

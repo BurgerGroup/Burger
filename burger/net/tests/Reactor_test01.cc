@@ -13,8 +13,11 @@ void threadFunc() {
 }
 
 int main() {
+    if (!Logger::Instance().init("log", "logs/test.txt", spdlog::level::trace)) {
+		return 1;
+	}
     std::cout << "ThreadFunc : pid = " << getpid() 
-        << " tid = " << std::this_thread::get_id() << std::endl; 
+        << " tid = " << util::gettid() << std::endl; 
     auto loop = EventLoop::create();
     std::thread t(threadFunc);
     loop->loop();
