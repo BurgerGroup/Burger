@@ -54,6 +54,13 @@ EventLoop::ptr EventLoop::getEventLoopOfCurrentThread() {
     return t_loopInthisThread;
 }
 
+void EventLoop::updateChannel(Channel::ptr channel) {
+    assert(channel->ownerLoop == shared_from_this());
+    assertInLoopThread();
+    epoll_->updateChannel(channel);
+
+}
+
 void EventLoop::abortNotInLoopThread() {
     std::cout << "11" << std::endl;
     CRITICAL("EventLoop::abortNotInLoopThread - EventLoop {} was \

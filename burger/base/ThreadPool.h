@@ -25,6 +25,7 @@ public:
     void setMaxQueueSize(int maxSize) { maxQueueSize_ = maxSize; }
     // There is no move-only version of std::function in C++ as of C++14.   
     void setThreadInitCallback(const Task& cb) { threadInitCallback_ = cb; }
+    // void setThreadInitCallback(const Task&& cb) { threadInitCallback_ = cb; }
     void start(int numThreads);
     void stop();
     const std::string& name() const { return name_; }
