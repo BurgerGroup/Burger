@@ -1,5 +1,8 @@
 set(net_SRCS
   EventLoop.cc
+  Channel.cc 
+  Epoll.cc 
+  SocketsOps.cc
   )
 
 add_library(burger_net ${net_SRCS})
@@ -8,6 +11,9 @@ target_link_libraries(burger_net burger_base)
 install(TARGETS burger_net DESTINATION lib)
 set(HEADERS
   EventLoop.h
+  Channel.h
+  Epoll.h 
+  SocketsOps.h
   )
 install(FILES ${HEADERS} DESTINATION include/burger/net)
 

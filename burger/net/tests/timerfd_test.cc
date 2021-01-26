@@ -22,7 +22,9 @@ int main() {
         std::cout << "Logger init error" << std::endl;
 		return 1;
 	}
-    g_loop = EventLoop::create();
+    auto loop = EventLoop::create();
+    g_loop = loop;
+    
     timerfd = ::timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
     
 }

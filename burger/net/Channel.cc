@@ -1,12 +1,26 @@
 #include "Channel.h"
 
-
 using namespace burger;
 using namespace burger::net;
 
 void Channel::update() {
     addedToLoop_ = true;
-    loop_->
+    loop_->updateChannel(shared_from_this());
+}
+
+std::string Channel::eventsToString() const {
+    return eventsToString(fd_, events_);
+}
+
+
+std::string Channel::reventsToString() const {
+    return eventsToString(fd_, revents_);
+}
+
+void Channel::remove() {
+    assert(isNoneEvent());
+    addedToLoop_ = false;
+    loop_->removeChannel(shared_from_this());
 }
 
 std::string Channel::eventsToString(int fd, int event) {
@@ -24,9 +38,6 @@ std::string Channel::eventsToString(int fd, int event) {
         oss << "RDHUP ";
     if (event & EPOLLERR)
         oss << "ERR ";
-    if (event & EPOLLNVAL)
-        oss << "NVAL ";
-
     return oss.str();
 }
 
