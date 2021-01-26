@@ -1,7 +1,6 @@
 #ifndef CHANNEL_H
 #define CHANNEL_H
 
-// #include "EventLoop.h"
 #include "burger/base/Timestamp.h"
 #include <memory>
 #include <boost/noncopyable.hpp>
@@ -12,17 +11,15 @@ namespace burger {
 namespace net {
 
 class EventLoop;
+
 // This class doesn't own the file descriptor.
 class Channel : boost::noncopyable,
                 public std::enable_shared_from_this<Channel> {
 public:
-    using ptr = std::shared_ptr<Channel>;
-    using ptrList = std::vector<ptr>;
-
-    using EventCallback = std::function<void()>;
+    using EventCallback =  std::function<void()>;
     using ReadEventCallback = std::function<void(Timestamp)>;
 
-    Channel(EventLoop::ptr loop, int fd);
+    Channel(EventLoop* loop, int fd);
     ~Channel();
 
     void handleEvent(Timestamp receiveTime);
@@ -54,8 +51,8 @@ public:
     void tie(const std::shared_ptr<void>&);
     int getFd() const { return fd_; }
     int getEvents() const { return events_; }
-    void setRevents(uint32_t revent) { revent = revents_; }
-    EventLoop::ptr ownerLoop() { return loop_; }
+    void setRevents(uint32_t revent) { revents_ = revent; }
+    EventLoop* ownerLoop() { return loop_; }
     void remove();
 private:
     static std::string eventsToString(int fd, int event);
@@ -65,7 +62,7 @@ private:
     static const uint32_t kReadEvent;
     static const uint32_t kWriteEvent;
 
-    EventLoop::ptr loop_;
+    EventLoop* loop_;
     const int fd_;
     uint32_t events_;
     uint32_t revents_;  // 通过epoll返回的就绪事件类型  TODO : 需要吗?
@@ -81,6 +78,8 @@ private:
     EventCallback closeCallback_;
     EventCallback errorCallback_;
 };
+
+using ChannelPtr = std::shared_ptr<Channel>;
 
 } // namespace net
 

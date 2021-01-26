@@ -1,5 +1,4 @@
-#include "Epoll.h"
-
+#include "EventLoop.h"
 using namespace burger;
 using namespace burger::net;
 
@@ -10,8 +9,8 @@ namespace {
     const int kDeleted = 2;  // 曾经在epoll队列当中过，但被删除了，但仍在cahnnelMap_中
 }
 
-Epoll::Epoll(EventLoop::ptr loop) :
-    ownerLoop(loop), 
+Epoll::Epoll(EventLoop* loop) :
+    ownerLoop_(loop), 
     epollFd_(::epoll_create1(EPOLL_CLOEXEC)),
     eventList_(kInitEventListSize) {
     if(epollFd_ < 0) {
@@ -23,7 +22,7 @@ Epoll::~Epoll() {
     ::close(epollFd_);   
 }
 
-Timestamp Epoll::wait(int timeoutMs, Channel::ptrList& activeChannels) {
+Timestamp Epoll::wait(int timeoutMs, std::vector<ChannelPtr>& activeChannels) {
     TRACE("fd total count {}", channelMap_.size());
     int numEvents = ::epoll_wait(epollFd_, eventList_.data(),
                 static_cast<int>(eventList_.size()), timeoutMs);
@@ -33,7 +32,7 @@ Timestamp Epoll::wait(int timeoutMs, Channel::ptrList& activeChannels) {
         TRACE("{} events happended", numEvents);
         fillActiveChannels(numEvents, activeChannels);
         if(static_cast<size_t>(numEvents) == eventList_.size()) {
-            events.resize(eventList_.size() * 2);
+            eventList_.resize(eventList_.size() * 2);
         }
     } else if(numEvents == 0) {
         TRACE("Nothing happend...");
@@ -46,7 +45,7 @@ Timestamp Epoll::wait(int timeoutMs, Channel::ptrList& activeChannels) {
     return now;
 }
 
-void Epoll::updateChannel(Channel::ptr channel) {
+void Epoll::updateChannel(ChannelPtr channel) {
     assertInLoopThread();
     const int status = channel->getStatus();
     int fd = channel->getFd();
@@ -79,7 +78,7 @@ void Epoll::updateChannel(Channel::ptr channel) {
 
 }
 
-void Epoll::removeChannel(Channel::ptr channel)  {
+void Epoll::removeChannel(ChannelPtr channel)  {
     assertInLoopThread();
     int fd = channel->getFd();
     TRACE("fd = {} ", fd);
@@ -97,26 +96,27 @@ void Epoll::removeChannel(Channel::ptr channel)  {
 }
 
 void Epoll::fillActiveChannels(int numEvents, 
-                Channel::ptrList activeChannels) const {
+            std::vector<ChannelPtr>& activeChannels) const {
     assert(static_cast<size_t>(numEvents) <= eventList_.size());
     for(int i = 0; i < numEvents; i++) {
-        auto channel = eventList.at(i).data.ptr;
+        ChannelPtr channel(eventList_[i].data.ptr);
 #ifndef NDEBUG
         int fd = channel->getFd();
         auto it = channelMap_.find(fd);
-        assert(it != channels_.end());
+        assert(it != channelMap_.end());
         assert(it->second == channel);
 #endif
-        channel->setRevent(events_[i].events);  // TODO : epoll不需要这个吧 ? 真的需要吗
+        channel->setRevents(eventList_[i].events);  // TODO : epoll不需要这个吧 ? 真的需要吗
         activeChannels.push_back(channel);
     }
 }
 
-void Epoll::update(int operation, Channel::ptr channel) {
+void Epoll::update(int operation, ChannelPtr channel) {
     struct epoll_event event;
-    bzero(event, sizeof(event));
+    bzero(&event, sizeof(event));
     event.events = channel->getEvents();
-    event.data.ptr = channel;
+    // TODO 这里需要check
+    event.data.ptr = static_cast<void*>(channel.get());
     int fd = channel->getFd();
     TRACE("epoll_ctl op = {}, fd = {}, event = [{}]", 
         operationToString(operation), fd, channel->eventsToString());
@@ -133,7 +133,7 @@ void Epoll::update(int operation, Channel::ptr channel) {
 
 std::string Epoll::operationToString(int op) {
     switch(op) {
-        case EPOLL_CTR_ADD:
+        case EPOLL_CTL_ADD:
             return "ADD";
         case EPOLL_CTL_DEL:
             return "DEL";
@@ -144,7 +144,7 @@ std::string Epoll::operationToString(int op) {
     }
 }
 
-bool Epoll::hasChannel(Channel::ptr channel) const {
+bool Epoll::hasChannel(ChannelPtr channel) const {
     assertInLoopThread();
     auto it = channelMap_.find(channel->getFd());
     return it != channelMap_.end() && it->second == channel;

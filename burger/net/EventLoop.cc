@@ -5,7 +5,7 @@ using namespace burger::net;
 #include <poll.h>
 // 为何这里需要namespace 套着
 namespace {
-thread_local EventLoop::ptr t_loopInthisThread;
+thread_local EventLoop* t_loopInthisThread = nullptr;
 const int kEpollTimesMs = 10000;
 int createEventfd() {
     int efd = ::eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
@@ -48,15 +48,14 @@ void EventLoop::init() {
     } else {
         // Can pointer 'this' be a shared pointer?
         // https://stackoverflow.com/questions/37598634/can-pointer-this-be-a-shared-pointer
-        t_loopInthisThread = shared_from_this();
+        t_loopInthisThread = this;
     }
     // TODO : 这样到处用shared_from_this 好吗
     // 需要直接用一个成员变量来存还是可以直接用t_loopInthisThread
-    wakeupChannel_ = util::make_unique<Channel>(shared_from_this(), wakeupFd_);
+    wakeupChannel_ = util::make_unique<Channel>(this, wakeupFd_);
     wakeupChannel_->setReadCallback(std::bind(&EventLoop::handleRead, this));
     // we are always reading the wakeupfd
     wakeupChannel_->enableReading();
-    
 }
 
 void EventLoop::loop() {
@@ -110,7 +109,7 @@ bool EventLoop::isInLoopThread() const {
     return threadId_ == util::gettid();
 }
 
-EventLoop::ptr EventLoop::getEventLoopOfCurrentThread() {
+EventLoop* EventLoop::getEventLoopOfCurrentThread() {
     return t_loopInthisThread;
 }
 
@@ -126,14 +125,14 @@ void EventLoop::wakeup() {
     }
 } 
 
-void EventLoop::updateChannel(Channel::ptr channel) {
-    assert(channel->ownerLoop() == shared_from_this());
+void EventLoop::updateChannel(ChannelPtr channel) {
+    assert(channel->ownerLoop() == this);
     assertInLoopThread();
     epoll_->updateChannel(channel);
 }
 
-void EventLoop::removeChannel(Channel::ptr channel) {
-    assert(channel->ownerLoop() == shared_from_this());
+void EventLoop::removeChannel(ChannelPtr channel) {
+    assert(channel->ownerLoop() == this);
     assertInLoopThread();
     // TODO 这里不是很清楚
     if(eventHandling_) {
@@ -143,8 +142,8 @@ void EventLoop::removeChannel(Channel::ptr channel) {
     epoll_->removeChannel(channel);
 }
 
-bool EventLoop::hasChannel(Channel::ptr channel) {
-    assert(channel->ownerLoop() == shared_from_this());
+bool EventLoop::hasChannel(ChannelPtr channel) {
+    assert(channel->ownerLoop() == this);
     assertInLoopThread();
     return epoll_->hasChannel(channel);
 }

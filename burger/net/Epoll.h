@@ -1,8 +1,8 @@
 #ifndef EPOLL_H
 #define EPOLL_H
 
-#include "EventLoop.h"
 #include "Channel.h"
+
 #include "burger/base/Timestamp.h"
 #include <boost/noncopyable.hpp>
 #include <vector>
@@ -13,28 +13,28 @@
 
 namespace burger {
 namespace net {
-
+class EventLoop;
 class Epoll : boost::noncopyable {
 public:
-    Epoll(EventLoop::ptr loop);
+    Epoll(EventLoop* loop);
     ~Epoll();
 
-    Timestamp wait(int timeoutMs, Channel::ptrList& activeChannels);
-    void updateChannel(Channel::ptr channel);
-    void removeChannel(Channel::ptr channel);
-    bool hasChannel(Channel::ptr channel) const;
+    Timestamp wait(int timeoutMs, std::vector<ChannelPtr>& activeChannels);
+    void updateChannel(ChannelPtr channel);
+    void removeChannel(ChannelPtr channel);
+    bool hasChannel(ChannelPtr channel) const;
 
     void assertInLoopThread() const;
 
 private:
     void fillActiveChannels(int numEvents, 
-                Channel::ptrList activeChannels) const;
-    void update(int operation, Channel::ptr channel);
+                std::vector<ChannelPtr>& activeChannels) const;
+    void update(int operation, ChannelPtr channel);
     static std::string operationToString(int op);
 private:
     static const int kInitEventListSize = 16;
-    std::map<int, Channel::ptr> channelMap_;
-    EventLoop::ptr ownerLoop_;
+    std::map<int, ChannelPtr> channelMap_;
+    EventLoop* ownerLoop_;
     int epollFd_;
     std::vector<struct epoll_event> eventList_;
 };

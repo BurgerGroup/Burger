@@ -10,9 +10,9 @@ target_link_libraries(burger_net burger_base)
 
 install(TARGETS burger_net DESTINATION lib)
 set(HEADERS
-  EventLoop.h
   Channel.h
   Epoll.h 
+  EventLoop.h
   SocketsOps.h
   )
 # file(GLOB HEADERS "*.h")

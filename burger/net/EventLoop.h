@@ -8,19 +8,17 @@
 #include <vector>
 #include "burger/base/Util.h"
 #include "burger/base/Log.h"
+#include "burger/base/Timestamp.h"
+#include <sys/eventfd.h>
+
 #include "SocketsOps.h"
 #include "Channel.h"
 #include "Epoll.h"
-#include <sys/eventfd.h>
- 
+
 namespace burger {
 namespace net {
 
-class Channel;
-class Epoll;
-
-class EventLoop : boost::noncopyable, 
-                public std::enable_shared_from_this<EventLoop>  {
+class EventLoop : boost::noncopyable {
 public:
     using ptr = std::shared_ptr<EventLoop>;
     using Functor = std::function<void()>;
@@ -33,12 +31,12 @@ public:
     int64_t iteration() const { return iteration_; }
     void assertInLoopThread();
     bool isInLoopThread() const;
-    static ptr getEventLoopOfCurrentThread();
+    static EventLoop* getEventLoopOfCurrentThread();
 
     void wakeup();
-    void updateChannel(Channel::ptr channel);
-    void removeChannel(Channel::ptr channel);
-    bool hasChannel(Channel::ptr channel);
+    void updateChannel(ChannelPtr channel);
+    void removeChannel(ChannelPtr channel);
+    bool hasChannel(ChannelPtr channel);
 private:
     void init();
     void abortNotInLoopThread();
@@ -56,8 +54,8 @@ private:
     std::unique_ptr<Epoll> epoll_;
     int wakeupFd_;
     std::unique_ptr<Channel> wakeupChannel_;
-    Channel::ptrList activeChannels_;
-    Channel::ptr currentActiveChannel_;
+    std::vector<ChannelPtr> activeChannels_;
+    std::shared_ptr<Channel> currentActiveChannel_;
     std::mutex mutex_;
     std::vector<Functor> pendingFunctors_;
 };
