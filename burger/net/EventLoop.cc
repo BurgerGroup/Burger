@@ -143,6 +143,12 @@ void EventLoop::removeChannel(Channel::ptr channel) {
     epoll_->removeChannel(channel);
 }
 
+bool EventLoop::hasChannel(Channel::ptr channel) {
+    assert(channel->ownerLoop() == shared_from_this());
+    assertInLoopThread();
+    return epoll_->hasChannel(channel);
+}
+
 void EventLoop::abortNotInLoopThread() {
     std::cout << "11" << std::endl;
     CRITICAL("EventLoop::abortNotInLoopThread - EventLoop {} was \

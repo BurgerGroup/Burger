@@ -1,7 +1,27 @@
 #include "Channel.h"
+#include "EventLoop.h"
 
 using namespace burger;
 using namespace burger::net;
+
+Channel::Channel(EventLoop::ptr loop, int fd):
+    loop_(loop),
+    fd_(fd),
+    events_(0),
+    revents_(0),
+    status_(-1),
+    tied_(false),
+    eventHandling_(false),
+    addedToLoop_(false) {
+}
+
+Channel::~Channel() {
+    assert(!eventHandling_);
+    assert(!addedToLoop_);
+    if (loop_->isInLoopThread()) {
+        assert(!loop_->hasChannel(shared_from_this()));
+    }
+}
 
 void Channel::update() {
     addedToLoop_ = true;

@@ -2,6 +2,7 @@
 #define EPOLL_H
 
 #include "EventLoop.h"
+#include "Channel.h"
 #include "burger/base/Timestamp.h"
 #include <boost/noncopyable.hpp>
 #include <vector>
@@ -12,9 +13,6 @@
 
 namespace burger {
 namespace net {
-
-class EventLoop;
-class Channel;
 
 class Epoll : boost::noncopyable {
 public:

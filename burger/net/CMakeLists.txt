@@ -15,6 +15,7 @@ set(HEADERS
   Epoll.h 
   SocketsOps.h
   )
+# file(GLOB HEADERS "*.h")
 install(FILES ${HEADERS} DESTINATION include/burger/net)
 
 #add_subdirectory(http)

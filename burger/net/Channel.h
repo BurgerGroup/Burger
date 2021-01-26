@@ -1,7 +1,7 @@
 #ifndef CHANNEL_H
 #define CHANNEL_H
 
-#include "EventLoop.h"
+// #include "EventLoop.h"
 #include "burger/base/Timestamp.h"
 #include <memory>
 #include <boost/noncopyable.hpp>
@@ -12,7 +12,6 @@ namespace burger {
 namespace net {
 
 class EventLoop;
-
 // This class doesn't own the file descriptor.
 class Channel : boost::noncopyable,
                 public std::enable_shared_from_this<Channel> {
@@ -23,7 +22,7 @@ public:
     using EventCallback = std::function<void()>;
     using ReadEventCallback = std::function<void(Timestamp)>;
 
-    Channel(std::shared_ptr<EventLoop> loop, int fd);
+    Channel(EventLoop::ptr loop, int fd);
     ~Channel();
 
     void handleEvent(Timestamp receiveTime);
@@ -66,7 +65,7 @@ private:
     static const uint32_t kReadEvent;
     static const uint32_t kWriteEvent;
 
-    std::shared_ptr<EventLoop> loop_;
+    EventLoop::ptr loop_;
     const int fd_;
     uint32_t events_;
     uint32_t revents_;  // 通过epoll返回的就绪事件类型  TODO : 需要吗?
@@ -74,7 +73,7 @@ private:
 
     std::weak_ptr<void> tie_;
     bool tied_;
-    
+    bool eventHandling_;
     bool addedToLoop_;  //是否注册到Epoll中监听
     
     ReadEventCallback readCallback_;

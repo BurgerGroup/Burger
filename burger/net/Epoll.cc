@@ -1,8 +1,7 @@
 #include "Epoll.h"
 
 using namespace burger;
-using namespace burger::net；
-
+using namespace burger::net;
 
 namespace {
     // TODO : index是否该为status, 这里用enum是否更好？
@@ -145,7 +144,7 @@ std::string Epoll::operationToString(int op) {
     }
 }
 
-bool Poller::hasChannel(ChannelPtr channel) const {
+bool Epoll::hasChannel(Channel::ptr channel) const {
     assertInLoopThread();
     auto it = channelMap_.find(channel->getFd());
     return it != channelMap_.end() && it->second == channel;

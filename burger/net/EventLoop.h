@@ -17,6 +17,7 @@ namespace burger {
 namespace net {
 
 class Channel;
+class Epoll;
 
 class EventLoop : boost::noncopyable, 
                 public std::enable_shared_from_this<EventLoop>  {
