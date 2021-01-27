@@ -2,11 +2,12 @@
 #define CHANNEL_H
 
 #include "burger/base/Timestamp.h"
+#include "burger/base/Log.h"
 #include <memory>
 #include <boost/noncopyable.hpp>
 #include <functional>
 #include <sstream>
-
+#include <cassert>
 namespace burger {
 namespace net {
 
@@ -57,6 +58,7 @@ public:
 private:
     static std::string eventsToString(int fd, int event);
     void update();
+    void handleEventWithGuard(Timestamp receiveTime);
 private:
     static const uint32_t kNoneEvent;
     static const uint32_t kReadEvent;
@@ -72,14 +74,12 @@ private:
     bool tied_;
     bool eventHandling_;
     bool addedToLoop_;  //是否注册到Epoll中监听
-    
+    bool logHup_;
     ReadEventCallback readCallback_;
     EventCallback writeCallback_;
     EventCallback closeCallback_;
     EventCallback errorCallback_;
 };
-
-using ChannelPtr = std::shared_ptr<Channel>;
 
 } // namespace net
 

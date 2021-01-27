@@ -20,28 +20,12 @@ int createEventfd() {
 EventLoop::EventLoop() : 
     looping_(false),
     quit_(false),
+    eventHandling_(false),
+    iteration_(0),
     threadId_(util::gettid()),
-    epoll_(util::make_unique<Epoll>()),
-    wakeupFd_(createEventfd()) {
-}
-
-EventLoop::~EventLoop() {
-    DEBUG("EventLoop {} of thread {} destructs", 
-        fmt::ptr(this), threadId_)
-    wakeupChannel_->disableAll();
-    wakeupChannel_->remove();
-    ::close(wakeupFd_);
-    t_loopInthisThread = nullptr;
-}
-
-
-EventLoop::ptr EventLoop::create() {
-    auto el = std::make_shared<EventLoop>();
-    el->init();
-    return el;
-}
-
-void EventLoop::init() {
+    epoll_(util::make_unique<Epoll>(this)),
+    wakeupFd_(createEventfd()),
+    wakeupChannel_(util::make_unique<Channel>(this, wakeupFd_)) {
     TRACE("EventLoop created {} ", fmt::ptr(this));
     if(t_loopInthisThread) {
         CRITICAL("Another EventLoop {} exists in this Thread( tid = {} ) ...", fmt::ptr(t_loopInthisThread), util::gettid()); 
@@ -52,10 +36,18 @@ void EventLoop::init() {
     }
     // TODO : 这样到处用shared_from_this 好吗
     // 需要直接用一个成员变量来存还是可以直接用t_loopInthisThread
-    wakeupChannel_ = util::make_unique<Channel>(this, wakeupFd_);
     wakeupChannel_->setReadCallback(std::bind(&EventLoop::handleRead, this));
     // we are always reading the wakeupfd
-    wakeupChannel_->enableReading();
+    wakeupChannel_->enableReading();  
+}
+
+EventLoop::~EventLoop() {
+    DEBUG("EventLoop {} of thread {} destructs", 
+        fmt::ptr(this), threadId_)
+    wakeupChannel_->disableAll();
+    wakeupChannel_->remove();
+    ::close(wakeupFd_);
+    t_loopInthisThread = nullptr;
 }
 
 void EventLoop::loop() {
@@ -86,6 +78,7 @@ void EventLoop::loop() {
     looping_ = false;
 }
 
+// 可以跨线程调用
 void EventLoop::quit() {
     quit_ = true;
     // TODO: ??
@@ -95,7 +88,7 @@ void EventLoop::quit() {
     // 如果不是当前IO线程调用quit,则需要唤醒wakeup当前IO线程，因为他肯恶搞还阻塞在epoll的位置（EventLoop::loop()）
     // 这样再次循环判断while(!quit_)才能退出循环
     if(!isInLoopThread()) {
-        wakeup();
+        wakeup();  // 跨线程调用时，可能正在handleEvent，也可能wait阻塞住，所以要去唤醒，所以我们需要个唤醒通道
     }
 }
 
@@ -125,13 +118,13 @@ void EventLoop::wakeup() {
     }
 } 
 
-void EventLoop::updateChannel(ChannelPtr channel) {
+void EventLoop::updateChannel(Channel* channel) {
     assert(channel->ownerLoop() == this);
     assertInLoopThread();
     epoll_->updateChannel(channel);
 }
 
-void EventLoop::removeChannel(ChannelPtr channel) {
+void EventLoop::removeChannel(Channel* channel) {
     assert(channel->ownerLoop() == this);
     assertInLoopThread();
     // TODO 这里不是很清楚
@@ -142,7 +135,7 @@ void EventLoop::removeChannel(ChannelPtr channel) {
     epoll_->removeChannel(channel);
 }
 
-bool EventLoop::hasChannel(ChannelPtr channel) {
+bool EventLoop::hasChannel(Channel* channel) {
     assert(channel->ownerLoop() == this);
     assertInLoopThread();
     return epoll_->hasChannel(channel);

@@ -21,7 +21,7 @@ int main() {
         std::cout << "Logger init error" << std::endl;
 		return 1;
 	}
-    auto loop = EventLoop::create();
+    auto loop = std::make_shared<EventLoop>();
     g_loop = loop;
     std::thread t1(ThreadFunc);
     t1.join();

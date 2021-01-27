@@ -1,4 +1,5 @@
 #include "EventLoop.h"
+
 using namespace burger;
 using namespace burger::net;
 
@@ -22,7 +23,7 @@ Epoll::~Epoll() {
     ::close(epollFd_);   
 }
 
-Timestamp Epoll::wait(int timeoutMs, std::vector<ChannelPtr>& activeChannels) {
+Timestamp Epoll::wait(int timeoutMs, std::vector<Channel*>& activeChannels) {
     TRACE("fd total count {}", channelMap_.size());
     int numEvents = ::epoll_wait(epollFd_, eventList_.data(),
                 static_cast<int>(eventList_.size()), timeoutMs);
@@ -45,7 +46,7 @@ Timestamp Epoll::wait(int timeoutMs, std::vector<ChannelPtr>& activeChannels) {
     return now;
 }
 
-void Epoll::updateChannel(ChannelPtr channel) {
+void Epoll::updateChannel(Channel* channel) {
     assertInLoopThread();
     const int status = channel->getStatus();
     int fd = channel->getFd();
@@ -78,7 +79,7 @@ void Epoll::updateChannel(ChannelPtr channel) {
 
 }
 
-void Epoll::removeChannel(ChannelPtr channel)  {
+void Epoll::removeChannel(Channel* channel)  {
     assertInLoopThread();
     int fd = channel->getFd();
     TRACE("fd = {} ", fd);
@@ -96,10 +97,10 @@ void Epoll::removeChannel(ChannelPtr channel)  {
 }
 
 void Epoll::fillActiveChannels(int numEvents, 
-            std::vector<ChannelPtr>& activeChannels) const {
+            std::vector<Channel*>& activeChannels) const {
     assert(static_cast<size_t>(numEvents) <= eventList_.size());
     for(int i = 0; i < numEvents; i++) {
-        ChannelPtr channel(eventList_[i].data.ptr);
+        Channel* channel = static_cast<Channel*>(eventList_[i].data.ptr);
 #ifndef NDEBUG
         int fd = channel->getFd();
         auto it = channelMap_.find(fd);
@@ -111,12 +112,12 @@ void Epoll::fillActiveChannels(int numEvents,
     }
 }
 
-void Epoll::update(int operation, ChannelPtr channel) {
+void Epoll::update(int operation, Channel* channel) {
     struct epoll_event event;
     bzero(&event, sizeof(event));
     event.events = channel->getEvents();
     // TODO 这里需要check
-    event.data.ptr = static_cast<void*>(channel.get());
+    event.data.ptr = static_cast<void*>(channel);
     int fd = channel->getFd();
     TRACE("epoll_ctl op = {}, fd = {}, event = [{}]", 
         operationToString(operation), fd, channel->eventsToString());
@@ -144,10 +145,14 @@ std::string Epoll::operationToString(int op) {
     }
 }
 
-bool Epoll::hasChannel(ChannelPtr channel) const {
+bool Epoll::hasChannel(Channel* channel) const {
     assertInLoopThread();
     auto it = channelMap_.find(channel->getFd());
     return it != channelMap_.end() && it->second == channel;
+}
+
+void Epoll::assertInLoopThread() const {
+    ownerLoop_->assertInLoopThread();
 }
 
 

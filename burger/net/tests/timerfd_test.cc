@@ -7,12 +7,13 @@
 using namespace burger;
 using namespace burger::net;
 
-EventLoop::ptr g_loop;
+EventLoop* g_loop;
 int timerfd;
 
 void timeout(Timestamp receiveTime) {
     std::cout << "Timeout!\n";
     uint64_t howmany;
+    // 采用LT，不把他读走的话就会一直触发
     ::read(timerfd, &howmany, sizeof(howmany));
     g_loop->quit();
 }
@@ -22,9 +23,18 @@ int main() {
         std::cout << "Logger init error" << std::endl;
 		return 1;
 	}
-    auto loop = EventLoop::create();
-    g_loop = loop;
-    
+    EventLoop loop;
+    g_loop = &loop;
     timerfd = ::timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
-    
+    Channel channel(&loop, timerfd);
+    channel.setReadCallback(std::bind(timeout, std::placeholders::_1));
+    channel.enableReading();
+
+    struct itimerspec howlong;
+    bzero(&howlong, sizeof(howlong));
+    // howlong.it_interval = 0; // 这里已经被清零0了，所以是一次性的
+    howlong.it_value.tv_sec = 1;
+    ::timerfd_settime(timerfd, 0, &howlong, NULL);
+    loop.loop();
+    ::close(timerfd);
 }

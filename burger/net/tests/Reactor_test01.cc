@@ -8,8 +8,8 @@ using namespace burger::net;
 void threadFunc() {
     std::cout << "ThreadFunc : pid = " << getpid() 
         << " tid = " << std::this_thread::get_id() << std::endl; 
-    auto loop = EventLoop::create();
-    loop->loop();
+    EventLoop loop;
+    loop.loop();
 }
 
 int main() {
@@ -18,9 +18,9 @@ int main() {
 	}
     std::cout << "ThreadFunc : pid = " << getpid() 
         << " tid = " << util::gettid() << std::endl; 
-    auto loop = EventLoop::create();
+    EventLoop loop;
     std::thread t(threadFunc);
-    loop->loop();
+    loop.loop();
     t.join();
     return 0;
 }

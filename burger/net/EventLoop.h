@@ -18,6 +18,7 @@
 namespace burger {
 namespace net {
 
+class Epoll;
 class EventLoop : boost::noncopyable {
 public:
     using ptr = std::shared_ptr<EventLoop>;
@@ -34,9 +35,9 @@ public:
     static EventLoop* getEventLoopOfCurrentThread();
 
     void wakeup();
-    void updateChannel(ChannelPtr channel);
-    void removeChannel(ChannelPtr channel);
-    bool hasChannel(ChannelPtr channel);
+    void updateChannel(Channel* channel);
+    void removeChannel(Channel* channel);
+    bool hasChannel(Channel* channel);
 private:
     void init();
     void abortNotInLoopThread();
@@ -44,8 +45,8 @@ private:
     void printActiveChannels() const;   // for DEBUG
     void doPendingFunctors();
 private:
-    bool looping_; // atomic
-    std::atomic<bool> quit_;
+    bool looping_; // atomic   
+    std::atomic<bool> quit_;  // linux下bool也是atomic的
     bool eventHandling_;  // atomic
     bool callingPendingFunctors_; // atomic
     int64_t iteration_;
@@ -54,8 +55,8 @@ private:
     std::unique_ptr<Epoll> epoll_;
     int wakeupFd_;
     std::unique_ptr<Channel> wakeupChannel_;
-    std::vector<ChannelPtr> activeChannels_;
-    std::shared_ptr<Channel> currentActiveChannel_;
+    std::vector<Channel*> activeChannels_;
+    Channel* currentActiveChannel_;
     std::mutex mutex_;
     std::vector<Functor> pendingFunctors_;
 };
