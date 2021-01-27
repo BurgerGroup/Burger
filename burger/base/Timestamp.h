@@ -35,6 +35,12 @@ inline double timeDifference(Timestamp high, Timestamp low) {
     return static_cast<double>(diff) / Timestamp::kMicroSecondsPerSecond;    // 结果/（1000*1000），返回的是秒数
 }
 
+// 时间戳加上秒数生成新的时间戳
+inline Timestamp addTime(Timestamp timestamp, double seconds) {
+    int64_t delta = static_cast<int64_t>(seconds * Timestamp::kMicroSecondsPerSecond);
+    return Timestamp(timestamp.microSecondsSinceEpoch() + delta);
+}
+
 }; // namespace burger
 
 #endif // TIMESTAMP_H
