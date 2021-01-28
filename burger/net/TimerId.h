@@ -19,7 +19,7 @@ public:
 private:
     std::shared_ptr<Timer> timer_;
     int64_t seq_;
-}
+};
 } // namespace net
 
 } // namespace burger

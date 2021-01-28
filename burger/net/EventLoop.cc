@@ -92,6 +92,25 @@ void EventLoop::quit() {
     }
 }
 
+// TODO : 这里流程需要梳理一下
+void EventLoop::runInLoop(Functor func) {
+    if(isInLoopThread()) {
+        func();
+    } else {
+        queueInLoop(std::move(func));
+    }
+}
+
+void EventLoop::queueInLoop(Functor func)  {
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        pendingFunctors_.push_back(std::move(func));
+    }
+    if(!isInLoopThread() || callingPendingFunctors_) {
+        wakeup();
+    }
+}
+
 void EventLoop::assertInLoopThread() {
     if(!isInLoopThread()) {
         abortNotInLoopThread();

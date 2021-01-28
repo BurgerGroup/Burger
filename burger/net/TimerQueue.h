@@ -6,6 +6,7 @@
 #include <memory>
 #include <set>
 #include <vector>
+#include <functional>
 #include "TimerId.h"
 #include "Timer.h"
 #include "EventLoop.h"
@@ -25,6 +26,7 @@ public:
     void cancel(TimerId timerId);
 private:
     // KEY POINT 
+    // set是排序的！！！
     using Entry = std::pair<Timestamp, std::shared_ptr<Timer> >;
     using TimerSet = std::set<Entry>;
     using ActiveTimer = std::pair<std::shared_ptr<Timer>, int64_t>;
@@ -32,12 +34,13 @@ private:
 
     // 以下函数只可能在所属的IO线程中调用，因而不用加锁
     // 服务器性能杀手之一就是锁竞争，所以尽量少用
-    void addTimerInLoop(std::shared_ptr<Timer>);
-    void cancelInLoop(TimerId timerid);
+    void addTimerInLoop(std::shared_ptr<Timer> timer);
+    void cancelInLoop(TimerId timerId);
     void handleRead();
     // 返回超时的定时器列表
     std::vector<Entry> getExpiredList(Timestamp now);
-    void reset(const std::vector<Entry>& expired, Timestamp now);
+    // 处理完任务后，需要根据是否重复，将某些任务重新放入
+    void reset(const std::vector<Entry>& expiredList, Timestamp now);
     // 在两个set中插入定时器
     bool insert(std::shared_ptr<Timer> timer);
 private:
@@ -51,8 +54,6 @@ private:
     ActiveTimerSet activeTimers_;    // TODO : 这个可以不用吗
     ActiveTimerSet cancelingTimers_;    // 保存的是取消的定时器
     bool callingExpiredTimers_;     // atomic, 是否正在处理超时事件
-
-    
 
 }
 

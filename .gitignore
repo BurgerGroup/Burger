@@ -61,6 +61,7 @@ test/test_runner
 
 .idea/workspace.xml
 
+*/build/*
 build/release/*
 build/debug/*
 build/run/*
