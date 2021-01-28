@@ -1,5 +1,7 @@
 #include "TimerQueue.h"
-
+#include "Timer.h"
+#include "TimerId.h"
+#include "Channel.h"
 namespace burger {
 namespace net {
 namespace detail {
@@ -51,6 +53,10 @@ void resetTimerfd(int timerfd, Timestamp expiration) {
     }
 }
 
+} // namespace detail
+} // namespace net
+} // namespace burger
+
 using namespace burger;
 using namespace burger::net;
 using namespace burger::net::detail;
@@ -58,21 +64,21 @@ using namespace burger::net::detail;
 TimerQueue::TimerQueue(EventLoop* loop):
     loop_(loop),
     timerfd_(createTimerfd()),
-    timerfdChannel_(loop, timerfd_),  // 这里可以直接传参构造
+    timerfdChannel_(util::make_unique<Channel>(loop, timerfd_)),  // 这里可以直接传参构造
     callingExpiredTimers_(false) {
-    timerfdChannel_.setReadCallback(std::bind(&TimerQueue::handleRead, this));
+    timerfdChannel_->setReadCallback(std::bind(&TimerQueue::handleRead, this));
     // we are always reading the timerfd, we disarm it with timerfd_settime.
     // 设置Channel的常规步骤
-    timerfdChannel_.enableReading();
+    timerfdChannel_->enableReading();
 }
 
 TimerQueue::~TimerQueue() {
-    timerfdChannel_.disableAll();  // channel不再关注任何事件
-    timerfdChannel_.remove();       // 在三角循环中删除此channel
+    timerfdChannel_->disableAll();  // channel不再关注任何事件
+    timerfdChannel_->remove();       // 在三角循环中删除此channel
     ::close(timerfd_);
 }
 
-TimerId TimerQueue::addTimer(TimerCallback timercb, TimerCallback when, double interval) {
+TimerId TimerQueue::addTimer(TimerCallback timercb, Timestamp when, double interval) {
     auto timer = std::make_shared<Timer>(std::move(timercb), when, interval);
     // 跨线程调用
     loop_->runInLoop(std::bind(&TimerQueue::addTimerInLoop, this, timer));
@@ -187,6 +193,3 @@ bool TimerQueue::insert(std::shared_ptr<Timer> timer) {
     return earliestChanged;
 }
 
-} // namespace detail
-} // namespace net
-} // namespace burger

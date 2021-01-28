@@ -55,8 +55,9 @@ private:
 
 } // namespace detail
 /* 设置常用的类型 */
-typedef detail::AtomicIntegerT<int32_t> AtomicInt32;  
-typedef detail::AtomicIntegerT<int64_t> AtomicInt64;
+
+using AtomicInt32 = detail::AtomicIntegerT<int32_t>;  
+using AtomicInt64 = detail::AtomicIntegerT<int64_t> ;
 } // namespace burger
 
 

@@ -7,14 +7,16 @@
 #include <set>
 #include <vector>
 #include <functional>
-#include "TimerId.h"
-#include "Timer.h"
 #include "EventLoop.h"
 #include <sys/timerfd.h>
+#include "Callbacks.h"
 
 namespace burger {
 namespace net {
-
+class TimerId;
+class Timer;
+class EventLoop;
+class Channel;
 // A best effort timer queue
 // No guarantee that the callback will be on time
 class TimerQueue : boost::noncopyable {
@@ -22,7 +24,7 @@ public:
     explicit TimerQueue(EventLoop* loop);
     ~TimerQueue();
     // 一定线程安全，可以跨线程调用，通常情况下被其他线程调用
-    TimerId addTimer(TimerCallback timercb, TimerCallback when, double interval);
+    TimerId addTimer(TimerCallback timercb, Timestamp when, double interval);
     void cancel(TimerId timerId);
 private:
     // KEY POINT 
@@ -46,8 +48,7 @@ private:
 private:
     EventLoop* loop_;
     const int timerfd_; 
-    Channel timerfdChannel_;   // TODO: 可以为指针管理吗
-
+    std::unique_ptr<Channel> timerfdChannel_;
     // timers_和activetimers_保存的是相同的数据
     // timers_按照到期时间排列，activeTimers_按照对象地址排序
     TimerSet timers_;
@@ -55,13 +56,9 @@ private:
     ActiveTimerSet cancelingTimers_;    // 保存的是取消的定时器
     bool callingExpiredTimers_;     // atomic, 是否正在处理超时事件
 
-}
-
-
+};
 
 } // namespace net
-
-    
 } // namespace burger
 
 #endif // TIMERQUEUE_H

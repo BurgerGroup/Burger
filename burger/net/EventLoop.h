@@ -12,13 +12,16 @@
 #include <sys/eventfd.h>
 
 #include "SocketsOps.h"
-#include "Channel.h"
-#include "Epoll.h"
+#include "Callbacks.h"
 
 namespace burger {
 namespace net {
 
 class Epoll;
+class TimerQueue;
+class TimerId;
+class Channel;
+
 class EventLoop : boost::noncopyable {
 public:
     using ptr = std::shared_ptr<EventLoop>;
@@ -34,6 +37,13 @@ public:
     void runInLoop(Functor func);
     // 插入主循环任务队列, safe to call from other threads
     void queueInLoop(Functor func);
+    size_t queueSize() const;
+    // timers , safe ti call from other threads
+    TimerId runAt(Timestamp time, TimerCallback timercb);
+    TimerId runAfter(double delay, TimerCallback timercb);
+    TimerId runEvery(double interval, TimerCallback timercb);
+    void cancel(TimerId timerId); 
+
     void assertInLoopThread();
     bool isInLoopThread() const;
     static EventLoop* getEventLoopOfCurrentThread();
@@ -57,11 +67,12 @@ private:
     const pid_t threadId_;  // 当前对象所属线程ID
     Timestamp epollWaitReturnTime_;
     std::unique_ptr<Epoll> epoll_;
+    std::unique_ptr<TimerQueue> timerQueue_;
     int wakeupFd_;
     std::unique_ptr<Channel> wakeupChannel_;
     std::vector<Channel*> activeChannels_;
     Channel* currentActiveChannel_;
-    std::mutex mutex_;
+    mutable std::mutex mutex_;
     std::vector<Functor> pendingFunctors_;
 };
 

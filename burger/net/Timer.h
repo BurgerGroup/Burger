@@ -28,10 +28,8 @@ private:
     const double interval_; // 超时时间间隔，如果是一次性定时器，该值为0
     const bool repeat_;    // 是否重复
     const int64_t seq_;     // 定时器序号
-
     static AtomicInt64 s_numCreated_;   // 定时器计数，当前已经创建的定时器数量
-
-}
+};
 } // namespace net
 
 } // namespace burger

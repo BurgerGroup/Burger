@@ -3,18 +3,16 @@
 
 #include <memory>
 #include "burger/base/copyable.h"
-#include "Timer.h"
 
 namespace burger {
 namespace net {
-
 class Timer;
-
+class TimerQueue;
 class TimerId : public burger::copyable {
 public:
     TimerId();
     TimerId(std::shared_ptr<Timer> timer, int64_t seq);
-
+    // tips : 友元只需要声明不需要include
     friend class TimerQueue;
 private:
     std::shared_ptr<Timer> timer_;

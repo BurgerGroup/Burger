@@ -1,9 +1,11 @@
 #include "EventLoop.h"
-
+#include "Epoll.h"
+#include "TimerId.h"
+#include "TimerQueue.h"
+#include "Channel.h"
 using namespace burger;
 using namespace burger::net;
-#include <poll.h>
-// 为何这里需要namespace 套着
+
 namespace {
 thread_local EventLoop* t_loopInthisThread = nullptr;
 const int kEpollTimesMs = 10000;
@@ -24,6 +26,7 @@ EventLoop::EventLoop() :
     iteration_(0),
     threadId_(util::gettid()),
     epoll_(util::make_unique<Epoll>(this)),
+    timerQueue_(util::make_unique<TimerQueue>(this)),
     wakeupFd_(createEventfd()),
     wakeupChannel_(util::make_unique<Channel>(this, wakeupFd_)) {
     TRACE("EventLoop created {} ", fmt::ptr(this));
@@ -109,6 +112,30 @@ void EventLoop::queueInLoop(Functor func)  {
     if(!isInLoopThread() || callingPendingFunctors_) {
         wakeup();
     }
+}
+
+size_t EventLoop::queueSize() const {
+    std::lock_guard<std::mutex> lock(mutex_);
+    return pendingFunctors_.size();
+}
+
+
+TimerId EventLoop::runAt(Timestamp time, TimerCallback timercb) {
+    return timerQueue_->addTimer(std::move(timercb), time, 0.0);
+}
+
+TimerId EventLoop::runAfter(double delay, TimerCallback timercb) {
+    Timestamp time(addTime(Timestamp::now(), delay));
+    return runAt(time, std::move(timercb));
+}
+
+TimerId EventLoop::runEvery(double interval, TimerCallback timercb) {
+    Timestamp time(addTime(Timestamp::now(), interval));
+    return timerQueue_->addTimer(std::move(timercb), time, interval);
+}
+
+void EventLoop::cancel(TimerId timerId) {
+    return timerQueue_->cancel(timerId);
 }
 
 void EventLoop::assertInLoopThread() {

@@ -12,7 +12,7 @@ namespace burger {
 namespace net {
 
 class EventLoop;
-
+class Epoll;
 // This class doesn't own the file descriptor.
 class Channel : boost::noncopyable,
                 public std::enable_shared_from_this<Channel> {
