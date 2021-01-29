@@ -145,7 +145,7 @@ void EventLoop::assertInLoopThread() {
 }
 
 bool EventLoop::isInLoopThread() const {
-    return threadId_ == util::gettid();
+    return threadId_ == util::gettid();  // TODO : cache thread_local tid 
 }
 
 EventLoop* EventLoop::getEventLoopOfCurrentThread() {
@@ -204,7 +204,7 @@ void EventLoop::handleRead() {
 
 void EventLoop::printActiveChannels() const {
     for(const auto& channel: activeChannels_) {
-        TRACE("[ {} ]", channel->reventsToString());
+        TRACE("[ {} ]", channel->eventsToString());
     }
 }
 

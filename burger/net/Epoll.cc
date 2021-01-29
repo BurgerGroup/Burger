@@ -4,13 +4,6 @@
 using namespace burger;
 using namespace burger::net;
 
-namespace {
-    // TODO : index是否该为status, 这里用enum是否更好？
-    const int kNew = -1;  // 不在epoll队列里，也不在channelMap_ 中
-    const int kAdded = 1;  // 正在epoll队列当中 
-    const int kDeleted = 2;  // 曾经在epoll队列当中过，但被删除了，但仍在cahnnelMap_中
-}
-
 Epoll::Epoll(EventLoop* loop) :
     ownerLoop_(loop), 
     epollFd_(::epoll_create1(EPOLL_CLOEXEC)),
@@ -49,29 +42,29 @@ Timestamp Epoll::wait(int timeoutMs, std::vector<Channel*>& activeChannels) {
 
 void Epoll::updateChannel(Channel* channel) {
     assertInLoopThread();
-    const int status = channel->getStatus();
+    const Channel::Status status = channel->getStatus();
     int fd = channel->getFd();
     TRACE("fd = {}, events = {}, stauts = {}", 
-        fd, channel->getEvents(), status); // TODO : statusToStr?
-    if(status == kNew || status == kDeleted) {
+        fd, channel->getEvents(), Channel::statusTostr(status)); 
+    if(status == Channel::Status::kEnumNew || status == Channel::Status::kEnumDismissed) {
         // a new one , add with EPOLL_CTL_ADD
-        if(status == kNew) {
+        if(status == Channel::Status::kEnumNew) {
             assert(channelMap_.find(fd) == channelMap_.end());
             channelMap_[fd] = channel;
-        } else { // status = kDeleted
+        } else { // status = kEnumDissmiissed
             assert(channelMap_.find(fd) != channelMap_.end());
             assert(channelMap_[fd] == channel);
         }
-        channel->setStatus(kAdded);
+        channel->setStatus(Channel::Status::kEnumAdded);
         update(EPOLL_CTL_ADD, channel);
     } else {  // kAdded
         // update existing one with EPOLL_CTL_MOD/DEL
         assert(channelMap_.find(fd) != channelMap_.end());
         assert(channelMap_[fd] == channel);
-        assert(status == kAdded);
+        assert(status == Channel::Status::kEnumAdded);
         if(channel->isNoneEvent()) {
             update(EPOLL_CTL_DEL, channel);
-            channel->setStatus(kDeleted);
+            channel->setStatus(Channel::Status::kEnumDismissed);
             // TODO：为什么不马上从map里erase掉
         } else {
             update(EPOLL_CTL_MOD, channel);
@@ -87,14 +80,14 @@ void Epoll::removeChannel(Channel* channel)  {
     assert(channelMap_.find(fd) != channelMap_.end());
     assert(channelMap_[fd] == channel);
     assert(channel->isNoneEvent());
-    int status = channel->getStatus();
-    assert(status == kAdded || status == kDeleted);
+    Channel::Status status = channel->getStatus();
+    assert(status == Channel::Status::kEnumAdded || status == Channel::Status::kEnumDismissed);
     size_t n = channelMap_.erase(fd);  // TODO : why use map other than unordered_map
     assert(n == 1);
-    if(status == kAdded) {
+    if(status == Channel::Status::kEnumAdded) {
         update(EPOLL_CTL_DEL, channel);
     }
-    channel->setStatus(kNew);
+    channel->setStatus(Channel::Status::kEnumNew);
 }
 
 void Epoll::fillActiveChannels(int numEvents, 
@@ -108,7 +101,6 @@ void Epoll::fillActiveChannels(int numEvents,
         assert(it != channelMap_.end());
         assert(it->second == channel);
 #endif
-        channel->setRevents(eventList_[i].events);  // TODO : epoll不需要这个吧 ? 真的需要吗
         activeChannels.push_back(channel);
     }
 }

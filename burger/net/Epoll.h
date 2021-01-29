@@ -17,10 +17,9 @@ class EventLoop;
 class Channel;
 class Epoll : boost::noncopyable {
 public:
-
     Epoll(EventLoop* loop);
     ~Epoll();
-
+    // Must called in Loop thread
     Timestamp wait(int timeoutMs, std::vector<Channel*>& activeChannels);
     void updateChannel(Channel* channel);
     void removeChannel(Channel* channel);
@@ -40,6 +39,7 @@ private:
     int epollFd_;
     std::vector<struct epoll_event> eventList_;
 };
+
 } // namespace net
 
 } // namespace burger

@@ -1,3 +1,7 @@
+/*
+用于空loop版本测试
+*/
+
 #include "burger/net/EventLoop.h"
 #include <thread>
 #include <iostream>
@@ -16,7 +20,8 @@ int main() {
     if (!Logger::Instance().init("log", "logs/test.txt", spdlog::level::trace)) {
 		return 1;
 	}
-    std::cout << "ThreadFunc : pid = " << getpid() 
+    std::cout << "ThreadFunc : pid = " 
+    << getpid() 
         << " tid = " << util::gettid() << std::endl; 
     EventLoop loop;
     std::thread t(threadFunc);

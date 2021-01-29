@@ -311,3 +311,340 @@
 2021-01-28 03:57:24 [trace] [tid : 104589] [EventLoop.cc : 32 <EventLoop>] EventLoop created 0x7fffffffe050 
 2021-01-28 03:57:24 [trace] [tid : 104589] [Epoll.cc : 55 <updateChannel>] fd = 11, events = 3, stauts = -1
 2021-01-28 03:57:24 [trace] [tid : 104589] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-01-28 17:21:37 [trace] [tid : 1542] [Epoll.cc : 55 <updateChannel>] fd = 10, events = 3, stauts = -1
+2021-01-28 17:21:37 [trace] [tid : 1542] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-01-28 17:21:43 [trace] [tid : 1542] [EventLoop.cc : 32 <EventLoop>] EventLoop created 0x7fffffffe040 
+2021-01-28 17:26:49 [trace] [tid : 1542] [Epoll.cc : 55 <updateChannel>] fd = 11, events = 3, stauts = -1
+2021-01-28 17:31:00 [trace] [tid : 1542] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-01-28 17:32:53 [trace] [tid : 2850] [Epoll.cc : 55 <updateChannel>] fd = 13, events = 3, stauts = -1
+2021-01-28 17:32:53 [trace] [tid : 2850] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-01-28 17:32:53 [trace] [tid : 2850] [EventLoop.cc : 32 <EventLoop>] EventLoop created 0x7ffff3a87db0 
+2021-01-28 17:32:53 [trace] [tid : 2850] [Epoll.cc : 55 <updateChannel>] fd = 14, events = 3, stauts = -1
+2021-01-28 17:32:53 [trace] [tid : 2850] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-01-28 17:32:53 [trace] [tid : 2850] [EventLoop.cc : 61 <loop>] EventLoop 0x7ffff3a87db0 start looping
+2021-01-28 17:32:53 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:32:55 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:32:58 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:32:58 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:32:58 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:32:58 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:32:59 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:32:59 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:32:59 [trace] [tid : 1542] [EventLoop.cc : 61 <loop>] EventLoop 0x7fffffffe040 start looping
+2021-01-28 17:32:59 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:32:59 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:32:59 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:32:59 [trace] [tid : 1542] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:33:09 [trace] [tid : 2850] [Epoll.cc : 40 <wait>] Nothing happend...
+2021-01-28 17:33:09 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:33:09 [trace] [tid : 1542] [Epoll.cc : 40 <wait>] Nothing happend...
+2021-01-28 17:33:09 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:33:09 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:33:09 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:33:09 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:33:25 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:33:26 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:33:26 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:34:28 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:34:43 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:34:44 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:34:45 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:34:46 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:34:47 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:34:51 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:35:15 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:35:15 [trace] [tid : 1542] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:35:23 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:35:29 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:35:54 [trace] [tid : 2850] [Epoll.cc : 40 <wait>] Nothing happend...
+2021-01-28 17:35:54 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:36:08 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:36:10 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:36:11 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:36:19 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:36:20 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:36:20 [trace] [tid : 1542] [Epoll.cc : 40 <wait>] Nothing happend...
+2021-01-28 17:36:21 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:36:22 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:36:24 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:36:27 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:36:56 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:38:32 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:38:36 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:38:37 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:38:38 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:20 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:21 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:25 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:25 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:26 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:27 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:28 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:30 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:31 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:34 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:36 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:37 [trace] [tid : 2850] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 17:46:37 [trace] [tid : 1542] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:29:29 [trace] [tid : 16186] [Epoll.cc : 55 <updateChannel>] fd = 5, events = 3, stauts = -1
+2021-01-28 19:29:29 [trace] [tid : 16186] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-01-28 19:29:29 [trace] [tid : 16186] [EventLoop.cc : 32 <EventLoop>] EventLoop created 0x7ffe1fd0e640 
+2021-01-28 19:29:29 [trace] [tid : 16186] [Epoll.cc : 55 <updateChannel>] fd = 6, events = 3, stauts = -1
+2021-01-28 19:29:29 [trace] [tid : 16186] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-01-28 19:29:29 [trace] [tid : 16186] [EventLoop.cc : 61 <loop>] EventLoop 0x7ffe1fd0e640 start looping
+2021-01-28 19:29:29 [trace] [tid : 16186] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:29:29 [trace] [tid : 16192] [Epoll.cc : 55 <updateChannel>] fd = 8, events = 3, stauts = -1
+2021-01-28 19:29:29 [trace] [tid : 16192] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 8, event = [8: IN PRI ]
+2021-01-28 19:29:29 [trace] [tid : 16192] [EventLoop.cc : 32 <EventLoop>] EventLoop created 0x7f0f4df97db0 
+2021-01-28 19:29:29 [trace] [tid : 16192] [Epoll.cc : 55 <updateChannel>] fd = 9, events = 3, stauts = -1
+2021-01-28 19:29:29 [trace] [tid : 16192] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-01-28 19:29:29 [trace] [tid : 16192] [EventLoop.cc : 61 <loop>] EventLoop 0x7f0f4df97db0 start looping
+2021-01-28 19:29:29 [trace] [tid : 16192] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:22 [trace] [tid : 17020] [Epoll.cc : 55 <updateChannel>] fd = 5, events = 3, stauts = -1
+2021-01-28 19:36:22 [trace] [tid : 17020] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-01-28 19:36:22 [trace] [tid : 17020] [EventLoop.cc : 32 <EventLoop>] EventLoop created 0x7ffc4e2c3ef0 
+2021-01-28 19:36:22 [trace] [tid : 17020] [Epoll.cc : 55 <updateChannel>] fd = 6, events = 3, stauts = -1
+2021-01-28 19:36:22 [trace] [tid : 17020] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-01-28 19:36:22 [trace] [tid : 17020] [EventLoop.cc : 61 <loop>] EventLoop 0x7ffc4e2c3ef0 start looping
+2021-01-28 19:36:22 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:23 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:23 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:23 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:23 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891383.211729
+2021-01-28 19:36:23 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:23 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:23 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:23 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:23 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891383.711298
+2021-01-28 19:36:23 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:24 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:24 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:24 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:24 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891384.211362
+2021-01-28 19:36:24 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:24 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:24 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:24 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:24 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891384.711813
+2021-01-28 19:36:24 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:25 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:25 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:25 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:25 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891385.211636
+2021-01-28 19:36:25 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:25 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:25 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:25 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:25 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891385.713437
+2021-01-28 19:36:25 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:26 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:26 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:26 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:26 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891386.212108
+2021-01-28 19:36:26 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:26 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:26 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:26 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:26 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891386.411748
+2021-01-28 19:36:26 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:27 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:27 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:27 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:27 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891387.11576
+2021-01-28 19:36:27 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:28 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:28 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:28 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:28 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891388.212097
+2021-01-28 19:36:28 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:28 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:28 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:28 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:28 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891388.212651
+2021-01-28 19:36:28 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:30 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:30 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:30 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:30 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891390.213742
+2021-01-28 19:36:30 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:31 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:31 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:31 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:31 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891391.212666
+2021-01-28 19:36:31 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:32 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:32 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:32 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:32 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891392.214120
+2021-01-28 19:36:32 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:34 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:34 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:34 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:34 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891394.214890
+2021-01-28 19:36:34 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:36 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:36 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:36 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:36 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891396.215317
+2021-01-28 19:36:36 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:38 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:38 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:38 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:38 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891398.215986
+2021-01-28 19:36:38 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:40 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:40 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:40 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:40 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891400.216590
+2021-01-28 19:36:40 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:42 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:42 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:42 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:42 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891402.217561
+2021-01-28 19:36:42 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:44 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:44 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:44 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:44 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891404.217969
+2021-01-28 19:36:44 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:46 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:46 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:46 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:46 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891406.218504
+2021-01-28 19:36:46 [trace] [tid : 17020] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 19:36:48 [trace] [tid : 17020] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:36:48 [trace] [tid : 17020] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 19:36:48 [trace] [tid : 17020] [Channel.cc : 52 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 19:36:48 [trace] [tid : 17020] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611891408.218827
+2021-01-28 19:36:48 [trace] [tid : 17020] [EventLoop.cc : 80 <loop>] EventLoop 0x7ffc4e2c3ef0 stop looping
+2021-01-28 19:36:48 [debug] [tid : 17020] [EventLoop.cc : 49 <~EventLoop>] EventLoop 0x7ffc4e2c3ef0 of thread 17020 destructs
+2021-01-28 19:36:48 [trace] [tid : 17020] [Epoll.cc : 55 <updateChannel>] fd = 6, events = 0, stauts = 1
+2021-01-28 19:36:48 [trace] [tid : 17020] [Epoll.cc : 124 <update>] epoll_ctl op = DEL, fd = 6, event = [6: ]
+2021-01-28 19:36:48 [trace] [tid : 17020] [Epoll.cc : 86 <removeChannel>] fd = 6 
+2021-01-28 19:36:48 [trace] [tid : 17020] [Epoll.cc : 55 <updateChannel>] fd = 5, events = 0, stauts = 1
+2021-01-28 19:36:48 [trace] [tid : 17020] [Epoll.cc : 124 <update>] epoll_ctl op = DEL, fd = 5, event = [5: ]
+2021-01-28 19:36:48 [trace] [tid : 17020] [Epoll.cc : 86 <removeChannel>] fd = 5 
+2021-01-28 20:46:22 [trace] [tid : 25941] [Epoll.cc : 48 <updateChannel>] fd = 5, events = 3, stauts = kEnumNew
+2021-01-28 20:46:22 [trace] [tid : 25941] [Epoll.cc : 116 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-01-28 20:46:22 [trace] [tid : 25941] [EventLoop.cc : 32 <EventLoop>] EventLoop created 0x7ffcb96a85d0 
+2021-01-28 20:46:22 [trace] [tid : 25941] [Epoll.cc : 48 <updateChannel>] fd = 6, events = 3, stauts = kEnumNew
+2021-01-28 20:46:22 [trace] [tid : 25941] [Epoll.cc : 116 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-01-28 20:46:22 [trace] [tid : 25941] [EventLoop.cc : 61 <loop>] EventLoop 0x7ffcb96a85d0 start looping
+2021-01-28 20:46:22 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:23 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:23 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:23 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:23 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895583.37196
+2021-01-28 20:46:23 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:23 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:23 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:23 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:23 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895583.537278
+2021-01-28 20:46:23 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:24 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:24 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:24 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:24 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895584.37003
+2021-01-28 20:46:24 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:24 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:24 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:24 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:24 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895584.537333
+2021-01-28 20:46:24 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:25 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:25 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:25 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:25 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895585.37205
+2021-01-28 20:46:25 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:25 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:25 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:25 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:25 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895585.537043
+2021-01-28 20:46:25 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:26 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:26 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:26 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:26 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895586.37742
+2021-01-28 20:46:26 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:26 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:26 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:26 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:26 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895586.237586
+2021-01-28 20:46:26 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:26 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:26 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:26 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:26 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895586.837520
+2021-01-28 20:46:26 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:28 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:28 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:28 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:28 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895588.37628
+2021-01-28 20:46:28 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:28 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:28 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:28 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:28 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895588.38320
+2021-01-28 20:46:28 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:30 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:30 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:30 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:30 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895590.39186
+2021-01-28 20:46:30 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:31 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:31 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:31 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:31 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895591.38013
+2021-01-28 20:46:31 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:32 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:32 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:32 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:32 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895592.39540
+2021-01-28 20:46:32 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:34 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:34 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:34 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:34 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895594.40387
+2021-01-28 20:46:34 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:36 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:36 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:36 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:36 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895596.41007
+2021-01-28 20:46:36 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:38 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:38 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:38 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:38 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895598.41779
+2021-01-28 20:46:38 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:40 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:40 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:40 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:40 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895600.42035
+2021-01-28 20:46:40 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:42 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:42 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:42 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:42 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895602.42448
+2021-01-28 20:46:42 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:44 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:44 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:44 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:44 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895604.42718
+2021-01-28 20:46:44 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:46 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:46 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:46 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:46 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895606.43358
+2021-01-28 20:46:46 [trace] [tid : 25941] [Epoll.cc : 21 <wait>] fd total count 2
+2021-01-28 20:46:48 [trace] [tid : 25941] [Epoll.cc : 27 <wait>] 1 events happended
+2021-01-28 20:46:48 [trace] [tid : 25941] [EventLoop.cc : 207 <printActiveChannels>] [ 5: IN PRI  ]
+2021-01-28 20:46:48 [trace] [tid : 25941] [Channel.cc : 69 <handleEventWithGuard>] 5: IN PRI 
+2021-01-28 20:46:48 [trace] [tid : 25941] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1611895608.44131
+2021-01-28 20:46:48 [trace] [tid : 25941] [EventLoop.cc : 80 <loop>] EventLoop 0x7ffcb96a85d0 stop looping
+2021-01-28 20:46:48 [debug] [tid : 25941] [EventLoop.cc : 49 <~EventLoop>] EventLoop 0x7ffcb96a85d0 of thread 25941 destructs
+2021-01-28 20:46:48 [trace] [tid : 25941] [Epoll.cc : 48 <updateChannel>] fd = 6, events = 0, stauts = kEnumAdded
+2021-01-28 20:46:48 [trace] [tid : 25941] [Epoll.cc : 116 <update>] epoll_ctl op = DEL, fd = 6, event = [6: ]
+2021-01-28 20:46:48 [trace] [tid : 25941] [Epoll.cc : 79 <removeChannel>] fd = 6 
+2021-01-28 20:46:48 [trace] [tid : 25941] [Epoll.cc : 48 <updateChannel>] fd = 5, events = 0, stauts = kEnumAdded
+2021-01-28 20:46:48 [trace] [tid : 25941] [Epoll.cc : 116 <update>] epoll_ctl op = DEL, fd = 5, event = [5: ]
+2021-01-28 20:46:48 [trace] [tid : 25941] [Epoll.cc : 79 <removeChannel>] fd = 5 

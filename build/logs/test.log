@@ -1,0 +1,33 @@
+2021-01-28 18:09:49 [trace] [tid : 6586] [Epoll.cc : 55 <updateChannel>] fd = 5, events = 3, stauts = -1
+2021-01-28 18:09:49 [trace] [tid : 6586] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-01-28 18:09:49 [trace] [tid : 6586] [EventLoop.cc : 32 <EventLoop>] EventLoop created 0x19f81e0 
+2021-01-28 18:09:49 [trace] [tid : 6586] [Epoll.cc : 55 <updateChannel>] fd = 6, events = 3, stauts = -1
+2021-01-28 18:09:49 [trace] [tid : 6586] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-01-28 18:09:49 [critical] [tid : 6592] [EventLoop.cc : 194 <abortNotInLoopThread>] EventLoop::abortNotInLoopThread - EventLoop 0x19f81e0 was         created in threadId_ = 6586, and current id = 6592 ...
+2021-01-28 18:09:49 [trace] [tid : 6592] [EventLoop.cc : 61 <loop>] EventLoop 0x19f81e0 start looping
+2021-01-28 18:09:49 [trace] [tid : 6592] [Epoll.cc : 28 <wait>] fd total count 2
+2021-01-28 18:27:13 [trace] [tid : 8716] [Epoll.cc : 55 <updateChannel>] fd = 5, events = 3, stauts = -1
+2021-01-28 18:27:13 [trace] [tid : 8716] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-01-28 18:27:13 [trace] [tid : 8716] [EventLoop.cc : 32 <EventLoop>] EventLoop created 0xb1d1e0 
+2021-01-28 18:27:13 [trace] [tid : 8716] [Epoll.cc : 55 <updateChannel>] fd = 6, events = 3, stauts = -1
+2021-01-28 18:27:13 [trace] [tid : 8716] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-01-28 18:27:13 [critical] [tid : 8722] [EventLoop.cc : 194 <abortNotInLoopThread>] EventLoop::abortNotInLoopThread - EventLoop 0xb1d1e0 was         created in threadId_ = 8716, and current id = 8722 ...
+2021-01-28 19:29:46 [trace] [tid : 16230] [Epoll.cc : 55 <updateChannel>] fd = 5, events = 3, stauts = -1
+2021-01-28 19:29:46 [trace] [tid : 16230] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-01-28 19:29:46 [trace] [tid : 16230] [EventLoop.cc : 32 <EventLoop>] EventLoop created 0x1e841e0 
+2021-01-28 19:29:46 [trace] [tid : 16230] [Epoll.cc : 55 <updateChannel>] fd = 6, events = 3, stauts = -1
+2021-01-28 19:29:46 [trace] [tid : 16230] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-01-28 19:29:46 [critical] [tid : 16236] [EventLoop.cc : 194 <abortNotInLoopThread>] EventLoop::abortNotInLoopThread - EventLoop 0x1e841e0 was         created in threadId_ = 16230, and current id = 16236 ...
+2021-01-28 19:34:33 [trace] [tid : 16726] [Epoll.cc : 55 <updateChannel>] fd = 5, events = 3, stauts = -1
+2021-01-28 19:34:33 [trace] [tid : 16726] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-01-28 19:34:33 [trace] [tid : 16726] [EventLoop.cc : 32 <EventLoop>] EventLoop created 0x7ffc6fb6f810 
+2021-01-28 19:34:33 [trace] [tid : 16726] [Epoll.cc : 55 <updateChannel>] fd = 6, events = 3, stauts = -1
+2021-01-28 19:34:33 [trace] [tid : 16726] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-01-28 19:34:33 [trace] [tid : 16726] [Epoll.cc : 55 <updateChannel>] fd = 7, events = 3, stauts = -1
+2021-01-28 19:34:33 [trace] [tid : 16726] [Epoll.cc : 124 <update>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-01-28 19:34:33 [trace] [tid : 16726] [EventLoop.cc : 61 <loop>] EventLoop 0x7ffc6fb6f810 start looping
+2021-01-28 19:34:33 [trace] [tid : 16726] [Epoll.cc : 28 <wait>] fd total count 3
+2021-01-28 19:34:34 [trace] [tid : 16726] [Epoll.cc : 34 <wait>] 1 events happended
+2021-01-28 19:34:34 [trace] [tid : 16726] [EventLoop.cc : 207 <printActiveChannels>] [ 7: IN PRI  ]
+2021-01-28 19:34:34 [trace] [tid : 16726] [Channel.cc : 52 <handleEventWithGuard>] 7: IN PRI 
+2021-01-28 19:34:34 [trace] [tid : 16726] [EventLoop.cc : 80 <loop>] EventLoop 0x7ffc6fb6f810 stop looping

@@ -20,6 +20,7 @@
 // #include <boost/filesystem.hpp>
 #include <atomic> 
 // namespace fs = boost::filesystem;
+#include <stdlib.h>
 
 namespace burger {
 
@@ -50,6 +51,6 @@ private:
 #define INFO(...) SPDLOG_LOGGER_INFO(spdlog::default_logger_raw(), __VA_ARGS__);
 #define WARN(...) SPDLOG_LOGGER_WARN(spdlog::default_logger_raw(), __VA_ARGS__);
 #define ERROR(...) SPDLOG_LOGGER_ERROR(spdlog::default_logger_raw(), __VA_ARGS__);
-#define CRITICAL(...) SPDLOG_LOGGER_CRITICAL(spdlog::default_logger_raw(), __VA_ARGS__);
+#define CRITICAL(...) SPDLOG_LOGGER_CRITICAL(spdlog::default_logger_raw(), __VA_ARGS__);abort();
 
 #endif // LOG_H

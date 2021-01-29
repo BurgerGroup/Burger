@@ -8,16 +8,15 @@ Channel::Channel(EventLoop* loop, int fd):
     loop_(loop),
     fd_(fd),
     events_(0),
-    revents_(0),
-    status_(-1),
+    status_(Status::kEnumNew),
     tied_(false),
     eventHandling_(false),
-    addedToLoop_(false) {
+    addedToEpoll_(false) {
 }
 
 Channel::~Channel() {
     assert(!eventHandling_);
-    assert(!addedToLoop_);
+    assert(!addedToEpoll_);
     if (loop_->isInLoopThread()) {
         assert(!loop_->hasChannel(this));
     }
@@ -37,34 +36,51 @@ void Channel::handleEvent(Timestamp receiveTime) {
 }
 
 void Channel::update() {
-    addedToLoop_ = true;
+    addedToEpoll_ = true;
     loop_->updateChannel(this);
 }
 
 void Channel::remove() {
     assert(isNoneEvent());
-    addedToLoop_ = false;
+    addedToEpoll_ = false;
     loop_->removeChannel(this);
+}
+
+std::string Channel::statusTostr(Status status) {
+    switch(status) {
+#define XX(name) \
+    case Status::name: \
+        return #name; \
+        break;
+    
+    XX(kEnumNew);
+    XX(kEnumAdded);      
+    XX(kEnumDismissed)
+#undef XX
+    default:
+        return "UNKNOWN";
+    }
+    return "UNKNOWN";
 }
 
 // TODO
 void Channel::handleEventWithGuard(Timestamp receiveTime) {
     eventHandling_ = true;
-    TRACE("{}", reventsToString());
-    if ((revents_ & EPOLLHUP) && !(revents_ & EPOLLIN)) {
+    TRACE("{}", eventsToString());
+    if ((events_ & EPOLLHUP) && !(events_ & EPOLLIN)) {
         if (logHup_) {
             WARN("fd = {}  Channel::handle_event POLLHUP", fd_);
         }
         if (closeCallback_) closeCallback_();
     }
 
-    if (revents_ & EPOLLERR) {
+    if (events_ & EPOLLERR) {
         if (errorCallback_) errorCallback_();
     }
-    if (revents_ & (EPOLLIN | EPOLLPRI | EPOLLRDHUP)) {
+    if (events_ & (EPOLLIN | EPOLLPRI | EPOLLRDHUP)) {
         if (readCallback_) readCallback_(receiveTime);
     }
-    if (revents_ & EPOLLOUT) {
+    if (events_ & EPOLLOUT) {
         if (writeCallback_) writeCallback_();
     }
     eventHandling_ = false;
@@ -73,13 +89,6 @@ void Channel::handleEventWithGuard(Timestamp receiveTime) {
 std::string Channel::eventsToString() const {
     return eventsToString(fd_, events_);
 }
-
-
-std::string Channel::reventsToString() const {
-    return eventsToString(fd_, revents_);
-}
-
-
 
 std::string Channel::eventsToString(int fd, int event) {
     std::ostringstream oss;

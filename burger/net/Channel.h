@@ -14,8 +14,17 @@ namespace net {
 class EventLoop;
 class Epoll;
 // This class doesn't own the file descriptor.
+// Channel的成员函数都只能再IO线程调用，所以更新数据不需要加锁
 class Channel : boost::noncopyable,
                 public std::enable_shared_from_this<Channel> {
+public: 
+    enum class Status {
+        kEnumNew = 0,   // 不在epoll队列里，也不在channelMap_ 中
+        kEnumAdded = 1,     // 正在epoll队列当中 
+        kEnumDismissed = 2,      // 曾经在epoll队列当中过，但暂时被dissmiss了，仍在channelMap_中
+    };
+    static std::string statusTostr(Status status);
+    
 public:
     using EventCallback =  std::function<void()>;
     using ReadEventCallback = std::function<void(Timestamp)>;
@@ -34,16 +43,16 @@ public:
     void enableWriting() { events_ |= kWriteEvent; update(); }
     void disableWriting() { events_ &= ~kWriteEvent; update(); }
     void disableAll() { events_ = kNoneEvent; update(); }
+    
     bool isWriting() const { return events_ & kWriteEvent; }
     bool isReading() const { return events_ & kReadEvent; }
     bool isNoneEvent() const { return events_ == kNoneEvent; }
     // For Epoll
-    int getStatus() const { return status_; }
-    void setStatus(int status) { status_ = status; }
+    Status getStatus() const { return status_; }
+    void setStatus(Status status) { status_ = status; }
     
     // For debug 
     std::string eventsToString() const;
-    std::string reventsToString() const;
 
     /*Channel通常作为其它类的成员，比如TcpConnection，而Channel的回调函数通常和TcpConnection
     通过std::bind绑定,当Epoll通知该Channel的回调时，Channel会调用TcpConnection对应的回调，
@@ -51,10 +60,11 @@ public:
     的weak_ptr提升为shared_ptr成功与否判断TcpConnection是否健在。*/
     void tie(const std::shared_ptr<void>&);
     int getFd() const { return fd_; }
-    int getEvents() const { return events_; }
-    void setRevents(uint32_t revent) { revents_ = revent; }
+    uint32_t getEvents() const { return events_; }
+    void setEvents(uint32_t event) { events_ = event; } 
     EventLoop* ownerLoop() { return loop_; }
     void remove();
+
 private:
     static std::string eventsToString(int fd, int event);
     void update();
@@ -67,13 +77,12 @@ private:
     EventLoop* loop_;
     const int fd_;
     uint32_t events_;
-    uint32_t revents_;  // 通过epoll返回的就绪事件类型  TODO : 需要吗?
-    int status_;
+    Status status_;
 
     std::weak_ptr<void> tie_;
     bool tied_;
     bool eventHandling_;
-    bool addedToLoop_;  //是否注册到Epoll中监听
+    bool addedToEpoll_;  //是否注册到Epoll中监听
     bool logHup_;
     ReadEventCallback readCallback_;
     EventCallback writeCallback_;

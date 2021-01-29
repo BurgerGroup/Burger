@@ -27,7 +27,7 @@ std::unique_ptr<T> make_unique(Args&&... args) {
  * @brief Get tid (Kernel)
  */
 inline pid_t gettid() {
-    return static_cast<pid_t>(syscall(SYS_gettid));
+    return static_cast<pid_t>(::syscall(SYS_gettid));
 }
 
 } // namespace util

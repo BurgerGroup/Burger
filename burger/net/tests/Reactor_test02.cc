@@ -4,6 +4,7 @@
 #include <thread>
 /**
  * 跨线程调用测试
+ * 负面测试
  */
 
 using namespace burger;
