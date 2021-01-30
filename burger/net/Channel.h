@@ -15,8 +15,7 @@ class EventLoop;
 class Epoll;
 // This class doesn't own the file descriptor.
 // Channel的成员函数都只能再IO线程调用，所以更新数据不需要加锁
-class Channel : boost::noncopyable,
-                public std::enable_shared_from_this<Channel> {
+class Channel : boost::noncopyable {
 public: 
     enum class Status {
         kEnumNew = 0,   // 不在epoll队列里，也不在channelMap_ 中
@@ -33,6 +32,7 @@ public:
     ~Channel();
 
     void handleEvent(Timestamp receiveTime);
+    // void setReadCallback(const ReadEventCallback& cb) { readCallback_ = cb; }
     void setReadCallback(ReadEventCallback cb) { readCallback_ = std::move(cb); }
     void setWriteCallback(EventCallback cb) { writeCallback_ = std::move(cb); }
     void setCloseCallback(EventCallback cb) { closeCallback_ = std::move(cb); }

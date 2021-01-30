@@ -56,7 +56,7 @@ public:
 private:
     void init();
     void abortNotInLoopThread();
-    void handleRead();  //wake up
+    void handleWakeupFd(Timestamp receiveTime); 
     void printActiveChannels() const;   // for DEBUG
     void doPendingFunctors();
 private:

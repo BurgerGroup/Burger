@@ -1,10 +1,10 @@
-Start testing: Jan 29 20:36 PST
+Start testing: Jan 29 20:50 PST
 ----------------------------------------------------------
 1/1 Testing: gtest_test
 1/1 Test: gtest_test
 Command: "/home/ysy/Burger/build/gtest_test"
 Directory: /home/ysy/Burger/build/tests
-"gtest_test" start time: Jan 29 20:36 PST
+"gtest_test" start time: Jan 29 20:50 PST
 Output:
 ----------------------------------------------------------
 run google test --> 
@@ -27,8 +27,8 @@ run google test -->
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"gtest_test" end time: Jan 29 20:36 PST
+"gtest_test" end time: Jan 29 20:50 PST
 "gtest_test" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jan 29 20:36 PST
+End testing: Jan 29 20:50 PST

@@ -31,3 +31,15 @@
 2021-01-28 19:34:34 [trace] [tid : 16726] [EventLoop.cc : 207 <printActiveChannels>] [ 7: IN PRI  ]
 2021-01-28 19:34:34 [trace] [tid : 16726] [Channel.cc : 52 <handleEventWithGuard>] 7: IN PRI 
 2021-01-28 19:34:34 [trace] [tid : 16726] [EventLoop.cc : 80 <loop>] EventLoop 0x7ffc6fb6f810 stop looping
+2021-01-29 23:32:00 [trace] [tid : 21028] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kEnumNew
+2021-01-29 23:32:00 [trace] [tid : 21028] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-01-29 23:32:00 [trace] [tid : 21028] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x8c61e0 
+2021-01-29 23:32:00 [trace] [tid : 21028] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kEnumNew
+2021-01-29 23:32:00 [trace] [tid : 21028] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-01-29 23:32:05 [critical] [tid : 21058] [EventLoop.cc : 195 <abortNotInLoopThread>] EventLoop::abortNotInLoopThread - EventLoop 0x8c61e0 was         created in threadId_ = 21028, and current id = 21058 ...
+2021-01-29 23:32:19 [trace] [tid : 21089] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kEnumNew
+2021-01-29 23:32:19 [trace] [tid : 21089] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-01-29 23:32:19 [trace] [tid : 21089] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x8c61e0 
+2021-01-29 23:32:19 [trace] [tid : 21089] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kEnumNew
+2021-01-29 23:32:19 [trace] [tid : 21089] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-01-29 23:32:45 [critical] [tid : 21145] [EventLoop.cc : 195 <abortNotInLoopThread>] EventLoop::abortNotInLoopThread - EventLoop 0x8c61e0 was         created in threadId_ = 21089, and current id = 21145 ...

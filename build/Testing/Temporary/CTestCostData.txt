@@ -1,2 +1,2 @@
-gtest_test 1 0.00462103
+gtest_test 2 0.001104
 ---

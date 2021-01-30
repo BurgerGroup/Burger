@@ -40,7 +40,8 @@ EventLoop::EventLoop() :
     }
     // TODO : 这样到处用shared_from_this 好吗
     // 需要直接用一个成员变量来存还是可以直接用t_loopInthisThread
-    wakeupChannel_->setReadCallback(std::bind(&EventLoop::handleRead, this));
+    wakeupChannel_->setReadCallback(std::bind(&EventLoop::handleWakeupFd, 
+                            this, std::placeholders::_1));
     // we are always reading the wakeupfd
     wakeupChannel_->enableReading();  
 }
@@ -195,7 +196,7 @@ void EventLoop::abortNotInLoopThread() {
         fmt::ptr(this), threadId_, util::gettid());
 }
 
-void EventLoop::handleRead() {
+void EventLoop::handleWakeupFd(Timestamp receiveTime) {
     uint64_t one = 1;
     ssize_t n = sockets::read(wakeupFd_, &one, sizeof(one));
     if(n != sizeof(one)) {
