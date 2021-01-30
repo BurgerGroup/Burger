@@ -72,6 +72,7 @@ find_library(GD_LIBRARY NAMES gd)
 find_program(THRIFT_COMPILER thrift)
 find_path(THRIFT_INCLUDE_DIR thrift)
 find_library(THRIFT_LIBRARY NAMES thrift)
+find_package(GTest REQUIRED)
 
 if(CARES_INCLUDE_DIR AND CARES_LIBRARY)
   message(STATUS "found cares")
@@ -99,6 +100,7 @@ if(THRIFT_COMPILER AND THRIFT_INCLUDE_DIR AND THRIFT_LIBRARY)
 endif()
 
 include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${GTEST_INCLUDE_DIRS})
 
 include_directories(${PROJECT_SOURCE_DIR})
 

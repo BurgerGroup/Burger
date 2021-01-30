@@ -5,6 +5,13 @@
 #include <sys/syscall.h>
 
 namespace burger {
+
+template<typename To, typename From>
+inline To implicit_cast(From const &f) {
+    return f;
+}
+
+
 namespace util {
 /**
  * @brief Convert std::thread::id to std::string

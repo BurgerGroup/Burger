@@ -1,0 +1,34 @@
+Start testing: Jan 29 20:36 PST
+----------------------------------------------------------
+1/1 Testing: gtest_test
+1/1 Test: gtest_test
+Command: "/home/ysy/Burger/build/gtest_test"
+Directory: /home/ysy/Burger/build/tests
+"gtest_test" start time: Jan 29 20:36 PST
+Output:
+----------------------------------------------------------
+run google test --> 
+[==========] Running 2 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 1 test from addTest
+[ RUN      ] addTest.test_add
+[       OK ] addTest.test_add (0 ms)
+[----------] 1 test from addTest (0 ms total)
+
+[----------] 1 test from subTest
+[ RUN      ] subTest.test_sub
+[       OK ] subTest.test_sub (0 ms)
+[----------] 1 test from subTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 2 test suites ran. (0 ms total)
+[  PASSED  ] 2 tests.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"gtest_test" end time: Jan 29 20:36 PST
+"gtest_test" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Jan 29 20:36 PST

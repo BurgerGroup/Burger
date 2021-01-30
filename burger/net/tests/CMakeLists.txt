@@ -10,3 +10,6 @@ target_link_libraries(timerfd_test burger_net)
 
 add_executable(timer_test timer_test.cc)
 target_link_libraries(timer_test burger_net)
+
+add_executable(EventLoopThread_test EventLoopThread_test.cc)
+target_link_libraries(EventLoopThread_test burger_net)

@@ -10,6 +10,7 @@
 #include "burger/base/Log.h"
 #include "burger/base/Timestamp.h"
 #include <sys/eventfd.h>
+#include "TimerId.h"
 
 #include "SocketsOps.h"
 #include "Callbacks.h"
@@ -17,9 +18,9 @@
 namespace burger {
 namespace net {
 
+
 class Epoll;
 class TimerQueue;
-class TimerId;
 class Channel;
 
 class EventLoop : boost::noncopyable {

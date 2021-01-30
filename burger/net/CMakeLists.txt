@@ -1,11 +1,12 @@
 set(net_SRCS
-  Channel.cc 
   EventLoop.cc
+  Channel.cc 
   Epoll.cc 
   SocketsOps.cc
   Timer.cc
   TimerId.cc
   TimerQueue.cc
+  EventLoopThread.cc
   )
 
 add_library(burger_net ${net_SRCS})

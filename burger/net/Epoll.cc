@@ -32,6 +32,7 @@ Timestamp Epoll::wait(int timeoutMs, std::vector<Channel*>& activeChannels) {
     } else if(numEvents == 0) {
         TRACE("Nothing happend...");
     } else {
+        // 如果不是EINTR信号，就把错误号保存下来，并且输入到日志中
         if(savedErrno != EINTR) {
             errno = savedErrno;
             ERROR("Epoll::wait() error");
