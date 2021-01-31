@@ -20,7 +20,7 @@ namespace net {
 class InetAddress : burger::copyable {
 public:
     // 仅仅指定port，不指定ip，则ip为INADDR_ANY
-    explicit InetAddress(uint16_t port);
+    explicit InetAddress(uint16_t port = 0);
     InetAddress(const std::string& ip, uint16_t port);
     explicit InetAddress(const struct sockaddr_in& addr);
 

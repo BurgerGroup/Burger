@@ -18,6 +18,24 @@ void setNonBlockAndCloseOnExec(int sockfd) {
 
 #endif
 
+int sockets::createNonblockingOrDie() {
+#if VALGRIND
+    int sockfd = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if(sockfd < 0) {
+        CRITICAL("sockets::createNonblockingOrDie");
+    }
+    setNonBlockAndCloseOnExec(sockfd);
+#else 
+    // 直接在创建的时候指定非阻塞和exec关闭选项
+    int sockfd = ::socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK | SOCK_CLOEXEC
+                        , IPPROTO_TCP);
+    if(sockfd < 0) {
+        CRITICAL("sockets::createNonblockingOrDie");
+    }
+#endif 
+    return sockfd;
+}
+
 
 void sockets::bindOrDie(int sockfd, const struct sockaddr_in& addrin) {
     int ret = ::bind(sockfd, 
@@ -77,6 +95,10 @@ int sockets::accept(int sockfd, struct sockaddr_in& addrin) {
     return connfd;
 }
 
+// TODO : CHECK
+ssize_t sockets::write(int sockfd, std::string msg) {
+    return ::write(sockfd, msg.c_str(), msg.length());
+}
 
 // TODO: wrap error?
 ssize_t sockets::write(int sockfd, const void *buf, size_t count) {

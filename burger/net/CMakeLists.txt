@@ -9,6 +9,7 @@ set(net_SRCS
   EventLoopThread.cc
   InetAddress.cc
   Socket.cc
+  Acceptor.cc
   )
 
 add_library(burger_net ${net_SRCS})

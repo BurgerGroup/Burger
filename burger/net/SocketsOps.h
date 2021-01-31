@@ -9,10 +9,13 @@
 namespace burger {
 namespace net {
 namespace sockets {
-
+// Creates a non-blocking socket fd, abort if any error
+int createNonblockingOrDie();
 void bindOrDie(int sockfd, const struct sockaddr_in& addrin);
 void listenOrDie(int sockfd);
 int accept(int sockfd, struct sockaddr_in& addrin);
+
+ssize_t write(int sockfd, std::string msg);
 
 ssize_t write(int sockfd, const void *buf, size_t count);
 ssize_t read(int sockfd, void *buf, size_t count);
