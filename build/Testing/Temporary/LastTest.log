@@ -1,10 +1,36 @@
-Start testing: Jan 29 20:50 PST
+Start testing: Jan 30 06:14 PST
 ----------------------------------------------------------
-1/1 Testing: gtest_test
-1/1 Test: gtest_test
+1/2 Testing: InetAddress_unittest
+1/2 Test: InetAddress_unittest
+Command: "/home/ysy/Burger/build/InetAddress_unittest"
+Directory: /home/ysy/Burger/build/burger/net/tests
+"InetAddress_unittest" start time: Jan 30 06:14 PST
+Output:
+----------------------------------------------------------
+Running main() from /home/ysy/googletest/googletest/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from InetAddress
+[ RUN      ] InetAddress.testInetAddress
+[       OK ] InetAddress.testInetAddress (0 ms)
+[----------] 1 test from InetAddress (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"InetAddress_unittest" end time: Jan 30 06:14 PST
+"InetAddress_unittest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: gtest_test
+2/2 Test: gtest_test
 Command: "/home/ysy/Burger/build/gtest_test"
 Directory: /home/ysy/Burger/build/tests
-"gtest_test" start time: Jan 29 20:50 PST
+"gtest_test" start time: Jan 30 06:14 PST
 Output:
 ----------------------------------------------------------
 run google test --> 
@@ -27,8 +53,8 @@ run google test -->
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"gtest_test" end time: Jan 29 20:50 PST
+"gtest_test" end time: Jan 30 06:14 PST
 "gtest_test" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jan 29 20:50 PST
+End testing: Jan 30 06:14 PST

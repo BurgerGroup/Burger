@@ -1,9 +1,5 @@
 #include "InetAddress.h"
-#include "Endian.h"
-#include "SocketsOps.h"
-#include <netdb.h>
-#include <cstddef>
-#include <cstring>
+
 // INADDR_ANY use (type)value casting.
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 static const in_addr_t kInaddrAny = INADDR_ANY;
@@ -32,29 +28,32 @@ static_assert(offsetof(sockaddr_in, sin_family) == 0, "sin_family offset 0");
 static_assert(offsetof(sockaddr_in, sin_port) == 2, "sin_port offset 2");
 
 InetAddress::InetAddress(uint16_t port) {
-    static_assert(offsetof(InetAddress, addr_) == 0, "addr_ offset 0");
-    bzero(&addr_, sizeof(addr_));
-    addr_.sin_family = AF_INET;
-    addr_.sin_addr.s_addr = sockets::hostToNetwork32(kInaddrAny);
-    addr_.sin_port = sockets::hostToNetwork16(port);
+    static_assert(offsetof(InetAddress, addrin_) == 0, "addr_ offset 0");
+    bzero(&addrin_, sizeof(addrin_));
+    addrin_.sin_family = AF_INET;
+    addrin_.sin_addr.s_addr = sockets::hostToNetwork32(kInaddrAny);
+    addrin_.sin_port = sockets::hostToNetwork16(port);
 }
 
 InetAddress::InetAddress(const std::string& ip, uint16_t port) {
-    bzero(&addr_, sizeof(addr_));
-    sockets::ipPortToAddrin(ip, port, &addr_);
+    bzero(&addrin_, sizeof(addrin_));
+    sockets::ipPortToAddrin(ip, port, &addrin_);
 }
 
 InetAddress::InetAddress(const struct sockaddr_in& addr):
-    addr_(addr){
+    addrin_(addr) {
 }
 
 std::string InetAddress::getIpStr() const {
-    char buf[32] = "";
-    return sockets::toIp(&addr_);
+    return sockets::toIpStr(&addrin_);
 }
 
 std::string InetAddress::getPortStr() const {
     return std::to_string(getPort());
+}
+
+std::string InetAddress::getIpPortStr() const {
+    return getIpStr() + ":" + getPortStr();
 }
 
 

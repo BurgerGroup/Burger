@@ -13,3 +13,10 @@ target_link_libraries(timer_test burger_net)
 
 add_executable(EventLoopThread_test EventLoopThread_test.cc)
 target_link_libraries(EventLoopThread_test burger_net)
+
+add_executable(InetAddress_unittest InetAddress_unittest.cc)
+target_link_libraries(InetAddress_unittest burger_net)
+add_test(NAME InetAddress_unittest COMMAND InetAddress_unittest)
+
+add_executable(Socket_unittest Socket_unittest.cc)
+target_link_libraries(Socket_unittest burger_net)

@@ -1,14 +1,17 @@
 #ifndef INETADDRESS_H
 #define INETADDRESS_H
 
-
 /**
  * @brief 网际地址sockaddr_in封装
 */
 #include "burger/base/copyable.h"
 #include <stdint.h>
 #include <netinet/in.h>
-
+#include <netdb.h>
+#include <cstddef>
+#include <cstring>
+#include "Endian.h"
+#include "SocketsOps.h"
 #include <string>
 
 namespace burger {
@@ -24,15 +27,18 @@ public:
     std::string getIpStr() const;
     std::string getPortStr() const;
     uint16_t getPort() const { return sockets::networkToHost16(getPortNetEndian()); }
-    sa_family_t getFamily() const { return addr_.sin_family; }
+    std::string getIpPortStr() const;
+    sa_family_t getFamily() const { return addrin_.sin_family; }
 
-    const struct sockaddr_in& getSockAddrInet() const { return addr_; }
-    void setSockAddrInet(const struct sockaddr_in& addr) { addr_ = addr; }
-    uint32_t getIpNetEndian() const { return addr_.sin_addr.s_addr; }
-    uint16_t getPortNetEndian() const { return addr_.sin_port; }
+    const struct sockaddr_in& getSockAddrin() const { return addrin_; }
+    void setSockAddrin(const struct sockaddr_in& addrin) { addrin_ = addrin; }
+    uint32_t getIpNetEndian() const { return addrin_.sin_addr.s_addr; }
+    uint16_t getPortNetEndian() const { return addrin_.sin_port; }
+
+    // static bool hostNameToIp(); // TODO
 private:
-    struct sockaddr_in addr_;
-}
+    struct sockaddr_in addrin_;
+};
 
 
 } // namespace net

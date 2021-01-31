@@ -9,15 +9,25 @@
 namespace burger {
 namespace net {
 namespace sockets {
+
+void bindOrDie(int sockfd, const struct sockaddr_in& addrin);
+void listenOrDie(int sockfd);
+int accept(int sockfd, struct sockaddr_in& addrin);
+
 ssize_t write(int sockfd, const void *buf, size_t count);
 ssize_t read(int sockfd, void *buf, size_t count);
 
+void close(int sockfd);
+void shutdownWrite(int sockfd);
 void ipPortToAddrin(const std::string& ip, uint16_t port, 
                         struct sockaddr_in* addr);
 
+const struct sockaddr* sockaddr_cast(const struct sockaddr_in* addr);
+struct sockaddr* sockaddr_cast(struct sockaddr_in* addr);
 const struct sockaddr_in* sockaddr_in_cast(const struct sockaddr* addr);
+struct sockaddr_in* sockaddr_in_cast(struct sockaddr* addr);
 
-std::string toIp(const struct sockaddr_in* addr);
+std::string toIpStr(const struct sockaddr_in* addr);
 
 } // namespace sockets
 } // namespace net

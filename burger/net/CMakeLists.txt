@@ -7,6 +7,8 @@ set(net_SRCS
   TimerId.cc
   TimerQueue.cc
   EventLoopThread.cc
+  InetAddress.cc
+  Socket.cc
   )
 
 add_library(burger_net ${net_SRCS})
