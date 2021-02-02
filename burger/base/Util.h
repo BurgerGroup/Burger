@@ -1,3 +1,6 @@
+#ifndef UTIL_H
+#define UTIL_H
+
 #include <sstream>
 #include <memory>
 #include <thread>
@@ -40,3 +43,5 @@ inline pid_t gettid() {
 } // namespace util
 
 } // namespace burger
+
+#endif // UTIL_H

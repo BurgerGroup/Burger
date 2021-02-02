@@ -32,6 +32,9 @@ struct sockaddr_in* sockaddr_in_cast(struct sockaddr* addr);
 
 std::string toIpStr(const struct sockaddr_in* addr);
 
+struct sockaddr_in getLocalAddr(int sockfd);
+
+
 } // namespace sockets
 } // namespace net
 
