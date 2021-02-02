@@ -14,7 +14,6 @@ inline To implicit_cast(From const &f) {
     return f;
 }
 
-
 namespace util {
 /**
  * @brief Convert std::thread::id to std::string

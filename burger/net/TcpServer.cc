@@ -9,7 +9,7 @@ using namespace burger;
 using namespace burger::net;
 
 TcpServer::TcpServer(EventLoop* loop, const InetAddress& listenAddr, 
-                                std::string hostName, bool reuseport):
+                            const std::string& hostName, bool reuseport):
     loop_(loop),
     hostIpPort_(listenAddr.getIpPortStr()),
     hostName_(hostName),
@@ -34,9 +34,9 @@ void TcpServer::start() {
     if(started_.getAndSet(1) == 0) {
         // threadpool
         assert(!acceptor_->isListening());
-        loop_->runInLoop(std::bind(&Acceptor::listen, acceptor_));
+        // TODO : ref正确
+        loop_->runInLoop(std::bind(&Acceptor::listen, std::ref(acceptor_)));
     }
-
 }
 
 void TcpServer::newConnection(int sockfd, const InetAddress& peerAddr) {
@@ -49,11 +49,29 @@ void TcpServer::newConnection(int sockfd, const InetAddress& peerAddr) {
     // FIXME poll with zero timeout to double confirm the new connection
     TcpConnectionPtr conn = std::make_shared<TcpConnection>(loop_, 
                                     connName, sockfd, localAddr, peerAddr);
+    TRACE("[1] usecount = {}", conn.use_count());
     connectionsMap_[connName] = conn;
+    TRACE("[2] usecount = {}", conn.use_count());
     conn->setConnectionCallback(connectionCallback_);
     conn->setMessageCallback(messageCallback_);
-    
+    conn->setCloseCallback(std::bind(&TcpServer::removeConnection, this, std::placeholders::_1));
     conn->connectEstablished();
+    TRACE("[5] usecount = {}", conn.use_count());
+}
+
+void TcpServer::removeConnection(const TcpConnectionPtr& conn) {
+    loop_->runInLoop(std::bind(&TcpServer::removeConnectionInLoop, this, conn));
+}
+
+void TcpServer::removeConnectionInLoop(const TcpConnectionPtr& conn) {
+    loop_->assertInLoopThread();
+    INFO("TcpServer::removeConnectionInLoop [{}] - connection {}", hostName_, conn->getName());
+    TRACE("[8] usecount = {}", conn.use_count());
+    size_t n = connectionsMap_.erase(conn->getName());
+    TRACE("[9] usecount = {}", conn.use_count());    
+    assert(n == 1);
+    loop_->queueInLoop(std::bind(&TcpConnection::connectDestroyed, conn));
+    TRACE("[10] usecount = {}", conn.use_count());    
 }
 
 

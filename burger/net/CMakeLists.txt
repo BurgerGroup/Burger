@@ -10,6 +10,8 @@ set(net_SRCS
   InetAddress.cc
   Socket.cc
   Acceptor.cc
+  TcpServer.cc
+  TcpConnection.cc
   )
 
 add_library(burger_net ${net_SRCS})

@@ -13,7 +13,7 @@ class TcpConnection;
 using TcpConnectionPtr = std::shared_ptr<TcpConnection>;
 using TimerCallback = std::function<void()> ;
 using ConnectionCallback = std::function<void(const TcpConnectionPtr&)>;
-
+using CloseCallback = std::function<void(const TcpConnectionPtr&)>;
 // tmp
 using MessageCallback = std::function<void(const TcpConnectionPtr&,
                                             const char* data,

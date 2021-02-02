@@ -25,6 +25,8 @@ void shutdownWrite(int sockfd);
 void ipPortToAddrin(const std::string& ip, uint16_t port, 
                         struct sockaddr_in* addr);
 
+int getSocketError(int sockfd);
+
 const struct sockaddr* sockaddr_cast(const struct sockaddr_in* addr);
 struct sockaddr* sockaddr_cast(struct sockaddr_in* addr);
 const struct sockaddr_in* sockaddr_in_cast(const struct sockaddr* addr);

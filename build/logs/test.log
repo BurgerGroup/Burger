@@ -107,3 +107,192 @@
 2021-01-31 04:28:15 [trace] [tid : 71481] [Channel.cc : 69 <handleEventWithGuard>] 12: IN PRI 
 2021-01-31 04:28:47 [trace] [tid : 71481] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:44774
 2021-01-31 04:29:16 [trace] [tid : 71481] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-01 18:12:18 [trace] [tid : 33896] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kEnumNew
+2021-02-01 18:12:18 [trace] [tid : 33896] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-02-01 18:12:18 [trace] [tid : 33896] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7ffff1d555e0 
+2021-02-01 18:12:18 [trace] [tid : 33896] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kEnumNew
+2021-02-01 18:12:18 [trace] [tid : 33896] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-02-01 18:12:18 [trace] [tid : 33896] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kEnumNew
+2021-02-01 18:12:18 [trace] [tid : 33896] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-02-01 18:12:18 [trace] [tid : 33896] [EventLoop.cc : 63 <loop>] EventLoop 0x7ffff1d555e0 start looping
+2021-02-01 18:12:18 [trace] [tid : 33896] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-01 18:12:28 [trace] [tid : 33896] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-02-01 18:12:28 [trace] [tid : 33896] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-01 18:12:38 [trace] [tid : 33896] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-02-01 18:12:38 [trace] [tid : 33896] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-01 18:12:46 [trace] [tid : 33896] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-01 18:12:46 [trace] [tid : 33896] [EventLoop.cc : 209 <printActiveChannels>] [ 7: IN PRI  ]
+2021-02-01 18:12:46 [trace] [tid : 33896] [Channel.cc : 69 <handleEventWithGuard>] 7: IN PRI 
+2021-02-01 18:12:46 [trace] [tid : 33896] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:46262
+2021-02-01 18:12:46 [info] [tid : 33896] [TcpServer.cc : 47 <newConnection>] TcpServer::newConnection [TcpServer] - new connection [TcpServer-0.0.0.0:8888#1] from 127.0.0.1:46262 
+2021-02-01 18:12:46 [debug] [tid : 33896] [TcpConnection.cc : 23 <TcpConnection>] TcpConnection::ctor[ TcpServer-0.0.0.0:8888#1 ] at 0x177efb0 fd = 9 
+2021-02-01 18:12:46 [trace] [tid : 33896] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 3, stauts = kEnumNew
+2021-02-01 18:12:46 [trace] [tid : 33896] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-02-01 18:12:46 [trace] [tid : 33896] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-01 18:12:56 [trace] [tid : 33896] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-02-01 18:12:56 [trace] [tid : 33896] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-01 18:13:01 [trace] [tid : 33896] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-01 18:13:01 [trace] [tid : 33896] [EventLoop.cc : 209 <printActiveChannels>] [ 9: IN PRI  ]
+2021-02-01 18:13:01 [trace] [tid : 33896] [Channel.cc : 69 <handleEventWithGuard>] 9: IN PRI 
+2021-02-01 18:13:01 [trace] [tid : 33896] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-01 18:13:03 [trace] [tid : 33896] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-01 18:13:03 [trace] [tid : 33896] [EventLoop.cc : 209 <printActiveChannels>] [ 9: IN PRI  ]
+2021-02-01 18:13:03 [trace] [tid : 33896] [Channel.cc : 69 <handleEventWithGuard>] 9: IN PRI 
+2021-02-01 18:13:03 [trace] [tid : 33896] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-01 18:13:37 [trace] [tid : 34088] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kEnumNew
+2021-02-01 18:13:37 [trace] [tid : 34088] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-02-01 18:13:37 [trace] [tid : 34088] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7ffcf7ebe6d0 
+2021-02-01 18:13:37 [trace] [tid : 34088] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kEnumNew
+2021-02-01 18:13:37 [trace] [tid : 34088] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-02-01 18:13:37 [trace] [tid : 34088] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kEnumNew
+2021-02-01 18:13:37 [trace] [tid : 34088] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-02-01 18:13:37 [trace] [tid : 34088] [EventLoop.cc : 63 <loop>] EventLoop 0x7ffcf7ebe6d0 start looping
+2021-02-01 18:13:37 [trace] [tid : 34088] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-01 18:13:40 [trace] [tid : 34088] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-01 18:13:40 [trace] [tid : 34088] [EventLoop.cc : 209 <printActiveChannels>] [ 7: IN PRI  ]
+2021-02-01 18:13:40 [trace] [tid : 34088] [Channel.cc : 69 <handleEventWithGuard>] 7: IN PRI 
+2021-02-01 18:13:40 [trace] [tid : 34088] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:46266
+2021-02-01 18:13:40 [info] [tid : 34088] [TcpServer.cc : 47 <newConnection>] TcpServer::newConnection [TcpServer] - new connection [TcpServer-0.0.0.0:8888#1] from 127.0.0.1:46266 
+2021-02-01 18:13:40 [debug] [tid : 34088] [TcpConnection.cc : 23 <TcpConnection>] TcpConnection::ctor[ TcpServer-0.0.0.0:8888#1 ] at 0x14b0fb0 fd = 9 
+2021-02-01 18:13:40 [trace] [tid : 34088] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 3, stauts = kEnumNew
+2021-02-01 18:13:40 [trace] [tid : 34088] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-02-01 18:13:40 [trace] [tid : 34088] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-01 18:13:44 [trace] [tid : 34088] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-01 18:13:44 [trace] [tid : 34088] [EventLoop.cc : 209 <printActiveChannels>] [ 9: IN PRI  ]
+2021-02-01 18:13:44 [trace] [tid : 34088] [Channel.cc : 69 <handleEventWithGuard>] 9: IN PRI 
+2021-02-01 18:13:44 [trace] [tid : 34088] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-01 18:13:54 [trace] [tid : 34088] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-02-01 18:13:54 [trace] [tid : 34088] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-01 18:14:04 [trace] [tid : 34088] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-02-01 18:14:04 [trace] [tid : 34088] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-02 02:07:45 [trace] [tid : 84975] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kEnumNew
+2021-02-02 02:07:45 [trace] [tid : 84975] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-02-02 02:07:45 [trace] [tid : 84975] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7ffe69c6ba40 
+2021-02-02 02:07:45 [trace] [tid : 84975] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kEnumNew
+2021-02-02 02:07:45 [trace] [tid : 84975] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-02-02 02:07:45 [trace] [tid : 84975] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kEnumNew
+2021-02-02 02:07:45 [trace] [tid : 84975] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-02-02 02:07:45 [trace] [tid : 84975] [EventLoop.cc : 63 <loop>] EventLoop 0x7ffe69c6ba40 start looping
+2021-02-02 02:07:45 [trace] [tid : 84975] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-02 02:07:48 [trace] [tid : 84975] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-02 02:07:48 [trace] [tid : 84975] [EventLoop.cc : 209 <printActiveChannels>] [ 7: IN PRI  ]
+2021-02-02 02:07:48 [trace] [tid : 84975] [Channel.cc : 69 <handleEventWithGuard>] 7: IN PRI 
+2021-02-02 02:07:48 [trace] [tid : 84975] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:47012
+2021-02-02 02:07:48 [info] [tid : 84975] [TcpServer.cc : 47 <newConnection>] TcpServer::newConnection [TestServer] - new connection [TestServer-0.0.0.0:8888#1] from 127.0.0.1:47012 
+2021-02-02 02:07:48 [debug] [tid : 84975] [TcpConnection.cc : 25 <TcpConnection>] TcpConnection::ctor[ TestServer-0.0.0.0:8888#1 ] at 0xa3dfb0 fd = 9 
+2021-02-02 02:07:48 [trace] [tid : 84975] [TcpServer.cc : 52 <newConnection>] [1] usecount = 1
+2021-02-02 02:07:48 [trace] [tid : 84975] [TcpServer.cc : 54 <newConnection>] [2] usecount = 2
+2021-02-02 02:07:48 [trace] [tid : 84975] [TcpConnection.cc : 38 <connectEstablished>] [3] usecount = 3
+2021-02-02 02:07:48 [trace] [tid : 84975] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 3, stauts = kEnumNew
+2021-02-02 02:07:48 [trace] [tid : 84975] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-02-02 02:07:48 [trace] [tid : 84975] [TcpConnection.cc : 43 <connectEstablished>] [4] usecount = 3
+2021-02-02 02:07:48 [trace] [tid : 84975] [TcpServer.cc : 59 <newConnection>] [5] usecount = 2
+2021-02-02 02:07:48 [trace] [tid : 84975] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-02 02:07:50 [trace] [tid : 84975] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-02 02:07:50 [trace] [tid : 84975] [EventLoop.cc : 209 <printActiveChannels>] [ 9: IN PRI  ]
+2021-02-02 02:07:50 [trace] [tid : 84975] [Channel.cc : 69 <handleEventWithGuard>] 9: IN PRI 
+2021-02-02 02:07:50 [trace] [tid : 84975] [TcpConnection.cc : 90 <handleClose>] fd = 9 status = kConnected
+2021-02-02 02:07:50 [trace] [tid : 84975] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 0, stauts = kEnumAdded
+2021-02-02 02:07:50 [trace] [tid : 84975] [Epoll.cc : 117 <update>] epoll_ctl op = DEL, fd = 9, event = [9: ]
+2021-02-02 02:07:50 [trace] [tid : 84975] [TcpConnection.cc : 97 <handleClose>] [7] usecount = 3
+2021-02-02 02:07:50 [info] [tid : 84975] [TcpServer.cc : 68 <removeConnectionInLoop>] TcpServer::removeConnectionInLoop [TestServer] - connection TestServer-0.0.0.0:8888#1
+2021-02-02 02:07:50 [trace] [tid : 84975] [TcpServer.cc : 69 <removeConnectionInLoop>] [8] usecount = 4
+2021-02-02 02:07:50 [trace] [tid : 84975] [TcpServer.cc : 71 <removeConnectionInLoop>] [9] usecount = 3
+2021-02-02 02:07:50 [trace] [tid : 84975] [TcpServer.cc : 74 <removeConnectionInLoop>] [10] usecount = 4
+2021-02-02 02:07:50 [trace] [tid : 84975] [TcpConnection.cc : 99 <handleClose>] [11] usecount = 3
+2021-02-02 02:07:50 [trace] [tid : 84975] [Epoll.cc : 80 <removeChannel>] fd = 9 
+2021-02-02 02:07:50 [debug] [tid : 84975] [TcpConnection.cc : 31 <~TcpConnection>] TcpConnection::dtor[ TestServer-0.0.0.0:8888#1 ] at 0xa3dfb0 fd = 9 status = kDisconnected 
+2021-02-02 02:07:50 [trace] [tid : 84975] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-02 02:08:00 [trace] [tid : 84975] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-02-02 02:08:00 [trace] [tid : 84975] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-02 02:24:28 [trace] [tid : 86522] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kEnumNew
+2021-02-02 02:24:28 [trace] [tid : 86522] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-02-02 02:25:10 [trace] [tid : 86522] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fffffffdf60 
+2021-02-02 02:25:17 [trace] [tid : 86522] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kEnumNew
+2021-02-02 02:25:17 [trace] [tid : 86522] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-02-02 02:33:02 [trace] [tid : 86522] [Epoll.cc : 49 <updateChannel>] fd = 12, events = 3, stauts = kEnumNew
+2021-02-02 02:33:02 [trace] [tid : 86522] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 12, event = [12: IN PRI ]
+2021-02-02 02:34:38 [trace] [tid : 86522] [EventLoop.cc : 63 <loop>] EventLoop 0x7fffffffdf60 start looping
+2021-02-02 02:34:47 [trace] [tid : 86522] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-02 02:35:13 [trace] [tid : 86522] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-02 02:41:30 [trace] [tid : 86522] [EventLoop.cc : 209 <printActiveChannels>] [ 12: IN PRI  ]
+2021-02-02 02:42:20 [trace] [tid : 86522] [Channel.cc : 69 <handleEventWithGuard>] 12: IN PRI 
+2021-02-02 02:42:20 [trace] [tid : 86522] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:47032
+2021-02-02 02:42:20 [info] [tid : 86522] [TcpServer.cc : 47 <newConnection>] TcpServer::newConnection [TestServer] - new connection [TestServer-0.0.0.0:8888#1] from 127.0.0.1:47032 
+2021-02-02 02:42:20 [debug] [tid : 86522] [TcpConnection.cc : 25 <TcpConnection>] TcpConnection::ctor[ TestServer-0.0.0.0:8888#1 ] at 0x921fb0 fd = 14 
+2021-02-02 02:42:20 [trace] [tid : 86522] [TcpServer.cc : 52 <newConnection>] [1] usecount = 1
+2021-02-02 02:42:20 [trace] [tid : 86522] [TcpServer.cc : 54 <newConnection>] [2] usecount = 2
+2021-02-02 02:42:20 [trace] [tid : 86522] [TcpConnection.cc : 38 <connectEstablished>] [3] usecount = 3
+2021-02-02 02:42:20 [trace] [tid : 86522] [Epoll.cc : 49 <updateChannel>] fd = 14, events = 3, stauts = kEnumNew
+2021-02-02 02:42:20 [trace] [tid : 86522] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-02-02 02:42:20 [trace] [tid : 86522] [TcpConnection.cc : 43 <connectEstablished>] [4] usecount = 3
+2021-02-02 02:42:20 [trace] [tid : 86522] [TcpServer.cc : 59 <newConnection>] [5] usecount = 2
+2021-02-02 02:42:42 [trace] [tid : 86522] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-02 02:42:52 [trace] [tid : 86522] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-02-02 02:43:23 [trace] [tid : 86522] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-02 02:43:23 [trace] [tid : 86522] [Epoll.cc : 27 <wait>] 2 events happended
+2021-02-02 02:43:55 [trace] [tid : 86522] [EventLoop.cc : 209 <printActiveChannels>] [ 14: IN PRI  ]
+2021-02-02 02:43:56 [trace] [tid : 86522] [EventLoop.cc : 209 <printActiveChannels>] [ 12: IN PRI  ]
+2021-02-02 02:44:04 [trace] [tid : 86522] [Channel.cc : 69 <handleEventWithGuard>] 14: IN PRI 
+2021-02-02 02:44:05 [trace] [tid : 86522] [Channel.cc : 69 <handleEventWithGuard>] 12: IN PRI 
+2021-02-02 02:44:05 [trace] [tid : 86522] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:47044
+2021-02-02 02:44:05 [info] [tid : 86522] [TcpServer.cc : 47 <newConnection>] TcpServer::newConnection [TestServer] - new connection [TestServer-0.0.0.0:8888#2] from 127.0.0.1:47044 
+2021-02-02 02:44:05 [debug] [tid : 86522] [TcpConnection.cc : 25 <TcpConnection>] TcpConnection::ctor[ TestServer-0.0.0.0:8888#2 ] at 0x922330 fd = 15 
+2021-02-02 02:44:05 [trace] [tid : 86522] [TcpServer.cc : 52 <newConnection>] [1] usecount = 1
+2021-02-02 02:44:05 [trace] [tid : 86522] [TcpServer.cc : 54 <newConnection>] [2] usecount = 2
+2021-02-02 02:44:05 [trace] [tid : 86522] [TcpConnection.cc : 38 <connectEstablished>] [3] usecount = 3
+2021-02-02 02:44:05 [trace] [tid : 86522] [Epoll.cc : 49 <updateChannel>] fd = 15, events = 3, stauts = kEnumNew
+2021-02-02 02:44:05 [trace] [tid : 86522] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 15, event = [15: IN PRI ]
+2021-02-02 02:44:05 [trace] [tid : 86522] [TcpConnection.cc : 43 <connectEstablished>] [4] usecount = 3
+2021-02-02 02:44:05 [trace] [tid : 86522] [TcpServer.cc : 59 <newConnection>] [5] usecount = 2
+2021-02-02 02:44:09 [trace] [tid : 86522] [Epoll.cc : 21 <wait>] fd total count 5
+2021-02-02 02:44:09 [trace] [tid : 86522] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-02 02:44:09 [trace] [tid : 86522] [EventLoop.cc : 209 <printActiveChannels>] [ 14: IN PRI  ]
+2021-02-02 02:44:11 [trace] [tid : 86522] [Channel.cc : 69 <handleEventWithGuard>] 14: IN PRI 
+2021-02-02 02:44:11 [trace] [tid : 86522] [TcpConnection.cc : 90 <handleClose>] fd = 14 status = kConnected
+2021-02-02 02:44:11 [trace] [tid : 86522] [Epoll.cc : 49 <updateChannel>] fd = 14, events = 0, stauts = kEnumAdded
+2021-02-02 02:44:11 [trace] [tid : 86522] [Epoll.cc : 117 <update>] epoll_ctl op = DEL, fd = 14, event = [14: ]
+2021-02-02 02:44:11 [trace] [tid : 86522] [TcpConnection.cc : 97 <handleClose>] [7] usecount = 3
+2021-02-02 02:44:11 [info] [tid : 86522] [TcpServer.cc : 68 <removeConnectionInLoop>] TcpServer::removeConnectionInLoop [TestServer] - connection TestServer-0.0.0.0:8888#1
+2021-02-02 02:44:11 [trace] [tid : 86522] [TcpServer.cc : 69 <removeConnectionInLoop>] [8] usecount = 4
+2021-02-02 02:44:11 [trace] [tid : 86522] [TcpServer.cc : 71 <removeConnectionInLoop>] [9] usecount = 3
+2021-02-02 02:44:11 [trace] [tid : 86522] [TcpServer.cc : 74 <removeConnectionInLoop>] [10] usecount = 4
+2021-02-02 02:44:11 [trace] [tid : 86522] [TcpConnection.cc : 99 <handleClose>] [11] usecount = 3
+2021-02-02 02:46:09 [trace] [tid : 86522] [Epoll.cc : 80 <removeChannel>] fd = 14 
+2021-02-02 02:46:09 [debug] [tid : 86522] [TcpConnection.cc : 31 <~TcpConnection>] TcpConnection::dtor[ TestServer-0.0.0.0:8888#1 ] at 0x921fb0 fd = 14 status = kDisconnected 
+2021-02-02 02:46:10 [trace] [tid : 86522] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-02 02:52:32 [trace] [tid : 89720] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kEnumNew
+2021-02-02 02:52:32 [trace] [tid : 89720] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-02-02 02:52:32 [trace] [tid : 89720] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fffffffdf60 
+2021-02-02 02:52:32 [trace] [tid : 89720] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kEnumNew
+2021-02-02 02:52:32 [trace] [tid : 89720] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-02-02 02:52:32 [trace] [tid : 89720] [Epoll.cc : 49 <updateChannel>] fd = 12, events = 3, stauts = kEnumNew
+2021-02-02 02:52:32 [trace] [tid : 89720] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 12, event = [12: IN PRI ]
+2021-02-02 02:52:42 [trace] [tid : 89720] [EventLoop.cc : 63 <loop>] EventLoop 0x7fffffffdf60 start looping
+2021-02-02 02:52:44 [trace] [tid : 89720] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-02 02:52:44 [trace] [tid : 89720] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-02 02:52:44 [trace] [tid : 89720] [EventLoop.cc : 209 <printActiveChannels>] [ 12: IN PRI  ]
+2021-02-02 02:52:58 [trace] [tid : 89720] [Channel.cc : 69 <handleEventWithGuard>] 12: IN PRI 
+2021-02-02 02:53:03 [trace] [tid : 89720] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:47080
+2021-02-02 02:53:03 [info] [tid : 89720] [TcpServer.cc : 47 <newConnection>] TcpServer::newConnection [TestServer] - new connection [TestServer-0.0.0.0:8888#1] from 127.0.0.1:47080 
+2021-02-02 02:53:03 [debug] [tid : 89720] [TcpConnection.cc : 25 <TcpConnection>] TcpConnection::ctor[ TestServer-0.0.0.0:8888#1 ] at 0x921fb0 fd = 14 
+2021-02-02 02:53:03 [trace] [tid : 89720] [TcpServer.cc : 52 <newConnection>] [1] usecount = 1
+2021-02-02 02:53:03 [trace] [tid : 89720] [TcpServer.cc : 54 <newConnection>] [2] usecount = 2
+2021-02-02 02:53:03 [trace] [tid : 89720] [TcpConnection.cc : 38 <connectEstablished>] [3] usecount = 3
+2021-02-02 02:53:03 [trace] [tid : 89720] [Epoll.cc : 49 <updateChannel>] fd = 14, events = 3, stauts = kEnumNew
+2021-02-02 02:53:03 [trace] [tid : 89720] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-02-02 02:53:03 [trace] [tid : 89720] [TcpConnection.cc : 43 <connectEstablished>] [4] usecount = 3
+2021-02-02 02:53:03 [trace] [tid : 89720] [TcpServer.cc : 59 <newConnection>] [5] usecount = 2
+2021-02-02 02:53:44 [trace] [tid : 89720] [Epoll.cc : 21 <wait>] fd total count 4
+2021-02-02 02:53:59 [trace] [tid : 89905] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kEnumNew
+2021-02-02 02:53:59 [trace] [tid : 89905] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-02-02 02:53:59 [trace] [tid : 89905] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fffffffdf60 
+2021-02-02 02:53:59 [trace] [tid : 89905] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kEnumNew
+2021-02-02 02:53:59 [trace] [tid : 89905] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-02-02 02:53:59 [trace] [tid : 89905] [Epoll.cc : 49 <updateChannel>] fd = 12, events = 3, stauts = kEnumNew
+2021-02-02 02:53:59 [trace] [tid : 89905] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 12, event = [12: IN PRI ]
+2021-02-02 02:54:27 [trace] [tid : 89905] [EventLoop.cc : 63 <loop>] EventLoop 0x7fffffffdf60 start looping
+2021-02-02 02:54:33 [trace] [tid : 89905] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-02 02:54:42 [trace] [tid : 89905] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-02 02:54:47 [trace] [tid : 89905] [EventLoop.cc : 209 <printActiveChannels>] [ 12: IN PRI  ]
+2021-02-02 02:55:09 [trace] [tid : 89905] [Channel.cc : 69 <handleEventWithGuard>] 12: IN PRI 

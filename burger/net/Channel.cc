@@ -108,6 +108,11 @@ std::string Channel::eventsToString(int fd, int event) {
     return oss.str();
 }
 
+void Channel::tie(const std::shared_ptr<void>& obj) {
+    tie_ = obj;  // tie_ is weak ptr, so not add 1 to use_count
+    tied_ = true;
+}
+
 
 const uint32_t Channel::kNoneEvent = 0;
 const uint32_t Channel::kReadEvent = EPOLLIN | EPOLLPRI;  // EPOLLPRI 外带数据

@@ -5,6 +5,13 @@
 
 using namespace burger;
 using namespace burger::net;
+/*
+1.  telnet 127.0.0.1 8888
+2. 还没处理断开连接，当客户端断开，就会一直处于高电平触发 busy loop
+
+*/
+
+
 
 void onConnection(const TcpConnectionPtr& conn) {
     if(conn->isConnected()) {
@@ -24,6 +31,10 @@ void onMessage(const TcpConnectionPtr& conn,
 }   
 
 int main() {
+    // if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
+    //     std::cout << "Logger init error" << std::endl;
+	// 	return 1;
+	// }
     std::cout << "main() : pid = " << ::getpid() << std::endl;
     InetAddress listenAddr(8888);
     EventLoop loop;

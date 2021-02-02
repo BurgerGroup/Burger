@@ -118,6 +118,17 @@ void sockets::ipPortToAddrin(const std::string& ip, uint16_t port,
     }
 }
 
+int sockets::getSocketError(int sockfd) {
+    int optval;
+    socklen_t optlen = static_cast<socklen_t>(sizeof(optval));
+    if(::getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &optval, &optlen) < 0) {
+        return errno;
+    } else {
+        return optval;
+    }
+}
+
+
 const struct sockaddr* sockets::sockaddr_cast(const struct sockaddr_in* addr) {
     return static_cast<const struct sockaddr*>(implicit_cast<const void*>(addr));
 }

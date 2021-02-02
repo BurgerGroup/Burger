@@ -17,7 +17,7 @@ class Acceptor;
 class TcpServer : boost::noncopyable {
 public:
     TcpServer(EventLoop* loop, const InetAddress& listenAddr, 
-                                std::string name, bool reuseport = true);
+                            const std::string& name, bool reuseport = true);
     ~TcpServer();
 
     const std::string& getHostIpPort() const { return hostIpPort_; }
@@ -32,6 +32,11 @@ public:
 private:
     // Not thread safe, but in loop，连接时回调的函数
     void newConnection(int sockfd, const InetAddress& peerAddr);
+    // thread safe 
+    void removeConnection(const TcpConnectionPtr& conn);
+    // not threadsafe, but in loop
+    void removeConnectionInLoop(const TcpConnectionPtr& conn);
+    
     using ConnectionMap = std::map<std::string, TcpConnectionPtr>;
 
     EventLoop* loop_;  // the acceptor loop, 不一定是连接所属的
@@ -45,7 +50,6 @@ private:
     ConnectionMap connectionsMap_;
 };
 } // namespace net
-
 } // namespace burger
 
 
