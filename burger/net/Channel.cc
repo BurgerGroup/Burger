@@ -28,7 +28,9 @@ void Channel::handleEvent(Timestamp receiveTime) {
     if(tied_) {
         guard = tie_.lock();
         if(guard) {
+            TRACE("[6] usecount = {}", guard.use_count());
             handleEventWithGuard(receiveTime);
+            TRACE("[12] usecount = {}", guard.use_count());
         }
     } else {
         handleEventWithGuard(receiveTime);

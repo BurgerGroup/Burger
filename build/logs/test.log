@@ -296,3 +296,8 @@
 2021-02-02 02:54:42 [trace] [tid : 89905] [Epoll.cc : 27 <wait>] 1 events happended
 2021-02-02 02:54:47 [trace] [tid : 89905] [EventLoop.cc : 209 <printActiveChannels>] [ 12: IN PRI  ]
 2021-02-02 02:55:09 [trace] [tid : 89905] [Channel.cc : 69 <handleEventWithGuard>] 12: IN PRI 
+2021-02-02 18:08:38 [trace] [tid : 43446] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kEnumNew
+2021-02-02 18:08:38 [trace] [tid : 43446] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-02-02 18:10:14 [trace] [tid : 43446] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fffffffdf60 
+2021-02-02 18:10:20 [trace] [tid : 43446] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kEnumNew
+2021-02-02 18:10:20 [trace] [tid : 43446] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
