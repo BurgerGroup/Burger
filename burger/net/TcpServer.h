@@ -13,9 +13,11 @@ namespace net {
 class EventLoop;
 class InetAddress;
 class Acceptor;
+class EventLoopThreadPool;
 
 class TcpServer : boost::noncopyable {
 public:
+    using ThreadInitCallback = std::function<void(EventLoop*)>;
     TcpServer(EventLoop* loop, const InetAddress& listenAddr, 
                             const std::string& name, bool reuseport = true);
     ~TcpServer();
@@ -23,6 +25,8 @@ public:
     const std::string& getHostIpPort() const { return hostIpPort_; }
     const std::string& getHostName() const { return hostName_; }
 
+    void setThreadNum(int numThreads);
+    void setThreadInitCallback(const ThreadInitCallback& cb) { threadInitCallback_ = cb; }
     // not thread safe
     void setConnectionCallback(const ConnectionCallback& cb) { connectionCallback_ = cb; }
     // not thread safe 
@@ -43,8 +47,10 @@ private:
     const std::string hostIpPort_;
     const std::string hostName_;
     std::unique_ptr<Acceptor> acceptor_;
+    std::unique_ptr<EventLoopThreadPool> threadPool_;
     ConnectionCallback connectionCallback_;
     MessageCallback messageCallback_;
+    ThreadInitCallback threadInitCallback_;
     AtomicInt32 started_;  // in start() avoid race condition 
     int nextConnId_;
     ConnectionMap connectionsMap_;

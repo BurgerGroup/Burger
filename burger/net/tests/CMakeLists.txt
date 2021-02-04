@@ -30,6 +30,6 @@ target_link_libraries(tcpConnection_test01 burger_net)
 add_executable(tcpConnection_test02 tcpConnection_test02.cc)
 target_link_libraries(tcpConnection_test02 burger_net)
 
-
-
+add_executable(EventLoopThreadPool_test EventLoopThreadPool_test.cc)
+target_link_libraries(EventLoopThreadPool_test burger_net)
 

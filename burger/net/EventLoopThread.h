@@ -32,9 +32,7 @@ private:
     std::mutex mutex_;
     std::condition_variable cv_;
     ThreadInitCallback callback_;  // 回调函数再EventLoop::loop之前被调用
-    
 };
-    
 } // namespace net
 
 } // namespace burger

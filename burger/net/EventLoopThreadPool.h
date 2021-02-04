@@ -4,6 +4,8 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <functional>
+#include <cassert>
 #include <boost/noncopyable.hpp>
 
 namespace burger {
@@ -14,16 +16,23 @@ class EventLoopThread;
 
 class EventLoopThreadPool : boost::noncopyable {
 public:
-    
+    using ThreadInitCallback = std::function<void(EventLoop*)>;
+    EventLoopThreadPool(EventLoop* baseLoop);
+    ~EventLoopThreadPool();
+
+    void setThreadNum(int numThreads) { numThreads_ = numThreads; }
+    void start(const ThreadInitCallback& cb = ThreadInitCallback());
+
+    // valid after calling start(),round robin
+    EventLoop* getNextLoop();
 
 private:
     EventLoop* baseLoop_;  // acceptor loop
-    std::string name_;
     bool started_;
     int numThreads_;
     int next_;  // next connection's EventLoop obj id
-    std::vector<std::unique_ptr<EventLoopThread> > threads_;
-    std::vector<EventLoop*> loops_;
+    std::vector<std::unique_ptr<EventLoopThread> > threadList_;
+    std::vector<EventLoop*> loopList_;
 };
 
 } // namespace net

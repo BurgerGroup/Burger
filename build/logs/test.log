@@ -301,3 +301,156 @@
 2021-02-02 18:10:14 [trace] [tid : 43446] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fffffffdf60 
 2021-02-02 18:10:20 [trace] [tid : 43446] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kEnumNew
 2021-02-02 18:10:20 [trace] [tid : 43446] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-02-03 20:43:58 [trace] [tid : 102468] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kEnumNew
+2021-02-03 20:43:58 [trace] [tid : 102468] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-02-03 20:43:58 [trace] [tid : 102468] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7ffc99254e90 
+2021-02-03 20:43:58 [trace] [tid : 102468] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kEnumNew
+2021-02-03 20:43:58 [trace] [tid : 102468] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-02-03 20:43:58 [trace] [tid : 102474] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kEnumNew
+2021-02-03 20:43:58 [trace] [tid : 102474] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-02-03 20:43:58 [trace] [tid : 102474] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fd50a1fed80 
+2021-02-03 20:43:58 [trace] [tid : 102474] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kEnumNew
+2021-02-03 20:43:58 [trace] [tid : 102474] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-02-03 20:43:58 [trace] [tid : 102474] [EventLoop.cc : 63 <loop>] EventLoop 0x7fd50a1fed80 start looping
+2021-02-03 20:43:58 [trace] [tid : 102474] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:43:58 [trace] [tid : 102475] [Epoll.cc : 49 <updateChannel>] fd = 13, events = 3, stauts = kEnumNew
+2021-02-03 20:43:58 [trace] [tid : 102475] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-02-03 20:43:58 [trace] [tid : 102475] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fd5099fdd80 
+2021-02-03 20:43:58 [trace] [tid : 102475] [Epoll.cc : 49 <updateChannel>] fd = 14, events = 3, stauts = kEnumNew
+2021-02-03 20:43:58 [trace] [tid : 102475] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-02-03 20:43:58 [trace] [tid : 102475] [EventLoop.cc : 63 <loop>] EventLoop 0x7fd5099fdd80 start looping
+2021-02-03 20:43:58 [trace] [tid : 102475] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:43:58 [trace] [tid : 102476] [Epoll.cc : 49 <updateChannel>] fd = 16, events = 3, stauts = kEnumNew
+2021-02-03 20:43:58 [trace] [tid : 102476] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-02-03 20:43:58 [trace] [tid : 102476] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fd5091fcd80 
+2021-02-03 20:43:58 [trace] [tid : 102476] [Epoll.cc : 49 <updateChannel>] fd = 17, events = 3, stauts = kEnumNew
+2021-02-03 20:43:58 [trace] [tid : 102476] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-02-03 20:43:58 [trace] [tid : 102476] [EventLoop.cc : 63 <loop>] EventLoop 0x7fd5091fcd80 start looping
+2021-02-03 20:43:58 [trace] [tid : 102476] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:43:58 [trace] [tid : 102477] [Epoll.cc : 49 <updateChannel>] fd = 19, events = 3, stauts = kEnumNew
+2021-02-03 20:43:58 [trace] [tid : 102477] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 19, event = [19: IN PRI ]
+2021-02-03 20:43:58 [trace] [tid : 102477] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fd5089fbd80 
+2021-02-03 20:43:58 [trace] [tid : 102477] [Epoll.cc : 49 <updateChannel>] fd = 21, events = 3, stauts = kEnumNew
+2021-02-03 20:43:58 [trace] [tid : 102477] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 21, event = [21: IN PRI ]
+2021-02-03 20:43:58 [trace] [tid : 102477] [EventLoop.cc : 63 <loop>] EventLoop 0x7fd5089fbd80 start looping
+2021-02-03 20:43:58 [trace] [tid : 102477] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:43:58 [trace] [tid : 102468] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kEnumNew
+2021-02-03 20:43:58 [trace] [tid : 102468] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-02-03 20:43:58 [trace] [tid : 102468] [EventLoop.cc : 63 <loop>] EventLoop 0x7ffc99254e90 start looping
+2021-02-03 20:43:58 [trace] [tid : 102468] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-03 20:45:13 [trace] [tid : 102599] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kEnumNew
+2021-02-03 20:45:13 [trace] [tid : 102599] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-02-03 20:45:13 [trace] [tid : 102599] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7ffcf0d11380 
+2021-02-03 20:45:13 [trace] [tid : 102599] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kEnumNew
+2021-02-03 20:45:13 [trace] [tid : 102599] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-02-03 20:45:13 [trace] [tid : 102605] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kEnumNew
+2021-02-03 20:45:13 [trace] [tid : 102605] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-02-03 20:45:13 [trace] [tid : 102605] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fe78fc88d80 
+2021-02-03 20:45:13 [trace] [tid : 102605] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kEnumNew
+2021-02-03 20:45:13 [trace] [tid : 102605] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-02-03 20:45:13 [trace] [tid : 102605] [EventLoop.cc : 63 <loop>] EventLoop 0x7fe78fc88d80 start looping
+2021-02-03 20:45:13 [trace] [tid : 102605] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:45:13 [trace] [tid : 102606] [Epoll.cc : 49 <updateChannel>] fd = 13, events = 3, stauts = kEnumNew
+2021-02-03 20:45:13 [trace] [tid : 102606] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-02-03 20:45:13 [trace] [tid : 102606] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fe78f487d80 
+2021-02-03 20:45:13 [trace] [tid : 102606] [Epoll.cc : 49 <updateChannel>] fd = 14, events = 3, stauts = kEnumNew
+2021-02-03 20:45:13 [trace] [tid : 102606] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-02-03 20:45:13 [trace] [tid : 102606] [EventLoop.cc : 63 <loop>] EventLoop 0x7fe78f487d80 start looping
+2021-02-03 20:45:13 [trace] [tid : 102606] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:45:13 [trace] [tid : 102607] [Epoll.cc : 49 <updateChannel>] fd = 16, events = 3, stauts = kEnumNew
+2021-02-03 20:45:13 [trace] [tid : 102607] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-02-03 20:45:13 [trace] [tid : 102607] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fe78ec86d80 
+2021-02-03 20:45:13 [trace] [tid : 102607] [Epoll.cc : 49 <updateChannel>] fd = 17, events = 3, stauts = kEnumNew
+2021-02-03 20:45:13 [trace] [tid : 102607] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-02-03 20:45:13 [trace] [tid : 102607] [EventLoop.cc : 63 <loop>] EventLoop 0x7fe78ec86d80 start looping
+2021-02-03 20:45:13 [trace] [tid : 102607] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:45:13 [trace] [tid : 102608] [Epoll.cc : 49 <updateChannel>] fd = 19, events = 3, stauts = kEnumNew
+2021-02-03 20:45:13 [trace] [tid : 102608] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 19, event = [19: IN PRI ]
+2021-02-03 20:45:13 [trace] [tid : 102608] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fe78e485d80 
+2021-02-03 20:45:13 [trace] [tid : 102608] [Epoll.cc : 49 <updateChannel>] fd = 21, events = 3, stauts = kEnumNew
+2021-02-03 20:45:13 [trace] [tid : 102608] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 21, event = [21: IN PRI ]
+2021-02-03 20:45:13 [trace] [tid : 102608] [EventLoop.cc : 63 <loop>] EventLoop 0x7fe78e485d80 start looping
+2021-02-03 20:45:13 [trace] [tid : 102608] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:45:13 [trace] [tid : 102599] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kEnumNew
+2021-02-03 20:45:13 [trace] [tid : 102599] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-02-03 20:45:13 [trace] [tid : 102599] [EventLoop.cc : 63 <loop>] EventLoop 0x7ffcf0d11380 start looping
+2021-02-03 20:45:13 [trace] [tid : 102599] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-03 20:46:49 [trace] [tid : 102853] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kEnumNew
+2021-02-03 20:46:49 [trace] [tid : 102853] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-02-03 20:46:49 [trace] [tid : 102853] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7ffcae615cc0 
+2021-02-03 20:46:49 [trace] [tid : 102853] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kEnumNew
+2021-02-03 20:46:49 [trace] [tid : 102853] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-02-03 20:46:49 [trace] [tid : 102859] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kEnumNew
+2021-02-03 20:46:49 [trace] [tid : 102859] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-02-03 20:46:49 [trace] [tid : 102859] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7ff7d105fd80 
+2021-02-03 20:46:49 [trace] [tid : 102859] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kEnumNew
+2021-02-03 20:46:49 [trace] [tid : 102859] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-02-03 20:46:49 [trace] [tid : 102859] [EventLoop.cc : 63 <loop>] EventLoop 0x7ff7d105fd80 start looping
+2021-02-03 20:46:49 [trace] [tid : 102859] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:46:49 [trace] [tid : 102860] [Epoll.cc : 49 <updateChannel>] fd = 13, events = 3, stauts = kEnumNew
+2021-02-03 20:46:49 [trace] [tid : 102860] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-02-03 20:46:49 [trace] [tid : 102860] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7ff7d085ed80 
+2021-02-03 20:46:49 [trace] [tid : 102860] [Epoll.cc : 49 <updateChannel>] fd = 14, events = 3, stauts = kEnumNew
+2021-02-03 20:46:49 [trace] [tid : 102860] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-02-03 20:46:49 [trace] [tid : 102860] [EventLoop.cc : 63 <loop>] EventLoop 0x7ff7d085ed80 start looping
+2021-02-03 20:46:49 [trace] [tid : 102860] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:46:49 [trace] [tid : 102861] [Epoll.cc : 49 <updateChannel>] fd = 16, events = 3, stauts = kEnumNew
+2021-02-03 20:46:49 [trace] [tid : 102861] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-02-03 20:46:49 [trace] [tid : 102861] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7ff7cbffed80 
+2021-02-03 20:46:49 [trace] [tid : 102861] [Epoll.cc : 49 <updateChannel>] fd = 17, events = 3, stauts = kEnumNew
+2021-02-03 20:46:49 [trace] [tid : 102861] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-02-03 20:46:49 [trace] [tid : 102861] [EventLoop.cc : 63 <loop>] EventLoop 0x7ff7cbffed80 start looping
+2021-02-03 20:46:49 [trace] [tid : 102861] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:46:49 [trace] [tid : 102862] [Epoll.cc : 49 <updateChannel>] fd = 19, events = 3, stauts = kEnumNew
+2021-02-03 20:46:49 [trace] [tid : 102862] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 19, event = [19: IN PRI ]
+2021-02-03 20:46:49 [trace] [tid : 102862] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7ff7cb7fdd80 
+2021-02-03 20:46:49 [trace] [tid : 102862] [Epoll.cc : 49 <updateChannel>] fd = 21, events = 3, stauts = kEnumNew
+2021-02-03 20:46:49 [trace] [tid : 102862] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 21, event = [21: IN PRI ]
+2021-02-03 20:46:49 [trace] [tid : 102862] [EventLoop.cc : 63 <loop>] EventLoop 0x7ff7cb7fdd80 start looping
+2021-02-03 20:46:49 [trace] [tid : 102862] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:46:49 [trace] [tid : 102853] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kEnumNew
+2021-02-03 20:46:49 [trace] [tid : 102853] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-02-03 20:46:49 [trace] [tid : 102853] [EventLoop.cc : 63 <loop>] EventLoop 0x7ffcae615cc0 start looping
+2021-02-03 20:46:49 [trace] [tid : 102853] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-03 20:46:51 [trace] [tid : 102853] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-03 20:46:51 [trace] [tid : 102853] [EventLoop.cc : 209 <printActiveChannels>] [ 7: IN PRI  ]
+2021-02-03 20:46:51 [trace] [tid : 102853] [Channel.cc : 71 <handleEventWithGuard>] 7: IN PRI 
+2021-02-03 20:46:51 [trace] [tid : 102853] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:48360
+2021-02-03 20:46:51 [info] [tid : 102853] [TcpServer.cc : 56 <newConnection>] TcpServer::newConnection [TestServer] - new connection [TestServer-0.0.0.0:8888#1] from 127.0.0.1:48360 
+2021-02-03 20:46:51 [debug] [tid : 102853] [TcpConnection.cc : 25 <TcpConnection>] TcpConnection::ctor[ TestServer-0.0.0.0:8888#1 ] at 0x2018930 fd = 22 
+2021-02-03 20:46:51 [trace] [tid : 102853] [TcpServer.cc : 61 <newConnection>] [1] usecount = 1
+2021-02-03 20:46:51 [trace] [tid : 102853] [TcpServer.cc : 63 <newConnection>] [2] usecount = 2
+2021-02-03 20:46:51 [trace] [tid : 102853] [TcpServer.cc : 68 <newConnection>] [5] usecount = 3
+2021-02-03 20:46:51 [trace] [tid : 102853] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-03 20:46:51 [trace] [tid : 102859] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-03 20:46:51 [trace] [tid : 102859] [EventLoop.cc : 209 <printActiveChannels>] [ 11: IN PRI  ]
+2021-02-03 20:46:51 [trace] [tid : 102859] [Channel.cc : 71 <handleEventWithGuard>] 11: IN PRI 
+2021-02-03 20:46:51 [trace] [tid : 102859] [TcpConnection.cc : 38 <connectEstablished>] [3] usecount = 3
+2021-02-03 20:46:51 [trace] [tid : 102859] [Epoll.cc : 49 <updateChannel>] fd = 22, events = 3, stauts = kEnumNew
+2021-02-03 20:46:51 [trace] [tid : 102859] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 22, event = [22: IN PRI ]
+2021-02-03 20:46:51 [trace] [tid : 102859] [TcpConnection.cc : 43 <connectEstablished>] [4] usecount = 3
+2021-02-03 20:46:51 [trace] [tid : 102859] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-03 20:46:59 [trace] [tid : 102853] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-03 20:46:59 [trace] [tid : 102853] [EventLoop.cc : 209 <printActiveChannels>] [ 7: IN PRI  ]
+2021-02-03 20:46:59 [trace] [tid : 102853] [Channel.cc : 71 <handleEventWithGuard>] 7: IN PRI 
+2021-02-03 20:46:59 [trace] [tid : 102853] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:48362
+2021-02-03 20:46:59 [info] [tid : 102853] [TcpServer.cc : 56 <newConnection>] TcpServer::newConnection [TestServer] - new connection [TestServer-0.0.0.0:8888#2] from 127.0.0.1:48362 
+2021-02-03 20:46:59 [debug] [tid : 102853] [TcpConnection.cc : 25 <TcpConnection>] TcpConnection::ctor[ TestServer-0.0.0.0:8888#2 ] at 0x2018c60 fd = 23 
+2021-02-03 20:46:59 [trace] [tid : 102853] [TcpServer.cc : 61 <newConnection>] [1] usecount = 1
+2021-02-03 20:46:59 [trace] [tid : 102853] [TcpServer.cc : 63 <newConnection>] [2] usecount = 2
+2021-02-03 20:46:59 [trace] [tid : 102853] [TcpServer.cc : 68 <newConnection>] [5] usecount = 3
+2021-02-03 20:46:59 [trace] [tid : 102860] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-03 20:46:59 [trace] [tid : 102853] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-03 20:46:59 [trace] [tid : 102860] [EventLoop.cc : 209 <printActiveChannels>] [ 14: IN PRI  ]
+2021-02-03 20:46:59 [trace] [tid : 102860] [Channel.cc : 71 <handleEventWithGuard>] 14: IN PRI 
+2021-02-03 20:46:59 [trace] [tid : 102860] [TcpConnection.cc : 38 <connectEstablished>] [3] usecount = 3
+2021-02-03 20:46:59 [trace] [tid : 102860] [Epoll.cc : 49 <updateChannel>] fd = 23, events = 3, stauts = kEnumNew
+2021-02-03 20:46:59 [trace] [tid : 102860] [Epoll.cc : 117 <update>] epoll_ctl op = ADD, fd = 23, event = [23: IN PRI ]
+2021-02-03 20:46:59 [trace] [tid : 102860] [TcpConnection.cc : 43 <connectEstablished>] [4] usecount = 3
+2021-02-03 20:46:59 [trace] [tid : 102860] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-03 20:46:59 [trace] [tid : 102861] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-02-03 20:46:59 [trace] [tid : 102861] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:46:59 [trace] [tid : 102862] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-02-03 20:46:59 [trace] [tid : 102862] [Epoll.cc : 21 <wait>] fd total count 2
+2021-02-03 20:47:01 [trace] [tid : 102859] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-02-03 20:47:01 [trace] [tid : 102859] [Epoll.cc : 21 <wait>] fd total count 3
