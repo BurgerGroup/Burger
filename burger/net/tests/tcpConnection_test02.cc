@@ -17,8 +17,6 @@ using namespace burger::net;
 8 ... 连接的
 */
 
-
-
 class TestServer {
 public:
     TestServer(EventLoop* loop, const InetAddress& listenAddr) :
