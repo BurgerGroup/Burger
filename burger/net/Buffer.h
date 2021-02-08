@@ -34,6 +34,7 @@ public:
 
     char* beginWrite() { return begin() + writerIndex_; }
     const char* beginWrite() const { return begin() + writerIndex_; }
+    void hasWritten(size_t len);
     // 获取可读数据的指针地址，类似vector中的data()
     const char* peek() const { return begin() + readrIndex_; }
     // 从起始位置开始查找 \r\n
@@ -54,11 +55,36 @@ public:
     std::string retrieveAsString(size_t len);
     std::string retrieveAllAsString();
 
+    void append(const std::string& str);
+    void append(const char* data, size_t len);
+    void append(const void* data, size_t len);
 
+    void prepend(const void* data, size_t len);
+
+    void ensureWritableBytes(size_t len);
+    
+    void shrink(size_t reserve);
+
+    // Peek int from network endian，但不从buffer中删除
+    int64_t peekInt64() const;
+    int32_t peekInt32() const;
+    int16_t peekInt16() const;
+    int8_t peekInt8() const;
+    // Read int from network endian, 从buffer里读出后删除
+    int64_t readInt64();
+    int32_t readInt32();
+    int16_t readInt16();
+    int8_t readInt8();
+    // 使用网络字节序写入一个整数
+    void appendInt64(int64_t x);
+    void appendInt32(int32_t x);
+    void appendInt16(int16_t x);
+    void appendInt8(int8_t x);
+    
 private:
     char* begin() { return &*buffer_.begin(); }
-    const char* begin() const { &*buffer_.begin(); }
-
+    const char* begin() const { return &*buffer_.begin(); }
+    void makeSpace(size_t len);
 
 
 private:
