@@ -20,6 +20,7 @@ namespace net {
 /// 0      <=      readerIndex   <=   writerIndex    <=     size
 /// @endcode
 
+// 非线程安全
 class Buffer : public burger::copyable {
 public:
     static const size_t kCheapPrepend = 8;
@@ -81,11 +82,11 @@ public:
     void appendInt16(int16_t x);
     void appendInt8(int8_t x);
     
+    ssize_t readFd(int fd, int* savedErrno);
 private:
     char* begin() { return &*buffer_.begin(); }
     const char* begin() const { return &*buffer_.begin(); }
     void makeSpace(size_t len);
-
 
 private:
     std::vector<char> buffer_;

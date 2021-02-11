@@ -2,6 +2,7 @@
 #include "Endian.h"
 #include "burger/base/Log.h"
 #include "burger/base/Util.h"
+#include <sys/uio.h>  // readv
 using namespace burger;
 using namespace burger::net;
 
@@ -96,7 +97,7 @@ int sockets::accept(int sockfd, struct sockaddr_in& addrin) {
 }
 
 // TODO : CHECK
-ssize_t sockets::write(int sockfd, std::string msg) {
+ssize_t sockets::write(int sockfd, const std::string& msg) {
     return ::write(sockfd, msg.c_str(), msg.length());
 }
 
@@ -108,6 +109,11 @@ ssize_t sockets::write(int sockfd, const void *buf, size_t count) {
 ssize_t sockets::read(int sockfd, void *buf, size_t count) {
     return ::read(sockfd, buf, count);
 }
+
+ssize_t sockets::readv(int sockfd, const struct iovec *iov, int iovcnt) {
+    return ::readv(sockfd, iov, iovcnt);
+}
+
 
 void sockets::ipPortToAddrin(const std::string& ip, uint16_t port, 
                         struct sockaddr_in* addr) {

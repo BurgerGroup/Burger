@@ -11,8 +11,6 @@ using namespace burger::net;
 
 */
 
-
-
 void onConnection(const TcpConnectionPtr& conn) {
     if(conn->isConnected()) {
         std::cout << "onConnection(): new connection [" 

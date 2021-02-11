@@ -7,6 +7,7 @@
 #include "burger/base/Timestamp.h"
 #include "InetAddress.h"
 #include "Callbacks.h"
+#include "Buffer.h"
 
 namespace burger {
 namespace net {
@@ -29,6 +30,16 @@ public:
     const InetAddress& getLocalAddress() const { return localAddr_; }
     const InetAddress& getPeerAddress() const { return peerAddr_; }
     bool isConnected() const { return status_ == Status::kConnected; }
+    bool getTcpInfo(struct tcp_info&) const;
+    std::string getTcpInfoString() const;
+    void send(const std::string& message);
+    // void send(std::string&& message);  // todo
+    void send(const Buffer& buf);
+    // void send(Buffer&& message);  // todo
+    void shutdown(); // NOT thread safe
+    void forceClose();
+    void forceCloseWithDelay(double seconds);
+    void setTcpNoDelay(bool on);
     
     void setConnectionCallback(const ConnectionCallback& cb) { connectionCallback_ = cb; }
     void setMessageCallback(const MessageCallback& cb) { messageCallback_ = cb; }
@@ -46,6 +57,7 @@ private:
     void handleRead(Timestamp receiveTime);
     void handleClose();
     void handleError();
+    void sendInLoop(const std::string& message);
     EventLoop* loop_;
     const std::string connName_;
     Status status_;
@@ -53,9 +65,13 @@ private:
     std::unique_ptr<Channel> channel_; 
     const InetAddress localAddr_;
     const InetAddress peerAddr_;
-    ConnectionCallback connectionCallback_;
+    ConnectionCallback connectionCallback_;   // 连接建立和关闭时的回调函数
     MessageCallback messageCallback_;
+    WriteCompleteCallback writeCompleteCallback_;   // 消息写入对方缓冲区是的回调函数
     CloseCallback closeCallback_;
+
+    Buffer inputBuffer_;
+    Buffer outputBuffer_;
 };
 
 using TcpConnectionPtr = std::shared_ptr<TcpConnection>;

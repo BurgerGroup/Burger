@@ -1,5 +1,8 @@
 #include "Buffer.h"
 #include "Endian.h"
+#include <sys/uio.h>
+#include "SocketsOps.h"
+#include "burger/base/Util.h"
 
 using namespace burger;
 using namespace burger::net;
@@ -177,7 +180,7 @@ void Buffer::appendInt64(int64_t x) {
 }
 
 void Buffer::appendInt32(int32_t x) {
-    int64_t be32 = sockets::hostToNetwork32(x);
+    int32_t be32 = sockets::hostToNetwork32(x);
     append(&be32, sizeof(be32));
 }
 
@@ -190,13 +193,33 @@ void Buffer::appendInt8(int8_t x)  {
     append(&x, sizeof(x));
 }
 
-
-
-
-
-
-
-
+// 结合栈上的空间，避免内存使用过大，提高内存使用率
+// 如果有5K个链接，每个连接都分配64K的（发生/接收）缓冲区的话，将独占640M内存
+// 而大多数时候，缓冲区的使用率都很低
+// https://www.cnblogs.com/solstice/archive/2011/04/17/2018801.html
+ssize_t Buffer::readFd(int fd, int* savedErrno) {
+    char extrabuf[65536];
+    struct iovec vec[2];
+    const size_t writableBytes = getWritableBytes();
+    vec[0].iov_base = begin() + writerIndex_;
+    vec[0].iov_len = writableBytes;
+    vec[1].iov_base = extrabuf;
+    vec[1].iov_len = sizeof(extrabuf);
+    // when there is enough space in this buffer, don't read into extrabuf.
+    // when extrabuf is used, we read 128k-1 bytes at most.
+    // 这样只用调用一次readv
+    const int iovcnt = (writableBytes < sizeof(extrabuf)) ? 2 : 1;
+    const ssize_t n = sockets::readv(fd, vec, iovcnt);
+    if(n < 0) {
+        *savedErrno = errno;
+    } else if(implicit_cast<size_t>(n) <= writableBytes) {
+        writerIndex_ += n;
+    } else {
+        writerIndex_ = buffer_.size();
+        append(extrabuf, n - writableBytes);
+    }
+    return n;
+}
 
 
 void Buffer::makeSpace(size_t len) {

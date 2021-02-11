@@ -150,11 +150,15 @@ void output(Buffer&& buf, const void* inner) {
 }
 
 // NOTE: This test fails in g++ 4.4, passes in g++ 4.6.
-TEST(testMove, move)
-{
-  Buffer buf;
-  buf.append("muduo", 5);
-  const void* inner = buf.peek();
-  // printf("Buffer at %p, inner %p\n", &buf, inner);
-  output(std::move(buf), inner);
+TEST(testMove, move) {
+    Buffer buf;
+    buf.append("muduo");
+    const void* inner = buf.peek();
+    // printf("Buffer at %p, inner %p\n", &buf, inner);
+    output(std::move(buf), inner);
+}
+
+int main(int argc, char **argv) {
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

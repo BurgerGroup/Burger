@@ -31,6 +31,24 @@ TcpConnection::~TcpConnection() {
             connName_, fmt::ptr(this), channel_->getFd(), statusToStr());
 }
 
+bool TcpConnection::getTcpInfo(struct tcp_info& tcpi) const {
+    return socket_->getTcpinfo(tcpi);
+}
+
+std::string TcpConnection::getTcpInfoString() const {
+    return socket_->getTcpInfoString();
+}
+// 线程安全，可以跨线程调用
+void TcpConnection::send(const std::string& message) {
+    if(status_ == Status::kConnected) {
+        if(loop_->isInLoopThread()) {
+            sendInLoop(message);
+        }
+    }
+}
+
+
+
 void TcpConnection::connectEstablished() {
     loop_->assertInLoopThread();
     assert(status_ == Status::kConnecting);
@@ -72,10 +90,9 @@ const std::string TcpConnection::statusToStr() const {
 void TcpConnection::handleRead(Timestamp receiveTime) {
     loop_->assertInLoopThread();
     int savedErrno = 0;
-    char buf[65536];
-    ssize_t n = ::read(channel_->getFd(), buf, sizeof(buf));
+    ssize_t n = inputBuffer_.readFd(channel_->getFd(), &savedErrno);
     if(n > 0) {
-        messageCallback_(shared_from_this(), buf, n);
+        messageCallback_(shared_from_this(), &inputBuffer_, n);
     } else if(n == 0) {
         handleClose();
     } else {
@@ -103,4 +120,37 @@ void TcpConnection::handleError() {
     int err = sockets::getSocketError(channel_->getFd());
     // todo : wrap strerror_r
     ERROR("TcpConnection::handleError [{}] - SO_ERROR = {} : {}", connName_, err, strerror(err));
+}
+
+// TODO 
+// 如果数据不能一次发完，则打开channel的写事件开关，分开几次发。
+void TcpConnection::sendInLoop(const std::string& message) {
+    loop_->assertInLoopThread();
+    ssize_t nwrote = 0; 
+    size_t remaining = message.size();
+    bool faultError = false;
+    if(status_ == Status::kDisconnected) { 
+        WARN("Disconnected, give up writing!");
+        return;
+    }
+    // ???? todo 如果当前channel没有写事件发生，或者发送buffer已经清空，那么就不通过缓冲区直接发送数据
+    if(!channel_->isWriting() && outputBuffer_.getReadableBytes()) {
+        nwrote = sockets::write(channel_->getFd(), message);
+        if(nwrote >= 0) {
+            remaining -= nwrote;
+            if(remaining == 0 && writeCompleteCallback_) {
+                loop_->queueInLoop(std::bind(writeCompleteCallback_, shared_from_this()));
+            }
+        } else {
+            nwrote = 0;
+            // TODO 理一下错误处理
+            if(errno != EWOULDBLOCK) {
+                ERROR("TcpConnection::sendInLoop");
+                if(errno == EPIPE || errno == ECONNRESET) {
+                    faultError = true;
+                }
+            }
+        }
+    }
+
 }
