@@ -9,6 +9,9 @@
 #include "Callbacks.h"
 #include "Buffer.h"
 
+// struct tcp_info is in <netinet/tcp.h>
+struct tcp_info;
+
 namespace burger {
 namespace net {
 class EventLoop;
@@ -34,7 +37,7 @@ public:
     std::string getTcpInfoString() const;
     void send(const std::string& message);
     // void send(std::string&& message);  // todo
-    void send(const Buffer& buf);
+    void send(Buffer& buf);
     // void send(Buffer&& message);  // todo
     void shutdown(); // NOT thread safe
     void forceClose();
@@ -58,6 +61,7 @@ private:
     void handleClose();
     void handleError();
     void sendInLoop(const std::string& message);
+    void sendInLoop(const void* data, size_t len);
     EventLoop* loop_;
     const std::string connName_;
     Status status_;

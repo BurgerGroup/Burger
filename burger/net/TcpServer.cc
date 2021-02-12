@@ -15,8 +15,9 @@ TcpServer::TcpServer(EventLoop* loop, const InetAddress& listenAddr,
     hostIpPort_(listenAddr.getIpPortStr()),
     hostName_(hostName),
     acceptor_(util::make_unique<Acceptor>(loop, listenAddr, reuseport)),
-    //...
     threadPool_(util::make_unique<EventLoopThreadPool>(loop)), // base loop
+    connectionCallback_(defaultConnectionCallback),
+    messageCallback_(defaultMessageCallback),
     nextConnId_(1) {
     assert(loop);
     acceptor_->setNewConnectionCallback(

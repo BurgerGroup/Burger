@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <memory>
+#include "burger/base/Timestamp.h"
 
 namespace burger {
 namespace net {
@@ -19,6 +20,12 @@ using WriteCompleteCallback = std::function<void (const TcpConnectionPtr&)>;
 using MessageCallback = std::function<void (const TcpConnectionPtr&,
                                                     Buffer*,
                                                     Timestamp)>;
+// 声明于此，实现在Tcpconnection里面, 然后在Tcpserver里设置
+// TODO : 为何这么做                                                 
+void defaultConnectionCallback(const TcpConnectionPtr& conn);
+void defaultMessageCallback(const TcpConnectionPtr& conn,
+                            Buffer* buffer,
+                            Timestamp receiveTime);
 
 } // namespace net
 

@@ -17,6 +17,11 @@ using namespace burger::net;
 8 ... 连接的
 */
 
+/**
+ * telnet 127.0.0.1 8888
+ * send data and echo
+ */
+
 class TestServer {
 public:
     TestServer(EventLoop* loop, const InetAddress& listenAddr) :

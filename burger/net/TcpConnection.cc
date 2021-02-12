@@ -6,6 +6,19 @@
 using namespace burger;
 using namespace burger::net;
 
+void burger::net::defaultConnectionCallback(const TcpConnectionPtr& conn) {
+    TRACE("{} -> {} is {}", conn->getLocalAddress().getIpPortStr(), 
+            conn->getPeerAddress().getIpPortStr(), (conn->isConnected() ? "UP" : "DOWN"));
+    // do not call conn->forceClose(), because some users want to register message callback only.
+}
+
+void burger::net::defaultMessageCallback(const TcpConnectionPtr&,
+                                        Buffer* buf,
+                                        Timestamp) {
+    buf->retrieveAll();
+}
+
+
 TcpConnection::TcpConnection(EventLoop* loop, 
                 const std::string& connName,
                 int sockfd,
@@ -43,11 +56,27 @@ void TcpConnection::send(const std::string& message) {
     if(status_ == Status::kConnected) {
         if(loop_->isInLoopThread()) {
             sendInLoop(message);
+        } else {
+            void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
+            loop_->runInLoop(std::bind(fp, this, message));
+            // todo : 为什么不写成下面这样
+            // loop_->runInLoop(std::bind(&TcpConnection::sendInLoop, this, message));
         }
     }
 }
 
-
+void TcpConnection::send(Buffer& buf) {
+    if(status_ == Status::kConnected) {
+        if(loop_->isInLoopThread()) {
+            sendInLoop(buf.peek(), buf.getReadableBytes());
+            buf.retrieveAll();
+        } else {
+            void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
+            loop_->runInLoop(std::bind(fp, this, buf.retrieveAllAsString()));
+        //    loop_->runInLoop(std::bind(&TcpConnection::sendInLoop, this, buf.retrieveAllAsString()));  // TODO: 这里为什么要用string，不用data + len
+        }
+    }
+}
 
 void TcpConnection::connectEstablished() {
     loop_->assertInLoopThread();
@@ -92,7 +121,7 @@ void TcpConnection::handleRead(Timestamp receiveTime) {
     int savedErrno = 0;
     ssize_t n = inputBuffer_.readFd(channel_->getFd(), &savedErrno);
     if(n > 0) {
-        messageCallback_(shared_from_this(), &inputBuffer_, n);
+        messageCallback_(shared_from_this(), &inputBuffer_, receiveTime);
     } else if(n == 0) {
         handleClose();
     } else {
@@ -125,32 +154,39 @@ void TcpConnection::handleError() {
 // TODO 
 // 如果数据不能一次发完，则打开channel的写事件开关，分开几次发。
 void TcpConnection::sendInLoop(const std::string& message) {
+    sendInLoop(message.c_str(), message.size());
+}
+
+void TcpConnection::sendInLoop(const void* data, size_t len) {
     loop_->assertInLoopThread();
-    ssize_t nwrote = 0; 
-    size_t remaining = message.size();
-    bool faultError = false;
-    if(status_ == Status::kDisconnected) { 
-        WARN("Disconnected, give up writing!");
-        return;
-    }
-    // ???? todo 如果当前channel没有写事件发生，或者发送buffer已经清空，那么就不通过缓冲区直接发送数据
-    if(!channel_->isWriting() && outputBuffer_.getReadableBytes()) {
-        nwrote = sockets::write(channel_->getFd(), message);
-        if(nwrote >= 0) {
-            remaining -= nwrote;
-            if(remaining == 0 && writeCompleteCallback_) {
-                loop_->queueInLoop(std::bind(writeCompleteCallback_, shared_from_this()));
-            }
-        } else {
-            nwrote = 0;
-            // TODO 理一下错误处理
-            if(errno != EWOULDBLOCK) {
-                ERROR("TcpConnection::sendInLoop");
-                if(errno == EPIPE || errno == ECONNRESET) {
-                    faultError = true;
-                }
-            }
-        }
-    }
+    sockets::write(channel_->getFd(), data, len);
+    // ssize_t nwrote = 0; 
+    // size_t remaining = len;
+    // bool faultError = false;
+    // if(status_ == Status::kDisconnected) { 
+    //     WARN("Disconnected, give up writing!");
+    //     return;
+    // }
+    // // ???? todo 如果当前channel没有写事件发生，或者发送buffer已经清空，那么就不通过缓冲区直接发送数据
+    // if(!channel_->isWriting() && outputBuffer_.getReadableBytes() == 0) {
+    //     nwrote = sockets::write(channel_->getFd(), message, len);
+    //     if(nwrote >= 0) {
+    //         remaining = len - nwrote;
+    //         if(remaining == 0 && writeCompleteCallback_) {
+    //             loop_->queueInLoop(std::bind(writeCompleteCallback_, shared_from_this()));
+    //         }
+    //     } else {
+    //         nwrote = 0;
+    //         // TODO 理一下错误处理
+    //         if(errno != EWOULDBLOCK) {
+    //             ERROR("TcpConnection::sendInLoop");
+    //             if(errno == EPIPE || errno == ECONNRESET) {
+    //                 faultError = true;
+    //             }
+    //         }
+    //     }
+    // }
+    // assert(remaining <= len);
+    // if (!faultError && remaining > 0) {
 
 }

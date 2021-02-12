@@ -37,9 +37,11 @@ private:
     }
 
     void onMessage(const TcpConnectionPtr& conn, 
-                    const char* data, ssize_t len) {
-        std::cout << "onMessage(): received " << len 
-            << " bytes from connection " << conn->getName() << std::endl;
+                    Buffer* buf, Timestamp receiveTime) {
+        std::string msg(buf->retrieveAllAsString());
+        std::cout << "onMessage(): received " << msg.size() 
+            << " bytes from connection " << conn->getName() 
+            << "at " << receiveTime.toString() << std::endl;
     }   
 
 private:
