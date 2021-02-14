@@ -25,11 +25,9 @@ class Channel;
 
 class EventLoop : boost::noncopyable {
 public:
-    using ptr = std::shared_ptr<EventLoop>;
     using Functor = std::function<void()>;
     EventLoop();
     ~EventLoop();
-    static ptr create();
     void loop();
     void quit();
     Timestamp epollWaitRetrunTime() const { return epollWaitReturnTime_; }

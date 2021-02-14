@@ -10,7 +10,7 @@
 using namespace burger;
 using namespace burger::net;
 
-std::shared_ptr<EventLoop> g_loop;
+EventLoop* g_loop;
 
 void ThreadFunc() {
     g_loop->loop(); 
@@ -18,12 +18,8 @@ void ThreadFunc() {
 }
 
 int main() {
-    if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
-        std::cout << "Logger init error" << std::endl;
-		return 1;
-	}
-    auto loop = std::make_shared<EventLoop>();
-    g_loop = loop;
+    EventLoop loop;
+    g_loop = &loop;
     std::thread t1(ThreadFunc);
     t1.join();
     return 0;

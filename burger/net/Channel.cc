@@ -4,6 +4,10 @@
 using namespace burger;
 using namespace burger::net;
 
+const uint32_t Channel::kNoneEvent = 0;
+const uint32_t Channel::kReadEvent = EPOLLIN | EPOLLPRI;  // EPOLLPRI 外带数据
+const uint32_t Channel::kWriteEvent = EPOLLOUT;
+
 Channel::Channel(EventLoop* loop, int fd):
     loop_(loop),
     fd_(fd),
@@ -16,6 +20,7 @@ Channel::Channel(EventLoop* loop, int fd):
 
 Channel::~Channel() {
     assert(!eventHandling_);
+    // TODO : 理一下:Epoll 不拥有Channel,Channel在析构之前必须先unregister,避免空悬指针
     assert(!addedToEpoll_);
     if (loop_->isInLoopThread()) {
         assert(!loop_->hasChannel(this));
@@ -65,7 +70,7 @@ std::string Channel::statusTostr(Status status) {
     return "UNKNOWN";
 }
 
-// TODO
+// TODO 为什么需要个withGuard
 void Channel::handleEventWithGuard(Timestamp receiveTime) {
     eventHandling_ = true;
     TRACE("{}", eventsToString());
@@ -115,9 +120,5 @@ void Channel::tie(const std::shared_ptr<void>& obj) {
     tied_ = true;
 }
 
-
-const uint32_t Channel::kNoneEvent = 0;
-const uint32_t Channel::kReadEvent = EPOLLIN | EPOLLPRI;  // EPOLLPRI 外带数据
-const uint32_t Channel::kWriteEvent = EPOLLOUT;
 
 

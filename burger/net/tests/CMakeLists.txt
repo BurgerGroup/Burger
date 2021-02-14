@@ -1,38 +1,41 @@
 
-add_executable(Reactor_test01 Reactor_test01.cc)
-target_link_libraries(Reactor_test01 burger_net)
+add_executable(EventLoop_test01 EventLoop_test01.cc)
+target_link_libraries(EventLoop_test01 burger_net)
 
-add_executable(Reactor_test02 Reactor_test02.cc)
-target_link_libraries(Reactor_test02 burger_net)
+add_executable(EventLoop_test02 EventLoop_test02.cc)
+target_link_libraries(EventLoop_test02 burger_net)
 
-add_executable(timerfd_test timerfd_test.cc)
-target_link_libraries(timerfd_test burger_net)
+add_executable(EventLoop_test03 EventLoop_test03.cc)
+target_link_libraries(EventLoop_test03 burger_net)
 
-add_executable(timer_test timer_test.cc)
-target_link_libraries(timer_test burger_net)
+# add_executable(timerfd_test timerfd_test.cc)
+# target_link_libraries(timerfd_test burger_net)
 
-add_executable(EventLoopThread_test EventLoopThread_test.cc)
-target_link_libraries(EventLoopThread_test burger_net)
+# add_executable(timer_test timer_test.cc)
+# target_link_libraries(timer_test burger_net)
 
-add_executable(InetAddress_unittest InetAddress_unittest.cc)
-target_link_libraries(InetAddress_unittest burger_net)
-add_test(NAME InetAddress_unittest COMMAND InetAddress_unittest)
+# add_executable(EventLoopThread_test EventLoopThread_test.cc)
+# target_link_libraries(EventLoopThread_test burger_net)
+
+# add_executable(InetAddress_unittest InetAddress_unittest.cc)
+# target_link_libraries(InetAddress_unittest burger_net)
+# add_test(NAME InetAddress_unittest COMMAND InetAddress_unittest)
 
 # add_executable(Socket_unittest Socket_unittest.cc)
 # target_link_libraries(Socket_unittest burger_net)
 
-add_executable( Acceptor_test Acceptor_test.cc)
-target_link_libraries(Acceptor_test burger_net)
+# add_executable( Acceptor_test Acceptor_test.cc)
+# target_link_libraries(Acceptor_test burger_net)
 
 # add_executable(tcpConnection_test01 tcpConnection_test01.cc)
 # target_link_libraries(tcpConnection_test01 burger_net)
 
-add_executable(tcpConnection_test02 tcpConnection_test02.cc)
-target_link_libraries(tcpConnection_test02 burger_net)
+# add_executable(tcpConnection_test02 tcpConnection_test02.cc)
+# target_link_libraries(tcpConnection_test02 burger_net)
 
-add_executable(EventLoopThreadPool_test EventLoopThreadPool_test.cc)
-target_link_libraries(EventLoopThreadPool_test burger_net)
+# add_executable(EventLoopThreadPool_test EventLoopThreadPool_test.cc)
+# target_link_libraries(EventLoopThreadPool_test burger_net)
 
-add_executable(Buffer_unittest Buffer_unittest.cc)
-target_link_libraries(Buffer_unittest burger_net)
-add_test(NAME Buffer_unittest COMMAND Buffer_unittest)
+# add_executable(Buffer_unittest Buffer_unittest.cc)
+# target_link_libraries(Buffer_unittest burger_net)
+# add_test(NAME Buffer_unittest COMMAND Buffer_unittest)

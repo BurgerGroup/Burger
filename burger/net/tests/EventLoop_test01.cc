@@ -11,15 +11,12 @@ using namespace burger::net;
 
 void threadFunc() {
     std::cout << "ThreadFunc : pid = " << getpid() 
-        << " tid = " << std::this_thread::get_id() << std::endl; 
+        << " tid = " << util::gettid() << std::endl; 
     EventLoop loop;
     loop.loop();
 }
 
 int main() {
-    if (!Logger::Instance().init("log", "logs/test.txt", spdlog::level::trace)) {
-		return 1;
-	}
     std::cout << "ThreadFunc : pid = " 
     << getpid() 
         << " tid = " << util::gettid() << std::endl; 

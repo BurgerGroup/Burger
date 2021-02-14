@@ -1,14 +1,11 @@
 #ifndef EPOLL_H
 #define EPOLL_H
 
-
-
 #include "burger/base/Timestamp.h"
 #include <boost/noncopyable.hpp>
 #include <vector>
 #include <memory>
 #include <map>
-
 #include <sys/epoll.h>
 
 namespace burger {
@@ -26,7 +23,6 @@ public:
     bool hasChannel(Channel* channel) const;
 
     void assertInLoopThread() const;
-
 private:
     void fillActiveChannels(int numEvents, 
                 std::vector<Channel*>& activeChannels) const;
@@ -34,10 +30,10 @@ private:
     static std::string operationToString(int op);
 private:
     static const int kInitEventListSize = 16;
-    std::map<int, Channel*> channelMap_;
-    EventLoop* ownerLoop_;
-    int epollFd_;
-    std::vector<struct epoll_event> eventList_;
+    std::map<int, Channel*> channelMap_;  
+    EventLoop* ownerLoop_;  
+    int epollFd_;   
+    std::vector<struct epoll_event> eventList_; 
 };
 
 } // namespace net

@@ -2,7 +2,8 @@
 
 ## TODO List 
 
-string view(piece)
+1. string view(piece)
 
+2. current tid
 
 
