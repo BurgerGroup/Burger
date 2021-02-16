@@ -61,7 +61,7 @@ public:
     void tie(const std::shared_ptr<void>&);
     int getFd() const { return fd_; }
     uint32_t getEvents() const { return events_; }
-    void setEvents(uint32_t event) { events_ = event; } 
+    void doNotLogHup() { logHup_ = false; }    
     EventLoop* ownerLoop() { return loop_; }
     void remove();
 
@@ -83,7 +83,7 @@ private:
     bool tied_;
     bool eventHandling_;
     bool addedToEpoll_;  //是否注册到Epoll中监听
-    bool logHup_;
+    bool logHup_;  
     ReadEventCallback readCallback_;
     EventCallback writeCallback_;
     EventCallback closeCallback_;

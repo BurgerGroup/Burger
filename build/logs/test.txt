@@ -773,3 +773,115 @@
 2021-02-15 19:28:27 [trace] [tid : 25722] [EventLoop.cc : 209 <printActiveChannels>] [ 7: IN PRI  ]
 2021-02-15 19:28:27 [trace] [tid : 25722] [Channel.cc : 76 <handleEventWithGuard>] 7: IN PRI 
 2021-02-15 19:28:27 [trace] [tid : 25722] [EventLoop.cc : 82 <loop>] EventLoop 0x7ffe31c52360 stop looping
+2021-02-15 20:27:03 [trace] [tid : 38225] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-02-15 20:27:03 [trace] [tid : 38225] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-02-15 20:27:03 [trace] [tid : 38225] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fffb5e85fa0 
+2021-02-15 20:27:03 [trace] [tid : 38225] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-02-15 20:27:03 [trace] [tid : 38225] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-02-15 20:27:03 [trace] [tid : 38225] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-02-15 20:27:03 [trace] [tid : 38225] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-02-15 20:27:03 [trace] [tid : 38225] [EventLoop.cc : 63 <loop>] EventLoop 0x7fffb5e85fa0 start looping
+2021-02-15 20:27:03 [trace] [tid : 38225] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-15 20:27:04 [trace] [tid : 38225] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-15 20:27:04 [trace] [tid : 38225] [EventLoop.cc : 209 <printActiveChannels>] [ 7: IN PRI  ]
+2021-02-15 20:27:04 [trace] [tid : 38225] [Channel.cc : 77 <handleEventWithGuard>] 7: IN PRI 
+2021-02-15 20:27:04 [trace] [tid : 38225] [EventLoop.cc : 82 <loop>] EventLoop 0x7fffb5e85fa0 stop looping
+2021-02-15 20:35:58 [trace] [tid : 40336] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kNew
+2021-02-15 20:35:58 [trace] [tid : 40336] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-02-15 20:35:58 [trace] [tid : 40336] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fffffffe030 
+2021-02-15 20:35:58 [trace] [tid : 40336] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kNew
+2021-02-15 20:35:58 [trace] [tid : 40336] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-02-15 20:35:58 [trace] [tid : 40336] [Epoll.cc : 49 <updateChannel>] fd = 12, events = 3, stauts = kNew
+2021-02-15 20:35:58 [trace] [tid : 40336] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 12, event = [12: IN PRI ]
+2021-02-15 20:36:00 [trace] [tid : 40336] [EventLoop.cc : 63 <loop>] EventLoop 0x7fffffffe030 start looping
+2021-02-15 20:36:00 [trace] [tid : 40336] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-15 20:36:00 [trace] [tid : 40336] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-15 20:36:00 [trace] [tid : 40336] [EventLoop.cc : 209 <printActiveChannels>] [ 12: IN PRI  ]
+2021-02-15 20:36:00 [trace] [tid : 40336] [Channel.cc : 77 <handleEventWithGuard>] 12: IN PRI 
+2021-02-15 20:36:00 [trace] [tid : 40336] [EventLoop.cc : 82 <loop>] EventLoop 0x7fffffffe030 stop looping
+2021-02-15 20:36:19 [trace] [tid : 40423] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kNew
+2021-02-15 20:36:19 [trace] [tid : 40423] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-02-15 20:36:19 [trace] [tid : 40423] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fffffffe030 
+2021-02-15 20:36:19 [trace] [tid : 40423] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kNew
+2021-02-15 20:36:19 [trace] [tid : 40423] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-02-15 20:36:19 [trace] [tid : 40423] [Epoll.cc : 49 <updateChannel>] fd = 12, events = 3, stauts = kNew
+2021-02-15 20:36:19 [trace] [tid : 40423] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 12, event = [12: IN PRI ]
+2021-02-15 20:36:22 [trace] [tid : 40423] [EventLoop.cc : 63 <loop>] EventLoop 0x7fffffffe030 start looping
+2021-02-15 20:36:22 [trace] [tid : 40423] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-15 20:36:22 [trace] [tid : 40423] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-15 20:36:22 [trace] [tid : 40423] [EventLoop.cc : 209 <printActiveChannels>] [ 12: IN PRI  ]
+2021-02-15 20:36:22 [trace] [tid : 40423] [Channel.cc : 77 <handleEventWithGuard>] 12: IN PRI 
+2021-02-15 20:36:22 [trace] [tid : 40423] [EventLoop.cc : 82 <loop>] EventLoop 0x7fffffffe030 stop looping
+2021-02-15 21:49:22 [trace] [tid : 58610] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-02-15 21:49:22 [trace] [tid : 58610] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-02-15 21:49:22 [trace] [tid : 58610] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7ffcbc83efe0 
+2021-02-15 21:49:22 [trace] [tid : 58610] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-02-15 21:49:22 [trace] [tid : 58610] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-02-15 21:49:22 [trace] [tid : 58610] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-02-15 21:49:22 [trace] [tid : 58610] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-02-15 21:49:22 [trace] [tid : 58610] [EventLoop.cc : 63 <loop>] EventLoop 0x7ffcbc83efe0 start looping
+2021-02-15 21:49:22 [trace] [tid : 58610] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-15 21:49:23 [trace] [tid : 58610] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-15 21:49:23 [trace] [tid : 58610] [EventLoop.cc : 209 <printActiveChannels>] [ 7: IN PRI  ]
+2021-02-15 21:49:23 [trace] [tid : 58610] [Channel.cc : 77 <handleEventWithGuard>] 7: IN PRI 
+2021-02-15 21:49:23 [trace] [tid : 58610] [EventLoop.cc : 82 <loop>] EventLoop 0x7ffcbc83efe0 stop looping
+2021-02-16 01:21:21 [trace] [tid : 96784] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-02-16 01:21:21 [trace] [tid : 96784] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-02-16 01:21:21 [trace] [tid : 96784] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fff4f07a070 
+2021-02-16 01:21:21 [trace] [tid : 96784] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-02-16 01:21:21 [trace] [tid : 96784] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-02-16 01:21:21 [trace] [tid : 96784] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-02-16 01:21:21 [trace] [tid : 96784] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-02-16 01:21:21 [trace] [tid : 96784] [EventLoop.cc : 63 <loop>] EventLoop 0x7fff4f07a070 start looping
+2021-02-16 01:21:21 [trace] [tid : 96784] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-16 01:21:22 [trace] [tid : 96784] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-16 01:21:22 [trace] [tid : 96784] [EventLoop.cc : 209 <printActiveChannels>] [ 7: IN PRI  ]
+2021-02-16 01:21:22 [trace] [tid : 96784] [Channel.cc : 76 <handleEventWithGuard>] 7: IN PRI 
+2021-02-16 01:21:22 [trace] [tid : 96784] [EventLoop.cc : 82 <loop>] EventLoop 0x7fff4f07a070 stop looping
+2021-02-16 01:22:52 [trace] [tid : 97320] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-02-16 01:22:52 [trace] [tid : 97320] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-02-16 01:22:52 [trace] [tid : 97320] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7ffc743ce600 
+2021-02-16 01:22:52 [trace] [tid : 97320] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-02-16 01:22:52 [trace] [tid : 97320] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-02-16 01:22:52 [trace] [tid : 97320] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-02-16 01:22:52 [trace] [tid : 97320] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-02-16 01:22:52 [trace] [tid : 97320] [EventLoop.cc : 63 <loop>] EventLoop 0x7ffc743ce600 start looping
+2021-02-16 01:22:52 [trace] [tid : 97320] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-16 01:22:53 [trace] [tid : 97320] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-16 01:22:53 [trace] [tid : 97320] [EventLoop.cc : 209 <printActiveChannels>] [ 7: IN PRI  ]
+2021-02-16 01:22:53 [trace] [tid : 97320] [Channel.cc : 76 <handleEventWithGuard>] 7: IN PRI 
+2021-02-16 01:22:53 [trace] [tid : 97320] [EventLoop.cc : 82 <loop>] EventLoop 0x7ffc743ce600 stop looping
+2021-02-16 01:22:53 [trace] [tid : 97320] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-02-16 01:22:53 [trace] [tid : 97320] [Epoll.cc : 120 <update>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-02-16 01:22:53 [error] [tid : 97320] [Epoll.cc : 124 <update>] epoll_ctl op = DEL, fd = 7 
+2021-02-16 01:22:53 [trace] [tid : 97320] [Epoll.cc : 82 <removeChannel>] fd = 7 
+2021-02-16 01:22:53 [debug] [tid : 97320] [EventLoop.cc : 51 <~EventLoop>] EventLoop 0x7ffc743ce600 of thread 97320 destructs
+2021-02-16 01:22:53 [trace] [tid : 97320] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 0, stauts = kAdded
+2021-02-16 01:22:53 [trace] [tid : 97320] [Epoll.cc : 120 <update>] epoll_ctl op = DEL, fd = 6, event = [6: ]
+2021-02-16 01:22:53 [trace] [tid : 97320] [Epoll.cc : 82 <removeChannel>] fd = 6 
+2021-02-16 01:22:53 [trace] [tid : 97320] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 0, stauts = kAdded
+2021-02-16 01:22:53 [trace] [tid : 97320] [Epoll.cc : 120 <update>] epoll_ctl op = DEL, fd = 5, event = [5: ]
+2021-02-16 01:22:53 [trace] [tid : 97320] [Epoll.cc : 82 <removeChannel>] fd = 5 
+2021-02-16 01:25:33 [trace] [tid : 97866] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-02-16 01:25:33 [trace] [tid : 97866] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-02-16 01:25:33 [trace] [tid : 97866] [EventLoop.cc : 33 <EventLoop>] EventLoop created 0x7fff2e5e9890 
+2021-02-16 01:25:33 [trace] [tid : 97866] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-02-16 01:25:33 [trace] [tid : 97866] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-02-16 01:25:33 [trace] [tid : 97866] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-02-16 01:25:33 [trace] [tid : 97866] [Epoll.cc : 120 <update>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-02-16 01:25:33 [trace] [tid : 97866] [EventLoop.cc : 63 <loop>] EventLoop 0x7fff2e5e9890 start looping
+2021-02-16 01:25:33 [trace] [tid : 97866] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-16 01:25:34 [trace] [tid : 97866] [Epoll.cc : 27 <wait>] 1 events happended
+2021-02-16 01:25:34 [trace] [tid : 97866] [EventLoop.cc : 209 <printActiveChannels>] [ 7: IN PRI  ]
+2021-02-16 01:25:34 [trace] [tid : 97866] [Channel.cc : 76 <handleEventWithGuard>] 7: IN PRI 
+2021-02-16 01:25:34 [trace] [tid : 97866] [EventLoop.cc : 82 <loop>] EventLoop 0x7fff2e5e9890 stop looping
+2021-02-16 01:25:34 [trace] [tid : 97866] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-02-16 01:25:34 [trace] [tid : 97866] [Epoll.cc : 120 <update>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-02-16 01:25:34 [trace] [tid : 97866] [Epoll.cc : 82 <removeChannel>] fd = 7 
+2021-02-16 01:25:34 [debug] [tid : 97866] [EventLoop.cc : 51 <~EventLoop>] EventLoop 0x7fff2e5e9890 of thread 97866 destructs
+2021-02-16 01:25:34 [trace] [tid : 97866] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 0, stauts = kAdded
+2021-02-16 01:25:34 [trace] [tid : 97866] [Epoll.cc : 120 <update>] epoll_ctl op = DEL, fd = 6, event = [6: ]
+2021-02-16 01:25:34 [trace] [tid : 97866] [Epoll.cc : 82 <removeChannel>] fd = 6 
+2021-02-16 01:25:34 [trace] [tid : 97866] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 0, stauts = kAdded
+2021-02-16 01:25:34 [trace] [tid : 97866] [Epoll.cc : 120 <update>] epoll_ctl op = DEL, fd = 5, event = [5: ]
+2021-02-16 01:25:34 [trace] [tid : 97866] [Epoll.cc : 82 <removeChannel>] fd = 5 

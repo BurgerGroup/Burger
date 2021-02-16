@@ -5,7 +5,9 @@
 #include <sys/timerfd.h>
 
 /**
- * bug need to fix
+ * @brief 这里只是个小测试，但这个测试是有问题的
+ * Channel不能直接这样用，这样会导致Channel没下树，析构会出问题
+ * 然后abort 导致EventLoop无法析构，从而无法导致里面的wakeupfd,timerfd等下树再析构
  */
 using namespace burger;
 using namespace burger::net;
@@ -38,5 +40,8 @@ int main() {
     howlong.it_value.tv_sec = 1;
     ::timerfd_settime(timerfd, 0, &howlong, NULL);
     loop.loop();
+    // 我们这里需要手动给他下树
+    channel.disableAll();
+    channel.remove();
     ::close(timerfd);
 }

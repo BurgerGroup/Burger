@@ -5,7 +5,7 @@ using namespace burger;
 using namespace burger::net;
 
 const uint32_t Channel::kNoneEvent = 0;
-const uint32_t Channel::kReadEvent = EPOLLIN | EPOLLPRI;  // EPOLLPRI 外带数据
+const uint32_t Channel::kReadEvent = EPOLLIN | EPOLLPRI;  // EPOLLPRI 外带数据 todo : 深入研究下
 const uint32_t Channel::kWriteEvent = EPOLLOUT;
 
 Channel::Channel(EventLoop* loop, int fd):
@@ -13,6 +13,7 @@ Channel::Channel(EventLoop* loop, int fd):
     fd_(fd),
     events_(0),
     status_(Status::kNew),
+    logHup_(true),
     tied_(false),
     eventHandling_(false),
     addedToEpoll_(false) {
@@ -20,7 +21,7 @@ Channel::Channel(EventLoop* loop, int fd):
 
 Channel::~Channel() {
     assert(!eventHandling_);
-    // TODO : 理一下:Epoll 不拥有Channel,Channel在析构之前必须先unregister,避免空悬指针
+    // Epoll 不拥有Channel,Channel在析构之前必须先unregister(disableAll, remove),避免空悬指针
     assert(!addedToEpoll_);
     if (loop_->isInLoopThread()) {
         assert(!loop_->hasChannel(this));
@@ -47,6 +48,7 @@ void Channel::update() {
     loop_->updateChannel(this);
 }
 
+// 调用此函数之前确保disableAll
 void Channel::remove() {
     assert(isNoneEvent());
     addedToEpoll_ = false;
@@ -74,9 +76,11 @@ std::string Channel::statusTostr(Status status) {
 void Channel::handleEventWithGuard(Timestamp receiveTime) {
     eventHandling_ = true;
     TRACE("{}", eventsToString());
+    // EPOLLHUP只在outpu时产生，在对端关闭的时候触发
+    // https://zhuanlan.zhihu.com/p/149265232
     if ((events_ & EPOLLHUP) && !(events_ & EPOLLIN)) {
         if (logHup_) {
-            WARN("fd = {}  Channel::handle_event POLLHUP", fd_);
+            WARN("fd = {}  Channel::handle_event EPOLLHUP", fd_);
         }
         if (closeCallback_) closeCallback_();
     }

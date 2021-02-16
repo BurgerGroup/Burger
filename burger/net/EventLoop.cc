@@ -59,7 +59,7 @@ void EventLoop::loop() {
     assert(!looping_);
     assertInLoopThread();
     looping_ = true;
-    quit_ = false;  // // FIXME: what if someone calls quit() before loop() ?
+    quit_ = false;  // FIXME: what if someone calls quit() before loop() ?
     TRACE("EventLoop {} start looping", fmt::ptr(this));
     
     while(!quit_) {

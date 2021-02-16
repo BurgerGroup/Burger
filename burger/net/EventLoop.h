@@ -48,8 +48,8 @@ public:
     static EventLoop* getEventLoopOfCurrentThread();
 
     void wakeup();
-    void updateChannel(Channel* channel);
-    void removeChannel(Channel* channel);
+    void updateChannel(Channel* channel); // 从epoll添加或更新channel
+    void removeChannel(Channel* channel); // 从epoll里移除channel
     bool hasChannel(Channel* channel);
 private:
     void init();

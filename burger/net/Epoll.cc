@@ -94,7 +94,7 @@ void Epoll::removeChannel(Channel* channel)  {
 }
 
 void Epoll::fillActiveChannels(int numEvents, 
-            std::vector<Channel*>& activeChannels) const {
+            std::vector<Channel *>& activeChannels) const {
     assert(static_cast<size_t>(numEvents) <= eventList_.size());
     for(int i = 0; i < numEvents; i++) {
         Channel* channel = static_cast<Channel*>(eventList_[i].data.ptr);
