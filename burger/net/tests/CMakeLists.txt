@@ -8,8 +8,8 @@ target_link_libraries(EventLoop_test02 burger_net)
 add_executable(EventLoop_test03 EventLoop_test03.cc)
 target_link_libraries(EventLoop_test03 burger_net)
 
-# add_executable(timerfd_test timerfd_test.cc)
-# target_link_libraries(timerfd_test burger_net)
+add_executable(timerfd_test timerfd_test.cc)
+target_link_libraries(timerfd_test burger_net)
 
 # add_executable(timer_test timer_test.cc)
 # target_link_libraries(timer_test burger_net)

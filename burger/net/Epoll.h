@@ -30,7 +30,7 @@ private:
     static std::string operationToString(int op);
 private:
     static const int kInitEventListSize = 16;
-    std::map<int, Channel*> channelMap_;  
+    std::map<int, Channel*> channelMap_;  // 有序，添加修改效率高
     EventLoop* ownerLoop_;  
     int epollFd_;   
     std::vector<struct epoll_event> eventList_; 

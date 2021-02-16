@@ -12,7 +12,7 @@ Channel::Channel(EventLoop* loop, int fd):
     loop_(loop),
     fd_(fd),
     events_(0),
-    status_(Status::kEnumNew),
+    status_(Status::kNew),
     tied_(false),
     eventHandling_(false),
     addedToEpoll_(false) {
@@ -60,9 +60,9 @@ std::string Channel::statusTostr(Status status) {
         return #name; \
         break;
     
-    XX(kEnumNew);
-    XX(kEnumAdded);      
-    XX(kEnumDismissed)
+    XX(kNew);
+    XX(kAdded);      
+    XX(kDismissed)
 #undef XX
     default:
         return "UNKNOWN";

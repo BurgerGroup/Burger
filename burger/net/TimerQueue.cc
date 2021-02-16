@@ -89,8 +89,6 @@ void TimerQueue::cancel(TimerId timerId) {
     loop_->runInLoop(std::bind(&TimerQueue::cancelInLoop, this, timerId));
 }
 
-
-
 void TimerQueue::addTimerInLoop(std::shared_ptr<Timer> timer) {
     loop_->assertInLoopThread();
     bool earliestChanged = insert(timer);  // 是否将timer插入set首部

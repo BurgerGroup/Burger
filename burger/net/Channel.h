@@ -18,9 +18,9 @@ class Epoll;
 class Channel : boost::noncopyable {
 public: 
     enum class Status {
-        kEnumNew = 0,   // 不在epoll队列里，也不在channelMap_ 中
-        kEnumAdded = 1,     // 正在epoll队列当中 
-        kEnumDismissed = 2,      // 曾经在epoll队列当中过，但暂时被dissmiss了，仍在channelMap_中
+        kNew = 0,   // 不在epoll队列里，也不在channelMap_ 中
+        kAdded = 1,     // 正在epoll队列当中 
+        kDismissed = 2,      // 曾经在epoll队列当中过，但暂时被dissmiss了，仍在channelMap_中
     };
     static std::string statusTostr(Status status);
     

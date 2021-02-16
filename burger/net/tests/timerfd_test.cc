@@ -4,6 +4,9 @@
 #include <functional>
 #include <sys/timerfd.h>
 
+/**
+ * bug need to fix
+ */
 using namespace burger;
 using namespace burger::net;
 
@@ -19,8 +22,7 @@ void timeout(Timestamp receiveTime) {
 }
 
 int main() {
-    if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
-        std::cout << "Logger init error" << std::endl;
+    if (!Logger::Instance().init("log", "logs/test.txt", spdlog::level::trace)) {
 		return 1;
 	}
     EventLoop loop;

@@ -71,7 +71,7 @@ void EventLoop::loop() {
         // TODO : sort channel by priority
         eventHandling_ = true;
         for(auto channel: activeChannels_) {
-            // TODO 这里为啥还要需要个currentActiveChannel
+            // currentActiveChannel_ 在removeChannel()中需要做判断
             currentActiveChannel_ = channel;
             currentActiveChannel_->handleEvent(epollWaitReturnTime_);
         }
@@ -90,7 +90,7 @@ void EventLoop::quit() {
     // There is a chance that loop() just executes while(!quit_) and exits,
     // then EventLoop destructs, then we are accessing an invalid object.
     // Can be fixed using mutex_ in both places.
-    // 如果不是当前IO线程调用quit,则需要唤醒wakeup当前IO线程，因为他肯恶搞还阻塞在epoll的位置（EventLoop::loop()）
+    // 如果不是当前IO线程调用quit,则需要唤醒wakeup当前IO线程，因为他可能还阻塞在epoll的位置（EventLoop::loop()）
     // 这样再次循环判断while(!quit_)才能退出循环
     if(!isInLoopThread()) {
         wakeup();  // 跨线程调用时，可能正在handleEvent，也可能wait阻塞住，所以要去唤醒，所以我们需要个唤醒通道
@@ -175,7 +175,7 @@ void EventLoop::updateChannel(Channel* channel) {
 void EventLoop::removeChannel(Channel* channel) {
     assert(channel->ownerLoop() == this);
     assertInLoopThread();
-    // TODO 这里不是很清楚
+    // todo 需要再这个时序上理一下
     if(eventHandling_) {
         assert(currentActiveChannel_ == channel ||
             std::find(activeChannels_.begin(), activeChannels_.end(), channel) == activeChannels_.end());

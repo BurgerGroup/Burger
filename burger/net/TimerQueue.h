@@ -24,11 +24,13 @@ public:
     explicit TimerQueue(EventLoop* loop);
     ~TimerQueue();
     // 一定线程安全，可以跨线程调用，通常情况下被其他线程调用
+    // 供EventLoop使用，封装成runAt,runAfter等使用
     TimerId addTimer(TimerCallback timercb, Timestamp when, double interval);
     void cancel(TimerId timerId);
 private:
     // KEY POINT 
     // set是排序的！！！
+    // todo 可以用unique_ptr吗
     using Entry = std::pair<Timestamp, std::shared_ptr<Timer> >;
     using TimerSet = std::set<Entry>;
     using ActiveTimer = std::pair<std::shared_ptr<Timer>, int64_t>;
