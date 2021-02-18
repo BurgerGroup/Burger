@@ -28,14 +28,9 @@ public:
     TimerId addTimer(TimerCallback timercb, Timestamp when, double interval);
     void cancel(TimerId timerId);
 private:
-    // KEY POINT 
-    // set是排序的！！！
-    // todo 可以用unique_ptr吗
+    // set是排序的, 这样可以根据当前时间快速查找添加删除 Timer，并且能够处理相同的时间key的问题
     using Entry = std::pair<Timestamp, std::shared_ptr<Timer> >;
     using TimerSet = std::set<Entry>;
-    using ActiveTimer = std::pair<std::shared_ptr<Timer>, int64_t>;
-    using ActiveTimerSet = std::set<ActiveTimer>;
-
     // 以下函数只可能在所属的IO线程中调用，因而不用加锁
     // 服务器性能杀手之一就是锁竞争，所以尽量少用
     void addTimerInLoop(std::shared_ptr<Timer> timer);
@@ -51,11 +46,9 @@ private:
     EventLoop* loop_;
     const int timerfd_; 
     std::unique_ptr<Channel> timerfdChannel_;
-    // timers_和activetimers_保存的是相同的数据
-    // timers_按照到期时间排列，activeTimers_按照对象地址排序
+
     TimerSet timers_;
-    ActiveTimerSet activeTimers_;    // TODO : 这个可以不用吗
-    ActiveTimerSet cancelingTimers_;    // 保存的是取消的定时器
+    std::set<std::shared_ptr<Timer> > cancelingTimers_;    // 保存的是取消的定时器 --- todo 此处数据结构可否优化
     bool callingExpiredTimers_;     // atomic, 是否正在处理超时事件
 
 };

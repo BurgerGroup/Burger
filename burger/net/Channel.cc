@@ -13,10 +13,10 @@ Channel::Channel(EventLoop* loop, int fd):
     fd_(fd),
     events_(0),
     status_(Status::kNew),
-    logHup_(true),
     tied_(false),
     eventHandling_(false),
-    addedToEpoll_(false) {
+    addedToEpoll_(false),
+    logHup_(true) {
 }
 
 Channel::~Channel() {
@@ -75,23 +75,23 @@ std::string Channel::statusTostr(Status status) {
 // TODO 为什么需要个withGuard
 void Channel::handleEventWithGuard(Timestamp receiveTime) {
     eventHandling_ = true;
-    TRACE("{}", eventsToString());
+    TRACE("{}", reventsToString());
     // EPOLLHUP只在outpu时产生，在对端关闭的时候触发
     // https://zhuanlan.zhihu.com/p/149265232
-    if ((events_ & EPOLLHUP) && !(events_ & EPOLLIN)) {
+    if ((revents_ & EPOLLHUP) && !(revents_ & EPOLLIN)) {
         if (logHup_) {
             WARN("fd = {}  Channel::handle_event EPOLLHUP", fd_);
         }
         if (closeCallback_) closeCallback_();
     }
 
-    if (events_ & EPOLLERR) {
+    if (revents_ & EPOLLERR) {
         if (errorCallback_) errorCallback_();
     }
-    if (events_ & (EPOLLIN | EPOLLPRI | EPOLLRDHUP)) {
+    if (revents_ & (EPOLLIN | EPOLLPRI | EPOLLRDHUP)) {
         if (readCallback_) readCallback_(receiveTime);
     }
-    if (events_ & EPOLLOUT) {
+    if (revents_ & EPOLLOUT) {
         if (writeCallback_) writeCallback_();
     }
     eventHandling_ = false;
@@ -99,6 +99,10 @@ void Channel::handleEventWithGuard(Timestamp receiveTime) {
 
 std::string Channel::eventsToString() const {
     return eventsToString(fd_, events_);
+}
+
+std::string Channel::reventsToString() const {
+    return eventsToString(fd_, revents_);
 }
 
 std::string Channel::eventsToString(int fd, int event) {
@@ -118,6 +122,7 @@ std::string Channel::eventsToString(int fd, int event) {
         oss << "ERR ";
     return oss.str();
 }
+
 
 void Channel::tie(const std::shared_ptr<void>& obj) {
     tie_ = obj;  // tie_ is weak ptr, so not add 1 to use_count

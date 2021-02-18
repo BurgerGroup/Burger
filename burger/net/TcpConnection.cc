@@ -57,10 +57,9 @@ void TcpConnection::send(const std::string& message) {
         if(loop_->isInLoopThread()) {
             sendInLoop(message);
         } else {
+            // bind private member function ?? 
             void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
             loop_->runInLoop(std::bind(fp, this, message));
-            // todo : 为什么不写成下面这样
-            // loop_->runInLoop(std::bind(&TcpConnection::sendInLoop, this, message));
         }
     }
 }
@@ -73,7 +72,6 @@ void TcpConnection::send(Buffer& buf) {
         } else {
             void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
             loop_->runInLoop(std::bind(fp, this, buf.retrieveAllAsString()));
-        //    loop_->runInLoop(std::bind(&TcpConnection::sendInLoop, this, buf.retrieveAllAsString()));  // TODO: 这里为什么要用string，不用data + len
         }
     }
 }

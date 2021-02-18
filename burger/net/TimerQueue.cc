@@ -64,11 +64,11 @@ using namespace burger::net::detail;
 TimerQueue::TimerQueue(EventLoop* loop):
     loop_(loop),
     timerfd_(createTimerfd()),
-    timerfdChannel_(util::make_unique<Channel>(loop, timerfd_)),  // 这里可以直接传参构造
+    timerfdChannel_(util::make_unique<Channel>(loop, timerfd_)),
     callingExpiredTimers_(false) {
+    // 设置Channel的常规步骤
     timerfdChannel_->setReadCallback(std::bind(&TimerQueue::handleRead, this));
     // we are always reading the timerfd, we disarm it with timerfd_settime.
-    // 设置Channel的常规步骤
     timerfdChannel_->enableReading();
 }
 
@@ -78,6 +78,7 @@ TimerQueue::~TimerQueue() {
     ::close(timerfd_);
 }
 
+// 添加了Timer返回一个外部类timerId供外部使用
 TimerId TimerQueue::addTimer(TimerCallback timercb, Timestamp when, double interval) {
     auto timer = std::make_shared<Timer>(std::move(timercb), when, interval);
     // 跨线程调用
@@ -91,7 +92,7 @@ void TimerQueue::cancel(TimerId timerId) {
 
 void TimerQueue::addTimerInLoop(std::shared_ptr<Timer> timer) {
     loop_->assertInLoopThread();
-    bool earliestChanged = insert(timer);  // 是否将timer插入set首部
+    bool earliestChanged = insert(timer);  // 是否将timer插入set首部，比现有队列里的所有的都更早
     if(earliestChanged) {   // 如果插入首部，更新timerfd关注的到期时间
         resetTimerfd(timerfd_, timer->getExpiration());   // 启动定时器
     }
@@ -99,67 +100,59 @@ void TimerQueue::addTimerInLoop(std::shared_ptr<Timer> timer) {
 
 void TimerQueue::cancelInLoop(TimerId timerId) {
     loop_->assertInLoopThread();
-    assert(timers_.size() == activeTimers_.size());
-    // 要cancel的实体 -- activeSet的索引
-    ActiveTimer timer(timerId.timer_, timerId.seq_);
-    auto it = activeTimers_.find(timer);
-    if(it != activeTimers_.end()) {
-        size_t n = timers_.erase(Entry(it->first->getExpiration(), it->first));
+    auto timer = timerId.timer_;
+    auto cancelTimer = Entry(timer->getExpiration(), timer);
+    if(timers_.find(cancelTimer) != timers_.end()) {
+        size_t n = timers_.erase(cancelTimer);
         assert(n == 1);
-        activeTimers_.erase(it);
     } else if(callingExpiredTimers_) {
-        // TODO : 这里不太清楚
+        // 不在列表里，说明可能已经到期getExpiered出来了，并且正在调用定时器的回调函数
         cancelingTimers_.insert(timer);
     }
-    assert(timers_.size() == activeTimers_.size());
 }
 
 void TimerQueue::handleRead() {
     loop_->assertInLoopThread();
     Timestamp now(Timestamp::now());
     readTimerfd(timerfd_, now);   // 防止一直出现可读事件，造成loop忙碌
-    auto expiredList = getExpiredList(now);
+    auto expiredList = getExpiredList(now);  // 获取此时刻之前所有定时器列表
     callingExpiredTimers_ = true;
-    // TODO : 更新完成后马上就是重置，重置时依赖已经取消的定时器的条件，所以这里先清空
+    // 清空去存已经从timers_取出过期的正在执行的timer,在reset的时候这些timer里面已取消的定时器就不必再重启了
     cancelingTimers_.clear();  
     for(const Entry& expired: expiredList) {
         expired.second->run();
     }
     callingExpiredTimers_ = false;
+    // 如果不是一次性定时器，那么需要重启
     reset(expiredList, now);
 }
 
+// 获取并在timers_里删除过时的
 std::vector<TimerQueue::Entry> TimerQueue::getExpiredList(Timestamp now) {
-    assert(timers_.size() == activeTimers_.size());
     std::vector<Entry> expiredList;
     Entry midEntry(now, std::shared_ptr<Timer>());
-    // 以midEntry 为上界，取出所有时间戳小于now的entry
+    // 以midEntry 为上界，取出所有时间戳小于等于now的entry
     // 此时begin和mid之间，就是过期的任务, timerSet是按照时间戳升序排列
     auto mid = timers_.lower_bound(midEntry);
     // 要么任务都过期，要么now小于mid，mid不属于要过期的那个
     assert(mid == timers_.end() || now < mid->first);
     std::copy(timers_.begin(), mid, std::back_inserter(expiredList));
     timers_.erase(timers_.begin(), mid);
-    // 从ActiveTimers_里面同步删除
-    for(const Entry& expired : expiredList) {
-        ActiveTimer timer(expired.second, expired.second->getSeq());
-        size_t n = activeTimers_.erase(timer);
-        assert(n == 1);
-    }
-    assert(timers_.size() == activeTimers_.size());
+    // ! 此处有rvo优化
     return expiredList;
 }
 
 void TimerQueue::reset(const std::vector<Entry>& expiredList, Timestamp now) {
-    Timestamp nextExpire;
     for(const Entry& expired : expiredList) {
-        ActiveTimer timer(expired.second, expired.second->getSeq());
+        auto timer = expired.second;
+        // 如果是重复的定时器并且是未取消的定时器，则重启该定时器
         if(expired.second->isRepeat() && 
             cancelingTimers_.find(timer) == cancelingTimers_.end()) {
-            expired.second->restart(now);
-            insert(expired.second);
+            timer->restart(now);
+            insert(timer);
         }
     } 
+    Timestamp nextExpire;
     if(!timers_.empty()) {
         nextExpire = timers_.begin()->second->getExpiration();
     }   
@@ -171,23 +164,16 @@ void TimerQueue::reset(const std::vector<Entry>& expiredList, Timestamp now) {
 
 bool TimerQueue::insert(std::shared_ptr<Timer> timer) {
     loop_->assertInLoopThread();
-    assert(timers_.size() == activeTimers_.size()); // 判断两个set是否同步
     bool earliestChanged = false;
     Timestamp when = timer->getExpiration();
     auto it = timers_.begin();
+    // 如果timers_为空或者when小于timers_中最早到期时间
     if(it == timers_.end() || when < it->first) {
         earliestChanged = true;
     }
-    {
-        // 注意insert的返回参数
-        auto res = timers_.insert(Entry(when, timer));
-        assert(res.second);
-    }
-    {
-        auto res = activeTimers_.insert(ActiveTimer(timer, timer->getSeq()));
-        assert(res.second);
-    }
-    assert(timers_.size() == activeTimers_.size());
+    // 注意insert的返回参数， std::pair<iterator,bool>
+    auto res = timers_.insert(Entry(when, timer));
+    assert(res.second);
     return earliestChanged;
 }
 

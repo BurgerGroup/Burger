@@ -53,7 +53,7 @@ public:
     
     // For debug 
     std::string eventsToString() const;
-
+    std::string reventsToString() const;
     /*Channel通常作为其它类的成员，比如TcpConnection，而Channel的回调函数通常和TcpConnection
     通过std::bind绑定,当Epoll通知该Channel的回调时，Channel会调用TcpConnection对应的回调，
     而此时TcpConnection的生命周期尚未可知，此时tie_保存TcpConnection的this指针，通过将tie_
@@ -61,6 +61,8 @@ public:
     void tie(const std::shared_ptr<void>&);
     int getFd() const { return fd_; }
     uint32_t getEvents() const { return events_; }
+    void setRevents(uint32_t revent) { revents_ = revent; }
+
     void doNotLogHup() { logHup_ = false; }    
     EventLoop* ownerLoop() { return loop_; }
     void remove();
@@ -77,6 +79,7 @@ private:
     EventLoop* loop_;
     const int fd_;
     uint32_t events_;
+    uint32_t revents_;
     Status status_;
 
     std::weak_ptr<void> tie_;

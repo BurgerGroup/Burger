@@ -9,7 +9,9 @@ using namespace burger::net;
 
 namespace {
 thread_local EventLoop* t_loopInthisThread = nullptr;
-const int kEpollTimesMs = 10000;
+
+const int kEpollTimesMs = 10000;  // epoll 超时10 s
+
 int createEventfd() {
     int efd = ::eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
     if(efd < 0) {
@@ -38,10 +40,7 @@ EventLoop::EventLoop() :
         // https://stackoverflow.com/questions/37598634/can-pointer-this-be-a-shared-pointer
         t_loopInthisThread = this;
     }
-    // TODO : 这样到处用shared_from_this 好吗
-    // 需要直接用一个成员变量来存还是可以直接用t_loopInthisThread
-    wakeupChannel_->setReadCallback(std::bind(&EventLoop::handleWakeupFd, 
-                            this, std::placeholders::_1));
+    wakeupChannel_->setReadCallback(std::bind(&EventLoop::handleWakeupFd, this));
     // we are always reading the wakeupfd
     wakeupChannel_->enableReading();  
 }
@@ -90,10 +89,10 @@ void EventLoop::quit() {
     // There is a chance that loop() just executes while(!quit_) and exits,
     // then EventLoop destructs, then we are accessing an invalid object.
     // Can be fixed using mutex_ in both places.
-    // 如果不是当前IO线程调用quit,则需要唤醒wakeup当前IO线程，因为他可能还阻塞在epoll的位置（EventLoop::loop()）
-    // 这样再次循环判断while(!quit_)才能退出循环
+    // 如果不是当前IO线程调用quit,则需要唤醒wakeup当前IO线程，因为他可能还阻塞在epoll wait的位置（EventLoop::loop()）
+    // 相当于触发了个可读事件, 这样再次循环判断while(!quit_)才能退出循环
     if(!isInLoopThread()) {
-        wakeup();  // 跨线程调用时，可能正在handleEvent，也可能wait阻塞住，所以要去唤醒，所以我们需要个唤醒通道
+        wakeup();  
     }
 }
 
@@ -196,7 +195,7 @@ void EventLoop::abortNotInLoopThread() {
         fmt::ptr(this), threadId_, util::gettid());
 }
 
-void EventLoop::handleWakeupFd(Timestamp receiveTime) {
+void EventLoop::handleWakeupFd() {
     uint64_t one = 1;
     ssize_t n = sockets::read(wakeupFd_, &one, sizeof(one));
     if(n != sizeof(one)) {
@@ -222,7 +221,7 @@ void EventLoop::doPendingFunctors() {
         functor();
     }
     callingPendingFunctors_ = false;
-}
+} 
 
 
 

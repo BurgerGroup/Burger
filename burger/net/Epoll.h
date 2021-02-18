@@ -26,7 +26,7 @@ public:
 private:
     void fillActiveChannels(int numEvents, 
                 std::vector<Channel*>& activeChannels) const;
-    void update(int operation, Channel* channel);
+    void epollctl(int operation, Channel* channel);
     static std::string operationToString(int op);
 private:
     static const int kInitEventListSize = 16;

@@ -18,6 +18,7 @@ public:
 Foo make_foo() {
     Foo f;
     return f;
+    // return Foo();
 }
 
 int main() {

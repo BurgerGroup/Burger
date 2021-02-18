@@ -10,11 +10,12 @@ namespace burger {
 namespace net {
 
 // internal class for time event
+// timerfd_create, setime都没操作，只是高层次抽象
 class Timer : boost::noncopyable {
 public:
     // when何时执行任务 
     Timer(TimerCallback timercb, Timestamp when, double interval);
-    void run() const { timercb_(); }
+    void run() const { timercb_(); } 
     // 重置任务，主要是针对需要重复执行的任务
     void restart(Timestamp now);
     // 获取任务的本次到期时间

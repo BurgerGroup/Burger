@@ -59,18 +59,17 @@ void Epoll::updateChannel(Channel* channel) {
             assert(channelMap_[fd] == channel);
         }
         channel->setStatus(Channel::Status::kAdded);
-        update(EPOLL_CTL_ADD, channel);
+        epollctl(EPOLL_CTL_ADD, channel);
     } else {  // kAdded
         // update existing one with EPOLL_CTL_MOD/DEL
         assert(channelMap_.find(fd) != channelMap_.end());
         assert(channelMap_[fd] == channel);
         assert(status == Channel::Status::kAdded);
         if(channel->isNoneEvent()) {
-            update(EPOLL_CTL_DEL, channel);
+            epollctl(EPOLL_CTL_DEL, channel);
             channel->setStatus(Channel::Status::kDismissed);
-            // TODO：为什么不马上从map里erase掉
         } else {
-            update(EPOLL_CTL_MOD, channel);
+            epollctl(EPOLL_CTL_MOD, channel);
         }
     }
 
@@ -85,10 +84,10 @@ void Epoll::removeChannel(Channel* channel)  {
     assert(channel->isNoneEvent());
     Channel::Status status = channel->getStatus();
     assert(status == Channel::Status::kAdded || status == Channel::Status::kDismissed);
-    size_t n = channelMap_.erase(fd);  // TODO : why use map other than unordered_map
+    size_t n = channelMap_.erase(fd);  
     assert(n == 1);
     if(status == Channel::Status::kAdded) {
-        update(EPOLL_CTL_DEL, channel);
+        epollctl(EPOLL_CTL_DEL, channel);
     }
     channel->setStatus(Channel::Status::kNew);
 }
@@ -104,16 +103,15 @@ void Epoll::fillActiveChannels(int numEvents,
         assert(it != channelMap_.end());
         assert(it->second == channel);
 #endif
-        // todo 还需要理一下revent,是否是 event变化需要缓存下
+        channel->setRevents(eventList_[i].events);
         activeChannels.push_back(channel);
     }
 }
 
-void Epoll::update(int operation, Channel* channel) {
+void Epoll::epollctl(int operation, Channel* channel) {
     struct epoll_event event;
     bzero(&event, sizeof(event));
     event.events = channel->getEvents();
-    // TODO 这里需要check
     event.data.ptr = static_cast<void *>(channel);
     int fd = channel->getFd();
     TRACE("epoll_ctl op = {}, fd = {}, event = [{}]", 

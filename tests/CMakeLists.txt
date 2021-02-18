@@ -1,9 +1,13 @@
-add_executable(thread_test thread_test.cc)
+# add_executable(thread_test thread_test.cc)
 
-add_executable(thread_emplace_back thread_emplace_back.cc)
+# add_executable(thread_emplace_back thread_emplace_back.cc)
 
-add_executable(thread_local thread_local.cc)
+# add_executable(thread_local thread_local.cc)
 
-add_executable(gtest_test gtest_test.cc)
-target_link_libraries(gtest_test ${GTEST_BOTH_LIBRARIES})
-add_test(NAME gtest_test COMMAND gtest_test)
+# add_executable(gtest_test gtest_test.cc)
+# target_link_libraries(gtest_test ${GTEST_BOTH_LIBRARIES})
+# add_test(NAME gtest_test COMMAND gtest_test)
+
+add_executable(lower_bound lower_bound.cc)
+
+
