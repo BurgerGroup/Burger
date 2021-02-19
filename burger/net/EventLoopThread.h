@@ -17,7 +17,7 @@ class EventLoop;
 */
 class EventLoopThread : boost::noncopyable {
 public:
-    using ThreadInitCallback = std::function<void(EventLoop*)>;
+    using ThreadInitCallback = std::function<void(EventLoop *)>;
     EventLoopThread(const ThreadInitCallback& cb = ThreadInitCallback());
     ~EventLoopThread();
     EventLoop* startLoop();     // 启动线程，该线程就成为了IO线程
@@ -31,7 +31,7 @@ private:
     std::thread thread_;
     std::mutex mutex_;
     std::condition_variable cv_;
-    ThreadInitCallback callback_;  // 回调函数再EventLoop::loop之前被调用
+    ThreadInitCallback threadInitcallback_;  // 回调函数再EventLoop::loop之前被调用,默认为空
 };
 } // namespace net
 

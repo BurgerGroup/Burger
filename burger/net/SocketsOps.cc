@@ -75,16 +75,16 @@ int sockets::accept(int sockfd, struct sockaddr_in& addrin) {
             case EPERM:
             case EMFILE: // per-process lmit of open file desctiptor ???
                 // expected errors
-                errno = savedErrno;
+                errno = savedErrno;  // 暂时错误，处理办法是忽略这次错误
                 break;
             case EBADF:
             case EFAULT:
-            case EINVAL:
+            case EINVAL:  
             case ENFILE:
-            case ENOBUFS:
+            case ENOBUFS:        
             case ENOMEM:
             case ENOTSOCK:
-            case EOPNOTSUPP:
+            case EOPNOTSUPP:   // 致命错误和未知错误 终止程序
                 // unexpected errors
                 CRITICAL("unexpected error of ::accept {}", savedErrno);
                 break;

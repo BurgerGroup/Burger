@@ -96,20 +96,28 @@ void EventLoop::quit() {
     }
 }
 
-// TODO : 这里流程需要梳理一下
-void EventLoop::runInLoop(Functor func) {
+// 这是一种编程思想，当其他线程需要通过这个线程的资源来执行任务的时候，
+// 并不是直接再其他线程中访问资源调用函数
+// 这样就会造成资源的竞争，需要加锁保证，而现在我们让当前线程
+// 为其他线程提供一个接口，其他线程将要执行的任务用这个接口交给当前线程
+// 这样当前线程统一处理自己的资源，而不用加锁，唯一需要加锁的地方就是
+// 通过接口添加任务的任务队列这个地方，大大减小了锁粒度
+void EventLoop::runInLoop(const Functor& func) {
     if(isInLoopThread()) {
-        func();
+        func();   // 如果在当前IO线程中调用，则同步调用
     } else {
-        queueInLoop(std::move(func));
+        queueInLoop(func);   // 如果在其他线程中调用该函数，则异步调用，用queueInLoop添加到任务队列中
     }
 }
-
-void EventLoop::queueInLoop(Functor func)  {
+// 加入队列中，等待被执行，该函数可以跨线程调用，即其他线程可以给当前线程添加任务
+void EventLoop::queueInLoop(const Functor& func)  {
     {
         std::lock_guard<std::mutex> lock(mutex_);
         pendingFunctors_.push_back(std::move(func));
     }
+    // 如果不是当前线程(可能阻塞在wait)，需要唤醒 
+    // 或者是当前线程但是在正在处理队列中的任务(使得处理完当前队列中的元素后立即在进行下一轮处理，因为在这里又添加了任务)需要唤醒
+    // 只有当前IO线程的事件回调中调用queueInLoop才不需要唤醒(因为执行完handleEvent会自然执行loop()中的doPendingFunctor)
     if(!isInLoopThread() || callingPendingFunctors_) {
         wakeup();
     }
@@ -208,8 +216,16 @@ void EventLoop::printActiveChannels() const {
         TRACE("[ {} ]", channel->eventsToString());
     }
 }
+// 1. 不是简单地在临界区内依次调用Functor，
+// 而是把回调列表swap到functors中，这样一方面减小了临界区的长度
+//（意味着不会阻塞其它线程的queueInLoop()添加任务到pendingFunctors_），另一方面，也避免了死
+//锁（因为Functor可能再次调用queueInLoop()添加任务到pendingFunctors_）
 
-// TODO : 还不够清楚
+//2. 由于doPendingFunctors()调用的Functor可能再次调用queueInLoop(cb)添加任务到pendingFunctors_，这时，
+// queueInLoop()就必须wakeup()，否则新增的cb可能就不能及时调用了
+
+// 3. 没有反复执行doPendingFunctors()直到pendingFunctors为空，
+// 这是有意的，否则IO线程可能陷入死循环，无法处理IO事件。
 void EventLoop::doPendingFunctors() {
     std::vector<Functor> functors;
     callingPendingFunctors_ = true;
@@ -217,7 +233,7 @@ void EventLoop::doPendingFunctors() {
         std::lock_guard<std::mutex> lock(mutex_);
         functors.swap(pendingFunctors_);
     }
-    for(const auto& functor: functors) {
+    for(const auto& functor: functors) { 
         functor();
     }
     callingPendingFunctors_ = false;

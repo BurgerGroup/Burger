@@ -18,9 +18,7 @@ Acceptor::Acceptor(EventLoop* loop, const InetAddress& listenAddr, bool reusepor
     acceptSocket_->setReuseAddr(true);
     acceptSocket_->setReusePort(reuseport);
     acceptSocket_->bindAddress(listenAddr);
-
-    acceptChannel_->setReadCallback(std::bind(&Acceptor::handleRead, 
-                        this, std::placeholders::_1));
+    acceptChannel_->setReadCallback(std::bind(&Acceptor::handleRead, this));
 }
 
 Acceptor::~Acceptor() {
@@ -36,7 +34,7 @@ void Acceptor::listen() {
     acceptChannel_->enableReading();
 }
 
-void Acceptor::handleRead(Timestamp timestamp) {
+void Acceptor::handleRead() {
     loop_->assertInLoopThread();
     InetAddress peerAddr;
     int connfd = acceptSocket_->accept(peerAddr);
@@ -45,13 +43,14 @@ void Acceptor::handleRead(Timestamp timestamp) {
         if(newConnectionCallback_) {
             newConnectionCallback_(connfd, peerAddr);
         } else {
+            // 未注册回调函数，则关闭
             sockets::close(connfd);
         }
     } else {
         ERROR("in Acceptor::handleRead");
         // 当fd达到上限，先占住一个空的fd,然后当fd满了，就用这个接受然后关闭
         // 这样避免一直水平电平一直触发，先去读走他
-        if(errno == EMFILE) {
+        if(errno == EMFILE) {   
             sockets::close(idleFd_);
             idleFd_ = ::accept(acceptSocket_->getFd(), nullptr, nullptr);
             sockets::close(idleFd_);

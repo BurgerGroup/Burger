@@ -23,7 +23,7 @@ public:
     void listen();
     bool isListening() const { return listening_; }
 private: 
-    void handleRead(Timestamp timestamp);
+    void handleRead();
 
     EventLoop* loop_;
     std::unique_ptr<Socket> acceptSocket_;

@@ -65,6 +65,9 @@ void Socket::shutdownWrite() {
     sockets::shutdownWrite(sockfd_);
 }
 
+// Nagle算法可以一定程度上避免网络拥塞
+// TCP_NODELAY 选项可以禁用Nagle算法
+// 禁用Nagle算法，可以避免连续发包出现延迟，这对于编写延迟的网络服务很重要
 void Socket::setTcpNoDelay(bool on) {
     int opt = on ? 1 : 0;
     ::setsockopt(sockfd_, IPPROTO_TCP, TCP_NODELAY, 
@@ -92,6 +95,7 @@ void Socket::setReusePort(bool on) {
 #endif 
 }
 
+// 定期探测连接是否存在，如果应用层有心跳的话，这个选项不是必需要设置的
 void Socket::setKeepAlive(bool on) {
     int opt = on ? 1 : 0;
     ::setsockopt(sockfd_, SOL_SOCKET, SO_KEEPALIVE,

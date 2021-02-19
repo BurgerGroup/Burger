@@ -18,7 +18,6 @@
 namespace burger {
 namespace net {
 
-
 class Epoll;
 class TimerQueue;
 class Channel;
@@ -33,9 +32,9 @@ public:
     Timestamp epollWaitRetrunTime() const { return epollWaitReturnTime_; }
     int64_t iteration() const { return iteration_; }
     // 在主循环中进行， safe to call from other threads
-    void runInLoop(Functor func);
+    void runInLoop(const Functor& func);
     // 插入主循环任务队列, safe to call from other threads
-    void queueInLoop(Functor func);
+    void queueInLoop(const Functor& func);
     size_t queueSize() const;
     // timers , safe ti call from other threads
     TimerId runAt(Timestamp time, TimerCallback timercb);

@@ -36,21 +36,19 @@ private:
     void addTimerInLoop(std::shared_ptr<Timer> timer);
     void cancelInLoop(TimerId timerId);
     void handleRead();
-    // 返回超时的定时器列表
+    // 返回超时的定时器列表, 并从timers_中删除
     std::vector<Entry> getExpiredList(Timestamp now);
     // 处理完任务后，需要根据是否重复，将某些任务重新放入
     void reset(const std::vector<Entry>& expiredList, Timestamp now);
-    // 在两个set中插入定时器
+    // 插入定时器
     bool insert(std::shared_ptr<Timer> timer);
 private:
     EventLoop* loop_;
     const int timerfd_; 
     std::unique_ptr<Channel> timerfdChannel_;
-
     TimerSet timers_;
     std::set<std::shared_ptr<Timer> > cancelingTimers_;    // 保存的是取消的定时器 --- todo 此处数据结构可否优化
     bool callingExpiredTimers_;     // atomic, 是否正在处理超时事件
-
 };
 
 } // namespace net
