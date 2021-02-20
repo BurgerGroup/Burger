@@ -52,6 +52,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
+find_package(Curses REQUIRED)
 find_package(Boost REQUIRED)
 find_package(Protobuf)
 find_package(CURL)
@@ -99,13 +100,16 @@ if(THRIFT_COMPILER AND THRIFT_INCLUDE_DIR AND THRIFT_LIBRARY)
   message(STATUS "found thrift")
 endif()
 
+
+include_directories(${CURSES_INCLUDE_DIR})
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${GTEST_INCLUDE_DIRS})
 
 include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/client)
 
 include_directories(
-    ${CMAKE_SOURCE_DIR}/thirdparty    # find spdlog
+    ${CMAKE_SOURCE_DIR}/thirdparty    # find 3rd lib
 )
 
 string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
@@ -113,7 +117,7 @@ message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS} " " ${CMAKE_CXX_FLAGS_${BUILD_T
 
 add_subdirectory(burger/base)
 add_subdirectory(burger/net)
-
+add_subdirectory(client)
 
 # if(MUDUO_BUILD_EXAMPLES)
 #   add_subdirectory(contrib)
