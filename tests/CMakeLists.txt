@@ -8,6 +8,10 @@
 # target_link_libraries(gtest_test ${GTEST_BOTH_LIBRARIES})
 # add_test(NAME gtest_test COMMAND gtest_test)
 
-add_executable(lower_bound lower_bound.cc)
+# add_executable(lower_bound lower_bound.cc)
+
+add_executable(json_test json_test.cc)
+
+
 
 

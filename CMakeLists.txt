@@ -105,7 +105,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR})
 
 include_directories(
-    ${CMAKE_SOURCE_DIR}/burger  # find spdlog
+    ${CMAKE_SOURCE_DIR}/thirdparty    # find spdlog
 )
 
 string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
