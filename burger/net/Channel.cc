@@ -28,15 +28,15 @@ Channel::~Channel() {
     }
 }
 
-// TODO
 void Channel::handleEvent(Timestamp receiveTime) {
     std::shared_ptr<void> guard;
+    // todo 分析下主动关闭时候TcpConnectionPtr的生命周期
     if(tied_) {
-        guard = tie_.lock();
+        guard = tie_.lock();  // 提升 + 1
         if(guard) {
-            TRACE("[6] usecount = {}", guard.use_count());
+            // TRACE("[6] usecount = {}", guard.use_count());  // 2
             handleEventWithGuard(receiveTime);
-            TRACE("[12] usecount = {}", guard.use_count());
+            // TRACE("[12] usecount = {}", guard.use_count());  // 2 出了这个函数引用计数则为 1, 在connectDestoyed里保留一个，执行完后销毁
         }
     } else {
         handleEventWithGuard(receiveTime);

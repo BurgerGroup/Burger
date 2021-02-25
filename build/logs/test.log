@@ -509,3 +509,12 @@
 2021-02-19 01:56:52 [trace] [tid : 25326] [Epoll.cc : 21 <wait>] fd total count 3
 2021-02-19 01:57:02 [trace] [tid : 25326] [Epoll.cc : 33 <wait>] Nothing happend...
 2021-02-19 01:57:02 [trace] [tid : 25326] [Epoll.cc : 21 <wait>] fd total count 3
+2021-02-23 19:01:55 [trace] [tid : 15544] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-02-23 19:01:55 [trace] [tid : 15544] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-02-23 19:01:55 [trace] [tid : 15544] [EventLoop.cc : 35 <EventLoop>] EventLoop created 0x7fffd20de100 
+2021-02-23 19:01:55 [trace] [tid : 15544] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-02-23 19:01:55 [trace] [tid : 15544] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-02-23 19:01:55 [trace] [tid : 15544] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-02-23 19:01:55 [trace] [tid : 15544] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-02-23 19:01:55 [trace] [tid : 15544] [EventLoop.cc : 62 <loop>] EventLoop 0x7fffd20de100 start looping
+2021-02-23 19:01:55 [trace] [tid : 15544] [Epoll.cc : 21 <wait>] fd total count 3

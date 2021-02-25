@@ -19,3 +19,5 @@ https://blog.csdn.net/dyingfair/article/details/95855952
 readv和writev函数用于在一次函数调用中读、写多个非连续缓冲区。有时也将这两个函数成为散布读和聚集写。
 
 https://blog.csdn.net/weibo1230123/article/details/81530355
+
+## TcpConnection 声明周期

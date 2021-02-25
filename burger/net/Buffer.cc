@@ -197,7 +197,7 @@ void Buffer::appendInt8(int8_t x)  {
 // 如果有5K个链接，每个连接都分配64K的（发生/接收）缓冲区的话，将独占640M内存
 // 而大多数时候，缓冲区的使用率都很低
 // https://www.cnblogs.com/solstice/archive/2011/04/17/2018801.html
-ssize_t Buffer::readFd(int fd, int* savedErrno) {
+ssize_t Buffer::readFd(int fd, int& savedErrno) {
     char extrabuf[65536];
     struct iovec vec[2];
     const size_t writableBytes = getWritableBytes();
@@ -211,7 +211,7 @@ ssize_t Buffer::readFd(int fd, int* savedErrno) {
     const int iovcnt = (writableBytes < sizeof(extrabuf)) ? 2 : 1;
     const ssize_t n = sockets::readv(fd, vec, iovcnt);
     if(n < 0) {
-        *savedErrno = errno;
+        savedErrno = errno;
     } else if(implicit_cast<size_t>(n) <= writableBytes) {
         writerIndex_ += n;
     } else {

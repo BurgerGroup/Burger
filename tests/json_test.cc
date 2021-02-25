@@ -8,7 +8,6 @@ using json = nlohmann::json;
 #include <string>
 using namespace std;
 
-// json序列化示例1
 string func1() {
     json js;
     js["msg_type"] = 2;
@@ -22,7 +21,6 @@ string func1() {
     return sendBuf;
 }
 
-// json序列化示例2
 string func2() {
     json js;
     // 添加数组
@@ -33,14 +31,14 @@ string func2() {
     js["msg"]["sgwf"] = "dazhuzhu";
     js["msg"]["ysy"] = "say hi to dazhuzhu";
     // 上面等同于下面这句一次性添加数组对象
+    // 覆盖了，key不允许覆盖
     js["msg"] = {{"sgwf", "hello world"}, {"ysy", "hello china"}};
     cout << js << endl;
     return js.dump();
 }
 
-// json序列化示例代码3
-string func3()
-{
+// json可以序列化容器
+string func3() {
     json js;
 
     // 直接序列化一个vector容器
@@ -53,14 +51,14 @@ string func3()
 
     // 直接序列化一个map容器
     map<int, string> m;
-    m.insert({1, "挺好的?"});
-    m.insert({2, "华山"});
-    m.insert({3, "泰山"});
+    m.insert({1, "MIT!!"});
+    m.insert({2, "啸哥"});
+    m.insert({3, "学活了"});
 
     js["path"] = m;
 
     string sendBuf = js.dump(); // json数据对象 =》序列化 json字符串
-    //cout<<sendBuf<<endl;
+    cout << sendBuf << endl;
     return sendBuf;
 }
 
@@ -78,7 +76,8 @@ int main() {
     // string recvBuf = func1();
     // func4(recvBuf);
 
-    func2();
+    // func2();
+    func3();
     // cout<<jsbuf["id"]<<endl;
     // auto arr = jsbuf["id"];
     // cout<<arr[2]<<endl;

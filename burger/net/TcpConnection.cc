@@ -39,7 +39,7 @@ TcpConnection::TcpConnection(EventLoop* loop,
     socket_->setKeepAlive(true);  
 }
 
-TcpConnection::~TcpConnection() {
+TcpConnection::~TcpConnection() { 
     DEBUG("TcpConnection::dtor[ {} ] at {} fd = {} status = {} ", 
             connName_, fmt::ptr(this), channel_->getFd(), statusToStr());
 }
@@ -80,20 +80,20 @@ void TcpConnection::connectEstablished() {
     loop_->assertInLoopThread();
     assert(status_ == Status::kConnecting);
     setStatus(Status::kConnected);
-    TRACE("[3] usecount = {}", shared_from_this().use_count());
-    channel_->tie(shared_from_this());
-    // tcpConnection 所对应通道加入Epoll关注
-    channel_->enableReading();
+    // TRACE("[3] usecount = {}", shared_from_this().use_count());  // shared_from_this + 临时 -- 3 
+    channel_->tie(shared_from_this());  // tie是weak_ptr, 计数不变
+    channel_->enableReading();     // tcpConnection 所对应通道加入Epoll关注
     connectionCallback_(shared_from_this());
-    TRACE("[4] usecount = {}", shared_from_this().use_count());
+    // TRACE("[4] usecount = {}", shared_from_this().use_count());   // 3，临时，下一个马上变2
 }
 
 void TcpConnection::connectDestroyed() {
     loop_->assertInLoopThread();
     if(status_ == Status::kConnected) {
+        // 和handleclose重复，因为在某些情况下可以不经handleClose而直接调用connectDestriyed
         setStatus(Status::kDisconnected);
         channel_->disableAll();
-        connectionCallback_(shared_from_this());
+        connectionCallback_(shared_from_this()); // 回调用户的回调函数
     }
     channel_->remove();
 }
@@ -117,7 +117,7 @@ const std::string TcpConnection::statusToStr() const {
 void TcpConnection::handleRead(Timestamp receiveTime) {
     loop_->assertInLoopThread();
     int savedErrno = 0;
-    ssize_t n = inputBuffer_.readFd(channel_->getFd(), &savedErrno);
+    ssize_t n = inputBuffer_.readFd(channel_->getFd(), savedErrno);
     if(n > 0) {
         messageCallback_(shared_from_this(), &inputBuffer_, receiveTime);
     } else if(n == 0) {
@@ -133,14 +133,14 @@ void TcpConnection::handleClose() {
     loop_->assertInLoopThread();
     TRACE("fd = {} status = {}", channel_->getFd(), statusToStr());
     assert(status_ == Status::kConnected || status_ == Status::kDisconnecting);
+    // we don't close fd, leave it to dtor, se we can find leaks easily
     setStatus(Status::kDisconnected);
     channel_->disableAll();
-    // 这里给use_count + 1
-    TcpConnectionPtr guardThis(shared_from_this());
-    connectionCallback_(guardThis);     // 这一行可以不调用
-    TRACE("[7] usecount = {}", guardThis.use_count());
-    closeCallback_(guardThis);   // 调用TcpServer::removeConnection
-    TRACE("[11] usecount = {}", guardThis.use_count());
+    TcpConnectionPtr guardThis(shared_from_this());   // 3 
+    connectionCallback_(guardThis);     // 回调了用户的连接到来的回调函数， 这里和connectDestroyed重复,reason in connectDestroyed
+    // TRACE("[7] usecount = {}", guardThis.use_count());  // 3 -- connectionMap_, tie_提升， guardThis
+    closeCallback_(guardThis);   // TcpServer::newconnection 注册的 TcpServer::removeConnection
+    // TRACE("[11] usecount = {}", guardThis.use_count());   // 3
 }
 
 void TcpConnection::handleError() {

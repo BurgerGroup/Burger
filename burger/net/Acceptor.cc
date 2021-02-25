@@ -34,11 +34,13 @@ void Acceptor::listen() {
     acceptChannel_->enableReading();
 }
 
+// strategy : https://static.usenix.org/event/usenix04/tech/general/brecht.html
 void Acceptor::handleRead() {
     loop_->assertInLoopThread();
     InetAddress peerAddr;
     int connfd = acceptSocket_->accept(peerAddr);
     if(connfd >= 0) {
+        // TODO: 非阻塞poll检查
         TRACE("Accept of {}", peerAddr.getIpPortStr());
         if(newConnectionCallback_) {
             newConnectionCallback_(connfd, peerAddr);

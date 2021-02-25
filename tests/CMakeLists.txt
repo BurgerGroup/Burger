@@ -10,8 +10,9 @@
 
 # add_executable(lower_bound lower_bound.cc)
 
-add_executable(json_test json_test.cc)
+# add_executable(json_test json_test.cc)
 
+add_executable(shareFromThis shareFromThis.cc)
 
 
 

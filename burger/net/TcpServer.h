@@ -15,6 +15,8 @@ class InetAddress;
 class Acceptor;
 class EventLoopThreadPool;
 
+// TcpServer 管理accept获得的TcpConnection
+// 供用户使用，生命期由用户控制，用户只需设置好callback,再调用start()即可
 class TcpServer : boost::noncopyable {
 public:
     using ThreadInitCallback = std::function<void(EventLoop*)>;
@@ -41,19 +43,20 @@ private:
     // not threadsafe, but in loop
     void removeConnectionInLoop(const TcpConnectionPtr& conn);
     
-    using ConnectionMap = std::map<std::string, TcpConnectionPtr>;
+    using ConnectionMap = std::map<std::string, TcpConnectionPtr>;  // 每个TcpConnection都有一个名字，作为key
 
     EventLoop* loop_;  // the acceptor loop, 不一定是连接所属的
     const std::string hostIpPort_;
     const std::string hostName_;
-    std::unique_ptr<Acceptor> acceptor_;
+    std::unique_ptr<Acceptor> acceptor_;  // 用于获取新连接
     std::unique_ptr<EventLoopThreadPool> threadPool_;
+    // 保存用户提供的ConnectionCallback和 MessageCallback
     ConnectionCallback connectionCallback_;
     MessageCallback messageCallback_;
     ThreadInitCallback threadInitCallback_;
     AtomicInt32 started_;  // in start() avoid race condition 
     int nextConnId_;
-    ConnectionMap connectionsMap_;
+    ConnectionMap connectionsMap_;  // 持有目前存活的TcpConnection ptr(生命期模糊，TcpServer可持有，用户也可持有)
 };
 } // namespace net
 } // namespace burger

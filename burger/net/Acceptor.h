@@ -14,8 +14,11 @@ class EventLoop;
 class Channel;
 class Socket;
 
+// 主要功能create socket, bind, listen 
+// 不直接使用，而是作为TcpServer成员
 class Acceptor : boost::noncopyable {
 public:
+    // TODO: 这种传递int句柄的方法不够理想，再c++11中可以先创建Socket对象，再用移动语义把Socket对象move给callback。确保资源的安全释放
     using NewConnectionCallback = std::function<void(int sockfd, const InetAddress&)>;
     Acceptor(EventLoop* loop, const InetAddress& listenAddr, bool reuseport = true);
     ~Acceptor();
