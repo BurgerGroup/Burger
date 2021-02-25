@@ -60,7 +60,7 @@ void TcpConnection::send(const std::string& message) {
         } else {
             // bind other object's private member function 
             void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
-            loop_->runInLoop(std::bind(fp, this, message));
+            loop_->runInLoop(std::bind(fp, this, std::move(message)));  // 这里message跨线程的话，异步只能复制一次过去
         }
     }
 }
@@ -74,6 +74,15 @@ void TcpConnection::send(Buffer& buf) {
             void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
             loop_->runInLoop(std::bind(fp, this, buf.retrieveAllAsString()));
         }
+    }
+}
+
+void TcpConnection::shutdown() {
+    // FIXME: use compare and swap
+    if (status_ == Status::kConnected) {
+        setStatus(Status::kConnecting);
+        // FIXME: shared_from_this()?
+        loop_->runInLoop(std::bind(&TcpConnection::shutdownInLoop, this));
     }
 }
 
@@ -130,6 +139,32 @@ void TcpConnection::handleRead(Timestamp receiveTime) {
     }
 }
 
+void TcpConnection::handleWrite() {
+    loop_->assertInLoopThread();
+    // 如果还在关注EPOLLOUT事件，说明之前的数据还没发送给完成，则将缓冲区的数据发送
+    if (channel_->isWriting()) {
+        ssize_t n = sockets::write(channel_->getFd(),
+                                outputBuffer_.peek(),
+                                outputBuffer_.getReadableBytes());
+        if (n > 0) {
+            outputBuffer_.retrieve(n);
+            if (outputBuffer_.getReadableBytes() == 0) {  // 说明已经发送完成，缓冲区已清空
+                channel_->disableWriting();   // 停止关注POLLOUT事件，以免出现busy-loop
+                if (writeCompleteCallback_) {
+                    loop_->queueInLoop(std::bind(writeCompleteCallback_, shared_from_this()));
+                }
+                if (status_ == Status::kDisconnecting) {
+                    shutdownInLoop();
+                }
+            }
+        } else { // n <= 0
+            ERROR("TcpConnection::handleWrite");
+        }
+    } else {  // 没有关注EPOLLOUT事件
+        TRACE("Connection fd = {} is down, no more writing", channel_->getFd());
+    }
+}
+
 void TcpConnection::handleClose() {
     loop_->assertInLoopThread();
     TRACE("fd = {} status = {}", channel_->getFd(), statusToStr());
@@ -150,42 +185,64 @@ void TcpConnection::handleError() {
     ERROR("TcpConnection::handleError [{}] - SO_ERROR = {} : {}", connName_, err, strerror(err));
 }
 
-// TODO 
+
 // 如果数据不能一次发完，则打开channel的写事件开关，分开几次发。
 void TcpConnection::sendInLoop(const std::string& message) {
     sendInLoop(message.c_str(), message.size());
 }
 
+// todo 再理一下
+// 此接口也方便了send(Buffer&)
 void TcpConnection::sendInLoop(const void* data, size_t len) {
     loop_->assertInLoopThread();
-    sockets::write(channel_->getFd(), data, len);
-    // ssize_t nwrote = 0; 
-    // size_t remaining = len;
-    // bool faultError = false;
-    // if(status_ == Status::kDisconnected) { 
-    //     WARN("Disconnected, give up writing!");
-    //     return;
-    // }
-    // // ???? todo 如果当前channel没有写事件发生，或者发送buffer已经清空，那么就不通过缓冲区直接发送数据
-    // if(!channel_->isWriting() && outputBuffer_.getReadableBytes() == 0) {
-    //     nwrote = sockets::write(channel_->getFd(), message, len);
-    //     if(nwrote >= 0) {
-    //         remaining = len - nwrote;
-    //         if(remaining == 0 && writeCompleteCallback_) {
-    //             loop_->queueInLoop(std::bind(writeCompleteCallback_, shared_from_this()));
-    //         }
-    //     } else {
-    //         nwrote = 0;
-    //         // TODO 理一下错误处理
-    //         if(errno != EWOULDBLOCK) {
-    //             ERROR("TcpConnection::sendInLoop");
-    //             if(errno == EPIPE || errno == ECONNRESET) {
-    //                 faultError = true;
-    //             }
-    //         }
-    //     }
-    // }
-    // assert(remaining <= len);
-    // if (!faultError && remaining > 0) {
+    ssize_t nwrote = 0;
+    size_t remaining = len;
+    bool faultError = false;
+    if(status_ == Status::kDisconnected){
+        WARN("disconnected, give up writing");
+        return;
+    }
+    // 通道没关注可写事件，并且发送缓冲区没数据，直接write
+    if (!channel_->isWriting() && outputBuffer_.getReadableBytes() == 0) {
+        nwrote = sockets::write(channel_->getFd(), data, len);
+        if (nwrote >= 0) {
+            remaining = len - nwrote;
+            // 写完
+            if (remaining == 0 && writeCompleteCallback_) {
+                loop_->queueInLoop(std::bind(writeCompleteCallback_, shared_from_this()));
+            }
+        } else { // nwrote < 0
+            nwrote = 0;
+            if (errno != EWOULDBLOCK) {
+                ERROR("TcpConnection::sendInLoop");
+                if (errno == EPIPE || errno == ECONNRESET) {// FIXME: any others?
+                    faultError = true;
+                }
+            }
+        }
+    }
+    assert(remaining <= len);
+    // 没有错误，且还有没有写完的数据(说明内核发送缓冲区满，要将未写完的数据添加到output buffer中)
+    if (!faultError && remaining > 0) {
+        size_t oldLen = outputBuffer_.getReadableBytes();  // outputbuf 本身有的数据量
+        // 如果超过highWaterMark_(高水位标)，回调highWaterMarkCallback_
+        if (oldLen + remaining >= highWaterMark_
+            && oldLen < highWaterMark_
+            && highWaterMarkCallback_) {
+            loop_->queueInLoop(std::bind(highWaterMarkCallback_, shared_from_this(), oldLen + remaining));
+        }
+        outputBuffer_.append(static_cast<const char*>(data)+nwrote, remaining);
+        // 如果没有关注EPOLLOUT事件则关注
+        if(!channel_->isWriting()) {
+            channel_->enableWriting();
+        }
+    }
+}
 
+// todo
+void TcpConnection::shutdownInLoop() {
+    loop_->assertInLoopThread();
+    if(!channel_->isWriting()) {  
+        socket_->shutdownWrite();  
+    }
 }

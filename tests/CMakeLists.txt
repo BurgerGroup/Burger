@@ -14,5 +14,7 @@
 
 add_executable(shareFromThis shareFromThis.cc)
 
+add_executable(chrono_test chrono_test.cc)
+
 
 

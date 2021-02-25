@@ -22,7 +22,7 @@ void onMessage(const TcpConnectionPtr& conn,
                 Timestamp recieveTime) {
     std::cout << "onMessage(): received " << buf.getReadableBytes() 
         << " bytes from connection " << conn->getName() 
-        << " at " << recieveTime.toString() <<std::endl;
+        << " at " << recieveTime.toFormatTime() <<std::endl;
     std::cout << "onMessage() : " << buf.retrieveAllAsString() << std::endl;
 }   
 

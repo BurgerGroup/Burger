@@ -16,7 +16,7 @@ int createTimerfd() {
 
 // 现在距离超时还有多久
 struct timespec howMuchTimeFromNow(Timestamp when) {
-    int64_t microseconds = when.microSecondsSinceEpoch() 
+    uint64_t microseconds = when.microSecondsSinceEpoch() 
                             - Timestamp::now().microSecondsSinceEpoch();
     if(microseconds < 100) {
         microseconds = 100;

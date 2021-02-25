@@ -30,7 +30,7 @@ public:
     void loop();
     void quit();
     Timestamp epollWaitRetrunTime() const { return epollWaitReturnTime_; }
-    int64_t iteration() const { return iteration_; }
+    uint64_t iteration() const { return iteration_; }
     // 在主循环中进行， safe to call from other threads
     void runInLoop(const Functor& func);
     // 插入主循环任务队列, safe to call from other threads
@@ -61,7 +61,7 @@ private:
     std::atomic<bool> quit_;  // linux下bool也是atomic的
     bool eventHandling_;  // atomic
     bool callingPendingFunctors_; // atomic
-    int64_t iteration_;
+    uint64_t iteration_;
     const pid_t threadId_;  // 当前对象所属线程ID
     Timestamp epollWaitReturnTime_;
     std::unique_ptr<Epoll> epoll_;

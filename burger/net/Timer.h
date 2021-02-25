@@ -21,14 +21,14 @@ public:
     // 获取任务的本次到期时间
     Timestamp getExpiration() const { return expiration_; }
     bool isRepeat() const { return repeat_; }
-    int64_t getSeq() const { return seq_; }
-    static int64_t getNumCreated() { return s_numCreated_.get(); }
+    uint64_t getSeq() const { return seq_; }
+    static uint64_t getNumCreated() { return s_numCreated_.get(); }
 private:
     const TimerCallback timercb_;
     Timestamp expiration_; // 下一次的超时时刻
     const double interval_; // 超时时间间隔，如果是一次性定时器，该值为0
     const bool repeat_;    // 是否重复
-    const int64_t seq_;     // 定时器序号
+    const uint64_t seq_;     // 定时器序号
     static AtomicInt64 s_numCreated_;   // 定时器计数，当前已经创建的定时器数量
 };
 } // namespace net

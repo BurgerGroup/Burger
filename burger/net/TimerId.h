@@ -11,12 +11,12 @@ class TimerQueue;
 class TimerId : public burger::copyable {
 public:
     TimerId();
-    TimerId(std::shared_ptr<Timer> timer, int64_t seq);
+    TimerId(std::shared_ptr<Timer> timer, uint64_t seq);
     // tips : 友元只需要声明不需要include
     friend class TimerQueue;
 private:
     std::shared_ptr<Timer> timer_;
-    int64_t seq_;
+    uint64_t seq_;
 };
 } // namespace net
 

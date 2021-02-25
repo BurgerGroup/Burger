@@ -58,10 +58,12 @@ private:
     const std::string statusToStr() const;
     
     void handleRead(Timestamp receiveTime);
+    void handleWrite();
     void handleClose();
     void handleError();
     void sendInLoop(const std::string& message);
     void sendInLoop(const void* data, size_t len);
+    void shutdownInLoop();
     EventLoop* loop_;
     const std::string connName_;
     Status status_;
@@ -72,8 +74,9 @@ private:
     ConnectionCallback connectionCallback_;   // 连接建立和关闭时的回调函数
     MessageCallback messageCallback_;
     WriteCompleteCallback writeCompleteCallback_;   // 消息写入对方缓冲区是的回调函数
+    HighWaterMarkCallback highWaterMarkCallback_;
     CloseCallback closeCallback_;
-
+    size_t highWaterMark_;
     Buffer inputBuffer_;
     Buffer outputBuffer_;
 };

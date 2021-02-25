@@ -10,14 +10,13 @@ using burger::Timestamp;
 
 void passbyValue(Timestamp x) {
     std::cout << "Pass by value : " 
-        << x.toString() << std::endl;
+        << x.toString() << " " << x.toFormatTime() << std::endl;
 }
 
 void passByconstReference(const Timestamp& time) {
     std::cout << "Pass by const ref : " 
-        << time.toString() << std::endl;
+        << time.toString() << " " << time.toFormatTime() << std::endl;
 }
-
 
 
 void benchmark() {
@@ -33,9 +32,9 @@ void benchmark() {
     std::cout << timeDifference(stamps.back(), stamps.front());
 
     std::vector<int> increments(100, 0);
-    int64_t start = stamps.front().microSecondsSinceEpoch();
+    uint64_t start = stamps.front().microSecondsSinceEpoch();
     for (size_t i = 1; i < kNumber; ++i) {
-        int64_t next = stamps[i].microSecondsSinceEpoch();
+        uint64_t next = stamps[i].microSecondsSinceEpoch();
         int64_t inc = next - start;
         start = next;
         if (inc < 0) {
@@ -55,7 +54,9 @@ void benchmark() {
 
 int main() {
     Timestamp now(Timestamp::now());  
+    std::cout << now.microSecondsSinceEpoch() << std::endl; 
     std::cout << now.toString() << std::endl;
+    std::cout << now.toFormatTime() << std::endl;
     passByconstReference(now);
     passbyValue(now);
     benchmark();

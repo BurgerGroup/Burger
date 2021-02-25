@@ -1,3 +1,8 @@
+/**
+ * @breif 函数形参和function形参写const A&, bind传入对象用std::ref
+ * 但必须确保在调用这个回调前，这个参数对象的原副本还存在，不然会导致行为未定义，出现宕机
+ */
+
 #include <functional>
 #include <iostream>
 #include <string>
@@ -195,9 +200,35 @@ void func14() {
     f();
 }
 
+void func15() {
+    // construct
+    // rvalue copy construct
+    // rvalue copy construct
+    // destruct
+    // copy construct
+    // pass by value
+    // destruct
+    // destruct
+    // destruct
+    A a;
+    using callback = std::function<void()>;
+    callback f = std::bind(argumentObjectPassByValue, std::move(a));
+    f();
+}
 
-
-
+void func16() {
+    // construct
+    // rvalue copy construct
+    // rvalue copy construct
+    // destruct
+    // pass by const ref
+    // destruct
+    // destruct
+    A a;
+    using callback = std::function<void()>;
+    callback f = std::bind(argumentObjectPassByRef, std::move(a));
+    f();
+}
 int main() {
     // func1();
     // func2();
@@ -212,7 +243,9 @@ int main() {
     // func11();
     // func12();
     // func13();
-    func14();
+    // func14();
+    // func15();
+    func16();
 
     
 }
