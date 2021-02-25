@@ -216,7 +216,7 @@ ssize_t Buffer::readFd(int fd, int& savedErrno) {
         writerIndex_ += n;
     } else {
         writerIndex_ = buffer_.size();
-        append(extrabuf, n - writableBytes);
+        append(extrabuf, n - writableBytes);  // append里有writerIndex_的移动
     }
     return n;
 }

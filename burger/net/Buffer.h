@@ -90,6 +90,7 @@ private:
 
 private:
     std::vector<char> buffer_;
+    // to know whu use size_t other than char*
     size_t readrIndex_;
     size_t writerIndex_;
 

@@ -18,7 +18,6 @@ using namespace burger::net;
 */
 
 /**
- * telnet 127.0.0.1 8888
  * send data and echo
  */
 
@@ -32,8 +31,8 @@ public:
         server_.setMessageCallback(
             std::bind(&TestServer::onMessage, this, 
             std::placeholders::_1,      // conn
-            std::placeholders::_2,      // data
-            std::placeholders::_3));    // len
+            std::placeholders::_2,      // buf
+            std::placeholders::_3));    // recieveTime
     }
     void start() {
         server_.start();
@@ -51,23 +50,24 @@ private:
     }
 
     void onMessage(const TcpConnectionPtr& conn, 
-                    Buffer* buf, Timestamp receiveTime) {
-        std::string msg(buf->retrieveAllAsString());
+                    Buffer& buf, 
+                    Timestamp receiveTime) {
+        std::string msg(buf.retrieveAllAsString());
         std::cout << "onMessage(): received " <<  msg.size() 
             << " bytes from connection " << conn->getName()
             << "at " << receiveTime.toString() << std::endl;
         conn->send(msg);
     }   
-
+private:
     EventLoop* loop_;
     TcpServer server_;
 };
 
 int main() {
-    if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
-        std::cout << "Logger init error" << std::endl;
-		return 1;
-	}
+    // if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
+    //     std::cout << "Logger init error" << std::endl;
+	// 	return 1;
+	// }
     std::cout << "main() : pid = " << ::getpid() << std::endl;
     InetAddress listenAddr(8888);
     EventLoop loop;

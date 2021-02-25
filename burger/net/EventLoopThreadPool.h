@@ -16,7 +16,7 @@ class EventLoopThread;
 
 class EventLoopThreadPool : boost::noncopyable {
 public:
-    using ThreadInitCallback = std::function<void(EventLoop*)>;
+    using ThreadInitCallback = std::function<void(EventLoop *)>;
     EventLoopThreadPool(EventLoop* baseLoop);
     ~EventLoopThreadPool();
 
@@ -32,7 +32,7 @@ private:
     int numThreads_;
     int next_;  // next connection's EventLoop obj id
     std::vector<std::unique_ptr<EventLoopThread> > threadList_;
-    std::vector<EventLoop*> loopList_;
+    std::vector<EventLoop *> loopList_;  // 都是栈上对象
 };
 
 } // namespace net

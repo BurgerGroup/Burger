@@ -42,7 +42,6 @@ void EventLoopThreadPool::start(const ThreadInitCallback& cb) {
         auto eventLoopThread = util::make_unique<EventLoopThread>(cb);
         loopList_.push_back(eventLoopThread->startLoop());  // 启动EventLoopThread线程，在进入事件循环之前，会调用cb
         threadList_.push_back(std::move(eventLoopThread));
-
     }
     if(numThreads_ == 0 && cb) {
         // 只有一个EventLoop, 在这个EventLoop进入事件循环之前，调用cb

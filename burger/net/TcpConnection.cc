@@ -13,9 +13,9 @@ void burger::net::defaultConnectionCallback(const TcpConnectionPtr& conn) {
 }
 
 void burger::net::defaultMessageCallback(const TcpConnectionPtr&,
-                                        Buffer* buf,
+                                        Buffer& buf,
                                         Timestamp) {
-    buf->retrieveAll();
+    buf.retrieveAll();
 }
 
 
@@ -51,13 +51,14 @@ bool TcpConnection::getTcpInfo(struct tcp_info& tcpi) const {
 std::string TcpConnection::getTcpInfoString() const {
     return socket_->getTcpInfoString();
 }
+
 // 线程安全，可以跨线程调用
 void TcpConnection::send(const std::string& message) {
     if(status_ == Status::kConnected) {
         if(loop_->isInLoopThread()) {
             sendInLoop(message);
         } else {
-            // bind private member function ?? 
+            // bind other object's private member function 
             void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
             loop_->runInLoop(std::bind(fp, this, message));
         }
@@ -119,7 +120,7 @@ void TcpConnection::handleRead(Timestamp receiveTime) {
     int savedErrno = 0;
     ssize_t n = inputBuffer_.readFd(channel_->getFd(), savedErrno);
     if(n > 0) {
-        messageCallback_(shared_from_this(), &inputBuffer_, receiveTime);
+        messageCallback_(shared_from_this(), inputBuffer_, receiveTime);
     } else if(n == 0) {
         handleClose();
     } else {

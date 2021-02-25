@@ -5,11 +5,6 @@
 
 using namespace burger;
 using namespace burger::net;
-/*
-1.  telnet 127.0.0.1 8888
-2. 还没处理断开连接，当客户端断开，就会一直处于高电平触发 busy loop
-
-*/
 
 void onConnection(const TcpConnectionPtr& conn) {
     if(conn->isConnected()) {
@@ -23,9 +18,12 @@ void onConnection(const TcpConnectionPtr& conn) {
 }
 
 void onMessage(const TcpConnectionPtr& conn, 
-                const char* data, ssize_t len) {
-    std::cout << "onMessage(): received " << len 
-        << " bytes from connection " << conn->getName() << std::endl;
+                Buffer& buf, 
+                Timestamp recieveTime) {
+    std::cout << "onMessage(): received " << buf.getReadableBytes() 
+        << " bytes from connection " << conn->getName() 
+        << " at " << recieveTime.toString() <<std::endl;
+    std::cout << "onMessage() : " << buf.retrieveAllAsString() << std::endl;
 }   
 
 int main() {
