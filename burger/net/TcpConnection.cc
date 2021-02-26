@@ -80,7 +80,7 @@ void TcpConnection::send(Buffer& buf) {
 void TcpConnection::shutdown() {
     // FIXME: use compare and swap
     if (status_ == Status::kConnected) {
-        setStatus(Status::kConnecting);
+        setStatus(Status::kDisconnecting);
         // FIXME: shared_from_this()?
         loop_->runInLoop(std::bind(&TcpConnection::shutdownInLoop, this));
     }

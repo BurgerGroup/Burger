@@ -26,9 +26,7 @@ void timeout(Timestamp receiveTime) {
 }
 
 int main() {
-    if (!Logger::Instance().init("log", "logs/test.txt", spdlog::level::trace)) {
-		return 1;
-	}
+
     EventLoop loop;
     g_loop = &loop;
     // 以下这些都封装成TimerQueue

@@ -5,26 +5,26 @@
 
 using namespace burger;
 using namespace burger::net;
-
 /**
- * @brief 通过命令行指定两条消息大小，连续发送两条消息 
- * sendInLoop和handleWrite都只调用了一次write而不是反复调用直到返回EAGAIN
- * reason: 如果第一次write没有能够发送完数据，第二次调用write几乎肯定返回EAGAIN
- * 对比见 tcpConnection_test03.py
- * EAGAIN is often raised when performing non-blocking I/O. It means "there is no data available right now, try again later".
- * It might (or might not) be the same as EWOULDBLOCK, which means "your thread would have to block in order to do that".
+ * SIGPIPE 
+ * SIGPIPE 默认行为是终止进程，如果对方断开连接而本地继续写入的话，会造成服务进程的意外退出
+ * 加入服务进程繁忙，没有及时处理对方断开连接的事件，就有可能出现在连接断开后继续发送数据的情况
  * 
- * https://stackoverflow.com/questions/4058368/what-does-eagain-mean
+ * 模拟 : nc localhost后立刻ctrl-c断开客户端，服务进程过几秒就会退出
  */
 
 std::string message1;
 std::string message2;
+int sleepSeconds = 0;
 
 void onConnection(const TcpConnectionPtr& conn) {
     if(conn->isConnected()) {
         std::cout << "onConnection(): new connection [" 
             << conn->getName() <<  "] from " 
             << conn->getPeerAddress().getIpPortStr() << std::endl;
+        if(sleepSeconds > 0) {
+            ::sleep(sleepSeconds);
+        }
         conn->send(message1);
         conn->send(message2);
         conn->shutdown();
@@ -51,6 +51,9 @@ int main(int argc, char *argv[]) {
     if(argc > 2) {
         len1 = atoi(argv[1]);
         len2 = atoi(argv[2]);
+    }
+    if(argc > 3) {
+        sleepSeconds = atoi(argv[3]);
     }
     message1.resize(len1);
     message2.resize(len2);

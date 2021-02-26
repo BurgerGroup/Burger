@@ -15,10 +15,6 @@ void newConnection(int sockfd, const InetAddress& peerAddr) {
 }
 
 int main() {
-    if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
-        std::cout << "Logger init error" << std::endl;
-		return 1;
-	}
 
     std::cout << "main() : pid = " << ::getpid() << std::endl;
     InetAddress listenAddr(8888);

@@ -3,6 +3,7 @@
 #include "TimerId.h"
 #include "TimerQueue.h"
 #include "Channel.h"
+#include <signal.h>
 
 using namespace burger;
 using namespace burger::net;
@@ -20,7 +21,34 @@ int createEventfd() {
     }
     return efd;
 }
-}
+
+
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+class IgnoreSigPipe {
+public:
+    IgnoreSigPipe() {
+        ::signal(SIGPIPE, SIG_IGN);
+        TRACE("Ignore SIGPIPE");
+    }
+};
+#pragma GCC diagnostic error "-Wold-style-cast"
+IgnoreSigPipe initObj;
+
+// 和IgnoreSigPipe一样再全局中init
+class Log {
+public:
+    Log() {
+        if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
+            ERROR("Logger init error");
+	    }
+    }
+};
+
+Log initLog;
+
+}  // namespace
+
+
 
 EventLoop::EventLoop() : 
     looping_(false),

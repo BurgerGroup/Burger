@@ -28,9 +28,7 @@ void cancel(TimerId timer, const std::string& name) {
 }
 
 int main() {
-    // if (!Logger::Instance().init("log", "logs/test.txt", spdlog::level::trace)) {
-	// 	return 1;
-	// }
+
     printTid();
     std::this_thread::sleep_for(std::chrono::seconds(1));
     {
