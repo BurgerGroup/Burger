@@ -25,7 +25,14 @@ void onConnection(const TcpConnectionPtr& conn) {
         std::cout << "onConnection(): new connection [" 
             << conn->getName() <<  "] from " 
             << conn->getPeerAddress().getIpPortStr() << std::endl;
-        conn->send(message1);
+        // [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN HUP  ]
+        // 当服务器端主动断开与客户端的连接，这意味着客户端read返回0, close(connfd),
+        // 服务器端收到的事件为 POLLHUP | POLLIN
+
+        // Muduo 这种关闭连接的方式对对方也有要求，那就是对方 read() 到 0 字节之后会主动关闭连接（无论 shutdownWrite() 还是 close()），
+        // 一般的网络程序都会这样，不是什么问题。
+        // 当然，这么做有一个潜在的安全漏洞，万一对方故意不不关，那么 muduo 的连接就一直半开着，消耗系统资源。
+        // https://blog.csdn.net/Solstice/article/details/6208634
         conn->send(message2);
         conn->shutdown();
     } else {

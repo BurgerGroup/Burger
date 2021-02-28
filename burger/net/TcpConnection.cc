@@ -72,18 +72,24 @@ void TcpConnection::send(Buffer& buf) {
             buf.retrieveAll();
         } else {
             void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
-            loop_->runInLoop(std::bind(fp, this, buf.retrieveAllAsString()));
+            loop_->runInLoop(std::bind(fp, this, std::move(buf.retrieveAllAsString())));
         }
     }
 }
 
+// 应用程序想关闭连接，但是可能正处于发送数据的过程中，output buffer 中有数据还没发完，不能直接调用close
 void TcpConnection::shutdown() {
-    // FIXME: use compare and swap
+    // FIXME: use 原子性操作compare and swap
     if (status_ == Status::kConnected) {
+        // 如果正在写，他只是把状态改变，但再shutdownInLoop中并没有去关闭连接
         setStatus(Status::kDisconnecting);
         // FIXME: shared_from_this()?
         loop_->runInLoop(std::bind(&TcpConnection::shutdownInLoop, this));
     }
+}
+
+void TcpConnection::setTcpNoDelay(bool on)  {
+    socket_->setTcpNoDelay(on);
 }
 
 void TcpConnection::connectEstablished() {
@@ -153,7 +159,7 @@ void TcpConnection::handleWrite() {
                 if (writeCompleteCallback_) {
                     loop_->queueInLoop(std::bind(writeCompleteCallback_, shared_from_this()));
                 }
-                if (status_ == Status::kDisconnecting) {
+                if (status_ == Status::kDisconnecting) {  // 如果之前调用了shutdown,但是还在output，没用关闭读端，留到此时关闭
                     shutdownInLoop();
                 }
             }
@@ -191,7 +197,6 @@ void TcpConnection::sendInLoop(const std::string& message) {
     sendInLoop(message.c_str(), message.size());
 }
 
-// todo 再理一下
 // 此接口也方便了send(Buffer&)
 void TcpConnection::sendInLoop(const void* data, size_t len) {
     loop_->assertInLoopThread();
@@ -239,7 +244,8 @@ void TcpConnection::sendInLoop(const void* data, size_t len) {
     }
 }
 
-// todo
+// 当服务器端主动断开与客户端的连接，这意味着客户端read返回0, close(connfd),
+// 服务器端收到的事件为 POLLHUP | POLLIN
 void TcpConnection::shutdownInLoop() {
     loop_->assertInLoopThread();
     if(!channel_->isWriting()) {  

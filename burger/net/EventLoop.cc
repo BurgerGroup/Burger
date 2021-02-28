@@ -241,7 +241,7 @@ void EventLoop::handleWakeupFd() {
 
 void EventLoop::printActiveChannels() const {
     for(const auto& channel: activeChannels_) {
-        TRACE("[ {} ]", channel->eventsToString());
+        TRACE("[ {} ]", channel->reventsToString());
     }
 }
 // 1. 不是简单地在临界区内依次调用Functor，

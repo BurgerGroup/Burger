@@ -39,8 +39,18 @@ target_link_libraries(tcpConnection_test02 burger_net)
 add_executable(tcpConnection_test03 tcpConnection_test03.cc)
 target_link_libraries(tcpConnection_test03 burger_net)
 
+add_executable(tcpConnection_test03_client tcpConnection_test03_client.cc)
+target_link_libraries(tcpConnection_test03_client burger_net)
+
 add_executable(tcpConnection_test04 tcpConnection_test04.cc)
 target_link_libraries(tcpConnection_test04 burger_net)
+
+add_executable(tcpConnection_test05 tcpConnection_test05.cc)
+target_link_libraries(tcpConnection_test05 burger_net)
+
+add_executable(char_gen_test char_gen_test.cc)
+target_link_libraries(char_gen_test burger_net)
+
 
 # add_executable(EventLoopThreadPool_test EventLoopThreadPool_test.cc)
 # target_link_libraries(EventLoopThreadPool_test burger_net)

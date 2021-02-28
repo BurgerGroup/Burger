@@ -55,7 +55,7 @@ private:
         std::string msg(buf.retrieveAllAsString());
         std::cout << "onMessage(): received " <<  msg.size() 
             << " bytes from connection " << conn->getName()
-            << "at " << receiveTime.toString() << std::endl;
+            << "at " << receiveTime.toFormatTime() << std::endl;
         conn->send(msg);   
     }   
 private:
@@ -64,7 +64,6 @@ private:
 };
 
 int main() {
-
     std::cout << "main() : pid = " << ::getpid() << std::endl;
     InetAddress listenAddr(8888);
     EventLoop loop;

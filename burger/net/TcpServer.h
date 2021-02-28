@@ -33,7 +33,7 @@ public:
     void setConnectionCallback(const ConnectionCallback& cb) { connectionCallback_ = cb; }
     // not thread safe 
     void setMessageCallback(const MessageCallback& cb) { messageCallback_ = cb; }
-
+    void setWriteCompleteCallback(const WriteCompleteCallback& cb) { writeCompleteCallback_ = cb; }
     void start();
 private:
     // Not thread safe, but in loop，连接时回调的函数
@@ -53,6 +53,7 @@ private:
     // 保存用户提供的ConnectionCallback和 MessageCallback
     ConnectionCallback connectionCallback_;
     MessageCallback messageCallback_;
+    WriteCompleteCallback writeCompleteCallback_;
     ThreadInitCallback threadInitCallback_;
     AtomicInt32 started_;  // in start() avoid race condition 
     int nextConnId_;
