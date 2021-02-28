@@ -11,6 +11,7 @@ using namespace burger::net;
  * 加入服务进程繁忙，没有及时处理对方断开连接的事件，就有可能出现在连接断开后继续发送数据的情况
  * 
  * 模拟 : nc localhost后立刻ctrl-c断开客户端，服务进程过几秒就会退出
+ * 在EventLoop.cc中 IgonoreSigPipe则解决问题
  */
 
 std::string message1;
