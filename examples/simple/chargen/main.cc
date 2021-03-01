@@ -2,7 +2,7 @@
 #include "burger/net/EventLoop.h"
 
 int main() {
-    // LOG_LEVEL_INFO;
+    LOG_LEVEL_INFO;
     INFO("pid = {}", ::getpid());
     EventLoop loop;
     InetAddress listenAddr(8888);

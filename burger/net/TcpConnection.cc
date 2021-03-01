@@ -34,6 +34,7 @@ TcpConnection::TcpConnection(EventLoop* loop,
     highWaterMark_(64*1024*1024) {  // 64 M
     channel_->setReadCallback(std::bind(&TcpConnection::handleRead, 
                                     this, std::placeholders::_1));
+    channel_->setWriteCallback(std::bind(&TcpConnection::handleWrite, this));
     channel_->setCloseCallback(std::bind(&TcpConnection::handleClose, this));
     channel_->setErrorCallback(std::bind(&TcpConnection::handleError, this));
     DEBUG("TcpConnection::ctor[ {} ] at {} fd = {} ", connName_, fmt::ptr(this), sockfd);
@@ -62,6 +63,7 @@ void TcpConnection::send(const std::string& message) {
             // bind other object's private member function 
             void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
             loop_->runInLoop(std::bind(fp, this, std::move(message)));  // 这里message跨线程的话，异步只能复制一次过去
+            // loop_->runInLoop(std::bind(fp, this, message));
         }
     }
 }
