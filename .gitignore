@@ -65,6 +65,8 @@ test/test_runner
 build/release/*
 build/debug/*
 build/run/*
+build/logs/&
+
 
 include/*
 lib/*

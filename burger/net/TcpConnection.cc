@@ -217,6 +217,9 @@ void TcpConnection::sendInLoop(const void* data, size_t len) {
             remaining = len - nwrote;
             // 写完
             if (remaining == 0 && writeCompleteCallback_) {
+                // 为什么我们的writeCompleteCallback_ 都要queueInLoop而不是 runInLoop
+                // run和queue的区别在于，在IO线程中调用run这个函数会立刻执行，而调用queue的话，会等下次从poll返回之后执行doPend的时候才执行
+                // 一种特殊情况，writeCompleteCallback中向所在的socket写入1byte的信息，每次进行到这马上有趣发送1 bytes,然后又触发writeComplete,然后进入递归，爆栈
                 loop_->queueInLoop(std::bind(writeCompleteCallback_, shared_from_this()));
             }
         } else { // nwrote < 0

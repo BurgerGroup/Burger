@@ -12,6 +12,7 @@ namespace sockets {
 // Creates a non-blocking socket fd, abort if any error
 // 这些步骤出错就会造成程序终止，通常原因是因为端口被占用，这时让程序异常更好的退出，触发监控系统警报，而不是假装正常运行
 int createNonblockingOrDie();
+int connect(int sockfd, const struct sockaddr& addr);
 void bindOrDie(int sockfd, const struct sockaddr_in& addrin);
 void listenOrDie(int sockfd);
 int accept(int sockfd, struct sockaddr_in& addrin);
@@ -37,7 +38,8 @@ struct sockaddr_in* sockaddr_in_cast(struct sockaddr* addr);
 std::string toIpStr(const struct sockaddr_in* addr);
 
 struct sockaddr_in getLocalAddr(int sockfd);
-
+struct sockaddr_in getPeerAddr(int sockfd);
+bool isSelfConnect(int sockfd);
 
 } // namespace sockets
 } // namespace net
