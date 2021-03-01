@@ -53,4 +53,5 @@ private:
 #define ERROR(...) SPDLOG_LOGGER_ERROR(spdlog::default_logger_raw(), __VA_ARGS__);
 #define CRITICAL(...) SPDLOG_LOGGER_CRITICAL(spdlog::default_logger_raw(), __VA_ARGS__);abort();
 
+#define LOG_LEVEL_INFO spdlog::set_level(spdlog::level::info);
 #endif // LOG_H

@@ -64,6 +64,7 @@ void TcpServer::newConnection(int sockfd, const InetAddress& peerAddr) {
     // TRACE("[2] usecount = {}", conn.use_count());  // 2
     conn->setConnectionCallback(connectionCallback_);
     conn->setMessageCallback(messageCallback_);
+    conn->setWriteCompleteCallback(writeCompleteCallback_);
     conn->setCloseCallback(std::bind(&TcpServer::removeConnection, this, std::placeholders::_1));
     ioLoop->runInLoop(std::bind(&TcpConnection::connectEstablished, conn)); 
     // TRACE("[5] usecount = {}", conn.use_count());  // 2， conn是个临时对象，跳出这个函数又为1--只有列表对象存有

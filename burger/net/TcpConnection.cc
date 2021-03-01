@@ -30,7 +30,8 @@ TcpConnection::TcpConnection(EventLoop* loop,
     socket_(util::make_unique<Socket>(sockfd)), 
     channel_(util::make_unique<Channel>(loop, sockfd)),
     localAddr_(localAddr),
-    peerAddr_(peerAddr) {
+    peerAddr_(peerAddr),
+    highWaterMark_(64*1024*1024) {  // 64 M
     channel_->setReadCallback(std::bind(&TcpConnection::handleRead, 
                                     this, std::placeholders::_1));
     channel_->setCloseCallback(std::bind(&TcpConnection::handleClose, this));
