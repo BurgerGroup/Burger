@@ -22,7 +22,7 @@ public:
     void disconnect();
     void stop();
 
-    TcpConnectionPtr connection() const;
+    TcpConnectionPtr getConnection() const;
     EventLoop* getLoop() const { return loop_; }
     bool retry() const { return retry_; }
     void enableRetry() { retry_ = true; }
@@ -40,16 +40,16 @@ private:
     void removeConnection(const TcpConnectionPtr& conn);
 private:
     EventLoop* loop_;
-    ConnectorPtr connector_; // avoid revealing Connector
+    ConnectorPtr connector_; // 用于主动发起连接
     const std::string name_;
     ConnectionCallback connectionCallback_;
     MessageCallback messageCallback_;
     WriteCompleteCallback writeCompleteCallback_;
-    bool retry_;  
+    bool retry_;  // 与connector(还没连接成功是否重连)不一样，这里是建立连接成功后，又断开的时候是否重连，
     bool connect_; 
-    int nextConnId_;  // todo need atomic ?
+    int nextConnId_;  // always in loop thread，所以不需要atomic, name_ + connId 标识一个连接
     mutable std::mutex mutex_;
-    TcpConnectionPtr connection_;
+    TcpConnectionPtr connection_; // connector连接成功后建立一个connection
 };
 
 } // namespace net

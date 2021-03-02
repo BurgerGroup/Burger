@@ -71,6 +71,7 @@ private:
     void sendInLoop(const std::string& message);
     void sendInLoop(const void* data, size_t len);
     void shutdownInLoop();
+    void forceCloseInLoop();
     EventLoop* loop_;
     const std::string connName_;
     Status status_;

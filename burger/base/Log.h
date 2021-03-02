@@ -41,7 +41,7 @@ private:
     std::atomic<bool> isInited_{false};
 };
 
-const char* strerror_tl(int savedErrno);
+
 
 
 } // namespace burge 

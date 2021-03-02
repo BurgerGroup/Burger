@@ -4,6 +4,7 @@ set(base_SRCS
   CountDownLatch.cc
   ThreadPool.cc
   Log.cc
+  Util.cc
 )
 
 add_library(burger_base ${base_SRCS})

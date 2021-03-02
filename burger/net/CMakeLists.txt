@@ -14,6 +14,8 @@ set(net_SRCS
   TcpConnection.cc
   EventLoopThreadPool.cc
   Buffer.cc
+  Connector.cc 
+  TcpClient.cc
   )
 
 add_library(burger_net ${net_SRCS})

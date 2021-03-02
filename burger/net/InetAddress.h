@@ -31,7 +31,7 @@ public:
     sa_family_t getFamily() const { return addrin_.sin_family; }
 
     const struct sockaddr_in& getSockAddrin() const { return addrin_; }
-    const struct sockaddr& getSockAddr() const { return sockets::sockaddr_cast(&addrin_); }
+    const struct sockaddr& getSockAddr() const { return *sockets::sockaddr_cast(&addrin_); }
     void setSockAddrin(const struct sockaddr_in& addrin) { addrin_ = addrin; }
     uint32_t getIpNetEndian() const { return addrin_.sin_addr.s_addr; }
     uint16_t getPortNetEndian() const { return addrin_.sin_port; }

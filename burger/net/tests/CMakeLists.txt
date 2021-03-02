@@ -54,3 +54,7 @@ target_link_libraries(tcpConnection_test05 burger_net)
 add_executable(Buffer_unittest Buffer_unittest.cc)
 target_link_libraries(Buffer_unittest burger_net)
 add_test(NAME Buffer_unittest COMMAND Buffer_unittest)
+
+add_executable(TcpClient_test TcpClient_test.cc)
+target_link_libraries(TcpClient_test burger_net)
+

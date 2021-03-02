@@ -32,4 +32,5 @@ target_link_libraries(timestamp_unittest burger_base)
 # add_executable(log_test log_test.cc)
 # target_link_libraries(log_test burger_base)
 
-
+add_executable(util_test util_test.cc)
+target_link_libraries(util_test burger_base)

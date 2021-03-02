@@ -6,6 +6,7 @@
 #include <thread>
 #include <unistd.h>
 #include <sys/syscall.h>
+#include <stdlib.h>
 
 namespace burger {
 
@@ -38,6 +39,24 @@ std::unique_ptr<T> make_unique(Args&&... args) {
 inline pid_t gettid() {
     return static_cast<pid_t>(::syscall(SYS_gettid));
 }
+
+extern thread_local pid_t t_cachedTid;
+
+inline void cacheTid() {
+    if (t_cachedTid == 0) {
+        t_cachedTid = gettid();
+    }
+}
+
+inline pid_t tid() {
+    // todo
+    if (__builtin_expect(t_cachedTid == 0, 0)) {
+        cacheTid();
+    }
+    return t_cachedTid;
+}
+
+const char* strerror_tl(int savedErrno);
 
 } // namespace util
 

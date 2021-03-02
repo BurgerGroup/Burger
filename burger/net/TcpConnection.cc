@@ -91,6 +91,13 @@ void TcpConnection::shutdown() {
     }
 }
 
+void TcpConnection::forceClose() {
+    if(status_ == Status::kConnected || status_ == Status::kDisconnecting) {
+        setStatus(Status::kDisconnecting);
+        loop_->queueInLoop(std::bind(&TcpConnection::forceCloseInLoop, shared_from_this()));
+    }
+}
+
 void TcpConnection::setTcpNoDelay(bool on)  {
     socket_->setTcpNoDelay(on);
 }
@@ -256,5 +263,12 @@ void TcpConnection::shutdownInLoop() {
     loop_->assertInLoopThread();
     if(!channel_->isWriting()) {  
         socket_->shutdownWrite();  
+    }
+}
+
+void TcpConnection::forceCloseInLoop() {
+    loop_->assertInLoopThread();
+    if(status_ == Status::kConnected || status_ == Status::kDisconnecting) {
+        handleClose();
     }
 }

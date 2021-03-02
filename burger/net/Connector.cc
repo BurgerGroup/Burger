@@ -14,11 +14,11 @@ Connector::Connector(EventLoop* loop, const InetAddress& serverAddr):
         connect_(false),
         status_(Status::kDisconnected),
         retryDelayMs_(kInitRetryDelayMs) {
-    DEBUG("ctor[{}]", fmt.ptr(this));
+    DEBUG("ctor[{}]", fmt::ptr(this));
 }
 
 Connector::~Connector() {
-    DEBUG("dtor[{}]", fmt.ptr(this));
+    DEBUG("dtor[{}]", fmt::ptr(this));
     assert(!channel_);
 }
 
@@ -137,7 +137,7 @@ void Connector::handleWrite() {
         // sockfd 可写并不意味着连接一定成功，还需要getsockopt(sockfd, SOL_SOCKET, SO_ERROR, ...) 再次确认是否发生错误
         int err = sockets::getSocketError(sockfd);
         if (err) {
-            WARN("Connector::handleWrite - SO_ERROR =  {} -- {}", err, strerror_tl(err));
+            WARN("Connector::handleWrite - SO_ERROR =  {} -- {}", err, util::strerror_tl(err));
             retry(sockfd);
         } else if (sockets::isSelfConnect(sockfd)) {
             WARN("Connector::handleWrite - Self connect");
@@ -161,7 +161,7 @@ void Connector::handleError() {
     if (status_ == Status::kConnecting) {
         int sockfd = removeAndResetChannel();
         int err = sockets::getSocketError(sockfd);
-        TRACE("SO_ERROR = {} -- {}", err, strerror_tl(err));
+        TRACE("SO_ERROR = {} -- {}", err, util::strerror_tl(err));
         retry(sockfd);
     }
 }

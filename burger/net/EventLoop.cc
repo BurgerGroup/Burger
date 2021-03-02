@@ -55,14 +55,14 @@ EventLoop::EventLoop() :
     quit_(false),
     eventHandling_(false),
     iteration_(0),
-    threadId_(util::gettid()),
+    threadId_(util::tid()),
     epoll_(util::make_unique<Epoll>(this)),
     timerQueue_(util::make_unique<TimerQueue>(this)),
     wakeupFd_(createEventfd()),
     wakeupChannel_(util::make_unique<Channel>(this, wakeupFd_)) {
     TRACE("EventLoop created {} ", fmt::ptr(this));
     if(t_loopInthisThread) {
-        CRITICAL("Another EventLoop {} exists in this Thread( tid = {} ) ...", fmt::ptr(t_loopInthisThread), util::gettid()); 
+        CRITICAL("Another EventLoop {} exists in this Thread( tid = {} ) ...", fmt::ptr(t_loopInthisThread), util::tid()); 
     } else {
         // Can pointer 'this' be a shared pointer?
         // https://stackoverflow.com/questions/37598634/can-pointer-this-be-a-shared-pointer
@@ -182,7 +182,7 @@ void EventLoop::assertInLoopThread() {
 }
 
 bool EventLoop::isInLoopThread() const {
-    return threadId_ == util::gettid();  // TODO : cache thread_local tid 
+    return threadId_ == util::tid();  
 }
 
 EventLoop* EventLoop::getEventLoopOfCurrentThread() {
@@ -228,7 +228,7 @@ void EventLoop::abortNotInLoopThread() {
     std::cout << "11" << std::endl;
     CRITICAL("EventLoop::abortNotInLoopThread - EventLoop {} was \
         created in threadId_ = {}, and current id = {} ...", 
-        fmt::ptr(this), threadId_, util::gettid());
+        fmt::ptr(this), threadId_, util::tid());
 }
 
 void EventLoop::handleWakeupFd() {

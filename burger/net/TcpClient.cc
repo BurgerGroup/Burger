@@ -32,14 +32,15 @@ TcpClient::TcpClient(EventLoop* loop,
         retry_(false),
         connect_(true),
         nextConnId_(1) {
+    // 连接成功回调函数
     connector_->setNewConnectionCallback(std::bind(&TcpClient::newConnection, this,
-                            std::placeholders::_1));
+                            std::placeholders::_1)); // sockfd
     // FIXME setConnectFailedCallback
-    INFO("TcpClient::TcpClient[{}] - connector {}", name_, fmt.ptr(connector_));
+    INFO("TcpClient::TcpClient[{}] - connector {}", name_, fmt::ptr(connector_));
 }
 
 TcpClient::~TcpClient() {
-    INFO("TcpClient::~TcpClient[{}] - connector {}", name_, fmt.ptr(connector_));
+    INFO("TcpClient::~TcpClient[{}] - connector {}", name_, fmt::ptr(connector_));
 
     TcpConnectionPtr conn;
     bool unique = false;
@@ -51,6 +52,8 @@ TcpClient::~TcpClient() {
     if (conn) {
         assert(loop_ == conn->getLoop());
         // FIXME: not 100% safe, if we are in different thread
+        // 重新设置TcpConnection中的closeCallback_(有重连功能 -- 这里已经析构不需要重连)为detail::removeConnection
+    
         CloseCallback cb = std::bind(&detail::removeConnection, loop_, 
                                         std::placeholders::_1);
         loop_->runInLoop(std::bind(&TcpConnection::setCloseCallback, conn, cb));
@@ -58,6 +61,7 @@ TcpClient::~TcpClient() {
             conn->forceClose();
         }
     } else {
+        // conn处于未连接状态，酱connetor_停止
         connector_->stop();
         // FIXME: HACK
         loop_->runAfter(1, std::bind(&detail::removeConnector, connector_));
@@ -71,6 +75,7 @@ void TcpClient::connect() {
     connector_->start();
 }
 
+// 用于连接已经建立的情况下，关闭连接
 void TcpClient::disconnect() {
     connect_ = false;
     {
@@ -81,12 +86,13 @@ void TcpClient::disconnect() {
     }
 }
 
+// 可能尚未连接成功，我们停止发起连接
 void TcpClient::stop() {
     connect_ = false;
     connector_->stop();
 }
 
-TcpConnectionPtr TcpClient::connection() const {
+TcpConnectionPtr TcpClient::getConnection() const {
     std::lock_guard<std::mutex> lock(mutex_);
     return connection_;
 }
@@ -97,13 +103,12 @@ void TcpClient::newConnection(int sockfd) {
     std::string connName = name_ + ":" + peerAddr.getIpPortStr() + "#" + std::to_string(nextConnId_);
     ++nextConnId_;
     InetAddress localAddr(sockets::getLocalAddr(sockfd));
-    TcpConnectionPtr conn(std::make_shared<TcpConnection>(loop_,
-                    connName, sockfd, localAddr, peerAddr));
+    TcpConnectionPtr conn = std::make_shared<TcpConnection>(loop_,
+                    connName, sockfd, localAddr, peerAddr);
     conn->setConnectionCallback(connectionCallback_);
     conn->setMessageCallback(messageCallback_);
     conn->setWriteCompleteCallback(writeCompleteCallback_);
-    conn->setCloseCallback(
-    std::bind(&TcpClient::removeConnection, this, std::placeholders::_1)); // FIXME: unsafe
+    conn->setCloseCallback(std::bind(&TcpClient::removeConnection, this, std::placeholders::_1)); // FIXME: unsafe
     {
         std::lock_guard<std::mutex> lock(mutex_);
         connection_ = conn;
@@ -123,6 +128,7 @@ void TcpClient::removeConnection(const TcpConnectionPtr& conn) {
     if (retry_ && connect_) {
         INFO("TcpClient::connect[{}] - Reconnecting to {}", 
                     name_, connector_->getServerAddress().getIpPortStr());
+        // 这里的重连是指连接断开之后的重连
         connector_->restart();
     }
 }
