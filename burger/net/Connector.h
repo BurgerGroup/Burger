@@ -54,6 +54,8 @@ private:
     int retryDelayMs_;   // 重连延迟事件 ms
 };
 
+using ConnectorPtr = std::shared_ptr<Connector>;
+
 } // namespace net
 
 } // namespace burger
