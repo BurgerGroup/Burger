@@ -4,9 +4,9 @@
 
 # add_executable(thread_local thread_local.cc)
 
-# add_executable(gtest_test gtest_test.cc)
-# target_link_libraries(gtest_test ${GTEST_BOTH_LIBRARIES})
-# add_test(NAME gtest_test COMMAND gtest_test)
+add_executable(gtest_test gtest_test.cc)
+target_link_libraries(gtest_test gtest)
+add_test(NAME gtest_test COMMAND gtest_test)
 
 # add_executable(lower_bound lower_bound.cc)
 
