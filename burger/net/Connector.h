@@ -2,6 +2,7 @@
 #define CONNECTOR_H
 
 #include <memory>
+#include <functional>
 #include <boost/noncopyable.hpp>
 #include "burger/net/InetAddress.h"
 

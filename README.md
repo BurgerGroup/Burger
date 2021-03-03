@@ -4,9 +4,7 @@
 
 1. string view(piece)
 
-2. current tid
-
-3. http restful api
+2. http restful api
 
 ## link 
 

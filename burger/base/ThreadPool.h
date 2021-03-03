@@ -10,6 +10,7 @@
 #include <vector>
 #include <deque>
 #include <string>
+#include <functional>
 #include <algorithm>
 #include <boost/thread/is_locked_by_this_thread.hpp>
 // TODO : 是否需要改成变长线程池
