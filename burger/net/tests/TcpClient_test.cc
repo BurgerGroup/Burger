@@ -12,6 +12,13 @@
 using namespace burger;
 using namespace burger::net;
 
+/*
+从键盘接收输入  -- 前台线程
+
+从网络接受输入 -- IO线程
+
+
+*/
 
 class TestClient {
 public:
@@ -67,6 +74,7 @@ int main(int argc, char* argv[]) {
     INFO("pid = {}, tid = {}", ::getpid(), util::tid());
     EventLoop loop;
     InetAddress serverAddr("127.0.0.1", 8888);
+    // client 的accpetor具有自动重连，client先开启也可
     TestClient client(&loop, serverAddr);
     client.connect();
     loop.loop();

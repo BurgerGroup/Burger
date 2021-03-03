@@ -7,7 +7,6 @@
 using namespace burger;
 using namespace burger::net;
 // RFC 864
-// 如果没setHighWaterMarkCallback, 一次发很大的流量，然后0 ， 0， 0
 
 class ChargenServer {
 public:

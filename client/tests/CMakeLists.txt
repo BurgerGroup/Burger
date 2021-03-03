@@ -1,2 +1,0 @@
-add_executable(interface_test interface_test.cc)
-target_link_libraries(interface_test client)
