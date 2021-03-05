@@ -21,3 +21,8 @@ readv和writev函数用于在一次函数调用中读、写多个非连续缓冲
 https://blog.csdn.net/weibo1230123/article/details/81530355
 
 ## TcpConnection 声明周期
+
+## cmake 组织
+
+https://www.jianshu.com/p/f181b5bd0a63
+

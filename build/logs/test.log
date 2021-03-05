@@ -1,0 +1,1307 @@
+2021-03-03 18:38:34 [info] [tid : 16742] [TcpClient_test.cc : 74 <main>] pid = 16742, tid = 16742
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 18:38:34 [trace] [tid : 16742] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffdb5c52dc0 
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 18:38:34 [debug] [tid : 16742] [Connector.cc : 17 <Connector>] ctor[0x27746e0]
+2021-03-03 18:38:34 [info] [tid : 16742] [TcpClient.cc : 39 <TcpClient>] TcpClient::TcpClient[TestClient] - connector 0x27746e0
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 49 <updateChannel>] fd = 0, events = 3, stauts = kNew
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 0, event = [0: IN PRI ]
+2021-03-03 18:38:34 [info] [tid : 16742] [TcpClient.cc : 73 <connect>] TcpClient::connect[TestClient] - connecting to 127.0.0.1:8888
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 18:38:34 [trace] [tid : 16742] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffdb5c52dc0 start looping
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:34 [trace] [tid : 16742] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 18:38:34 [trace] [tid : 16742] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 18:38:34 [warning] [tid : 16742] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 18:38:34 [error] [tid : 16742] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 18:38:34 [trace] [tid : 16742] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 18:38:34 [info] [tid : 16742] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 500 milliseconds
+2021-03-03 18:38:34 [trace] [tid : 16742] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:34 [trace] [tid : 16742] [EventLoop.cc : 244 <printActiveChannels>] [ 6: IN  ]
+2021-03-03 18:38:34 [trace] [tid : 16742] [Channel.cc : 78 <handleEventWithGuard>] 6: IN 
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:34 [trace] [tid : 16742] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 18:38:34 [trace] [tid : 16742] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 18:38:34 [trace] [tid : 16742] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614767914.651473
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:34 [trace] [tid : 16742] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 18:38:34 [trace] [tid : 16742] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 18:38:34 [warning] [tid : 16742] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 18:38:34 [error] [tid : 16742] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 18:38:34 [trace] [tid : 16742] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 18:38:34 [info] [tid : 16742] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 1000 milliseconds
+2021-03-03 18:38:34 [trace] [tid : 16742] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 18:38:34 [trace] [tid : 16742] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 18:38:35 [trace] [tid : 16742] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:35 [trace] [tid : 16742] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 18:38:35 [trace] [tid : 16742] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 18:38:35 [trace] [tid : 16742] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614767915.653724
+2021-03-03 18:38:35 [trace] [tid : 16742] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 18:38:35 [trace] [tid : 16742] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 18:38:35 [trace] [tid : 16742] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:38:35 [trace] [tid : 16742] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:35 [trace] [tid : 16742] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 18:38:35 [trace] [tid : 16742] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 18:38:35 [warning] [tid : 16742] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 18:38:35 [error] [tid : 16742] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 18:38:35 [trace] [tid : 16742] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 18:38:35 [trace] [tid : 16742] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 18:38:35 [trace] [tid : 16742] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 18:38:35 [trace] [tid : 16742] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 18:38:35 [info] [tid : 16742] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 2000 milliseconds
+2021-03-03 18:38:35 [trace] [tid : 16742] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 18:38:35 [trace] [tid : 16742] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 18:38:37 [trace] [tid : 16742] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:37 [trace] [tid : 16742] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 18:38:37 [trace] [tid : 16742] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 18:38:37 [trace] [tid : 16742] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614767917.656108
+2021-03-03 18:38:37 [trace] [tid : 16742] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 18:38:37 [trace] [tid : 16742] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 18:38:37 [trace] [tid : 16742] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:38:37 [trace] [tid : 16742] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:37 [trace] [tid : 16742] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 18:38:37 [trace] [tid : 16742] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 18:38:37 [warning] [tid : 16742] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 18:38:37 [error] [tid : 16742] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 18:38:37 [trace] [tid : 16742] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 18:38:37 [trace] [tid : 16742] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 18:38:37 [trace] [tid : 16742] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 18:38:37 [trace] [tid : 16742] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 18:38:37 [info] [tid : 16742] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 4000 milliseconds
+2021-03-03 18:38:37 [trace] [tid : 16742] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 18:38:37 [trace] [tid : 16742] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 18:38:41 [trace] [tid : 16742] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:41 [trace] [tid : 16742] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 18:38:41 [trace] [tid : 16742] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 18:38:41 [trace] [tid : 16742] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614767921.659768
+2021-03-03 18:38:41 [trace] [tid : 16742] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 18:38:41 [trace] [tid : 16742] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 18:38:41 [trace] [tid : 16742] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:38:41 [trace] [tid : 16742] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:41 [trace] [tid : 16742] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 18:38:41 [trace] [tid : 16742] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 18:38:41 [warning] [tid : 16742] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 18:38:41 [error] [tid : 16742] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 18:38:49 [info] [tid : 16783] [TcpClient_test.cc : 74 <main>] pid = 16783, tid = 16783
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 18:38:49 [trace] [tid : 16783] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffd68ea3910 
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 18:38:49 [debug] [tid : 16783] [Connector.cc : 17 <Connector>] ctor[0x103f6e0]
+2021-03-03 18:38:49 [info] [tid : 16783] [TcpClient.cc : 39 <TcpClient>] TcpClient::TcpClient[TestClient] - connector 0x103f6e0
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 49 <updateChannel>] fd = 0, events = 3, stauts = kNew
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 0, event = [0: IN PRI ]
+2021-03-03 18:38:49 [info] [tid : 16783] [TcpClient.cc : 73 <connect>] TcpClient::connect[TestClient] - connecting to 127.0.0.1:8888
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 18:38:49 [trace] [tid : 16783] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffd68ea3910 start looping
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:49 [trace] [tid : 16783] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 18:38:49 [trace] [tid : 16783] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 18:38:49 [warning] [tid : 16783] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 18:38:49 [error] [tid : 16783] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 18:38:49 [trace] [tid : 16783] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 18:38:49 [info] [tid : 16783] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 500 milliseconds
+2021-03-03 18:38:49 [trace] [tid : 16783] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:49 [trace] [tid : 16783] [EventLoop.cc : 244 <printActiveChannels>] [ 6: IN  ]
+2021-03-03 18:38:49 [trace] [tid : 16783] [Channel.cc : 78 <handleEventWithGuard>] 6: IN 
+2021-03-03 18:38:49 [trace] [tid : 16783] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 18:38:50 [trace] [tid : 16783] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:50 [trace] [tid : 16783] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 18:38:50 [trace] [tid : 16783] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 18:38:50 [trace] [tid : 16783] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614767930.458291
+2021-03-03 18:38:50 [trace] [tid : 16783] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 18:38:50 [trace] [tid : 16783] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 18:38:50 [trace] [tid : 16783] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:38:50 [trace] [tid : 16783] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:50 [trace] [tid : 16783] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 18:38:50 [trace] [tid : 16783] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 18:38:50 [warning] [tid : 16783] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 18:38:50 [error] [tid : 16783] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 18:38:50 [trace] [tid : 16783] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 18:38:50 [trace] [tid : 16783] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 18:38:50 [trace] [tid : 16783] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 18:38:50 [trace] [tid : 16783] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 18:38:50 [info] [tid : 16783] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 1000 milliseconds
+2021-03-03 18:38:50 [trace] [tid : 16783] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 18:38:50 [trace] [tid : 16783] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 18:38:51 [trace] [tid : 16783] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:51 [trace] [tid : 16783] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 18:38:51 [trace] [tid : 16783] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 18:38:51 [trace] [tid : 16783] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614767931.459062
+2021-03-03 18:38:51 [trace] [tid : 16783] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 18:38:51 [trace] [tid : 16783] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 18:38:51 [trace] [tid : 16783] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:38:51 [trace] [tid : 16783] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:51 [trace] [tid : 16783] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 18:38:51 [trace] [tid : 16783] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 18:38:51 [warning] [tid : 16783] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 18:38:51 [error] [tid : 16783] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 18:38:51 [trace] [tid : 16783] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 18:38:51 [trace] [tid : 16783] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 18:38:51 [trace] [tid : 16783] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 18:38:51 [trace] [tid : 16783] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 18:38:51 [info] [tid : 16783] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 2000 milliseconds
+2021-03-03 18:38:51 [trace] [tid : 16783] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 18:38:51 [trace] [tid : 16783] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 18:38:53 [trace] [tid : 16783] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:53 [trace] [tid : 16783] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 18:38:53 [trace] [tid : 16783] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 18:38:53 [trace] [tid : 16783] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614767933.460115
+2021-03-03 18:38:53 [trace] [tid : 16783] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 18:38:53 [trace] [tid : 16783] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 18:38:53 [trace] [tid : 16783] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:38:53 [trace] [tid : 16783] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:38:53 [trace] [tid : 16783] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 18:38:53 [trace] [tid : 16783] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 18:38:53 [warning] [tid : 16783] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 18:38:53 [error] [tid : 16783] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 18:38:53 [trace] [tid : 16783] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 18:38:53 [trace] [tid : 16783] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 18:38:53 [trace] [tid : 16783] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 18:38:53 [trace] [tid : 16783] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 18:38:53 [info] [tid : 16783] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 4000 milliseconds
+2021-03-03 18:38:53 [trace] [tid : 16783] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 18:38:53 [trace] [tid : 16783] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 18:38:54 [trace] [tid : 16796] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 18:38:54 [trace] [tid : 16796] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 18:38:54 [trace] [tid : 16796] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffc4dae9760 
+2021-03-03 18:38:54 [trace] [tid : 16796] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 18:38:54 [trace] [tid : 16796] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 18:38:54 [trace] [tid : 16796] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 18:38:54 [trace] [tid : 16796] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 18:38:54 [trace] [tid : 16796] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffc4dae9760 start looping
+2021-03-03 18:38:54 [trace] [tid : 16796] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 18:39:00 [trace] [tid : 16796] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:00 [trace] [tid : 16796] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 18:39:00 [trace] [tid : 16796] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 18:39:00 [trace] [tid : 16796] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:34400
+2021-03-03 18:39:00 [info] [tid : 16796] [TcpServer.cc : 57 <newConnection>] TcpServer::newConnection [TcpServer] - new connection [TcpServer-0.0.0.0:8888#1] from 127.0.0.1:34400 
+2021-03-03 18:39:00 [debug] [tid : 16796] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TcpServer-0.0.0.0:8888#1 ] at 0x1624950 fd = 9 
+2021-03-03 18:39:00 [trace] [tid : 16796] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 3, stauts = kNew
+2021-03-03 18:39:00 [trace] [tid : 16796] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-03-03 18:39:00 [trace] [tid : 16796] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:00 [info] [tid : 16812] [TcpClient_test.cc : 74 <main>] pid = 16812, tid = 16812
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 18:39:00 [trace] [tid : 16812] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffcbca665e0 
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 18:39:00 [debug] [tid : 16812] [Connector.cc : 17 <Connector>] ctor[0x108f6e0]
+2021-03-03 18:39:00 [info] [tid : 16812] [TcpClient.cc : 39 <TcpClient>] TcpClient::TcpClient[TestClient] - connector 0x108f6e0
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 49 <updateChannel>] fd = 0, events = 3, stauts = kNew
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 0, event = [0: IN PRI ]
+2021-03-03 18:39:00 [info] [tid : 16812] [TcpClient.cc : 73 <connect>] TcpClient::connect[TestClient] - connecting to 127.0.0.1:8888
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 18:39:00 [trace] [tid : 16812] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffcbca665e0 start looping
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:00 [trace] [tid : 16812] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT  ]
+2021-03-03 18:39:00 [trace] [tid : 16812] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT 
+2021-03-03 18:39:00 [trace] [tid : 16812] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 1
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 18:39:00 [debug] [tid : 16812] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TestClient:127.0.0.1:8888#1 ] at 0x1091bd0 fd = 7 
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:00 [trace] [tid : 16812] [EventLoop.cc : 244 <printActiveChannels>] [ 6: IN  ]
+2021-03-03 18:39:00 [trace] [tid : 16812] [Channel.cc : 78 <handleEventWithGuard>] 6: IN 
+2021-03-03 18:39:00 [trace] [tid : 16812] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:10 [trace] [tid : 16796] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 18:39:10 [trace] [tid : 16796] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:10 [trace] [tid : 16812] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 18:39:10 [trace] [tid : 16812] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:18 [trace] [tid : 16796] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:18 [trace] [tid : 16796] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 18:39:18 [trace] [tid : 16796] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 18:39:18 [trace] [tid : 16796] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:18 [trace] [tid : 16812] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:18 [trace] [tid : 16812] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 18:39:18 [trace] [tid : 16812] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 18:39:18 [trace] [tid : 16812] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:18 [trace] [tid : 16812] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:18 [trace] [tid : 16812] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 18:39:18 [trace] [tid : 16812] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 18:39:18 [trace] [tid : 16812] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 18 bytes at 2021-03-03 18:39:18
+2021-03-03 18:39:18 [trace] [tid : 16812] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:24 [trace] [tid : 16812] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:24 [trace] [tid : 16812] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 18:39:24 [trace] [tid : 16812] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 18:39:24 [trace] [tid : 16812] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:24 [trace] [tid : 16812] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:24 [trace] [tid : 16812] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 18:39:24 [trace] [tid : 16812] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 18:39:24 [trace] [tid : 16812] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 19 bytes at 2021-03-03 18:39:24
+2021-03-03 18:39:24 [trace] [tid : 16812] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:24 [trace] [tid : 16796] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:24 [trace] [tid : 16796] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 18:39:24 [trace] [tid : 16796] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 18:39:24 [trace] [tid : 16796] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:34 [trace] [tid : 16796] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 18:39:34 [trace] [tid : 16796] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:34 [trace] [tid : 16812] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 18:39:34 [trace] [tid : 16812] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:38 [trace] [tid : 16796] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:38 [trace] [tid : 16796] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 18:39:38 [trace] [tid : 16796] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 18:39:38 [trace] [tid : 16796] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:38 [trace] [tid : 16812] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:38 [trace] [tid : 16812] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 18:39:38 [trace] [tid : 16812] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 18:39:38 [trace] [tid : 16812] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:38 [trace] [tid : 16812] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:38 [trace] [tid : 16812] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 18:39:38 [trace] [tid : 16812] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 18:39:38 [trace] [tid : 16812] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 14 bytes at 2021-03-03 18:39:38
+2021-03-03 18:39:38 [trace] [tid : 16812] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 18:39:40 [trace] [tid : 16812] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 18:39:40 [trace] [tid : 16812] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 18:39:40 [trace] [tid : 16812] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 18:39:40 [trace] [tid : 16812] [TcpConnection.cc : 186 <handleClose>] fd = 7 status = kConnected
+2021-03-03 18:39:40 [trace] [tid : 16812] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 18:39:40 [trace] [tid : 16812] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 18:39:40 [trace] [tid : 16812] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 18:39:40 [debug] [tid : 16812] [TcpConnection.cc : 46 <~TcpConnection>] TcpConnection::dtor[ TestClient:127.0.0.1:8888#1 ] at 0x1091bd0 fd = 7 status = kDisconnected 
+2021-03-03 18:39:40 [trace] [tid : 16812] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 18:39:42 [trace] [tid : 16902] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 18:39:42 [trace] [tid : 16902] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 18:39:42 [trace] [tid : 16902] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffea2a9b4f0 
+2021-03-03 18:39:42 [trace] [tid : 16902] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 18:39:42 [trace] [tid : 16902] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 18:39:42 [trace] [tid : 16902] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 18:39:42 [trace] [tid : 16902] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 18:39:42 [trace] [tid : 16902] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffea2a9b4f0 start looping
+2021-03-03 18:39:42 [trace] [tid : 16902] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:18:30 [info] [tid : 33893] [TcpClient_test.cc : 74 <main>] pid = 33893, tid = 33893
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:18:30 [trace] [tid : 33893] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffe62b274c0 
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:18:30 [debug] [tid : 33893] [Connector.cc : 17 <Connector>] ctor[0x1f2a6e0]
+2021-03-03 22:18:30 [info] [tid : 33893] [TcpClient.cc : 39 <TcpClient>] TcpClient::TcpClient[TestClient] - connector 0x1f2a6e0
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 0, events = 3, stauts = kNew
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 0, event = [0: IN PRI ]
+2021-03-03 22:18:30 [info] [tid : 33893] [TcpClient.cc : 73 <connect>] TcpClient::connect[TestClient] - connecting to 127.0.0.1:8888
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:18:30 [trace] [tid : 33893] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffe62b274c0 start looping
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:30 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 22:18:30 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 22:18:30 [warning] [tid : 33893] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 22:18:30 [error] [tid : 33893] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:18:30 [trace] [tid : 33893] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 22:18:30 [info] [tid : 33893] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 500 milliseconds
+2021-03-03 22:18:30 [trace] [tid : 33893] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:30 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 6: IN  ]
+2021-03-03 22:18:30 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 6: IN 
+2021-03-03 22:18:30 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:18:31 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:31 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 22:18:31 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 22:18:31 [trace] [tid : 33893] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614781111.299412
+2021-03-03 22:18:31 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:18:31 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:18:31 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:31 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:31 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 22:18:31 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 22:18:31 [warning] [tid : 33893] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 22:18:31 [error] [tid : 33893] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 22:18:31 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:18:31 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:18:31 [trace] [tid : 33893] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:18:31 [trace] [tid : 33893] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 22:18:31 [info] [tid : 33893] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 1000 milliseconds
+2021-03-03 22:18:31 [trace] [tid : 33893] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 22:18:31 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:18:32 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:32 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 22:18:32 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 22:18:32 [trace] [tid : 33893] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614781112.303895
+2021-03-03 22:18:32 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:18:32 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:18:32 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:32 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:32 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 22:18:32 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 22:18:32 [warning] [tid : 33893] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 22:18:32 [error] [tid : 33893] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 22:18:32 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:18:32 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:18:32 [trace] [tid : 33893] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:18:32 [trace] [tid : 33893] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 22:18:32 [info] [tid : 33893] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 2000 milliseconds
+2021-03-03 22:18:32 [trace] [tid : 33893] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 22:18:32 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:18:34 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:34 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 22:18:34 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 22:18:34 [trace] [tid : 33893] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614781114.307367
+2021-03-03 22:18:34 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:18:34 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:18:34 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:34 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:34 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 22:18:34 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 22:18:34 [warning] [tid : 33893] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 22:18:34 [error] [tid : 33893] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 22:18:34 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:18:34 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:18:34 [trace] [tid : 33893] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:18:34 [trace] [tid : 33893] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 22:18:34 [info] [tid : 33893] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 4000 milliseconds
+2021-03-03 22:18:34 [trace] [tid : 33893] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 22:18:34 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:18:38 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:38 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 22:18:38 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 22:18:38 [trace] [tid : 33893] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614781118.315417
+2021-03-03 22:18:38 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:18:38 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:18:38 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:38 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:38 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 22:18:38 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 22:18:38 [warning] [tid : 33893] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 22:18:38 [error] [tid : 33893] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 22:18:38 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:18:38 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:18:38 [trace] [tid : 33893] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:18:38 [trace] [tid : 33893] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 22:18:38 [info] [tid : 33893] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 8000 milliseconds
+2021-03-03 22:18:38 [trace] [tid : 33893] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 22:18:38 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:18:45 [trace] [tid : 33914] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:18:45 [trace] [tid : 33914] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:18:45 [trace] [tid : 33914] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffceb8283c0 
+2021-03-03 22:18:45 [trace] [tid : 33914] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:18:45 [trace] [tid : 33914] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:18:45 [trace] [tid : 33914] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:18:45 [trace] [tid : 33914] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:18:45 [trace] [tid : 33914] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffceb8283c0 start looping
+2021-03-03 22:18:45 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:18:46 [trace] [tid : 33914] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:46 [trace] [tid : 33914] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:18:46 [trace] [tid : 33914] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:18:46 [trace] [tid : 33914] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:34512
+2021-03-03 22:18:46 [info] [tid : 33914] [TcpServer.cc : 57 <newConnection>] TcpServer::newConnection [TcpServer] - new connection [TcpServer-0.0.0.0:8888#1] from 127.0.0.1:34512 
+2021-03-03 22:18:46 [debug] [tid : 33914] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TcpServer-0.0.0.0:8888#1 ] at 0x1349950 fd = 9 
+2021-03-03 22:18:46 [trace] [tid : 33914] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 3, stauts = kNew
+2021-03-03 22:18:46 [trace] [tid : 33914] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-03-03 22:18:46 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:46 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:46 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 22:18:46 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 22:18:46 [trace] [tid : 33893] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614781126.318799
+2021-03-03 22:18:46 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:18:46 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:18:46 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:46 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:46 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT  ]
+2021-03-03 22:18:46 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT 
+2021-03-03 22:18:46 [trace] [tid : 33893] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 1
+2021-03-03 22:18:46 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:18:46 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:18:46 [trace] [tid : 33893] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:18:46 [debug] [tid : 33893] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TestClient:127.0.0.1:8888#1 ] at 0x1f2cbd0 fd = 7 
+2021-03-03 22:18:46 [trace] [tid : 33893] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:18:46 [trace] [tid : 33893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:18:46 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:48 [trace] [tid : 33914] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:48 [trace] [tid : 33914] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:18:48 [trace] [tid : 33914] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:18:48 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:51 [trace] [tid : 33914] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:51 [trace] [tid : 33914] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:18:51 [trace] [tid : 33914] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:18:51 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:48 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:48 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:18:48 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:18:48 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:48 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:48 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:18:48 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:18:48 [trace] [tid : 33893] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 12 bytes at 2021-03-03 22:18:48
+2021-03-03 22:18:48 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:51 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:51 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:18:51 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:18:51 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:51 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:51 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:18:51 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:18:51 [trace] [tid : 33893] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 21 bytes at 2021-03-03 22:18:51
+2021-03-03 22:18:51 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:53 [trace] [tid : 33914] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:53 [trace] [tid : 33914] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:18:53 [trace] [tid : 33914] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:18:53 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:54 [trace] [tid : 33914] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:54 [trace] [tid : 33914] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:18:54 [trace] [tid : 33914] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:18:54 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:53 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:53 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:18:53 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:18:53 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:53 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:53 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:18:53 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:18:53 [trace] [tid : 33893] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 24 bytes at 2021-03-03 22:18:53
+2021-03-03 22:18:53 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:54 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:54 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:18:54 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:18:54 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:54 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:54 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:18:54 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:18:54 [trace] [tid : 33893] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 2 bytes at 2021-03-03 22:18:54
+2021-03-03 22:18:54 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:55 [trace] [tid : 33914] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:55 [trace] [tid : 33914] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:18:55 [trace] [tid : 33914] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:18:55 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:55 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:55 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:18:55 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:18:55 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:18:55 [trace] [tid : 33893] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:18:55 [trace] [tid : 33893] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:18:55 [trace] [tid : 33893] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:18:55 [trace] [tid : 33893] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 3 bytes at 2021-03-03 22:18:55
+2021-03-03 22:18:55 [trace] [tid : 33893] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:00 [trace] [tid : 33914] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:00 [trace] [tid : 33914] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:19:00 [trace] [tid : 33914] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:19:00 [trace] [tid : 33914] [TcpConnection.cc : 186 <handleClose>] fd = 9 status = kConnected
+2021-03-03 22:19:00 [trace] [tid : 33914] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 0, stauts = kAdded
+2021-03-03 22:19:00 [trace] [tid : 33914] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 9, event = [9: ]
+2021-03-03 22:19:00 [info] [tid : 33914] [TcpServer.cc : 79 <removeConnectionInLoop>] TcpServer::removeConnectionInLoop [TcpServer] - connection TcpServer-0.0.0.0:8888#1
+2021-03-03 22:19:00 [trace] [tid : 33914] [Epoll.cc : 81 <removeChannel>] fd = 9 
+2021-03-03 22:19:00 [debug] [tid : 33914] [TcpConnection.cc : 46 <~TcpConnection>] TcpConnection::dtor[ TcpServer-0.0.0.0:8888#1 ] at 0x1349950 fd = 9 status = kDisconnected 
+2021-03-03 22:19:00 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:19:01 [trace] [tid : 33914] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:01 [trace] [tid : 33914] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:01 [trace] [tid : 33914] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:01 [trace] [tid : 33914] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:34514
+2021-03-03 22:19:01 [info] [tid : 33914] [TcpServer.cc : 57 <newConnection>] TcpServer::newConnection [TcpServer] - new connection [TcpServer-0.0.0.0:8888#2] from 127.0.0.1:34514 
+2021-03-03 22:19:01 [debug] [tid : 33914] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TcpServer-0.0.0.0:8888#2 ] at 0x1349950 fd = 9 
+2021-03-03 22:19:01 [trace] [tid : 33914] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 3, stauts = kNew
+2021-03-03 22:19:01 [trace] [tid : 33914] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-03-03 22:19:01 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:02 [trace] [tid : 33914] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:02 [trace] [tid : 33914] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:19:02 [trace] [tid : 33914] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:19:02 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:01 [info] [tid : 33920] [TcpClient_test.cc : 74 <main>] pid = 33920, tid = 33920
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:19:01 [trace] [tid : 33920] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffc690039a0 
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:19:01 [debug] [tid : 33920] [Connector.cc : 17 <Connector>] ctor[0x1ca06e0]
+2021-03-03 22:19:01 [info] [tid : 33920] [TcpClient.cc : 39 <TcpClient>] TcpClient::TcpClient[TestClient] - connector 0x1ca06e0
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 49 <updateChannel>] fd = 0, events = 3, stauts = kNew
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 0, event = [0: IN PRI ]
+2021-03-03 22:19:01 [info] [tid : 33920] [TcpClient.cc : 73 <connect>] TcpClient::connect[TestClient] - connecting to 127.0.0.1:8888
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:19:01 [trace] [tid : 33920] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffc690039a0 start looping
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:01 [trace] [tid : 33920] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT  ]
+2021-03-03 22:19:01 [trace] [tid : 33920] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT 
+2021-03-03 22:19:01 [trace] [tid : 33920] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 1
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:19:01 [debug] [tid : 33920] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TestClient:127.0.0.1:8888#1 ] at 0x1ca2bd0 fd = 7 
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:01 [trace] [tid : 33920] [EventLoop.cc : 244 <printActiveChannels>] [ 6: IN  ]
+2021-03-03 22:19:01 [trace] [tid : 33920] [Channel.cc : 78 <handleEventWithGuard>] 6: IN 
+2021-03-03 22:19:01 [trace] [tid : 33920] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:02 [trace] [tid : 33920] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:02 [trace] [tid : 33920] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:19:02 [trace] [tid : 33920] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:19:02 [trace] [tid : 33920] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:02 [trace] [tid : 33920] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:02 [trace] [tid : 33920] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:02 [trace] [tid : 33920] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:02 [trace] [tid : 33920] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 7 bytes at 2021-03-03 22:19:02
+2021-03-03 22:19:02 [trace] [tid : 33920] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:04 [trace] [tid : 33920] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:04 [trace] [tid : 33920] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:19:04 [trace] [tid : 33920] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:19:04 [trace] [tid : 33920] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:04 [trace] [tid : 33920] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:04 [trace] [tid : 33920] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:04 [trace] [tid : 33920] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:04 [trace] [tid : 33920] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 17 bytes at 2021-03-03 22:19:04
+2021-03-03 22:19:04 [trace] [tid : 33920] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:04 [trace] [tid : 33914] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:04 [trace] [tid : 33914] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:19:04 [trace] [tid : 33914] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:19:04 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:05 [trace] [tid : 33914] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:05 [trace] [tid : 33914] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:19:05 [trace] [tid : 33914] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:19:05 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:06 [trace] [tid : 33914] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:06 [trace] [tid : 33914] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:19:06 [trace] [tid : 33914] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:19:06 [trace] [tid : 33914] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:05 [trace] [tid : 33920] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:05 [trace] [tid : 33920] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:19:05 [trace] [tid : 33920] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:19:05 [trace] [tid : 33920] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:05 [trace] [tid : 33920] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:05 [trace] [tid : 33920] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:05 [trace] [tid : 33920] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:05 [trace] [tid : 33920] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 11 bytes at 2021-03-03 22:19:05
+2021-03-03 22:19:05 [trace] [tid : 33920] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:06 [trace] [tid : 33920] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:06 [trace] [tid : 33920] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:19:06 [trace] [tid : 33920] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:19:06 [trace] [tid : 33920] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:06 [trace] [tid : 33920] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:06 [trace] [tid : 33920] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:06 [trace] [tid : 33920] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:06 [trace] [tid : 33920] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 6 bytes at 2021-03-03 22:19:06
+2021-03-03 22:19:06 [trace] [tid : 33920] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:10 [trace] [tid : 33920] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:10 [trace] [tid : 33920] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:10 [trace] [tid : 33920] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:10 [trace] [tid : 33920] [TcpConnection.cc : 186 <handleClose>] fd = 7 status = kConnected
+2021-03-03 22:19:10 [trace] [tid : 33920] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:19:10 [trace] [tid : 33920] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:19:10 [trace] [tid : 33920] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:19:10 [debug] [tid : 33920] [TcpConnection.cc : 46 <~TcpConnection>] TcpConnection::dtor[ TestClient:127.0.0.1:8888#1 ] at 0x1ca2bd0 fd = 7 status = kDisconnected 
+2021-03-03 22:19:10 [trace] [tid : 33920] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:19:13 [trace] [tid : 33926] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:19:13 [trace] [tid : 33926] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:19:13 [trace] [tid : 33926] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7fff51760790 
+2021-03-03 22:19:13 [trace] [tid : 33926] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:19:13 [trace] [tid : 33926] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:19:13 [trace] [tid : 33926] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:19:13 [trace] [tid : 33926] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:19:13 [trace] [tid : 33926] [EventLoop.cc : 90 <loop>] EventLoop 0x7fff51760790 start looping
+2021-03-03 22:19:13 [trace] [tid : 33926] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:19:23 [trace] [tid : 33926] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:19:23 [trace] [tid : 33926] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:19:33 [trace] [tid : 33926] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:19:33 [trace] [tid : 33926] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:19:35 [trace] [tid : 33926] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:35 [trace] [tid : 33926] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:35 [trace] [tid : 33926] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:35 [trace] [tid : 33926] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:34516
+2021-03-03 22:19:35 [info] [tid : 33926] [TcpServer.cc : 57 <newConnection>] TcpServer::newConnection [TcpServer] - new connection [TcpServer-0.0.0.0:8888#1] from 127.0.0.1:34516 
+2021-03-03 22:19:35 [debug] [tid : 33926] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TcpServer-0.0.0.0:8888#1 ] at 0x2745950 fd = 9 
+2021-03-03 22:19:35 [trace] [tid : 33926] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 3, stauts = kNew
+2021-03-03 22:19:35 [trace] [tid : 33926] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-03-03 22:19:35 [trace] [tid : 33926] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:35 [info] [tid : 33932] [TcpClient_test.cc : 74 <main>] pid = 33932, tid = 33932
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:19:35 [trace] [tid : 33932] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffc3955ad60 
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:19:35 [debug] [tid : 33932] [Connector.cc : 17 <Connector>] ctor[0x17c56e0]
+2021-03-03 22:19:35 [info] [tid : 33932] [TcpClient.cc : 39 <TcpClient>] TcpClient::TcpClient[TestClient] - connector 0x17c56e0
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 49 <updateChannel>] fd = 0, events = 3, stauts = kNew
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 0, event = [0: IN PRI ]
+2021-03-03 22:19:35 [info] [tid : 33932] [TcpClient.cc : 73 <connect>] TcpClient::connect[TestClient] - connecting to 127.0.0.1:8888
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:19:35 [trace] [tid : 33932] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffc3955ad60 start looping
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:35 [trace] [tid : 33932] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT  ]
+2021-03-03 22:19:35 [trace] [tid : 33932] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT 
+2021-03-03 22:19:35 [trace] [tid : 33932] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 1
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:19:35 [debug] [tid : 33932] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TestClient:127.0.0.1:8888#1 ] at 0x17c7bd0 fd = 7 
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:35 [trace] [tid : 33932] [EventLoop.cc : 244 <printActiveChannels>] [ 6: IN  ]
+2021-03-03 22:19:35 [trace] [tid : 33932] [Channel.cc : 78 <handleEventWithGuard>] 6: IN 
+2021-03-03 22:19:35 [trace] [tid : 33932] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:40 [trace] [tid : 33932] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:40 [trace] [tid : 33932] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:19:40 [trace] [tid : 33932] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:19:40 [trace] [tid : 33932] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:40 [trace] [tid : 33932] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:40 [trace] [tid : 33932] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:40 [trace] [tid : 33932] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:40 [trace] [tid : 33932] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 6 bytes at 2021-03-03 22:19:40
+2021-03-03 22:19:40 [trace] [tid : 33932] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:40 [trace] [tid : 33926] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:40 [trace] [tid : 33926] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:19:40 [trace] [tid : 33926] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:19:40 [trace] [tid : 33926] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:50 [trace] [tid : 33926] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:19:50 [trace] [tid : 33926] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:51 [trace] [tid : 33926] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:51 [trace] [tid : 33926] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:19:51 [trace] [tid : 33926] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:19:51 [trace] [tid : 33926] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:50 [trace] [tid : 33932] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:19:50 [trace] [tid : 33932] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:51 [trace] [tid : 33932] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:51 [trace] [tid : 33932] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:19:51 [trace] [tid : 33932] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:19:51 [trace] [tid : 33932] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:51 [trace] [tid : 33932] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:51 [trace] [tid : 33932] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:51 [trace] [tid : 33932] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:51 [trace] [tid : 33932] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 12 bytes at 2021-03-03 22:19:51
+2021-03-03 22:19:51 [trace] [tid : 33932] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:53 [trace] [tid : 33932] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:53 [trace] [tid : 33932] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:19:53 [trace] [tid : 33932] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:19:53 [trace] [tid : 33932] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:53 [trace] [tid : 33932] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:53 [trace] [tid : 33932] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:53 [trace] [tid : 33932] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:53 [trace] [tid : 33932] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 11 bytes at 2021-03-03 22:19:53
+2021-03-03 22:19:53 [trace] [tid : 33932] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:53 [trace] [tid : 33926] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:53 [trace] [tid : 33926] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:19:53 [trace] [tid : 33926] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:19:53 [trace] [tid : 33926] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:53 [trace] [tid : 33926] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:53 [trace] [tid : 33926] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:19:53 [trace] [tid : 33926] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:19:53 [trace] [tid : 33926] [TcpConnection.cc : 186 <handleClose>] fd = 9 status = kConnected
+2021-03-03 22:19:53 [trace] [tid : 33926] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 0, stauts = kAdded
+2021-03-03 22:19:53 [trace] [tid : 33926] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 9, event = [9: ]
+2021-03-03 22:19:53 [info] [tid : 33926] [TcpServer.cc : 79 <removeConnectionInLoop>] TcpServer::removeConnectionInLoop [TcpServer] - connection TcpServer-0.0.0.0:8888#1
+2021-03-03 22:19:53 [trace] [tid : 33926] [Epoll.cc : 81 <removeChannel>] fd = 9 
+2021-03-03 22:19:53 [debug] [tid : 33926] [TcpConnection.cc : 46 <~TcpConnection>] TcpConnection::dtor[ TcpServer-0.0.0.0:8888#1 ] at 0x2745950 fd = 9 status = kDisconnected 
+2021-03-03 22:19:53 [trace] [tid : 33926] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:19:54 [trace] [tid : 33926] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:54 [trace] [tid : 33926] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:54 [trace] [tid : 33926] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:54 [trace] [tid : 33926] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:34518
+2021-03-03 22:19:54 [info] [tid : 33926] [TcpServer.cc : 57 <newConnection>] TcpServer::newConnection [TcpServer] - new connection [TcpServer-0.0.0.0:8888#2] from 127.0.0.1:34518 
+2021-03-03 22:19:54 [debug] [tid : 33926] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TcpServer-0.0.0.0:8888#2 ] at 0x2745950 fd = 9 
+2021-03-03 22:19:54 [trace] [tid : 33926] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 3, stauts = kNew
+2021-03-03 22:19:54 [trace] [tid : 33926] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-03-03 22:19:54 [trace] [tid : 33926] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:54 [info] [tid : 33938] [TcpClient_test.cc : 74 <main>] pid = 33938, tid = 33938
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:19:54 [trace] [tid : 33938] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7fff4918d3b0 
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:19:54 [debug] [tid : 33938] [Connector.cc : 17 <Connector>] ctor[0x1e226e0]
+2021-03-03 22:19:54 [info] [tid : 33938] [TcpClient.cc : 39 <TcpClient>] TcpClient::TcpClient[TestClient] - connector 0x1e226e0
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 49 <updateChannel>] fd = 0, events = 3, stauts = kNew
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 0, event = [0: IN PRI ]
+2021-03-03 22:19:54 [info] [tid : 33938] [TcpClient.cc : 73 <connect>] TcpClient::connect[TestClient] - connecting to 127.0.0.1:8888
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:19:54 [trace] [tid : 33938] [EventLoop.cc : 90 <loop>] EventLoop 0x7fff4918d3b0 start looping
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:54 [trace] [tid : 33938] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT  ]
+2021-03-03 22:19:54 [trace] [tid : 33938] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT 
+2021-03-03 22:19:54 [trace] [tid : 33938] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 1
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:19:54 [debug] [tid : 33938] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TestClient:127.0.0.1:8888#1 ] at 0x1e24bd0 fd = 7 
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:54 [trace] [tid : 33938] [EventLoop.cc : 244 <printActiveChannels>] [ 6: IN  ]
+2021-03-03 22:19:54 [trace] [tid : 33938] [Channel.cc : 78 <handleEventWithGuard>] 6: IN 
+2021-03-03 22:19:54 [trace] [tid : 33938] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:55 [trace] [tid : 33938] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:55 [trace] [tid : 33938] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:19:55 [trace] [tid : 33938] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:19:55 [trace] [tid : 33938] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:55 [trace] [tid : 33938] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:55 [trace] [tid : 33938] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:55 [trace] [tid : 33938] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:55 [trace] [tid : 33938] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 5 bytes at 2021-03-03 22:19:55
+2021-03-03 22:19:55 [trace] [tid : 33938] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:57 [trace] [tid : 33938] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:57 [trace] [tid : 33938] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:19:57 [trace] [tid : 33938] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:19:57 [trace] [tid : 33938] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:57 [trace] [tid : 33938] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:57 [trace] [tid : 33938] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:57 [trace] [tid : 33938] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:57 [trace] [tid : 33938] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 18 bytes at 2021-03-03 22:19:57
+2021-03-03 22:19:57 [trace] [tid : 33938] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:55 [trace] [tid : 33926] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:55 [trace] [tid : 33926] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:19:55 [trace] [tid : 33926] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:19:55 [trace] [tid : 33926] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:57 [trace] [tid : 33926] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:57 [trace] [tid : 33926] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:19:57 [trace] [tid : 33926] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:19:57 [trace] [tid : 33926] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:58 [trace] [tid : 33938] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:58 [trace] [tid : 33938] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:19:58 [trace] [tid : 33938] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:19:58 [trace] [tid : 33938] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:19:58 [trace] [tid : 33938] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:19:58 [trace] [tid : 33938] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:19:58 [trace] [tid : 33938] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:19:58 [trace] [tid : 33938] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 18 bytes at 2021-03-03 22:19:58
+2021-03-03 22:19:58 [trace] [tid : 33938] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:00 [trace] [tid : 33938] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:00 [trace] [tid : 33938] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:20:00 [trace] [tid : 33938] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:20:00 [trace] [tid : 33938] [TcpConnection.cc : 186 <handleClose>] fd = 7 status = kConnected
+2021-03-03 22:20:00 [trace] [tid : 33938] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:20:00 [trace] [tid : 33938] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:20:00 [trace] [tid : 33938] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:20:00 [debug] [tid : 33938] [TcpConnection.cc : 46 <~TcpConnection>] TcpConnection::dtor[ TestClient:127.0.0.1:8888#1 ] at 0x1e24bd0 fd = 7 status = kDisconnected 
+2021-03-03 22:20:00 [trace] [tid : 33938] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:20:01 [trace] [tid : 33944] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:20:01 [trace] [tid : 33944] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:20:01 [trace] [tid : 33944] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffdd51b1010 
+2021-03-03 22:20:01 [trace] [tid : 33944] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:20:01 [trace] [tid : 33944] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:20:01 [trace] [tid : 33944] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:20:01 [trace] [tid : 33944] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:20:01 [trace] [tid : 33944] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffdd51b1010 start looping
+2021-03-03 22:20:01 [trace] [tid : 33944] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:20:06 [trace] [tid : 33944] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:06 [trace] [tid : 33944] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:20:06 [trace] [tid : 33944] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:20:06 [trace] [tid : 33944] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:34520
+2021-03-03 22:20:06 [info] [tid : 33944] [TcpServer.cc : 57 <newConnection>] TcpServer::newConnection [TcpServer] - new connection [TcpServer-0.0.0.0:8888#1] from 127.0.0.1:34520 
+2021-03-03 22:20:06 [debug] [tid : 33944] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TcpServer-0.0.0.0:8888#1 ] at 0x1023950 fd = 9 
+2021-03-03 22:20:06 [trace] [tid : 33944] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 3, stauts = kNew
+2021-03-03 22:20:06 [trace] [tid : 33944] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-03-03 22:20:06 [trace] [tid : 33944] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:07 [trace] [tid : 33944] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:07 [trace] [tid : 33944] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:20:07 [trace] [tid : 33944] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:20:07 [trace] [tid : 33944] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:06 [info] [tid : 33950] [TcpClient_test.cc : 74 <main>] pid = 33950, tid = 33950
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:20:06 [trace] [tid : 33950] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffcb02c6900 
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:20:06 [debug] [tid : 33950] [Connector.cc : 17 <Connector>] ctor[0xd636e0]
+2021-03-03 22:20:06 [info] [tid : 33950] [TcpClient.cc : 39 <TcpClient>] TcpClient::TcpClient[TestClient] - connector 0xd636e0
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 49 <updateChannel>] fd = 0, events = 3, stauts = kNew
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 0, event = [0: IN PRI ]
+2021-03-03 22:20:06 [info] [tid : 33950] [TcpClient.cc : 73 <connect>] TcpClient::connect[TestClient] - connecting to 127.0.0.1:8888
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:20:06 [trace] [tid : 33950] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffcb02c6900 start looping
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:06 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT  ]
+2021-03-03 22:20:06 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT 
+2021-03-03 22:20:06 [trace] [tid : 33950] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 1
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:20:06 [debug] [tid : 33950] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TestClient:127.0.0.1:8888#1 ] at 0xd65bd0 fd = 7 
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:06 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 6: IN  ]
+2021-03-03 22:20:06 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 6: IN 
+2021-03-03 22:20:06 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:07 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:07 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:20:07 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:20:07 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:07 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:07 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:20:07 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:20:07 [trace] [tid : 33950] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 13 bytes at 2021-03-03 22:20:07
+2021-03-03 22:20:07 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:09 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:09 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:20:09 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:20:09 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:09 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:09 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:20:09 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:20:09 [trace] [tid : 33950] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 15 bytes at 2021-03-03 22:20:09
+2021-03-03 22:20:09 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:09 [trace] [tid : 33944] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:09 [trace] [tid : 33944] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:20:09 [trace] [tid : 33944] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:20:09 [trace] [tid : 33944] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:11 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:11 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:20:11 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:20:11 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:11 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:11 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:20:11 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:20:11 [trace] [tid : 33950] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 16 bytes at 2021-03-03 22:20:11
+2021-03-03 22:20:11 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:11 [trace] [tid : 33944] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:11 [trace] [tid : 33944] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:20:11 [trace] [tid : 33944] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:20:11 [trace] [tid : 33944] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:14 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:14 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:20:14 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:20:14 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:14 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:14 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:20:14 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:20:14 [trace] [tid : 33950] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 27 bytes at 2021-03-03 22:20:14
+2021-03-03 22:20:14 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:14 [trace] [tid : 33944] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:14 [trace] [tid : 33944] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:20:14 [trace] [tid : 33944] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:20:14 [trace] [tid : 33944] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:24 [trace] [tid : 33950] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:20:24 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:24 [trace] [tid : 33944] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:20:24 [trace] [tid : 33944] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:34 [trace] [tid : 33944] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:20:34 [trace] [tid : 33944] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:34 [trace] [tid : 33950] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:20:34 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:39 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:39 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:20:39 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:20:39 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:39 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:39 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:20:39 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:20:39 [trace] [tid : 33950] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 9 bytes at 2021-03-03 22:20:39
+2021-03-03 22:20:39 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:39 [trace] [tid : 33944] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:39 [trace] [tid : 33944] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:20:39 [trace] [tid : 33944] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:20:39 [trace] [tid : 33944] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:40 [trace] [tid : 33944] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:40 [trace] [tid : 33944] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:20:40 [trace] [tid : 33944] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:20:40 [trace] [tid : 33944] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:40 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:40 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:20:40 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:20:40 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:40 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:40 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:20:40 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:20:40 [trace] [tid : 33950] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 11 bytes at 2021-03-03 22:20:40
+2021-03-03 22:20:40 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:41 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:41 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:20:41 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:20:41 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:41 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:41 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:20:41 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:20:41 [trace] [tid : 33950] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 13 bytes at 2021-03-03 22:20:41
+2021-03-03 22:20:41 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:20:43 [trace] [tid : 33950] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:20:43 [trace] [tid : 33950] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:20:43 [trace] [tid : 33950] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:20:43 [trace] [tid : 33950] [TcpConnection.cc : 186 <handleClose>] fd = 7 status = kConnected
+2021-03-03 22:20:43 [trace] [tid : 33950] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:20:43 [trace] [tid : 33950] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:20:43 [trace] [tid : 33950] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:20:43 [debug] [tid : 33950] [TcpConnection.cc : 46 <~TcpConnection>] TcpConnection::dtor[ TestClient:127.0.0.1:8888#1 ] at 0xd65bd0 fd = 7 status = kDisconnected 
+2021-03-03 22:20:43 [trace] [tid : 33950] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:20:44 [trace] [tid : 33959] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:20:44 [trace] [tid : 33959] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:20:44 [trace] [tid : 33959] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7fffb1ae7450 
+2021-03-03 22:20:44 [trace] [tid : 33959] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:20:44 [trace] [tid : 33959] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:20:44 [trace] [tid : 33959] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:20:44 [trace] [tid : 33959] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:20:44 [trace] [tid : 33959] [EventLoop.cc : 90 <loop>] EventLoop 0x7fffb1ae7450 start looping
+2021-03-03 22:20:44 [trace] [tid : 33959] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:20:54 [trace] [tid : 33959] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:20:54 [trace] [tid : 33959] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:21:01 [trace] [tid : 33959] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:01 [trace] [tid : 33959] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:21:01 [trace] [tid : 33959] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:21:01 [trace] [tid : 33959] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:34522
+2021-03-03 22:21:01 [info] [tid : 33959] [TcpServer.cc : 57 <newConnection>] TcpServer::newConnection [TcpServer] - new connection [TcpServer-0.0.0.0:8888#1] from 127.0.0.1:34522 
+2021-03-03 22:21:01 [debug] [tid : 33959] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TcpServer-0.0.0.0:8888#1 ] at 0x1cb5950 fd = 9 
+2021-03-03 22:21:01 [trace] [tid : 33959] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 3, stauts = kNew
+2021-03-03 22:21:01 [trace] [tid : 33959] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-03-03 22:21:01 [trace] [tid : 33959] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:01 [info] [tid : 33969] [TcpClient_test.cc : 74 <main>] pid = 33969, tid = 33969
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:21:01 [trace] [tid : 33969] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffed588e530 
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:21:01 [debug] [tid : 33969] [Connector.cc : 17 <Connector>] ctor[0x1f946e0]
+2021-03-03 22:21:01 [info] [tid : 33969] [TcpClient.cc : 39 <TcpClient>] TcpClient::TcpClient[TestClient] - connector 0x1f946e0
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 49 <updateChannel>] fd = 0, events = 3, stauts = kNew
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 0, event = [0: IN PRI ]
+2021-03-03 22:21:01 [info] [tid : 33969] [TcpClient.cc : 73 <connect>] TcpClient::connect[TestClient] - connecting to 127.0.0.1:8888
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:21:01 [trace] [tid : 33969] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffed588e530 start looping
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:01 [trace] [tid : 33969] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT  ]
+2021-03-03 22:21:01 [trace] [tid : 33969] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT 
+2021-03-03 22:21:01 [trace] [tid : 33969] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 1
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:21:01 [debug] [tid : 33969] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TestClient:127.0.0.1:8888#1 ] at 0x1f96bd0 fd = 7 
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:01 [trace] [tid : 33969] [EventLoop.cc : 244 <printActiveChannels>] [ 6: IN  ]
+2021-03-03 22:21:01 [trace] [tid : 33969] [Channel.cc : 78 <handleEventWithGuard>] 6: IN 
+2021-03-03 22:21:01 [trace] [tid : 33969] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:04 [trace] [tid : 33969] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:04 [trace] [tid : 33969] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:21:04 [trace] [tid : 33969] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:21:04 [trace] [tid : 33969] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:04 [trace] [tid : 33969] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:04 [trace] [tid : 33969] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:21:04 [trace] [tid : 33969] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:21:04 [trace] [tid : 33969] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 8 bytes at 2021-03-03 22:21:04
+2021-03-03 22:21:04 [trace] [tid : 33969] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:04 [trace] [tid : 33959] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:04 [trace] [tid : 33959] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:21:04 [trace] [tid : 33959] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:21:04 [trace] [tid : 33959] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:06 [trace] [tid : 33969] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:06 [trace] [tid : 33969] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:21:06 [trace] [tid : 33969] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:21:06 [trace] [tid : 33969] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:06 [trace] [tid : 33969] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:06 [trace] [tid : 33969] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:21:06 [trace] [tid : 33969] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:21:06 [trace] [tid : 33969] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 17 bytes at 2021-03-03 22:21:06
+2021-03-03 22:21:06 [trace] [tid : 33969] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:06 [trace] [tid : 33959] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:06 [trace] [tid : 33959] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:21:06 [trace] [tid : 33959] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:21:06 [trace] [tid : 33959] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:08 [trace] [tid : 33969] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:08 [trace] [tid : 33969] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:21:08 [trace] [tid : 33969] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:21:08 [trace] [tid : 33969] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:08 [trace] [tid : 33969] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:08 [trace] [tid : 33969] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:21:08 [trace] [tid : 33969] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:21:08 [trace] [tid : 33969] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 18 bytes at 2021-03-03 22:21:08
+2021-03-03 22:21:08 [trace] [tid : 33969] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:08 [trace] [tid : 33959] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:08 [trace] [tid : 33959] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:21:08 [trace] [tid : 33959] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:21:08 [trace] [tid : 33959] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:18 [trace] [tid : 33969] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:21:18 [trace] [tid : 33969] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:19 [trace] [tid : 33969] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:19 [trace] [tid : 33969] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:21:19 [trace] [tid : 33969] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:21:19 [trace] [tid : 33969] [TcpConnection.cc : 186 <handleClose>] fd = 7 status = kConnected
+2021-03-03 22:21:19 [trace] [tid : 33969] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:21:19 [trace] [tid : 33969] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:21:19 [trace] [tid : 33969] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:21:19 [debug] [tid : 33969] [TcpConnection.cc : 46 <~TcpConnection>] TcpConnection::dtor[ TestClient:127.0.0.1:8888#1 ] at 0x1f96bd0 fd = 7 status = kDisconnected 
+2021-03-03 22:21:19 [trace] [tid : 33969] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:21:20 [trace] [tid : 33978] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:21:20 [trace] [tid : 33978] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:21:20 [trace] [tid : 33978] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffeefe9a960 
+2021-03-03 22:21:20 [trace] [tid : 33978] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:21:20 [trace] [tid : 33978] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:21:20 [trace] [tid : 33978] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:21:20 [trace] [tid : 33978] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:21:20 [trace] [tid : 33978] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffeefe9a960 start looping
+2021-03-03 22:21:20 [trace] [tid : 33978] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:21:29 [trace] [tid : 33969] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:21:29 [trace] [tid : 33969] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:21:30 [trace] [tid : 33978] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:21:30 [trace] [tid : 33978] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:21:40 [trace] [tid : 33978] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:21:40 [trace] [tid : 33978] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:21:41 [trace] [tid : 33978] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:41 [trace] [tid : 33978] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:21:41 [trace] [tid : 33978] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:21:41 [trace] [tid : 33978] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:34524
+2021-03-03 22:21:41 [info] [tid : 33978] [TcpServer.cc : 57 <newConnection>] TcpServer::newConnection [TcpServer] - new connection [TcpServer-0.0.0.0:8888#1] from 127.0.0.1:34524 
+2021-03-03 22:21:41 [debug] [tid : 33978] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TcpServer-0.0.0.0:8888#1 ] at 0x274f950 fd = 9 
+2021-03-03 22:21:41 [trace] [tid : 33978] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 3, stauts = kNew
+2021-03-03 22:21:41 [trace] [tid : 33978] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-03-03 22:21:41 [trace] [tid : 33978] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:41 [info] [tid : 33984] [TcpClient_test.cc : 74 <main>] pid = 33984, tid = 33984
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:21:41 [trace] [tid : 33984] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffcc79b70b0 
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:21:41 [debug] [tid : 33984] [Connector.cc : 17 <Connector>] ctor[0x24c36e0]
+2021-03-03 22:21:41 [info] [tid : 33984] [TcpClient.cc : 39 <TcpClient>] TcpClient::TcpClient[TestClient] - connector 0x24c36e0
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 49 <updateChannel>] fd = 0, events = 3, stauts = kNew
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 0, event = [0: IN PRI ]
+2021-03-03 22:21:41 [info] [tid : 33984] [TcpClient.cc : 73 <connect>] TcpClient::connect[TestClient] - connecting to 127.0.0.1:8888
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:21:41 [trace] [tid : 33984] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffcc79b70b0 start looping
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:41 [trace] [tid : 33984] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT  ]
+2021-03-03 22:21:41 [trace] [tid : 33984] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT 
+2021-03-03 22:21:41 [trace] [tid : 33984] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 1
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:21:41 [debug] [tid : 33984] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TestClient:127.0.0.1:8888#1 ] at 0x24c5bd0 fd = 7 
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:41 [trace] [tid : 33984] [EventLoop.cc : 244 <printActiveChannels>] [ 6: IN  ]
+2021-03-03 22:21:41 [trace] [tid : 33984] [Channel.cc : 78 <handleEventWithGuard>] 6: IN 
+2021-03-03 22:21:41 [trace] [tid : 33984] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:44 [trace] [tid : 33984] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:44 [trace] [tid : 33984] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:21:44 [trace] [tid : 33984] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:21:44 [trace] [tid : 33984] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:44 [trace] [tid : 33984] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:44 [trace] [tid : 33984] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:21:44 [trace] [tid : 33984] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:21:44 [trace] [tid : 33984] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 8 bytes at 2021-03-03 22:21:44
+2021-03-03 22:21:44 [trace] [tid : 33984] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:46 [trace] [tid : 33984] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:46 [trace] [tid : 33984] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:21:46 [trace] [tid : 33984] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:21:46 [trace] [tid : 33984] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:46 [trace] [tid : 33984] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:46 [trace] [tid : 33984] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:21:46 [trace] [tid : 33984] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:21:46 [trace] [tid : 33984] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 14 bytes at 2021-03-03 22:21:46
+2021-03-03 22:21:46 [trace] [tid : 33984] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:44 [trace] [tid : 33978] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:44 [trace] [tid : 33978] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:21:44 [trace] [tid : 33978] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:21:44 [trace] [tid : 33978] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:46 [trace] [tid : 33978] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:21:46 [trace] [tid : 33978] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:21:46 [trace] [tid : 33978] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:21:46 [trace] [tid : 33978] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:56 [trace] [tid : 33978] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:21:56 [trace] [tid : 33978] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:21:56 [trace] [tid : 33984] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:21:56 [trace] [tid : 33984] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:22:06 [trace] [tid : 33984] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:22:06 [trace] [tid : 33984] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:22:06 [trace] [tid : 33978] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:22:06 [trace] [tid : 33978] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:41:09 [info] [tid : 35026] [TcpClient_test.cc : 74 <main>] pid = 35026, tid = 35026
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:41:09 [trace] [tid : 35026] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffc8a54beb0 
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:41:09 [debug] [tid : 35026] [Connector.cc : 17 <Connector>] ctor[0xca26e0]
+2021-03-03 22:41:09 [info] [tid : 35026] [TcpClient.cc : 39 <TcpClient>] TcpClient::TcpClient[TestClient] - connector 0xca26e0
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 0, events = 3, stauts = kNew
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 0, event = [0: IN PRI ]
+2021-03-03 22:41:09 [info] [tid : 35026] [TcpClient.cc : 73 <connect>] TcpClient::connect[TestClient] - connecting to 127.0.0.1:8888
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:41:09 [trace] [tid : 35026] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffc8a54beb0 start looping
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:09 [trace] [tid : 35026] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 22:41:09 [trace] [tid : 35026] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 22:41:09 [warning] [tid : 35026] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 22:41:09 [error] [tid : 35026] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:41:09 [trace] [tid : 35026] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 22:41:09 [info] [tid : 35026] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 500 milliseconds
+2021-03-03 22:41:09 [trace] [tid : 35026] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:09 [trace] [tid : 35026] [EventLoop.cc : 244 <printActiveChannels>] [ 6: IN  ]
+2021-03-03 22:41:09 [trace] [tid : 35026] [Channel.cc : 78 <handleEventWithGuard>] 6: IN 
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:09 [trace] [tid : 35026] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 22:41:09 [trace] [tid : 35026] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 22:41:09 [trace] [tid : 35026] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614782469.774720
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:09 [trace] [tid : 35026] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 22:41:09 [trace] [tid : 35026] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 22:41:09 [warning] [tid : 35026] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 22:41:09 [error] [tid : 35026] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:41:09 [trace] [tid : 35026] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 22:41:09 [info] [tid : 35026] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 1000 milliseconds
+2021-03-03 22:41:09 [trace] [tid : 35026] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 22:41:09 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:10 [trace] [tid : 35026] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:10 [trace] [tid : 35026] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 22:41:10 [trace] [tid : 35026] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 22:41:10 [trace] [tid : 35026] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614782470.776399
+2021-03-03 22:41:10 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:41:10 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:41:10 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:41:10 [trace] [tid : 35026] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:10 [trace] [tid : 35026] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT HUP ERR  ]
+2021-03-03 22:41:10 [trace] [tid : 35026] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT HUP ERR 
+2021-03-03 22:41:10 [warning] [tid : 35026] [Channel.cc : 83 <handleEventWithGuard>] fd = 7  Channel::handle_event EPOLLHUP
+2021-03-03 22:41:10 [error] [tid : 35026] [Connector.cc : 160 <handleError>] Connector::handleError state= 1
+2021-03-03 22:41:10 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:41:10 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:41:10 [trace] [tid : 35026] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:41:10 [trace] [tid : 35026] [Connector.cc : 164 <handleError>] SO_ERROR = 111 -- Connection refused
+2021-03-03 22:41:10 [info] [tid : 35026] [Connector.cc : 175 <retry>] Connector::retry - Retry connecting to 127.0.0.1:8888 in 2000 milliseconds
+2021-03-03 22:41:10 [trace] [tid : 35026] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 0
+2021-03-03 22:41:10 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:11 [trace] [tid : 35035] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:41:11 [trace] [tid : 35035] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:41:11 [trace] [tid : 35035] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7ffd775676a0 
+2021-03-03 22:41:11 [trace] [tid : 35035] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:41:11 [trace] [tid : 35035] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:41:11 [trace] [tid : 35035] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:41:11 [trace] [tid : 35035] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:41:11 [trace] [tid : 35035] [EventLoop.cc : 90 <loop>] EventLoop 0x7ffd775676a0 start looping
+2021-03-03 22:41:11 [trace] [tid : 35035] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:12 [trace] [tid : 35035] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:12 [trace] [tid : 35035] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:41:12 [trace] [tid : 35035] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:41:12 [trace] [tid : 35035] [Acceptor.cc : 44 <handleRead>] Accept of 127.0.0.1:34532
+2021-03-03 22:41:12 [info] [tid : 35035] [TcpServer.cc : 57 <newConnection>] TcpServer::newConnection [TcpServer] - new connection [TcpServer-0.0.0.0:8888#1] from 127.0.0.1:34532 
+2021-03-03 22:41:12 [debug] [tid : 35035] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TcpServer-0.0.0.0:8888#1 ] at 0x15f9950 fd = 9 
+2021-03-03 22:41:12 [trace] [tid : 35035] [Epoll.cc : 49 <updateChannel>] fd = 9, events = 3, stauts = kNew
+2021-03-03 22:41:12 [trace] [tid : 35035] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-03-03 22:41:12 [trace] [tid : 35035] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:41:13 [trace] [tid : 35035] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:13 [trace] [tid : 35035] [EventLoop.cc : 244 <printActiveChannels>] [ 9: IN  ]
+2021-03-03 22:41:13 [trace] [tid : 35035] [Channel.cc : 78 <handleEventWithGuard>] 9: IN 
+2021-03-03 22:41:13 [trace] [tid : 35035] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:41:12 [trace] [tid : 35026] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:12 [trace] [tid : 35026] [EventLoop.cc : 244 <printActiveChannels>] [ 5: IN  ]
+2021-03-03 22:41:12 [trace] [tid : 35026] [Channel.cc : 78 <handleEventWithGuard>] 5: IN 
+2021-03-03 22:41:12 [trace] [tid : 35026] [TimerQueue.cc : 35 <readTimerfd>] TimerQueue::handleRead 1 at 1614782472.777643
+2021-03-03 22:41:12 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 4, stauts = kNew
+2021-03-03 22:41:12 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: OUT ]
+2021-03-03 22:41:12 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:41:12 [trace] [tid : 35026] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:12 [trace] [tid : 35026] [EventLoop.cc : 244 <printActiveChannels>] [ 7: OUT  ]
+2021-03-03 22:41:12 [trace] [tid : 35026] [Channel.cc : 78 <handleEventWithGuard>] 7: OUT 
+2021-03-03 22:41:12 [trace] [tid : 35026] [Connector.cc : 133 <handleWrite>] Connector::handleWrite 1
+2021-03-03 22:41:12 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:41:12 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:41:12 [trace] [tid : 35026] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:41:12 [debug] [tid : 35026] [TcpConnection.cc : 40 <TcpConnection>] TcpConnection::ctor[ TestClient:127.0.0.1:8888#1 ] at 0xca4bd0 fd = 7 
+2021-03-03 22:41:12 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:41:12 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:41:12 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:41:13 [trace] [tid : 35026] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:13 [trace] [tid : 35026] [EventLoop.cc : 244 <printActiveChannels>] [ 0: IN  ]
+2021-03-03 22:41:13 [trace] [tid : 35026] [Channel.cc : 78 <handleEventWithGuard>] 0: IN 
+2021-03-03 22:41:13 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:41:13 [trace] [tid : 35026] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:13 [trace] [tid : 35026] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:41:13 [trace] [tid : 35026] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:41:13 [trace] [tid : 35026] [TcpClient_test.cc : 58 <onMessage>] TestClient:127.0.0.1:8888#1 recv 7 bytes at 2021-03-03 22:41:13
+2021-03-03 22:41:13 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 4
+2021-03-03 22:41:18 [trace] [tid : 35026] [Epoll.cc : 27 <wait>] 1 events happended
+2021-03-03 22:41:18 [trace] [tid : 35026] [EventLoop.cc : 244 <printActiveChannels>] [ 7: IN  ]
+2021-03-03 22:41:18 [trace] [tid : 35026] [Channel.cc : 78 <handleEventWithGuard>] 7: IN 
+2021-03-03 22:41:18 [trace] [tid : 35026] [TcpConnection.cc : 186 <handleClose>] fd = 7 status = kConnected
+2021-03-03 22:41:18 [trace] [tid : 35026] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 0, stauts = kAdded
+2021-03-03 22:41:18 [trace] [tid : 35026] [Epoll.cc : 118 <epollctl>] epoll_ctl op = DEL, fd = 7, event = [7: ]
+2021-03-03 22:41:18 [trace] [tid : 35026] [Epoll.cc : 81 <removeChannel>] fd = 7 
+2021-03-03 22:41:18 [debug] [tid : 35026] [TcpConnection.cc : 46 <~TcpConnection>] TcpConnection::dtor[ TestClient:127.0.0.1:8888#1 ] at 0xca4bd0 fd = 7 status = kDisconnected 
+2021-03-03 22:41:18 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:19 [trace] [tid : 35053] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-03 22:41:19 [trace] [tid : 35053] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-03 22:41:19 [trace] [tid : 35053] [EventLoop.cc : 63 <EventLoop>] EventLoop created 0x7fff85691280 
+2021-03-03 22:41:19 [trace] [tid : 35053] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-03 22:41:19 [trace] [tid : 35053] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-03 22:41:19 [trace] [tid : 35053] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-03 22:41:19 [trace] [tid : 35053] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-03 22:41:19 [trace] [tid : 35053] [EventLoop.cc : 90 <loop>] EventLoop 0x7fff85691280 start looping
+2021-03-03 22:41:19 [trace] [tid : 35053] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:28 [trace] [tid : 35026] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:41:28 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:29 [trace] [tid : 35053] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:41:29 [trace] [tid : 35053] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:38 [trace] [tid : 35026] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:41:38 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:39 [trace] [tid : 35053] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:41:39 [trace] [tid : 35053] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:48 [trace] [tid : 35026] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:41:48 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:49 [trace] [tid : 35053] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:41:49 [trace] [tid : 35053] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:58 [trace] [tid : 35026] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:41:58 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:41:59 [trace] [tid : 35053] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:41:59 [trace] [tid : 35053] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:42:08 [trace] [tid : 35026] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:42:08 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:42:09 [trace] [tid : 35053] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:42:09 [trace] [tid : 35053] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:42:18 [trace] [tid : 35026] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:42:18 [trace] [tid : 35026] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-03 22:42:19 [trace] [tid : 35053] [Epoll.cc : 33 <wait>] Nothing happend...
+2021-03-03 22:42:19 [trace] [tid : 35053] [Epoll.cc : 21 <wait>] fd total count 3

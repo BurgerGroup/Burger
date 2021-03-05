@@ -17,6 +17,7 @@ using namespace burger::net;
 
 从网络接受输入 -- IO线程
 
+todo : tcpserver崩溃后， tcpclient没重连
 
 */
 
