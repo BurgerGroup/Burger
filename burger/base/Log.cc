@@ -2,22 +2,6 @@
 
 using namespace burger;
 
-namespace {
-// 和IgnoreSigPipe一样再全局中init
-class Log {
-public:
-    Log() {
-        if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
-            ERROR("Logger init error");
-	    } else {
-            TRACE("Logger setup");
-        }
-    }
-};
-
-Log initLog;
-} // namespace
-
 Logger& Logger::Instance() {
     static Logger log;
     return log;

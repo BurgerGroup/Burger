@@ -34,6 +34,19 @@ public:
 #pragma GCC diagnostic error "-Wold-style-cast"
 IgnoreSigPipe initObj;
 
+// 和IgnoreSigPipe一样再全局中init
+class Log {
+public:
+    Log() {
+        if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
+            ERROR("Logger init error");
+	    } else {
+            TRACE("Logger setup");
+        }
+    }
+};
+
+Log initLog;
 
 }  // namespace
 
