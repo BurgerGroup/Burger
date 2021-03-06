@@ -29,7 +29,7 @@ public:
     static Logger& Instance();
     bool init(const std::string& loggerName = "Logger", 
         const std::string& filePath = "logs/test.txt", 
-        spdlog::level::level_enum level = spdlog::level::debug);
+        spdlog::level::level_enum level = spdlog::level::info);
     void setLevel(spdlog::level::level_enum level = spdlog::level::info);
     static void shutdown() { spdlog::shutdown(); };
 private:
@@ -56,4 +56,5 @@ private:
 #define CRITICAL(...) SPDLOG_LOGGER_CRITICAL(spdlog::default_logger_raw(), __VA_ARGS__);abort();
 
 #define LOG_LEVEL_INFO spdlog::set_level(spdlog::level::info);
+#define LOG_LEVEL_DEBUG spdlog::set_level(spdlog::level::debug);
 #endif // LOG_H
