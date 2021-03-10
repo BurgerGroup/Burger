@@ -68,10 +68,6 @@ HttpMethod CharsToHttpMethod(const char* m);
 const char* HttpMethodToString(const HttpMethod& m);
 
 
-
-
-
-
 } // namespace http
 
 } // namespace burger

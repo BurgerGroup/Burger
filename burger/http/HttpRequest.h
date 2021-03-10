@@ -5,6 +5,7 @@
 #include "burger/base/Timestamp.h"
 #include "burger/base/Util.h"
 #include "HttpMethod.h"
+#include "MapType.h"
 #include <map>
 #include <memory>
 
@@ -14,15 +15,8 @@ namespace http {
 class HttpRequest : public burger::copyable {
 public:
     using ptr = std::shared_ptr<HttpRequest>;
-    using MapType = std::map<std::string, std::string, util::CaseInsensitiveLess>;
-
-    HttpRequest(Version version = kHttp11, bool close = true);
-
-    enum Version {
-        kUnknown, kHttp10, kHttp11
-    };
-    // std::string versionTostr();
-    // std::shared_ptr<HttpResponse> createResponse();
+    HttpRequest(Version version = Version::kHttp11, bool close = true);
+    std::shared_ptr<HttpResponse> createResponse();
     
     HttpMethod getMethod() const { return method_;}
     Version getVersion() const { return version_; }
@@ -65,34 +59,34 @@ public:
     // 如果存在且转换成功返回true,否则失败val=def
     template<class T>
     bool checkGetHeaderAs(const std::string& key, T& val, const T& def = T()) {
-        return checkGetAs(m_headers, key, val, def);
+        return checkGetAs(headers_, key, val, def);
     }
     // 如果存在且转换成功返回对应的值,否则返回def
     template<class T>
     T getHeaderAs(const std::string& key, const T& def = T()) {
-        return getAs(m_headers, key, def);
+        return getAs(headers_, key, def);
     }
     template<class T>
     bool checkGetParamAs(const std::string& key, T& val, const T& def = T()) {
         initQueryParam();
         initBodyParam();
-        return checkGetAs(m_params, key, val, def);
+        return checkGetAs(params_, key, val, def);
     }
     template<class T>
     T getParamAs(const std::string& key, const T& def = T()) {
         initQueryParam();
         initBodyParam();
-        return getAs(m_params, key, def);
+        return getAs(params_, key, def);
     }
     template<class T>
     bool checkGetCookieAs(const std::string& key, T& val, const T& def = T()) {
         initCookies();
-        return checkGetAs(m_cookies, key, val, def);
+        return checkGetAs(cookies_, key, val, def);
     }
     template<class T>
     T getCookieAs(const std::string& key, const T& def = T()) {
         initCookies();
-        return getAs(m_cookies, key, def);
+        return getAs(cookies_, key, def);
     }
     // 序列化输出到流中
     std::ostream& dump(std::ostream& os) const;
