@@ -58,6 +58,13 @@ inline pid_t tid() {
 
 const char* strerror_tl(int savedErrno);
 
+// 忽略大小写比较仿函数
+struct CaseInsensitiveLess {
+    bool operator()(const std::string& lhs, const std::string& rhs) const;
+};
+
+
+
 } // namespace util
 
 } // namespace burger
