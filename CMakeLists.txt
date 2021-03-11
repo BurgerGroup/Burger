@@ -73,7 +73,6 @@ find_library(GD_LIBRARY NAMES gd)
 find_program(THRIFT_COMPILER thrift)
 find_path(THRIFT_INCLUDE_DIR thrift)
 find_library(THRIFT_LIBRARY NAMES thrift)
-# find_package(GTest REQUIRED)
 
 if(CARES_INCLUDE_DIR AND CARES_LIBRARY)
   message(STATUS "found cares")
@@ -100,12 +99,14 @@ if(THRIFT_COMPILER AND THRIFT_INCLUDE_DIR AND THRIFT_LIBRARY)
   message(STATUS "found thrift")
 endif()
 
-# include_directories(${CURSES_INCLUDE_DIR})
-include_directories(${Boost_INCLUDE_DIRS})
-# include_directories(${GTEST_INCLUDE_DIRS})
+# set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")    
+# find_package(MySQL REQUIRED)
+# if(MYSQL_FOUND)
+#     include_directories(${MYSQL_INCLUDE_DIR})
+# endif()
 
+include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR})
-# include_directories(${CMAKE_SOURCE_DIR}/client)
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/thirdparty    # find 3rd lib
@@ -116,6 +117,7 @@ message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS} " " ${CMAKE_CXX_FLAGS_${BUILD_T
 
 add_subdirectory(burger/base)
 add_subdirectory(burger/net)
+add_subdirectory(burger/db)
 # add_subdirectory(client)
 add_subdirectory(thirdparty/googletest)
 
