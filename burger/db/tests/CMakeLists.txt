@@ -1,2 +1,5 @@
-add_executable(mysql_test mysql_test.cc)
-target_link_libraries(mysql_test burger_db)
+add_executable(mysql_test01 mysql_test01.cc)
+target_link_libraries(mysql_test01 burger_db)
+
+add_executable(mysql_test02 mysql_test02.cc)
+target_link_libraries(mysql_test02 burger_db)

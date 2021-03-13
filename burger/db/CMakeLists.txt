@@ -2,7 +2,7 @@ set(db_SRCS
   Mysql.cc
   # MysqlUtil.cc
   # MysqlManager.cc
-  # MysqlRes.cc
+  MysqlRes.cc
   # MysqlStmt.cc
   # MysqlStmtRes.cc
   # MysqlTime.cc

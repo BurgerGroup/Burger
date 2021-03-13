@@ -1,6 +1,6 @@
 #include "Mysql.h"
 #include "Burger/base/StringUtil.h"
-#include "MysqlRes.h"
+
 
 using namespace burger;
 using namespace burger::db;
@@ -59,33 +59,35 @@ static MYSQL* mysql_init(std::map<std::string, std::string>& params,
 }
 
 
-// static MYSQL_RES* my_mysql_query(MYSQL* mysql, const char* sql) {
-//     if(mysql == nullptr) { 
-//         ERROR("mysql_query mysql is null")
-//         return nullptr;
-//     }
+static MYSQL_RES* my_mysql_query(MYSQL* mysql, const char* sql) {
+    if(mysql == nullptr) { 
+        ERROR("mysql_query mysql is null")
+        return nullptr;
+    }
 
-//     if(sql == nullptr) {
-//         ERROR("mysql_query sql is null");
-//         return nullptr;
-//     }
+    if(sql == nullptr) {
+        ERROR("mysql_query sql is null");
+        return nullptr;
+    }
 
-//     if(::mysql_query(mysql, sql)) {
-//         ERROR("mysql_query({}) error: {}", sql, mysql_error(mysql));
-//         return nullptr;
-//     }
-
-//     MYSQL_RES* res = mysql_store_result(mysql);
-//     if(res == nullptr) {
-//         ERROR("mysql_store_result() error: {}", mysql_error(mysql));
-//     }
-//     return res;
-// }
+    if(::mysql_query(mysql, sql)) {
+        ERROR("mysql_query({}) error: {}", sql, mysql_error(mysql));
+        return nullptr;
+    }
+    // MYSQL_RES *mysql_store_result(MYSQL *mysql)
+    // 对于成功检索了数据的每个查询（SELECT、SHOW、DESCRIBE、EXPLAIN、CHECK TABLE等），必须调用mysql_store_result()或mysql_use_result() 。
+    // mysql_store_result()将查询的全部结果读取到客户端，分配1个MYSQL_RES结构，并将结果置于该结构中。
+    MYSQL_RES* res = mysql_store_result(mysql);
+    if(res == nullptr) {
+        ERROR("mysql_store_result() error: {}", mysql_error(mysql));
+    }
+    return res;
+}
 } // namespace 
 
 MySQL::MySQL(const std::map<std::string, std::string>& args)
     : params_(args),
-    lastUsedTime_(),
+    lastUsedTime_(Timestamp::now()),
     hasError_(false),
     poolSize_(10) {
 }
@@ -97,6 +99,7 @@ bool MySQL::connect() {
     }
     MYSQL* mysql = mysql_init(params_, 0);
     if(!mysql) {
+        ERROR("mysql connect failed");
         hasError_ = true;
         return false;
     }
@@ -106,17 +109,20 @@ bool MySQL::connect() {
     return true;
 }
 
-// bool MySQL::ping() {
-//     if(!mysql_) {
-//         return false;
-//     }
-//     if(mysql_ping(mysql_.get())) {
-//         hasError_ = true;
-//         return false;
-//     }
-//     hasError_ = false;
-//     return true;
-// }
+bool MySQL::ping() {
+    if(!mysql_) {
+        return false;
+    }
+    // int mysql_ping(MYSQL *mysql)
+    // 检查与服务器的连接是否工作，如有必要重新连接。如果与服务器的连接有效返回0。如果出现错误，返回非0值
+    if(mysql_ping(mysql_.get())) {
+        ERROR("mysql ping failed");
+        hasError_ = true;
+        return false;
+    }
+    hasError_ = false;
+    return true;
+}
 
 void MySQL::mysqlInfo() {
     // mysql_get_client_info() shows the MySQL client version.
@@ -144,17 +150,19 @@ void MySQL::mysqlInfo() {
 //     return r;
 // }
 
-// int MySQL::execute(const std::string& sql) {
-//     cmd_ = sql;
-//     int r = ::mysql_query(mysql_.get(), cmd_.c_str());
-//     if(r) {
-//         ERROR("cmd = {}, error = {}", cmd(), getErrStr());
-//         hasError_ = true;
-//     } else {
-//         hasError_ = false;
-//     }
-//     return r;
-// }
+int MySQL::execute(const std::string& sql) {
+    cmd_ = sql;
+    // int mysql_query(MYSQL *mysql, const char *query)
+    // 执行由“Null终结的字符串”查询指向的SQL查询。
+    int r = ::mysql_query(mysql_.get(), cmd_.c_str());
+    if(r) {
+        ERROR("cmd = {}, error = {}", cmd(), getErrStr());
+        hasError_ = true;
+    } else {
+        hasError_ = false;
+    }
+    return r;
+}
 
 // int64_t MySQL::getLastInsertId() {
 //     return mysql_insert_id(mysql_.get());
@@ -192,18 +200,19 @@ void MySQL::mysqlInfo() {
 //     return rt;
 // }
 
-// ISQLData::ptr MySQL::query(const std::string& sql) {
-//     cmd = sql;
-//     MYSQL_RES* res = my_mysql_query(mysql_.get(), cmd_.c_str());
-//     if(!res) {
-//         hasError_ = true;
-//         return nullptr;
-//     }
-//     hasError_ = false;
-//     ISQLData::ptr rt(new MySQLRes(res, mysql_errno(mysql_.get())
-//                         ,mysql_error(mysql_.get())));
-//     return rt;
-// }
+MySQLRes::ptr MySQL::query(const std::string& sql) {
+    cmd_ = sql;
+    MYSQL_RES* res = my_mysql_query(mysql_.get(), cmd_.c_str());
+    if(!res) {
+        ERROR("query failed");
+        hasError_ = true;
+        return nullptr;
+    }
+    hasError_ = false;
+    MySQLRes::ptr rt = std::make_shared<MySQLRes>(res, 
+                mysql_errno(mysql_.get()), mysql_error(mysql_.get()));
+    return rt;
+}
 
 // IStmt::ptr MySQL::prepare(const std::string& sql) {
 //     return MySQLStmt::Create(shared_from_this(), sql);
@@ -214,50 +223,55 @@ void MySQL::mysqlInfo() {
 // }
 
 
-// bool MySQL::use(const std::string& dbname)  {
-//     if(!mysql_) {
-//         return false;
-//     }
-//     if(dbname_ == dbname) {
-//         return true;
-//     }
-//     if(mysql_select_db(mysql_.get(), dbname.c_str()) == 0) {
-//         dbname_ = dbname;
-//         hasError_ = false;
-//         return true;
-//     } else {
-//         dbname_ = "";
-//         hasError_ = true;
-//         return false;
-//     }
-// }
+bool MySQL::use(const std::string& dbname)  {
+    if(!mysql_) {
+        ERROR("mysql null");
+        return false;
+    }
+    if(dbname_ == dbname) {
+        return true;
+    }
+    // int mysql_select_db(MYSQL *mysql, const char *db)
+    // 选择数据库。
+    if(mysql_select_db(mysql_.get(), dbname.c_str()) == 0) {
+        dbname_ = dbname;
+        hasError_ = false;
+        return true;
+    } else {
+        ERROR("can't select database");
+        dbname_ = "";
+        hasError_ = true;
+        return false;
+    }
+}
 
-// int MySQL::getErrno() {
-//     if(!mysql_) {
-//         return -1;
-//     }
-//     // unsigned int mysql_errno(MYSQL *mysql)
-//     // https://www.docs4dev.com/docs/zh/mysql/5.7/reference/mysql-errno.html
-//     return mysql_errno(mysql_.get());
-// }
+int MySQL::getErrno() {
+    if(!mysql_) {
+        return -1;
+    }
+    // unsigned int mysql_errno(MYSQL *mysql)
+    // https://www.docs4dev.com/docs/zh/mysql/5.7/reference/mysql-errno.html
+    return mysql_errno(mysql_.get());
+}
 
-// std::string MySQL::getErrStr() {
-//     if(!mysql_) {
-//         return "mysql is null";
-//     }
-//     const char* str = mysql_error(mysql_.get());
-//     if(str) {
-//         return str;
-//     }
-//     return "";
-// }
+std::string MySQL::getErrStr() {
+    if(!mysql_) {
+        return "mysql is null";
+    }
+    const char* errStr = mysql_error(mysql_.get());
+    if(errStr) {
+        return errStr;
+    }
+    return "";
+}
 
-// bool MySQL::isNeedCheck() {
-//     if((time(0) - lastUsedTime_) < 5 && !hasError_) {
-//         return false;
-//     }
-//     return true;
-// }
+// todo why need this
+bool MySQL::isNeedCheck() {
+    if(timeDifference(Timestamp::now(), lastUsedTime_) < 5 && !hasError_) {
+        return false;
+    }
+    return true;
+}
 
 
 

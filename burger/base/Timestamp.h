@@ -1,7 +1,4 @@
-/*
- * @Author: Shiyu Yi
- * @Github: https://github.com/chanchann
- */
+
 #ifndef TIMESTAMP_H
 #define TIMESTAMP_H
 

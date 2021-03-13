@@ -18,4 +18,3 @@ Content Delivery Network
 
 notes: wget / curl 基于http,也是user agent
 
-![](../assets/tcpIp4layer.jpeg)

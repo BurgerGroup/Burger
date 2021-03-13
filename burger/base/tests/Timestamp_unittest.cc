@@ -1,12 +1,8 @@
-/*
- * @Author: Shiyu Yi
- * @Github: https://github.com/chanchann
- */
 #include "burger/base/Timestamp.h"
 #include <iostream>
 #include <vector>
 
-using burger::Timestamp;
+using namespace burger;
 
 void passbyValue(Timestamp x) {
     std::cout << "Pass by value : " 
