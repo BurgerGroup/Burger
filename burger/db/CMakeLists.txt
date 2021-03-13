@@ -1,5 +1,12 @@
 set(db_SRCS
-  mysql.cc
+  Mysql.cc
+  # MysqlUtil.cc
+  # MysqlManager.cc
+  # MysqlRes.cc
+  # MysqlStmt.cc
+  # MysqlStmtRes.cc
+  # MysqlTime.cc
+  # MysqlTransaction.cc
   )
 
 add_library(burger_db ${db_SRCS})

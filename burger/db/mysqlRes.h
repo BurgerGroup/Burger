@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <functional>
-#include "db.h"
+#include "DB.h"
 
 namespace burger {
 namespace db {
@@ -15,10 +15,10 @@ public:
                 ,int field_count, int row_no)> data_cb;
     MySQLRes(MYSQL_RES* res, int eno, const char* estr);
 
-    MYSQL_RES* get() const { return m_data.get();}
+    MYSQL_RES* get() const { return data_.get();}
 
-    int getErrno() const { return m_errno;}
-    const std::string& getErrStr() const { return m_errstr;}
+    int getErrno() const { return errno_;}
+    const std::string& getErrStr() const { return errstr_;}
 
     bool foreach(data_cb cb);
 
@@ -44,11 +44,11 @@ public:
     time_t getTime(int idx) override;
     bool next() override;
 private:
-    int m_errno;
-    std::string m_errstr;
-    MYSQL_ROW m_cur;
-    unsigned long* m_curLength;
-    std::shared_ptr<MYSQL_RES> m_data;
+    int errno_;
+    std::string errstr_;
+    MYSQL_ROW cur_;
+    unsigned long* curLength_;
+    std::shared_ptr<MYSQL_RES> data_;
 };
 
 } // namespace db

@@ -1,9 +1,10 @@
 #ifndef MYSQLSTMT_H
 #define MYSQLSTMT_H
 
-#include "db.h"
-#include "mysql.h"
+#include "DB.h"
+#include "Mysql.h"
 
+class MySQL;
 namespace burger {
 namespace db {
 

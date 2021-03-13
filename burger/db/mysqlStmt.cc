@@ -253,6 +253,26 @@ std::string MySQLStmt::getErrStr() {
     return "";
 }
 
+int MySQLStmt::execute() {
+    mysql_stmt_bind_param(stmt_, &binds_[0]);
+    return mysql_stmt_execute(stmt_);    
+}
+
+int64_t MySQLStmt::getLastInsertId() {
+    return mysql_stmt_insert_id(stmt_);
+}
+
+ISQLData::ptr MySQLStmt::query() {
+    mysql_stmt_bind_param(stmt_, &binds_[0]);
+    return MySQLStmtRes::Create(shared_from_this());
+}
+
+
+
+
+
+
+
 // need fix
 // int MySQLStmt::bindTime(int idx, const time_t& value) {
 //     return bindString(idx, sylar::Time2Str(value));

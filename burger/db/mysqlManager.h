@@ -3,13 +3,19 @@
 
 #include <memory>
 #include <map>
-#include "db.h"
+#include <mutex>
+#include <list>
+#include "DB.h"
 #include "burger/base/Singleton.h"
+
+
+namespace burger {
+namespace db {
+
+class MySQL;
 
 class MySQLManager {
 public:
-    typedef sylar::Mutex MutexType;
-
     MySQLManager();
     ~MySQLManager();
 
@@ -18,8 +24,8 @@ public:
 
     void checkConnection(int sec = 30);
 
-    uint32_t getMaxConn() const { return m_maxConn;}
-    void setMaxConn(uint32_t v) { m_maxConn = v;}
+    uint32_t getMaxConn() const { return maxConn_;}
+    void setMaxConn(uint32_t v) { maxConn_ = v;}
 
     int execute(const std::string& name, const char* format, ...);
     int execute(const std::string& name, const char* format, va_list ap);
@@ -33,13 +39,22 @@ public:
 private:
     void freeMySQL(const std::string& name, MySQL* m);
 private:
-    uint32_t m_maxConn;
-    MutexType m_mutex;
-    std::map<std::string, std::list<MySQL*> > m_conns;
-    std::map<std::string, std::map<std::string, std::string> > m_dbDefines;
+    uint32_t maxConn_;
+    std::mutex mutex_;
+    std::map<std::string, std::list<MySQL*> > conns_;
+    std::map<std::string, std::map<std::string, std::string> > dbDefines;
 };
 
-using burger::Singleton<MySQLManager> MySQLMgrSig; 
+using MySQLMgrSig = burger::Singleton<MySQLManager>; 
+
+
+} // namespace db
+
+    
+} // namespace burger
+
+
+
 
 
 #endif // MYSQLMANAGER_H

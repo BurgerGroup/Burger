@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <mysql/mysql.h>
+#include "burger/base/Log.h"
 
 namespace burger {
 namespace db {
@@ -101,7 +102,7 @@ public:
     virtual IStmt::ptr prepare(const std::string& stmt) = 0;
     virtual int getErrno() = 0;
     virtual std::string getErrStr() = 0;
-    virtual ITransaction::ptr openTransaction(bool auto_commit = false) = 0;
+    // virtual ITransaction::ptr openTransaction(bool auto_commit = false) = 0;
 };
 
 } // namespace d

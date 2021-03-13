@@ -1,13 +1,14 @@
 #ifndef MYSQL_H
 #define MYSQL_H
 
-
-#include <mysql/mysql.h>
 #include <memory>
 #include <functional>
 #include <map>
 #include <vector>
-#include "db.h"
+
+#include "DB.h"
+// #include "MysqlStmt.h"
+
 #include "burger/base/Timestamp.h"
 #include "burger/base/Log.h"
 #include "burger/base/Util.h"
@@ -15,9 +16,10 @@
 namespace burger {
 namespace db {
 
-class MySQL : public IDB
-              ,public std::enable_shared_from_this<MySQL> {
-friend class MySQLManager;
+// class MySQLManager;
+// public IDB
+class MySQL : public std::enable_shared_from_this<MySQL> {
+// friend class MySQLManager;
 public:
     using ptr = std::shared_ptr<MySQL>;
 
@@ -25,39 +27,41 @@ public:
 
     bool connect();
     bool ping();
+    
+    void mysqlInfo();
 
     // virtual int execute(const char* format, ...) override;
     // int execute(const char* format, va_list ap);
     // virtual int execute(const std::string& sql) override;
     // int64_t getLastInsertId() override;
     // std::shared_ptr<MySQL> getMySQL();
-    std::shared_ptr<MYSQL> getRaw() { return mysql_; }
+    // std::shared_ptr<MYSQL> getRaw() { return mysql_; }
 
     // uint64_t getAffectedRows();
 
     // ISQLData::ptr query(const char* format, ...) override;
     // ISQLData::ptr query(const char* format, va_list ap); 
     // ISQLData::ptr query(const std::string& sql) override;
-    IStmt::ptr prepare(const std::string& sql) override;
-    ITransaction::ptr openTransaction(bool auto_commit) override;
+    // IStmt::ptr prepare(const std::string& sql) override;
+    // ITransaction::ptr openTransaction(bool auto_commit) override;
     // template<typename... Args>
     // int execStmt(const char* stmt, Args&&... args);
 
     // template<class... Args>
     // ISQLData::ptr queryStmt(const char* stmt, Args&&... args);
 
-    // const char* cmd();
+    // const char* cmd() { return cmd_.c_str(); }
 
     // bool use(const std::string& dbname);
-    int getErrno() override;
-    std::string getErrStr() override;
+    // int getErrno() override;
+    // std::string getErrStr() override;
     // uint64_t getInsertId();
 private:
     bool isNeedCheck();
 private:
     std::map<std::string, std::string> params_;
     std::shared_ptr<MYSQL> mysql_;
-
+    
     std::string cmd_;
     std::string dbname_;
 
@@ -65,6 +69,35 @@ private:
     bool hasError_;
     int poolSize_;
 };
+
+// template<typename... Args>
+// int MySQL::execStmt(const char* stmt, Args&&... args) {
+//     auto st = MySQLStmt::Create(shared_from_this(), stmt);
+//     if(!st) {
+//         return -1;
+//     }
+//     int rt = bindX(st, args...);
+//     if(rt != 0) {
+//         return rt;
+//     }
+//     return st->execute();
+// }
+
+
+// template<class... Args>
+// ISQLData::ptr MySQL::queryStmt(const char* stmt, Args&&... args) {
+//     auto st = MySQLStmt::Create(shared_from_this(), stmt);
+//     if(!st) {
+//         return nullptr;
+//     }
+//     int rt = bindX(st, args...);
+//     if(rt != 0) {
+//         return nullptr;
+//     }
+//     return st->query();
+// }
+
+
 
 } // namespace db
 

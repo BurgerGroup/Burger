@@ -2,10 +2,12 @@
 #define MYSQLTRANSACTION_H
 
 #include <memory>
-#include "db.h"
+#include "DB.h"
 
 namespace burger {
 namespace db {
+
+class MySQL;
 
 class MySQLTransaction : public ITransaction {
 public:
@@ -24,16 +26,16 @@ public:
     int64_t getLastInsertId() override;
     std::shared_ptr<MySQL> getMySQL();
 
-    bool isAutoCommit() const { return m_autoCommit;}
-    bool isFinished() const { return m_isFinished;}
-    bool isError() const { return m_hasError;}
+    bool isAutoCommit() const { return autoCommit_;}
+    bool isFinished() const { return isFinished_;}
+    bool isError() const { return hasError_;}
 private:
     MySQLTransaction(MySQL::ptr mysql, bool auto_commit);
 private:
-    MySQL::ptr m_mysql;
-    bool m_autoCommit;
-    bool m_isFinished;
-    bool m_hasError;
+    MySQL::ptr mysql_;
+    bool autoCommit_;
+    bool isFinished_;
+    bool hasError_;
 };
 
 } // namespace db

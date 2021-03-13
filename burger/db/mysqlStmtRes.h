@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <vector>
-#include "db.h"
+#include "DB.h"
 
 namespace burger {
 namespace db {
@@ -11,12 +11,12 @@ namespace db {
 class MySQLStmtRes : public ISQLData {
 friend class MySQLStmt;
 public:
-    typedef std::shared_ptr<MySQLStmtRes> ptr;
+    using ptr = std::shared_ptr<MySQLStmtRes>;
     static MySQLStmtRes::ptr Create(std::shared_ptr<MySQLStmt> stmt);
     ~MySQLStmtRes();
 
-    int getErrno() const { return m_errno;}
-    const std::string& getErrStr() const { return m_errstr;}
+    int getErrno() const { return errno_;}
+    const std::string& getErrStr() const { return errstr_;}
 
     int getDataCount() override;
     int getColumnCount() override;
@@ -55,11 +55,11 @@ private:
         char* data;
     };
 private:
-    int m_errno;
-    std::string m_errstr;
-    std::shared_ptr<MySQLStmt> m_stmt;
-    std::vector<MYSQL_BIND> m_binds;
-    std::vector<Data> m_datas;
+    int errno_;
+    std::string errstr_;
+    std::shared_ptr<MySQLStmt> stmt_;
+    std::vector<MYSQL_BIND> binds_;
+    std::vector<Data> datas_;
 };
 
 } // namespace db

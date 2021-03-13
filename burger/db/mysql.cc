@@ -1,4 +1,6 @@
-#include "mysql.h"
+#include "Mysql.h"
+#include "Burger/base/StringUtil.h"
+#include "MysqlRes.h"
 
 using namespace burger;
 using namespace burger::db;
@@ -55,6 +57,30 @@ static MYSQL* mysql_init(std::map<std::string, std::string>& params,
     }
     return mysql;
 }
+
+
+// static MYSQL_RES* my_mysql_query(MYSQL* mysql, const char* sql) {
+//     if(mysql == nullptr) { 
+//         ERROR("mysql_query mysql is null")
+//         return nullptr;
+//     }
+
+//     if(sql == nullptr) {
+//         ERROR("mysql_query sql is null");
+//         return nullptr;
+//     }
+
+//     if(::mysql_query(mysql, sql)) {
+//         ERROR("mysql_query({}) error: {}", sql, mysql_error(mysql));
+//         return nullptr;
+//     }
+
+//     MYSQL_RES* res = mysql_store_result(mysql);
+//     if(res == nullptr) {
+//         ERROR("mysql_store_result() error: {}", mysql_error(mysql));
+//     }
+//     return res;
+// }
 } // namespace 
 
 MySQL::MySQL(const std::map<std::string, std::string>& args)
@@ -69,44 +95,169 @@ bool MySQL::connect() {
     if(mysql_ && !hasError_) {
         return true;
     }
-    MYSQL* m = mysql_init(params_, 0);
-    if(!m) {
+    MYSQL* mysql = mysql_init(params_, 0);
+    if(!mysql) {
         hasError_ = true;
         return false;
     }
     hasError_ = false;
     poolSize_ = util::GetParamValue(params_, "pool", 5);
-    mysql_.reset(m, mysql_close);
+    mysql_.reset(mysql, mysql_close);
     return true;
 }
 
-IStmt::ptr MySQL::prepare(const std::string& sql) {
-    return MySQLStmt::Create(shared_from_this(), sql);
+// bool MySQL::ping() {
+//     if(!mysql_) {
+//         return false;
+//     }
+//     if(mysql_ping(mysql_.get())) {
+//         hasError_ = true;
+//         return false;
+//     }
+//     hasError_ = false;
+//     return true;
+// }
+
+void MySQL::mysqlInfo() {
+    // mysql_get_client_info() shows the MySQL client version.
+    std::cout << "MySQL client version " << 
+                    mysql_get_client_info() << std::endl;
 }
 
-ITransaction::ptr MySQL::openTransaction(bool auto_commit) {
-    return MySQLTransaction::Create(shared_from_this(), auto_commit);
-}
+// int MySQL::execute(const char* format, ...) {
+//     va_list ap;
+//     va_start(ap, format);
+//     int rt = execute(format, ap);
+//     va_end(ap);
+//     return rt;
+// }
 
-int MySQL::getErrno() {
-    if(!mysql_) {
-        return -1;
-    }
-    // unsigned int mysql_errno(MYSQL *mysql)
-    // https://www.docs4dev.com/docs/zh/mysql/5.7/reference/mysql-errno.html
-    return mysql_errno(mysql_.get());
-}
+// int MySQL::execute(const char* format, va_list ap) {
+//     cmd_ = StringUtil::Formatv(format, ap);
+//     int r = ::mysql_query(mysql_.get(), cmd_.c_str());
+//     if(r) {
+//         ERROR("cmd = {}, error {}", cmd(), getErrStr());
+//         hasError_ = true;
+//     } else {
+//         hasError_ = false;
+//     }
+//     return r;
+// }
 
-std::string MySQL::getErrStr() {
-    if(!mysql_) {
-        return "mysql is null";
-    }
-    const char* str = mysql_error(m_mysql.get());
-    if(str) {
-        return str;
-    }
-    return "";
-}
+// int MySQL::execute(const std::string& sql) {
+//     cmd_ = sql;
+//     int r = ::mysql_query(mysql_.get(), cmd_.c_str());
+//     if(r) {
+//         ERROR("cmd = {}, error = {}", cmd(), getErrStr());
+//         hasError_ = true;
+//     } else {
+//         hasError_ = false;
+//     }
+//     return r;
+// }
+
+// int64_t MySQL::getLastInsertId() {
+//     return mysql_insert_id(mysql_.get());
+// }
+
+// std::shared_ptr<MySQL> MySQL::getMySQL() {
+//     return MySQL::ptr(this, util::nop<MySQL>);
+// }
+
+// uint64_t MySQL::getAffectedRows() {
+//     if(!mysql_) {
+//         return 0;
+//     }
+//     return mysql_affected_rows(mysql_.get());
+// }
+
+// ISQLData::ptr MySQL::query(const char* format, ...) {
+//     va_list ap;
+//     va_start(ap, format);
+//     auto rt = query(format, ap);
+//     va_end(ap);
+//     return rt;
+// }
+
+// ISQLData::ptr MySQL::query(const char* format, va_list ap) {
+//     cmd_ = StringUtil::Formatv(format, ap);
+//     MYSQL_RES* res = my_mysql_query(mysql_.get(), cmd_.c_str());
+//     if(!res) {
+//         hasError_ = true;
+//         return nullptr;
+//     }
+//     hasError_ = false;
+//     ISQLData::ptr rt(new MySQLRes(res, mysql_errno(mysql_.get())
+//                         ,mysql_error(mysql_.get())));
+//     return rt;
+// }
+
+// ISQLData::ptr MySQL::query(const std::string& sql) {
+//     cmd = sql;
+//     MYSQL_RES* res = my_mysql_query(mysql_.get(), cmd_.c_str());
+//     if(!res) {
+//         hasError_ = true;
+//         return nullptr;
+//     }
+//     hasError_ = false;
+//     ISQLData::ptr rt(new MySQLRes(res, mysql_errno(mysql_.get())
+//                         ,mysql_error(mysql_.get())));
+//     return rt;
+// }
+
+// IStmt::ptr MySQL::prepare(const std::string& sql) {
+//     return MySQLStmt::Create(shared_from_this(), sql);
+// }
+
+// ITransaction::ptr MySQL::openTransaction(bool auto_commit) {
+//     return MySQLTransaction::Create(shared_from_this(), auto_commit);
+// }
+
+
+// bool MySQL::use(const std::string& dbname)  {
+//     if(!mysql_) {
+//         return false;
+//     }
+//     if(dbname_ == dbname) {
+//         return true;
+//     }
+//     if(mysql_select_db(mysql_.get(), dbname.c_str()) == 0) {
+//         dbname_ = dbname;
+//         hasError_ = false;
+//         return true;
+//     } else {
+//         dbname_ = "";
+//         hasError_ = true;
+//         return false;
+//     }
+// }
+
+// int MySQL::getErrno() {
+//     if(!mysql_) {
+//         return -1;
+//     }
+//     // unsigned int mysql_errno(MYSQL *mysql)
+//     // https://www.docs4dev.com/docs/zh/mysql/5.7/reference/mysql-errno.html
+//     return mysql_errno(mysql_.get());
+// }
+
+// std::string MySQL::getErrStr() {
+//     if(!mysql_) {
+//         return "mysql is null";
+//     }
+//     const char* str = mysql_error(mysql_.get());
+//     if(str) {
+//         return str;
+//     }
+//     return "";
+// }
+
+// bool MySQL::isNeedCheck() {
+//     if((time(0) - lastUsedTime_) < 5 && !hasError_) {
+//         return false;
+//     }
+//     return true;
+// }
 
 
 
