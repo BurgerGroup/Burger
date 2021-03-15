@@ -1,6 +1,6 @@
 #include "Mysql.h"
-#include "Burger/base/StringUtil.h"
-
+#include "MysqlRes.h"
+#include "MysqlStmt.h"
 
 using namespace burger;
 using namespace burger::db;
@@ -130,25 +130,6 @@ void MySQL::mysqlInfo() {
                     mysql_get_client_info() << std::endl;
 }
 
-// int MySQL::execute(const char* format, ...) {
-//     va_list ap;
-//     va_start(ap, format);
-//     int rt = execute(format, ap);
-//     va_end(ap);
-//     return rt;
-// }
-
-// int MySQL::execute(const char* format, va_list ap) {
-//     cmd_ = StringUtil::Formatv(format, ap);
-//     int r = ::mysql_query(mysql_.get(), cmd_.c_str());
-//     if(r) {
-//         ERROR("cmd = {}, error {}", cmd(), getErrStr());
-//         hasError_ = true;
-//     } else {
-//         hasError_ = false;
-//     }
-//     return r;
-// }
 
 int MySQL::execute(const std::string& sql) {
     cmd_ = sql;
@@ -164,43 +145,26 @@ int MySQL::execute(const std::string& sql) {
     return r;
 }
 
-// int64_t MySQL::getLastInsertId() {
-//     return mysql_insert_id(mysql_.get());
-// }
+int64_t MySQL::getLastInsertId() {
+    // my_ulonglong mysql_insert_id(MYSQL *mysql)
+    // 返回上一步 insert 操作产生的 id。The function only works if we have defined an AUTO_INCREMENT column in the table.
+    return mysql_insert_id(mysql_.get());
+}
 
-// std::shared_ptr<MySQL> MySQL::getMySQL() {
-//     return MySQL::ptr(this, util::nop<MySQL>);
-// }
+//https://stackoverflow.com/questions/4438886/how-to-manage-shared-ptr-that-points-to-internal-data-of-already-referenced-obje
+// todo 这里设计的目的
+std::shared_ptr<MySQL> MySQL::getMySQL() {
+    return MySQL::ptr(this, util::nop<MySQL>);
+}
 
-// uint64_t MySQL::getAffectedRows() {
-//     if(!mysql_) {
-//         return 0;
-//     }
-//     return mysql_affected_rows(mysql_.get());
-// }
+uint64_t MySQL::getAffectedRows() {
+    if(!mysql_) {
+        return 0;
+    }
+    return mysql_affected_rows(mysql_.get());
+}
 
-// ISQLData::ptr MySQL::query(const char* format, ...) {
-//     va_list ap;
-//     va_start(ap, format);
-//     auto rt = query(format, ap);
-//     va_end(ap);
-//     return rt;
-// }
-
-// ISQLData::ptr MySQL::query(const char* format, va_list ap) {
-//     cmd_ = StringUtil::Formatv(format, ap);
-//     MYSQL_RES* res = my_mysql_query(mysql_.get(), cmd_.c_str());
-//     if(!res) {
-//         hasError_ = true;
-//         return nullptr;
-//     }
-//     hasError_ = false;
-//     ISQLData::ptr rt(new MySQLRes(res, mysql_errno(mysql_.get())
-//                         ,mysql_error(mysql_.get())));
-//     return rt;
-// }
-
-MySQLRes::ptr MySQL::query(const std::string& sql) {
+std::shared_ptr<MySQLRes> MySQL::query(const std::string& sql) {
     cmd_ = sql;
     MYSQL_RES* res = my_mysql_query(mysql_.get(), cmd_.c_str());
     if(!res) {
@@ -214,11 +178,11 @@ MySQLRes::ptr MySQL::query(const std::string& sql) {
     return rt;
 }
 
-// IStmt::ptr MySQL::prepare(const std::string& sql) {
-//     return MySQLStmt::Create(shared_from_this(), sql);
-// }
+std::shared_ptr<MySQLStmt> MySQL::prepare(const std::string& sql) {
+    return MySQLStmt::Create(shared_from_this(), sql);
+}
 
-// ITransaction::ptr MySQL::openTransaction(bool auto_commit) {
+// MySQLTransaction::ptr MySQL::openTransaction(bool auto_commit) {
 //     return MySQLTransaction::Create(shared_from_this(), auto_commit);
 // }
 
@@ -263,6 +227,13 @@ std::string MySQL::getErrStr() {
         return errStr;
     }
     return "";
+}
+
+uint64_t MySQL::getInsertId() {
+    if(mysql_) {
+        return mysql_insert_id(mysql_.get());
+    }
+    return 0;
 }
 
 // todo why need this

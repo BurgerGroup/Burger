@@ -6,6 +6,10 @@ https://www.mysqlzh.com/api/35.html
 
 https://zetcode.com/db/mysqlc/
 
+http://dev.cs.ovgu.de/db/mysql/C.html
+
+https://github.com/hholzgra/connector-c-examples
+
 ## mysql 下载
 
 ## mysql 第一次设置密码

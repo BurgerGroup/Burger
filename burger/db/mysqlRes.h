@@ -1,9 +1,7 @@
 #ifndef MYSQLRES_H
 #define MYSQLRES_H
 
-#include <memory>
-#include <functional>
-#include "DB.h"
+#include "Mysql.h"
 
 namespace burger {
 namespace db {
@@ -12,7 +10,7 @@ class MySQLRes {
 public:
     using ptr = std::shared_ptr<MySQLRes>;
     using dataCb = std::function<bool(MYSQL_ROW row
-                ,int columnNum, int row_no)>;
+                ,uint64_t columnNum, int row_no)>;
     MySQLRes(MYSQL_RES* res, int eno, const char* estr);
 
     MYSQL_RES* get() const { return data_.get(); }
@@ -21,27 +19,21 @@ public:
     const std::string& getErrStr() const { return errStr_;}
 
     bool foreach(dataCb cb);
-    // bool next() override;
+    bool next();
     uint64_t getRowCount();
-    uint64_t getColumnCount();
-    // int getColumnBytes(int idx) override;
-    // int getColumnType(int idx) override;
-    // std::string getColumnName(int idx) override;
+    int getColumnCount();
+    unsigned long getColumnBytes(int idx);
+    // todo *filed
+    // int getColumnType(int idx);
+    std::string getColumnName(size_t idx);
 
-    // bool isNull(int idx) override;
-    // int8_t getInt8(int idx) override;
-    // uint8_t getUint8(int idx) override;
-    // int16_t getInt16(int idx) override;
-    // uint16_t getUint16(int idx) override;
-    // int32_t getInt32(int idx) override;
-    // uint32_t getUint32(int idx) override;
-    // int64_t getInt64(int idx) override;
-    // uint64_t getUint64(int idx) override;
-    // float getFloat(int idx) override;
-    // double getDouble(int idx) override;
-    // std::string getString(int idx) override;
-    // std::string getBlob(int idx) override;
-    // time_t getTime(int idx) override;
+    bool isNull(int idx);
+    // todo: 需要丰富下类型
+    int64_t getInt(int idx);
+    double getDouble(int idx);
+    std::string getString(int idx);
+    // std::string getBlob(int idx);
+    // time_t getTime(int idx);
 
 private:
     int errno_;
@@ -49,6 +41,7 @@ private:
     MYSQL_ROW cur_;
     unsigned long* curLength_;
     std::shared_ptr<MYSQL_RES> data_;
+    std::vector<MYSQL_FIELD *> column_;
 };
 
 } // namespace db

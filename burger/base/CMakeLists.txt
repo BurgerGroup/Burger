@@ -5,6 +5,8 @@ set(base_SRCS
   ThreadPool.cc
   Log.cc
   Util.cc
+  Type.cc
+  # StringUtil.cc 
 )
 
 

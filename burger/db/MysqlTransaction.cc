@@ -4,7 +4,7 @@ using namespace burger;
 using namespace burger::db;
 
 MySQLTransaction::ptr MySQLTransaction::Create(MySQL::ptr mysql, bool auto_commit) {
-    MySQLTransaction::ptr rt(new MySQLTransaction(mysql, auto_commit));
+    MySQLTransaction::ptr rt = make_shared<MySQLTransaction>(mysql, auto_commit);
     if(rt->begin()) {
         return rt;
     }
@@ -54,23 +54,6 @@ bool MySQLTransaction::rollback() {
     return rt == 0;
 }
 
-int MySQLTransaction::execute(const char* format, ...) {
-    va_list ap;
-    va_start(ap, format);
-    return execute(format, ap);
-}
-
-int MySQLTransaction::execute(const char* format, va_list ap) {
-    if(isFinished_) {
-        ERROR("transaction is finished, format= {}", format);
-        return -1;
-    }
-    int rt = mysql_->execute(format, ap);
-    if(rt) {
-        hasError_ = true;
-    }
-    return rt;
-}
 
 int MySQLTransaction::execute(const std::string& sql) {
     if(isFinished_) {

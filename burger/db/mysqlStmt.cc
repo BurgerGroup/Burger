@@ -1,9 +1,10 @@
-#include "mysqlStmt.h"
+#include "MysqlStmt.h"
+#include "MysqlStmtRes.h"
 
 using namespace burger;
 using namespace burger::db;
 
-MySQLStmt::ptr MySQLStmt::Create(MySQL::ptr db, const std::string& stmt) {
+MySQLStmt::ptr MySQLStmt::Create(std::shared_ptr<MySQL> db, const std::string& stmt) {
     // MYSQL_STMT *mysql_stmt_init(MYSQL *mysql)  创建并返回MYSQL_STMT处理程序
     auto st = mysql_stmt_init(db->getRaw().get());
     if(!st) {
@@ -11,7 +12,7 @@ MySQLStmt::ptr MySQLStmt::Create(MySQL::ptr db, const std::string& stmt) {
         return nullptr;
     }
     // int mysql_stmt_prepare(MYSQL_STMT *stmt, const char *stmt_str, unsigned long length)
-    //调用mysql_stmt_prepare()对SQL语句进行预处理  https://www.docs4dev.com/docs/zh/mysql/5.7/reference/mysql-stmt-prepare.html
+    // 调用mysql_stmt_prepare()对SQL语句进行预处理  https://www.docs4dev.com/docs/zh/mysql/5.7/reference/mysql-stmt-prepare.html
     if(mysql_stmt_prepare(st, stmt.c_str(), stmt.size())) {
         ERROR("stmt = {} errno = {} errstr = {}",
             stmt, mysql_stmt_errno(st), mysql_stmt_error(st));
@@ -20,10 +21,9 @@ MySQLStmt::ptr MySQLStmt::Create(MySQL::ptr db, const std::string& stmt) {
     }
     // unsigned long mysql_stmt_param_count(MYSQL_STMT *stmt)
     // 返回准备好的语句中存在的参数标记的数量。
-    int count = mysql_stmt_param_count(st);
+    int count = static_cast<int>(mysql_stmt_param_count(st));
     MySQLStmt::ptr rt = std::make_shared<MySQLStmt>(db, st);
     rt->binds_.resize(count);
-    // todo
     memset(&rt->binds_[0], 0, sizeof(rt->binds_[0]) * count);
     return rt;
 }
@@ -33,7 +33,7 @@ MySQLStmt::~MySQLStmt() {
         mysql_stmt_close(stmt_);
     }
 
-    // TODO 为何这里需要free， 里面的buf?
+    // todo : 能更自动管理这里的buffer吗
     for(auto& i : binds_) {
         if(i.buffer) {
             free(i.buffer);
@@ -41,12 +41,12 @@ MySQLStmt::~MySQLStmt() {
     }
 }
 
-MySQLStmt::MySQLStmt(MySQL::ptr db, MYSQL_STMT* stmt)
+MySQLStmt::MySQLStmt(std::shared_ptr<MySQL> db, MYSQL_STMT* stmt)
     : mysql_(db),
     stmt_(stmt)  {
 }
 
-
+// https://www.mysqlzh.com/doc/196/113.html 各种类型对应
 int MySQLStmt::bind(int idx, const int8_t& value) {
     return bindInt8(idx, value);
 }
@@ -109,11 +109,14 @@ int MySQLStmt::bind(int idx) {
 int MySQLStmt::bindInt8(int idx, const int8_t& value) {
     idx -= 1;
     binds_[idx].buffer_type = MYSQL_TYPE_TINY;
+    // todo can we avoid use malloc ? more modern way
+    // https://stackoverflow.com/questions/14111900/using-new-on-void-pointer
 #define BIND_COPY(ptr, size) \
     if(binds_[idx].buffer == nullptr) { \
         binds_[idx].buffer = malloc(size); \
     } \
     memcpy(binds_[idx].buffer, ptr, size);
+
     BIND_COPY(&value, sizeof(value));
     binds_[idx].is_unsigned = false;
     binds_[idx].buffer_length = sizeof(value);
@@ -205,12 +208,13 @@ int MySQLStmt::bindString(int idx, const char* value) {
 #define BIND_COPY_LEN(ptr, size) \
     if(binds_[idx].buffer == nullptr) { \
         binds_[idx].buffer = malloc(size); \
-    } else if((size_t)binds_[idx].buffer_length < (size_t)size) { \
+    } else if(binds_[idx].buffer_length < static_cast<unsigned long>(size)) { \
         free(binds_[idx].buffer); \
         binds_[idx].buffer = malloc(size); \
     } \
     memcpy(binds_[idx].buffer, ptr, size); \
     binds_[idx].buffer_length = size;
+
     BIND_COPY_LEN(value, strlen(value));
     return 0;
 }
@@ -254,18 +258,24 @@ std::string MySQLStmt::getErrStr() {
 }
 
 int MySQLStmt::execute() {
+    // my_bool mysql_stmt_bind_param(MYSQL_STMT *stmt, MYSQL_BIND *bind)
+    // 用于为SQL语句中的参数标记符绑定数据。
     mysql_stmt_bind_param(stmt_, &binds_[0]);
+    // int mysql_stmt_execute(MYSQL_STMT *stmt)
     return mysql_stmt_execute(stmt_);    
 }
 
 int64_t MySQLStmt::getLastInsertId() {
+    // my_ulonglong mysql_stmt_insert_id(MYSQL_STMT *stmt)
+    // 对于预处理语句的AUTO_INCREMENT列，返回生成的ID。
     return mysql_stmt_insert_id(stmt_);
 }
 
-ISQLData::ptr MySQLStmt::query() {
+std::shared_ptr<MySQLStmtRes> MySQLStmt::query()  {
     mysql_stmt_bind_param(stmt_, &binds_[0]);
     return MySQLStmtRes::Create(shared_from_this());
 }
+
 
 
 

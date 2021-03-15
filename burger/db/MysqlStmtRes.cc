@@ -1,5 +1,6 @@
-#include "mysqlStmtRes.h"
-#include "mysqlStmt.h"
+#include "MysqlStmtRes.h"
+#include "MysqlStmt.h"
+#include "MysqlTime.h"
 
 using namespace burger;
 using namespace burger::db;
@@ -7,17 +8,20 @@ using namespace burger::db;
 MySQLStmtRes::ptr MySQLStmtRes::Create(std::shared_ptr<MySQLStmt> stmt) {
     int eno = mysql_stmt_errno(stmt->getRaw());
     const char* errstr = mysql_stmt_error(stmt->getRaw());
-    MySQLStmtRes::ptr rt(new MySQLStmtRes(stmt, eno, errstr));
+    MySQLStmtRes::ptr rt = std::make_shared<MySQLStmtRes>(stmt, eno, errstr);
     if(eno) {
+        ERROR("Create MySQLStmtRes");
         return rt;
     }
+    // MYSQL_RES *mysql_stmt_result_metadata(MYSQL_STMT *stmt)
+    // mysql_stmt_result_metadata()将以指针的形式返回结果集元数据
     MYSQL_RES* res = mysql_stmt_result_metadata(stmt->getRaw());
     if(!res) {
-        return MySQLStmtRes::ptr(new MySQLStmtRes(stmt, stmt->getErrno()
-                                 ,stmt->getErrStr()));
+        ERROR("mysql_stmt_result_metadata error");
+        return std::make_shared<MySQLStmtRes>(stmt, stmt->getErrno(),stmt->getErrStr());
     }
 
-    int num = mysql_num_fields(res);
+    int num = static_cast<int>(mysql_num_fields(res));
     MYSQL_FIELD* fields = mysql_fetch_fields(res);
 
     rt->binds_.resize(num);
@@ -54,48 +58,52 @@ MySQLStmtRes::ptr MySQLStmtRes::Create(std::shared_ptr<MySQLStmt> stmt) {
         rt->binds_[i].is_null = &rt->datas_[i].is_null;
         rt->binds_[i].error = &rt->datas_[i].error;
     }
-
+    // my_bool mysql_stmt_bind_result(MYSQL_STMT *stmt, MYSQL_BIND *bind)
+    // 将应用程序数据缓冲与结果集中的列关联起来。
+    // 如果绑定成功，返回0。如果出现错误，返回非0值。
     if(mysql_stmt_bind_result(stmt->getRaw(), &rt->binds_[0])) {
-        return MySQLStmtRes::ptr(new MySQLStmtRes(stmt, stmt->getErrno()
-                                    , stmt->getErrStr()));
+        ERROR("mysql_stmt_bind_result error");
+        return std::make_shared<MySQLStmtRes>(stmt, stmt->getErrno()
+                                 ,stmt->getErrStr());
     }
 
     stmt->execute();
 
     if(mysql_stmt_store_result(stmt->getRaw())) {
-        return MySQLStmtRes::ptr(new MySQLStmtRes(stmt, stmt->getErrno()
-                                    , stmt->getErrStr()));
+        ERROR("mysql_stmt_store_result error");
+        return std::make_shared<MySQLStmtRes>(stmt, stmt->getErrno()
+                                 ,stmt->getErrStr());
     }
     //rt->next();
     return rt;
 }
 
-int MySQLStmtRes::getDataCount() {
-    return mysql_stmt_num_rows(stmt_->getRaw());
+uint64_t MySQLStmtRes::getDataCount() {
+    return static_cast<int>(mysql_stmt_num_rows(stmt_->getRaw()));
 }
 
 int MySQLStmtRes::getColumnCount() {
-    return mysql_stmt_field_count(stmt_->getRaw());
+    return static_cast<int>(mysql_stmt_field_count(stmt_->getRaw()));
 }
 
 int MySQLStmtRes::getColumnBytes(int idx) {
-    return datas_[idx].length;
+    return static_cast<int>(datas_[idx].length);
 }
 
 int MySQLStmtRes::getColumnType(int idx) {
     return datas_[idx].type;
 }
 
-std::string MySQLStmtRes::getColumnName(int idx) {
-    return "";
-}
+// std::string MySQLStmtRes::getColumnName(int idx) {
+//     return "";
+// }
 
 bool MySQLStmtRes::isNull(int idx) {
     return datas_[idx].is_null;
 }
 
 #define XX(type) \
-    return *static_cast<type*>datas_[idx].data
+    return *static_cast<type *>(datas_[idx].data)
     // return *(type*)datas_[idx].data  // old style cast
 int8_t MySQLStmtRes::getInt8(int idx) {
     XX(int8_t);
@@ -139,15 +147,16 @@ double MySQLStmtRes::getDouble(int idx) {
 #undef XX
 
 std::string MySQLStmtRes::getString(int idx) {
-    return std::string(datas_[idx].data, datas_[idx].length);
+    return std::string(static_cast<const char*>(datas_[idx].data), datas_[idx].length);
 }
 
 std::string MySQLStmtRes::getBlob(int idx) {
-    return std::string(datas_[idx].data, datas_[idx].length);
+    return std::string(static_cast<const char*>(datas_[idx].data), datas_[idx].length);
 }
 
 time_t MySQLStmtRes::getTime(int idx) {
-    MYSQL_TIME* v = (MYSQL_TIME*)datas_[idx].data;
+    
+    MYSQL_TIME* v = static_cast<MYSQL_TIME*>(datas_[idx].data);
     time_t ts = 0;
     mysql_time_to_time_t(*v, ts);
     return ts;
@@ -168,15 +177,18 @@ MySQLStmtRes::Data::Data()
 
 MySQLStmtRes::Data::~Data() {
     if(data) {
-        delete[] data;
+        free(data);
+        // delete[] data;
     }
 }
 
 void MySQLStmtRes::Data::alloc(size_t size) {
     if(data) {
-        delete[] data;
+        // delete[] data;
+        free(data);
     }
-    data = new char[size]();
+    data = malloc(size);
+    // data = new char[size]();
     length = size;
     data_length = size;
 }

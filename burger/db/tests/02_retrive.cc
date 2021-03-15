@@ -1,17 +1,31 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "burger/db/mysql.h"
-// #include "Burger/db/MysqlRes.h"
+#include "burger/db/DB.h"
+
 /*
+- retrieve data
+
 Create a connection
 Execute query
 Get the result set
 Fetch all available rows
-Free the result set
+
 */
 using namespace burger;
 using namespace burger::db;
+
+bool dataCallback(MYSQL_ROW row
+                ,uint64_t columnNum, int row_no) {
+    if(!row || columnNum <= 0) return false;
+    std::cout << std::endl;
+    std::cout << "row " << row_no << std::endl;
+    for(uint64_t i = 0; i < columnNum; i++) {
+        std::cout << (row[i] ?  row[i] : "NULL") << " ";
+    }
+    
+    return true;
+}
 
 int main() {
     std::map<std::string, std::string> params;
@@ -26,6 +40,7 @@ int main() {
     std::cout << "rows : "<< res->getRowCount() << std::endl;
     std::cout << "columns : " << res->getColumnCount() << std::endl;
 
+    res->foreach(dataCallback);
     
 
 }

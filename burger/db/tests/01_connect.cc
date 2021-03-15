@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "burger/db/mysql.h"
+#include "burger/db/DB.h"
 
 /*
 connect 
@@ -66,4 +66,6 @@ int main() {
     mysql->execute("INSERT INTO hams VALUES(1,'Audi',52642)");
     mysql->execute("INSERT INTO hams VALUES(2,'Mercedes',57127)");
     mysql->execute("INSERT INTO hams VALUES(3,'Skoda',9000)");
+    mysql->execute("INSERT INTO hams VALUES(4,'MITSK',92000)");
+    mysql->execute("INSERT INTO hams VALUES(5,'BurgerY',900)");
 }

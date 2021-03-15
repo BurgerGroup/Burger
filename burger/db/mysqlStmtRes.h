@@ -1,14 +1,14 @@
 #ifndef MYSQLSTMTRES_H
 #define MYSQLSTMTRES_H
 
-#include <memory>
-#include <vector>
-#include "DB.h"
+#include "Mysql.h"
+
 
 namespace burger {
 namespace db {
+class MySQLStmt;
 
-class MySQLStmtRes : public ISQLData {
+class MySQLStmtRes {
 friend class MySQLStmt;
 public:
     using ptr = std::shared_ptr<MySQLStmtRes>;
@@ -18,29 +18,31 @@ public:
     int getErrno() const { return errno_;}
     const std::string& getErrStr() const { return errstr_;}
 
-    int getDataCount() override;
-    int getColumnCount() override;
-    int getColumnBytes(int idx) override;
-    int getColumnType(int idx) override;
-    std::string getColumnName(int idx) override;
+    uint64_t getDataCount();
+    int getColumnCount();
+    int getColumnBytes(int idx);
+    int getColumnType(int idx);
+    // std::string getColumnName(int idx);
 
-    bool isNull(int idx) override;
-    int8_t getInt8(int idx) override;
-    uint8_t getUint8(int idx) override;
-    int16_t getInt16(int idx) override;
-    uint16_t getUint16(int idx) override;
-    int32_t getInt32(int idx) override;
-    uint32_t getUint32(int idx) override;
-    int64_t getInt64(int idx) override;
-    uint64_t getUint64(int idx) override;
-    float getFloat(int idx) override;
-    double getDouble(int idx) override;
-    std::string getString(int idx) override;
-    std::string getBlob(int idx) override;
-    time_t getTime(int idx) override;
-    bool next() override;
-private:
+    bool isNull(int idx);
+    int8_t getInt8(int idx);
+    uint8_t getUint8(int idx);
+    int16_t getInt16(int idx);
+    uint16_t getUint16(int idx);
+    int32_t getInt32(int idx);
+    uint32_t getUint32(int idx);
+    int64_t getInt64(int idx);
+    uint64_t getUint64(int idx);
+    float getFloat(int idx);
+    double getDouble(int idx);
+    std::string getString(int idx);
+    std::string getBlob(int idx);
+    time_t getTime(int idx);
+    bool next();
     MySQLStmtRes(std::shared_ptr<MySQLStmt> stmt, int eno, const std::string& estr);
+private:
+    // MySQLStmtRes(std::shared_ptr<MySQLStmt> stmt, int eno, const std::string& estr);
+    // 与MYSQL_BIND相对应
     struct Data {
         Data();
         ~Data();
@@ -51,8 +53,8 @@ private:
         my_bool error;
         enum_field_types type;
         unsigned long length;
-        int32_t data_length;
-        char* data;
+        unsigned long data_length;
+        void* data;  // todo : std::vector<char>
     };
 private:
     int errno_;

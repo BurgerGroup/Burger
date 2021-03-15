@@ -2,16 +2,16 @@
 #define MYSQLTRANSACTION_H
 
 #include <memory>
-#include "DB.h"
+#include "Mysql.h"
 
 namespace burger {
 namespace db {
 
 class MySQL;
 
-class MySQLTransaction : public ITransaction {
+class MySQLTransaction {
 public:
-    typedef std::shared_ptr<MySQLTransaction> ptr;
+    using ptr = std::shared_ptr<MySQLTransaction>;
 
     static MySQLTransaction::ptr Create(MySQL::ptr mysql, bool auto_commit);
     ~MySQLTransaction();
@@ -20,16 +20,15 @@ public:
     bool commit() override;
     bool rollback() override;
 
-    virtual int execute(const char* format, ...) override;
-    int execute(const char* format, va_list ap);
-    virtual int execute(const std::string& sql) override;
-    int64_t getLastInsertId() override;
+    // todo: add 变长参数
+    int execute(const std::string& sql);
+    int64_t getLastInsertId();
     std::shared_ptr<MySQL> getMySQL();
 
     bool isAutoCommit() const { return autoCommit_;}
     bool isFinished() const { return isFinished_;}
     bool isError() const { return hasError_;}
-private:
+// private:
     MySQLTransaction(MySQL::ptr mysql, bool auto_commit);
 private:
     MySQL::ptr mysql_;

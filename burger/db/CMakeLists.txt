@@ -1,11 +1,11 @@
 set(db_SRCS
   Mysql.cc
+  MysqlTime.cc
   # MysqlUtil.cc
   # MysqlManager.cc
   MysqlRes.cc
-  # MysqlStmt.cc
-  # MysqlStmtRes.cc
-  # MysqlTime.cc
+  MysqlStmt.cc
+  MysqlStmtRes.cc
   # MysqlTransaction.cc
   )
 

@@ -77,8 +77,6 @@ V GetParamValue(const Map& m, const K& k, const V& def = V()) {
 template<class T>
 void nop(T*) {}
 
-
-
 } // namespace util
 
 } // namespace burger

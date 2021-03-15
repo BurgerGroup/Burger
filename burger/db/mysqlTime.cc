@@ -1,8 +1,21 @@
-#include "mysqlTime.h"
+#include "MysqlTime.h"
+#include <iostream>
 
 using namespace burger; 
-using namespace burger::db;
-bool mysql_time_to_time_t(const MYSQL_TIME& mt, time_t& ts)  {
+
+bool db::time_t_to_mysql_time(const time_t& ts, MYSQL_TIME& mt) {
+    struct tm tm;
+    localtime_r(&ts, &tm);
+    mt.year = tm.tm_year + 1900;
+    mt.month = tm.tm_mon + 1;
+    mt.day = tm.tm_mday;
+    mt.hour = tm.tm_hour;
+    mt.minute = tm.tm_min;
+    mt.second = tm.tm_sec;
+    return true;
+}
+
+bool db::mysql_time_to_time_t(const MYSQL_TIME& mt, time_t& ts) {
     struct tm tm;
     ts = 0;
     localtime_r(&ts, &tm);
@@ -18,18 +31,4 @@ bool mysql_time_to_time_t(const MYSQL_TIME& mt, time_t& ts)  {
     }
     return true;
 }
-
-bool time_t_to_mysql_time(const time_t& ts, MYSQL_TIME& mt) {
-    struct tm tm;
-    localtime_r(&ts, &tm);
-    mt.year = tm.tm_year + 1900;
-    mt.month = tm.tm_mon + 1;
-    mt.day = tm.tm_mday;
-    mt.hour = tm.tm_hour;
-    mt.minute = tm.tm_min;
-    mt.second = tm.tm_sec;
-    return true;
-}
-
-
 
