@@ -1,5 +1,3 @@
-# C++11 Server based on muduo
-
 <div align="center">
 
 <img src="./doc/assets/logo.jpeg" width = "100" height = "80" alt="burger" align=center />
@@ -36,3 +34,11 @@ $ make
 
 $ make install   
 ```
+
+## reference 
+
+[muduo](https://github.com/chenshuo/muduo)
+
+[libhv](https://github.com/ithewei/libhv)
+
+[sylar](https://github.com/sylar-yin/sylar)
