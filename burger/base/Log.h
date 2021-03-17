@@ -3,6 +3,7 @@
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
 // https://github.com/gabime/spdlog/issues/282  Why not use stream syntax
 // TODO : 需要异步 ？  
+// todo : 比如client不需要在屏幕里显示信息，怎么去除sink?
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/rotating_file_sink.h"
 #include "spdlog/sinks/daily_file_sink.h"

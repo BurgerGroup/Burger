@@ -18,6 +18,7 @@ A C++ network library for high concurrent server in Linux
 - Use more c++11 features like thread library 
 - Wrapped mysql c api, providing more easy to use high-level api
 - Using C++ language development, shielding the underlying details, more user-friendly to write server programs.
+- Wrapped spdlog api, more easy to use logger
 
 ## Compile and install:
 

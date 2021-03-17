@@ -31,7 +31,8 @@ bool Logger::init(const std::string& loggerName,
         auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt> (filePath, 1024*1024*5, 5, false);
         // auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(filePath, true);
         // Async : https://github.com/gabime/spdlog/wiki/6.-Asynchronous-logging
-        std::vector<spdlog::sink_ptr> sinks{console_sink, file_sink};
+        // std::vector<spdlog::sink_ptr> sinks{console_sink, file_sink};
+        std::vector<spdlog::sink_ptr> sinks{file_sink};   // 暂时先不要输出到显示屏
         std::shared_ptr<spdlog::logger> logger = std::make_shared<spdlog::logger>(loggerName,  sinks.begin(), sinks.end());
         logger->set_level(level);    // 需要单独设置logger的level      
         logger->set_pattern("%Y-%m-%d %H:%M:%S [%l] [tid : %t] [%s : %# <%!>] %v");
