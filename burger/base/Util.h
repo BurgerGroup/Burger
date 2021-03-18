@@ -53,9 +53,12 @@ inline pid_t tid() {
 
 const char* strerror_tl(int savedErrno);
 
-// 忽略大小写比较仿函数
+// 忽略大小写比较仿函数 
+// trcasecmp()用来比较参数s1和s2字符串，比较时会自动忽略大小写的差异
 struct CaseInsensitiveLess {
-    bool operator()(const std::string& lhs, const std::string& rhs) const;
+    bool operator()(const std::string& lhs, const std::string& rhs) const {
+        return strcasecmp(lhs.c_str(), rhs.c_str()) < 0;
+    };
 };
 
 
@@ -76,6 +79,14 @@ V GetParamValue(const Map& m, const K& k, const V& def = V()) {
 
 template<class T>
 void nop(T*) {}
+
+// 打印enum class 
+// https://qastack.cn/programming/11421432/how-can-i-output-the-value-of-an-enum-class-in-c11
+template <typename Enumeration>
+auto as_integer(Enumeration const value)
+    -> typename std::underlying_type<Enumeration>::type {
+    return static_cast<typename std::underlying_type<Enumeration>::type>(value);
+}
 
 } // namespace util
 

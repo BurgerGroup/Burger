@@ -1,6 +1,11 @@
 #ifndef HTTPSTATUS_H
 #define HTTPSTATUS_H
 
+#include <string>
+
+namespace burger {
+namespace http {
+
 /* Status Codes */
 #define HTTP_STATUS_MAP(XX)                                                 \
   XX(100, CONTINUE,                        Continue)                        \
@@ -68,6 +73,15 @@ enum class HttpStatus {
     HTTP_STATUS_MAP(XX)
 #undef XX
 };
+
+// 将HTTP状态枚举转换成字符串
+const char* HttpStatusToString(const HttpStatus& s);
+
+} // namespace http
+
+  
+} // namespace burger
+
 
 
 #endif // HTTPSTATUS_H

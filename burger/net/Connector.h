@@ -33,6 +33,7 @@ private:
     void setStatus(Status status) { status_ = status; }
     const std::string statusToStr() const;
 
+    // https://stackoverflow.com/questions/16957458/static-const-in-c-class-undefined-reference/16957554
     static const int kMaxRetryDelayMs = 30*1000;  // 30s, 最大重连延迟时间
     static const int kInitRetryDelayMs = 500;  // 0.5s, 初始状态，连接不上，05s重连
     

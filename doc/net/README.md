@@ -26,3 +26,11 @@ https://blog.csdn.net/weibo1230123/article/details/81530355
 
 https://www.jianshu.com/p/f181b5bd0a63
 
+
+## 为什么要编写网络库？？ p 127
+
+## 为什么是个静态链接的库 ? 
+
+分布式系统中正确安全发布动态库成本很高 -- why chapter 11
+
+## 

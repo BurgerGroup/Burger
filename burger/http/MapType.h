@@ -29,6 +29,8 @@ bool checkGetAs(const MapType& m, const std::string& key, T& val, const T& def =
         return false;
     }
     try {
+        // 虽然在c中可是使用类似于atoi之类的函数对字符串转换成整型，但是我们在这儿还是推荐使用这个函数
+        // 如果转换发生了错误，lexical_cast会抛出一个bad_lexical_cast异常，因此程序中需要对其进行捕捉。
         val = boost::lexical_cast<T>(it->second);
         return true;
     } catch (...) {

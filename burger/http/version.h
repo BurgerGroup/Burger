@@ -1,13 +1,17 @@
 #ifndef VERSION_H
 #define VERSION_H
 
+#include <string>
+
 namespace burger {
 namespace http {
     
 enum class Version {
     kUnknown, kHttp10, kHttp11
 };
-// std::string versionTostr();
+
+std::string httpVersionTostr(Version version);
+
 
 } // namespace http
 

@@ -23,7 +23,7 @@ A C++ network library for high concurrent server in Linux
 ## Compile and install:
 
 ```
-$ sudo apt install g++ cmake make libboost-dev mysql-server libmysqlclient-dev
+$ sudo apt install g++ cmake make libboost-dev mysql-server libmysqlclient-dev libcurl4-openssl-dev protobuf-compiler libprotobuf-dev
 
 $ git clone https://github.com/chanchann/Burger.git
 
@@ -35,6 +35,12 @@ $ make
 
 $ make install   
 ```
+
+* Read [overview]() Why should we 
+* Read [getting started]() 
+* Docs:
+  * [Performance benchmark todo]()
+
 
 ## reference 
 
