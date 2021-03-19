@@ -1,11 +1,3 @@
-set(http_SRCS
-  HttpRequest.cc
-  HttpMethod.cc
-  HttpStatus.cc
-  Version.cc
-  HttpResponse.cc
-  )
-
 set(parser_SRCS
   http11_parser.cc
   httpclient_parser.cc)
@@ -18,14 +10,23 @@ set_source_files_properties(
   COMPILE_FLAGS "-w"
 )
 
-add_library(burger_parser ${parser_SRCS})
-target_link_libraries(burger_parser burger_net)
+set(http_SRCS
+  HttpRequest.cc
+  HttpMethod.cc
+  HttpStatus.cc
+  Version.cc
+  HttpResponse.cc
+  http11_parser.cc
+  httpclient_parser.cc
+  HttpRequestParser.cc
+  HttpResponseParser.cc
+  )
 
 add_library(burger_http ${http_SRCS})
 target_link_libraries(burger_http burger_net)
 
 install(TARGETS burger_http DESTINATION lib)
-install(TARGETS burger_parser DESTINATION lib)
+
 
 # 暴露出去的头文件
 file(GLOB HEADERS "*.h")

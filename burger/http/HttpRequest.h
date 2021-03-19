@@ -7,6 +7,7 @@
 #include "HttpMethod.h"
 #include "MapType.h"
 #include "Version.h"
+#include "http11_parser.h"
 #include <map>
 #include <memory>
 #include <ostream>

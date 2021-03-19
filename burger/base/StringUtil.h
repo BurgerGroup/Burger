@@ -3,12 +3,13 @@
 
 #include <string>
 
+// todo : string_view and python like string api
+
 namespace burger {
 
 class StringUtil {
 public:
-    static std::string Format(const char* fmt, ...);
-    static std::string Formatv(const char* fmt, va_list ap);
+
 };
 
 } // namespace burger
