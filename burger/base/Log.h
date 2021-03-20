@@ -5,6 +5,7 @@
 // TODO : 需要异步 ？  
 // todo : 比如client不需要在屏幕里显示信息，怎么去除sink?
 // todo 系统需要为不同任务设置log?
+// TODO : 设计下如何使用
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/rotating_file_sink.h"
 #include "spdlog/sinks/daily_file_sink.h"
@@ -59,4 +60,9 @@ private:
 
 #define LOG_LEVEL_INFO spdlog::set_level(spdlog::level::info);
 #define LOG_LEVEL_DEBUG spdlog::set_level(spdlog::level::debug);
+
+// todo need to improve
+#define LOGGER Logger::Instance().init("log", "logs/test.log", spdlog::level::trace);
+
+
 #endif // LOG_H

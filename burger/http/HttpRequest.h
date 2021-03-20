@@ -66,8 +66,11 @@ public:
     // template<class T>
     // bool checkGetHeaderAs(const std::string& key, T& val, const T& def = T());
 
-    // template<class T>
-    // T getHeaderAs(const std::string& key, const T& def = T());
+    // 如果存在且转换成功返回对应的值,否则返回def
+    template<class T>
+    T getHeaderAs(const std::string& key, const T& def = T()) {
+        return getAs(headersMap_, key, def);
+    }
 
     // template<class T>
     // bool checkGetParamAs(const std::string& key, T& val, const T& def = T());
@@ -83,7 +86,7 @@ public:
 
     // 序列化输出到流中
     std::ostream& dump(std::ostream& os) const;
-    // std::string toString() const;
+    std::string toString() const;
     // void init();
     // void initParam();
     // void initQueryParam();
@@ -112,11 +115,7 @@ private:
 // bool HttpRequest::checkGetHeaderAs(const std::string& key, T& val, const T& def = T()) {
 //     return checkGetAs(headersMap_, key, val, def);
 // }
-// // 如果存在且转换成功返回对应的值,否则返回def
-// template<class T>
-// T HttpRequest::getHeaderAs(const std::string& key, const T& def = T()) {
-//     return getAs(headersMap_, key, def);
-// }
+
 // template<class T>
 // bool HttpRequest::checkGetParamAs(const std::string& key, T& val, const T& def = T()) {
 //     initQueryParam();

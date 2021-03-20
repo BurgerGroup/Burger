@@ -9,7 +9,7 @@ namespace burger {
 
 class StringUtil {
 public:
-
+    static char* strToCharStar(const std::string & str);
 };
 
 } // namespace burger

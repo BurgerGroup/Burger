@@ -35,3 +35,9 @@ https://github.com/nodejs/http-parser/blob/master/http_parser.h
 ## ragel  -- parser
 
 ragel -G2 -C http11_parser.rl -o http11_parser.cc
+
+## http session vs http Connection
+
+Server accpect socket -> session
+
+Server connect socket -> connection

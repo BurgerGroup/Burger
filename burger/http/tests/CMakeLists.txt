@@ -12,3 +12,9 @@ target_link_libraries(test_request burger_http)
 
 add_executable(test_response test_response.cc)
 target_link_libraries(test_response burger_http)
+
+add_executable(test_req_parser test_req_parser.cc)
+target_link_libraries(test_req_parser burger_http)
+
+add_executable(test_response_parser test_response_parser.cc)
+target_link_libraries(test_response_parser burger_http)

@@ -6,7 +6,7 @@ set(base_SRCS
   Log.cc
   Util.cc
   Type.cc
-  # StringUtil.cc 
+  StringUtil.cc 
 )
 
 

@@ -49,6 +49,12 @@ std::ostream& HttpRequest::dump(std::ostream& os) const {
     return os;
 }
 
+std::string HttpRequest::toString() const {
+    std::stringstream ss;
+    dump(ss);
+    return ss.str();
+}
+
 // void HttpRequest::initBodyParam()  {
 //     if(m_parserParamFlag & 0x2) {
 //         return;

@@ -39,8 +39,11 @@ public:
     // template<class T>
     // bool checkGetHeaderAs(const std::string& key, T& val, const T& def = T());
 
-    // template<class T>
-    // T getHeaderAs(const std::string& key, const T& def = T());
+    // 如果存在且转换成功返回对应的值,否则返回def
+    template<class T>
+    T getHeaderAs(const std::string& key, const T& def = T()) {
+        return getAs(headersMap_, key, def);
+    }
 
     // 序列化输出到流
     std::ostream& dump(std::ostream& os) const;
@@ -71,11 +74,7 @@ private:
 // bool HttpResponse::checkGetHeaderAs(const std::string& key, T& val, const T& def = T()) {
 //     return checkGetAs(headers_, key, val, def);
 // }
-// // 如果存在且转换成功返回对应的值,否则返回def
-// template<class T>
-// T HttpResponse::getHeaderAs(const std::string& key, const T& def = T()) {
-//     return getAs(headers_, key, def);
-// }
+
 
 } // namespace http
 
