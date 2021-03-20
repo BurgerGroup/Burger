@@ -20,6 +20,7 @@ set(http_SRCS
   httpclient_parser.cc
   HttpRequestParser.cc
   HttpResponseParser.cc
+  HttpService.cc
   )
 
 add_library(burger_http ${http_SRCS})
