@@ -50,7 +50,7 @@ public:
     }
 
 private:
-    volatile T value_;    //避免编译器优化
+    volatile T value_;    // 避免编译器优化,保证每次取值都是直接从内存中取值
 };
 
 } // namespace detail

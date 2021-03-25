@@ -17,12 +17,6 @@ inline To implicit_cast(From const &f) {
 }
 
 namespace util {
-// Convert std::thread::id to std::string
-inline std::string threadIdToStr(const std::thread::id id) {
-    std::stringstream ss;
-    ss << id;
-    return ss.str();
-}
 
 // C++11 version make_unique<T>()
 template <typename T, typename... Args>
@@ -44,7 +38,7 @@ inline void cacheTid() {
 }
 
 inline pid_t tid() {
-    // todo
+    // 作用是允许程序员将最有可能执行的分支告诉编译器
     if (__builtin_expect(t_cachedTid == 0, 0)) {
         cacheTid();
     }

@@ -20,7 +20,6 @@ set(http_SRCS
   httpclient_parser.cc
   HttpRequestParser.cc
   HttpResponseParser.cc
-  HttpService.cc
   )
 
 add_library(burger_http ${http_SRCS})
@@ -28,9 +27,10 @@ target_link_libraries(burger_http burger_net)
 
 install(TARGETS burger_http DESTINATION lib)
 
-
 # 暴露出去的头文件
 file(GLOB HEADERS "*.h")
 install(FILES ${HEADERS} DESTINATION include/burger/http)
 
-add_subdirectory(tests)
+if(NOT CMAKE_BUILD_NO_EXAMPLES)
+ add_subdirectory(tests)
+endif()

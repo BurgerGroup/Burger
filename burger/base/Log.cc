@@ -27,7 +27,7 @@ bool Logger::init(const std::string& loggerName,
         spdlog::flush_every(std::chrono::seconds(3));  // todo 这里能影响道logger吗
         // spdlog::flush_on(spdlog::level::warn);
 
-        auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+        // auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
         auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt> (filePath, 1024*1024*5, 5, false);
         // auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(filePath, true);
         // Async : https://github.com/gabime/spdlog/wiki/6.-Asynchronous-logging

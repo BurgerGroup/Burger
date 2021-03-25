@@ -1,7 +1,3 @@
-/*
- * @Author: Shiyu Yi
- * @Github: https://github.com/chanchann
- */
 #include "Timestamp.h"
 
 using namespace burger;
@@ -9,12 +5,13 @@ using namespace burger;
 static_assert(sizeof(Timestamp) == sizeof(uint64_t),
             "Timestamp should be same size as uint64_t");
 
-Timestamp::Timestamp() : microSecondsSinceEpoch_(0) 
-{}
+Timestamp::Timestamp() 
+    : microSecondsSinceEpoch_(0) {
+}
 
 Timestamp::Timestamp(uint64_t microSecondsSinceEpoch)
-        : microSecondsSinceEpoch_(microSecondsSinceEpoch) 
-{}
+    : microSecondsSinceEpoch_(microSecondsSinceEpoch) {
+}
 
 void Timestamp::swap(Timestamp& that) {
     std::swap(microSecondsSinceEpoch_, that.microSecondsSinceEpoch_);

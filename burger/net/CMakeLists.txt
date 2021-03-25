@@ -24,15 +24,15 @@ target_link_libraries(burger_net burger_base)
 install(TARGETS burger_net DESTINATION lib)
 
 # 暴露出去的头文件
-set(HEADERS
-  Callbaks.h
-  Channel.h
-  EventLoop.h
-  Timer.h 
-  TimerId.h
-  TimerQueue.h
-  )
-#file(GLOB HEADERS "*.h")
+# set(HEADERS
+#   Callbaks.h
+#   Channel.h
+#   EventLoop.h
+#   Timer.h 
+#   TimerId.h
+#   TimerQueue.h
+#   )
+file(GLOB HEADERS "*.h")
 
 install(FILES ${HEADERS} DESTINATION include/burger/net)
 

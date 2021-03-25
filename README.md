@@ -14,17 +14,17 @@ A C++ network library for high concurrent server in Linux
 -----
 
 ## Features:
-- The network module uses the muduo Reactor scheme.
-- Use more c++11 features like thread library 
-- Wrapped mysql c api, providing more easy to use high-level api
+- The network module uses the Reactor scheme.
+- Use more c++11 features like thread and chrono library 
+- Wrapped mysql c api, providing more easy to use high-level api.
 - Using C++ language development, shielding the underlying details, more user-friendly to write server programs.
 - Wrapped spdlog api, more easy to use logger
 
 ## Compile and install:
 
 ```
-$ sudo apt install g++ cmake make libboost-dev mysql-server libmysqlclient-dev libcurl4-openssl-dev protobuf-compiler libprotobuf-dev
-
+$ sudo apt install g++ cmake make libboost-all-dev mysql-server libmysqlclient-dev libcurl4-openssl-dev protobuf-compiler libprotobuf-dev 
+ 
 $ git clone https://github.com/chanchann/Burger.git
 
 $ cd Burger
@@ -46,6 +46,5 @@ $ make install
 
 [muduo](https://github.com/chenshuo/muduo)
 
-[libhv](https://github.com/ithewei/libhv)
-
 [sylar](https://github.com/sylar-yin/sylar)
+

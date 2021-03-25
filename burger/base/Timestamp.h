@@ -11,7 +11,7 @@
 #include <iomanip> // put_time
 namespace burger {
 using namespace std::chrono;
-class Timestamp : public burger::copyable,    // 空基类；用于标识该类为可拷贝类型
+class Timestamp : public burger::copyable,   
                   public boost::less_than_comparable<Timestamp> {    // 只需要实现<，自动实现>,>=,<=
 public:
     Timestamp();
