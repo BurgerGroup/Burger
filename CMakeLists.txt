@@ -23,6 +23,9 @@ set(CXX_FLAGS
  -Werror
  -Wconversion
  -Wno-unused-parameter
+ -Wno-unused-variable
+ -Wno-unused-result
+ -Wno-unused-but-set-variable
  -Wold-style-cast
  -Woverloaded-virtual
  -Wpointer-arith
@@ -131,7 +134,14 @@ if(BURGER_BUILD_EXAMPLES)
 #     endif()
 endif()
 
-add_subdirectory(tests)
+if(BUILD_TYPE STREQUAL "DEBUG")
+    add_subdirectory(tests)
+endif()
+
+if(BUILD_TYPE STREQUAL "RELEASE")
+    set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+    add_subdirectory(benchmarks)
+endif()
 
 
 

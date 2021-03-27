@@ -19,6 +19,10 @@ file(GLOB HEADERS "*.h")
 
 install(FILES ${HEADERS} DESTINATION include/burger/db)
 
-if(NOT CMAKE_BUILD_NO_EXAMPLES)
- add_subdirectory(tests)
+# if(NOT CMAKE_BUILD_NO_EXAMPLES)
+#  add_subdirectory(tests)
+# endif()
+
+if(BUILD_TYPE STREQUAL "DEBUG")
+    add_subdirectory(tests)
 endif()

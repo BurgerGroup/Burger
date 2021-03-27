@@ -18,6 +18,10 @@ install(TARGETS burger_base DESTINATION lib)
 file(GLOB HEADERS "*.h")
 install(FILES ${HEADERS} DESTINATION include/burger/base)
 
-if(BURGER_BUILD_EXAMPLES)
-  add_subdirectory(tests)
+# if(BURGER_BUILD_EXAMPLES)
+#   add_subdirectory(tests)
+# endif()
+
+if(BUILD_TYPE STREQUAL "DEBUG")
+    add_subdirectory(tests)
 endif()

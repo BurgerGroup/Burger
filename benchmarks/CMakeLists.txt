@@ -1,0 +1,2 @@
+add_executable(ThreadPool_benchmark threadPool_benchmark/ThreadPool_benchmark.cc)
+target_link_libraries(ThreadPool_benchmark burger_base boost_system boost_thread)
