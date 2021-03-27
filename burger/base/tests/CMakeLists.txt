@@ -34,3 +34,14 @@ target_link_libraries(timestamp_unittest burger_base)
 
 add_executable(util_test util_test.cc)
 target_link_libraries(util_test burger_base)
+
+add_executable(yaml_test yaml_test.cc)
+target_link_libraries(yaml_test burger_base)
+set_source_files_properties(
+  yaml_test
+  PROPERTIES
+  COMPILE_FLAGS "-w"
+)
+
+add_executable(env_test env_test.cc)
+target_link_libraries(env_test burger_base)
