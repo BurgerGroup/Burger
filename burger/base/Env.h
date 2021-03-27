@@ -11,8 +11,7 @@
 #include "RWmutex.h"
 namespace burger {
 
-// todo是否换成
-
+// 系统 -- 环境变量
 class Env {
 public:
     bool init(int argc, char** argv);

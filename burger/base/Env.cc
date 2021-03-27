@@ -21,34 +21,31 @@ bool Env::init(int argc, char** argv) {
 
     program_ = argv[0];
     // -config /path/to/config -file xxxx -d
-    // const char* now_key = nullptr;
-    // for(int i = 1; i < argc; ++i) {
-    //     if(argv[i][0] == '-') {
-    //         if(strlen(argv[i]) > 1) {
-    //             if(now_key) {
-    //                 add(now_key, "");
-    //             }
-    //             now_key = argv[i] + 1;
-    //         } else {
-    //             ERROR("")
-    //             SYLAR_LOG_ERROR(g_logger) << "invalid arg idx=" << i
-    //                 << " val=" << argv[i];
-    //             return false;
-    //         }
-    //     } else {
-    //         if(now_key) {
-    //             add(now_key, argv[i]);
-    //             now_key = nullptr;
-    //         } else {
-    //             SYLAR_LOG_ERROR(g_logger) << "invalid arg idx=" << i
-    //                 << " val=" << argv[i];
-    //             return false;
-    //         }
-    //     }
-    // }
-    // if(now_key) {
-    //     add(now_key, "");
-    // }
+    const char* now_key = nullptr;
+    for(int i = 1; i < argc; ++i) {
+        if(argv[i][0] == '-') {
+            if(strlen(argv[i]) > 1) {
+                if(now_key) {
+                    add(now_key, "");
+                }
+                now_key = argv[i] + 1;
+            } else {
+                ERROR("invalid arg idx = {} val = {}", i , argv[i]);
+                return false;
+            }
+        } else {
+            if(now_key) {
+                add(now_key, argv[i]);
+                now_key = nullptr;
+            } else {
+                ERROR("invalid arg idx = {} val = {}", i, argv[i]);
+                return false;
+            }
+        }
+    }
+    if(now_key) {
+        add(now_key, "");
+    }
     return true;
 }
 
@@ -100,6 +97,8 @@ void Env::printHelp() {
 }
 
 bool Env::setEnv(const std::string& key, const std::string& val) {
+    // setenv - change or add an environment variable
+    // https://man7.org/linux/man-pages/man3/setenv.3.html
     return !setenv(key.c_str(), val.c_str(), 1);
 }
 
