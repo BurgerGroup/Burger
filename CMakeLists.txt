@@ -56,6 +56,10 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
+set(YAML_CPP_BUILD_TESTS OFF CACHE BOOL "disable yaml tests")
+set(YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "disable yaml tools")
+set(YAML_CPP_BUILD_CONTRIB OFF CACHE BOOL "disable yaml contrib")
+
 # find_package(Curses REQUIRED)
 find_package(Boost REQUIRED)
 find_package(Protobuf)
@@ -123,7 +127,10 @@ add_subdirectory(burger/base)
 add_subdirectory(burger/net)
 add_subdirectory(burger/db)
 add_subdirectory(burger/http)
+
 add_subdirectory(thirdparty/googletest)
+# better way https://github.com/jbeder/yaml-cpp/issues/566
+add_subdirectory(thirdparty/yaml-cpp/)
 
 if(BURGER_BUILD_EXAMPLES)
     # add_subdirectory(contrib)

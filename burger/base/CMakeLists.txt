@@ -7,11 +7,13 @@ set(base_SRCS
   Util.cc
   Type.cc
   StringUtil.cc 
+  #Config.cc
+  Env.cc
 )
 
 
 add_library(burger_base ${base_SRCS})
-target_link_libraries(burger_base ${GTEST_BOTH_LIBRARIES} pthread rt)
+target_link_libraries(burger_base ${GTEST_BOTH_LIBRARIES} pthread yaml-cpp rt)
 
 install(TARGETS burger_base DESTINATION lib)
 

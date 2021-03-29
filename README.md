@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./doc/assets/logo.jpeg" width = "100" height = "80" alt="burger" align=center />
+<img src="./docs/assets/logo.jpeg" width = "100" height = "80" alt="burger" align=center />
 
 A C++ network library for high concurrent server in Linux 
 
@@ -36,8 +36,8 @@ $ make
 $ make install   
 ```
 
-* Read [overview]() Why should we 
-* Read [getting started]() 
+* Read [overview todo]() 
+* Read [getting started todo]() 
 * Docs:
   * [Performance benchmark todo]()
 
