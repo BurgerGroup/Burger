@@ -29,3 +29,8 @@
 10. 协程
 
 11. 读写锁？spinlock是否不需要?
+
+12. 优化eventLoop中的pendingFunctors，可以用无锁队列
+
+13. 优化EventLoop和EventLoopThread
+

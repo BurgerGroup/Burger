@@ -21,7 +21,4 @@ private:
 };
 } // namespace burger
 
-
-
-
 #endif // COUNTDOWNLATCH_H

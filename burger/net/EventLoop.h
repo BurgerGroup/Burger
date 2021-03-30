@@ -71,6 +71,7 @@ private:
     std::vector<Channel*> activeChannels_;
     Channel* currentActiveChannel_;
     mutable std::mutex mutex_;
+    // todo : 此处可以优化
     std::vector<Functor> pendingFunctors_;
 };
 
