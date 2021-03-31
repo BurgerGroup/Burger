@@ -10,15 +10,6 @@ target_link_libraries(timestamp_unittest burger_base)
 # add_executable(mutex_test mutex_test.cc)
 # target_link_libraries(mutex_test burger_base)
 
-# add_executable(BlockingQueue_test BlockingQueue_test.cc)
-# target_link_libraries(BlockingQueue_test burger_base)
-
-# add_executable(BlockingQueue_bench BlockingQueue_bench.cc)
-# target_link_libraries(BlockingQueue_bench burger_base)
-
-# add_executable(BoundedBlockingQueue_test BoundedBlockingQueue_test.cc)
-# target_link_libraries(BoundedBlockingQueue_test burger_base)
-
 # add_executable(ThreadPool_test ThreadPool_test.cc)
 # target_link_libraries(ThreadPool_test burger_base)
 
