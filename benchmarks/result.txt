@@ -1,0 +1,44 @@
+2021-03-31T13:16:01+00:00
+Running ./build/release-cpp11/bin/logger_benchmark
+Run on (4 X 2400 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x4)
+  L1 Instruction 32 KiB (x4)
+  L2 Unified 256 KiB (x4)
+  L3 Unified 6144 KiB (x4)
+Load Average: 0.55, 0.20, 0.07
+------------------------------------------------------------------------------------------------------
+Benchmark                                            Time             CPU   Iterations UserCounters...
+------------------------------------------------------------------------------------------------------
+spd_async_console_st/32/iterations:30000         53147 ns        13799 ns        30000 bytes_per_second=2.21164M/s items_per_second=72.471k/s
+spd_async_console_st/512/iterations:30000       511773 ns        12260 ns        30000 bytes_per_second=39.8278M/s items_per_second=81.5673k/s
+spd_sync_console_st/32/iterations:30000         348312 ns        20647 ns        30000 bytes_per_second=1.47804M/s items_per_second=48.4324k/s
+spd_sync_console_st/512/iterations:30000        748879 ns        30047 ns        30000 bytes_per_second=16.2507M/s items_per_second=33.2814k/s
+spd_async_console_mt/32/iterations:30000        133748 ns        11863 ns        30000 bytes_per_second=2.57251M/s items_per_second=84.2961k/s
+spd_async_console_mt/512/iterations:30000       516558 ns        15008 ns        30000 bytes_per_second=32.5348M/s items_per_second=66.6313k/s
+spd_sync_console_mt/32/iterations:30000         390998 ns        25509 ns        30000 bytes_per_second=1.19635M/s items_per_second=39.202k/s
+spd_sync_console_mt/512/iterations:30000        707611 ns        29854 ns        30000 bytes_per_second=16.3554M/s items_per_second=33.4959k/s
+spd_async_file_st/32/iterations:30000            38054 ns        16498 ns        30000 bytes_per_second=1.84973M/s items_per_second=60.612k/s
+spd_async_file_st/512/iterations:30000          137112 ns        17746 ns        30000 bytes_per_second=27.5152M/s items_per_second=56.3511k/s
+spd_async_file_mt/32/iterations:30000            26514 ns        11089 ns        30000 bytes_per_second=2.75198M/s items_per_second=90.1769k/s
+spd_async_file_mt/512/iterations:30000          102180 ns        12779 ns        30000 bytes_per_second=38.2105M/s items_per_second=78.2551k/s
+spd_sync_file_st/32/iterations:30000             48135 ns        11335 ns        30000 bytes_per_second=2.69232M/s items_per_second=88.2218k/s
+spd_sync_file_st/512/iterations:30000           115189 ns        16210 ns        30000 bytes_per_second=30.1228M/s items_per_second=61.6916k/s
+spd_sync_file_mt/32/iterations:30000             26332 ns         9090 ns        30000 bytes_per_second=3.35739M/s items_per_second=110.015k/s
+spd_sync_file_mt/512/iterations:30000           102855 ns        15158 ns        30000 bytes_per_second=32.2125M/s items_per_second=65.9712k/s
+boost_async_console_st/32/iterations:30000       20810 ns        19838 ns        30000 bytes_per_second=1.53834M/s items_per_second=50.4083k/s
+boost_async_console_st/512/iterations:30000     454352 ns        18103 ns        30000 bytes_per_second=26.9729M/s items_per_second=55.2404k/s
+boost_sync_console_st/32/iterations:30000       132050 ns        34804 ns        30000 bytes_per_second=897.877k/s items_per_second=28.7321k/s
+boost_sync_console_st/512/iterations:30000      652367 ns        44656 ns        30000 bytes_per_second=10.9342M/s items_per_second=22.3932k/s
+boost_async_console_mt/32/iterations:30000       99986 ns        17580 ns        30000 bytes_per_second=1.73594M/s items_per_second=56.8833k/s
+boost_async_console_mt/512/iterations:30000     544002 ns        19605 ns        30000 bytes_per_second=24.9056M/s items_per_second=51.0066k/s
+boost_sync_console_mt/32/iterations:30000       107898 ns        33970 ns        30000 bytes_per_second=919.941k/s items_per_second=29.4381k/s
+boost_sync_console_mt/512/iterations:30000      779465 ns        47231 ns        30000 bytes_per_second=10.3382M/s items_per_second=21.1726k/s
+boost_async_file_st/32/iterations:30000          24757 ns        21352 ns        30000 bytes_per_second=1.42926M/s items_per_second=46.8341k/s
+boost_async_file_st/512/iterations:30000         83978 ns        26492 ns        30000 bytes_per_second=18.431M/s items_per_second=37.7467k/s
+boost_async_file_mt/32/iterations:30000          13390 ns        12017 ns        30000 bytes_per_second=2.53951M/s items_per_second=83.2148k/s
+boost_async_file_mt/512/iterations:30000         41613 ns        13012 ns        30000 bytes_per_second=37.5241M/s items_per_second=76.8494k/s
+boost_sync_file_st/32/iterations:30000           22917 ns        13105 ns        30000 bytes_per_second=2.32863M/s items_per_second=76.3045k/s
+boost_sync_file_st/512/iterations:30000          72743 ns        18109 ns        30000 bytes_per_second=26.9628M/s items_per_second=55.2198k/s
+boost_sync_file_mt/32/iterations:30000           21703 ns        12969 ns        30000 bytes_per_second=2.35312M/s items_per_second=77.1069k/s
+boost_sync_file_mt/512/iterations:30000          64515 ns        16700 ns        30000 bytes_per_second=29.2377M/s items_per_second=59.8788k/s
