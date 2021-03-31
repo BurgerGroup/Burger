@@ -14,7 +14,7 @@ namespace http {
 class HttpResponse {
 public:
     using ptr = std::shared_ptr<HttpResponse>;
-    HttpResponse(Version version = Version::kHttp11, bool close = true);
+    HttpResponse(bool close = true, Version version = Version::kHttp11);
 
     HttpStatus getStatus() const { return status_;}
     Version getVersion() const { return version_;}
@@ -54,10 +54,9 @@ public:
                 //    time_t expired = 0, const std::string& path = "",
                 //    const std::string& domain = "", bool secure = false);
 private:
-    
     HttpStatus status_;  
-    Version version_; 
     bool close_;   // 是否自动关闭
+    Version version_; 
     std::string body_;
     std::string reason_;
     MapType headersMap_;
