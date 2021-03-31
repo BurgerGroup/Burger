@@ -1,2 +1,9 @@
 add_executable(ThreadPool_benchmark threadPool_benchmark/ThreadPool_benchmark.cc)
 target_link_libraries(ThreadPool_benchmark burger_base boost_system boost_thread)
+
+add_executable(logger_benchmark logger_benchmark.cc)
+target_link_libraries(logger_benchmark burger_base benchmark boost_log boost_thread boost_system)
+
+# add_executable(spd_test spd_test.cc)
+# target_link_libraries(spd_test burger_base benchmark boost_log boost_thread boost_system)
+
