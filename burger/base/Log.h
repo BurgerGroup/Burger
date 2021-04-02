@@ -44,10 +44,7 @@ private:
     std::atomic<bool> isInited_{false};
 };
 
-
-
-
-} // namespace burge 
+} // namespace burger 
 
 
 // spd 带行号的打印，同时输出console和文件
@@ -63,6 +60,5 @@ private:
 
 // todo need to improve
 #define LOGGER Logger::Instance().init("log", "logs/test.log", spdlog::level::trace);
-
-
+#define LOGGER_WITH_NAME_AND_PATH(name, path) Logger::Instance().init(name, path, spdlog::level::trace);
 #endif // LOG_H

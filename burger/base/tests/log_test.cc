@@ -15,10 +15,19 @@
 using namespace burger;
 
 int main() {
+    /* 1.原始的写法
+
     if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
-		return 1;
-	}
-    // spdlog::set_level(spdlog::level::info);
+        //do something...
+ 	    return 1;
+    }
+    spdlog::set_level(spdlog::level::info);
+
+    */
+
+    // LOGGER;
+    LOGGER_WITH_NAME_AND_PATH("TEST", "logs/marco_test.log");
+    LOG_LEVEL_DEBUG;
     TRACE("TRACE");
     DEBUG("DEBUG");
     INFO("INFO");
