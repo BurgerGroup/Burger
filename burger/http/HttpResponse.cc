@@ -3,10 +3,10 @@
 using namespace burger;
 using namespace burger::http;
 
-HttpResponse::HttpResponse(Version version, bool close) 
+HttpResponse::HttpResponse(bool close, Version version) 
     : status_(HttpStatus::OK),
-    version_(version),
-    close_(close) {
+    close_(close),
+    version_(version) {
 }
 
 std::string HttpResponse::getHeader(const std::string& key, const std::string& def) const {

@@ -1,178 +1,221 @@
-2021-03-20 14:59:30 [info] [tid : 68121] [test_response_parser.cc : 71 <main>] excute rt = 300 has_error = 1 is_finished = 1 total = 384 content_length = 81 tmp[s] = 
-2021-03-20 14:59:30 [info] [tid : 68121] [test_response_parser.cc : 74 <main>] HTTP/1.1 200 OK
-Accept-Ranges: bytes
-Cache-Control: max-age=86400
-Content-Length: 81
-Content-Type: text/html
-Date: Tue, 04 Jun 2019 15:43:56 GMT
-ETag: "51-47cf7e6ee8400"
-Expires: Wed, 05 Jun 2019 15:43:56 GMT
-Last-Modified: Tue, 12 Jan 2010 13:48:00 GMT
-Server: Apache
-connection: close
-
-
-2021-03-20 14:59:30 [info] [tid : 68121] [test_response_parser.cc : 75 <main>] <html>
-<meta http-equiv="refresh" content="0;url=http://www.baidu.com/">
-</html>
-
-2021-03-20 17:33:45 [info] [tid : 68395] [test_response_parser.cc : 58 <main>] excute rt = 358 has_error = 1 is_finished = 1 total = 442 content_length = 81 tmp[s] = 
-2021-03-20 17:33:45 [info] [tid : 68395] [test_response_parser.cc : 61 <main>] HTTP/1.1 200 OK
-accept-ranges: bytes
-cache-control: max-age=86400
-content-length: 81
-content-type: text/html
-date: Sat, 20 Mar 2021 05:48:53 GMT
-etag: "51-47cf7e6ee8400"
-expires: Sun, 21 Mar 2021 05:48:53 GMT
-keep-alive: timeout=4
-last-modified: Tue, 12 Jan 2010 13:48:00 GMT
-proxy-connection: keep-alive
-server: Apache
-connection: close
-
-
-2021-03-20 17:33:45 [info] [tid : 68395] [test_response_parser.cc : 62 <main>] <html>
-<meta http-equiv="refresh" content="0;url=http://www.baidu.com/">
-</html>
-
-2021-03-20 17:33:46 [info] [tid : 68403] [test_response_parser.cc : 58 <main>] excute rt = 358 has_error = 1 is_finished = 1 total = 442 content_length = 81 tmp[s] = 
-2021-03-20 17:33:46 [info] [tid : 68403] [test_response_parser.cc : 61 <main>] HTTP/1.1 200 OK
-accept-ranges: bytes
-cache-control: max-age=86400
-content-length: 81
-content-type: text/html
-date: Sat, 20 Mar 2021 05:48:53 GMT
-etag: "51-47cf7e6ee8400"
-expires: Sun, 21 Mar 2021 05:48:53 GMT
-keep-alive: timeout=4
-last-modified: Tue, 12 Jan 2010 13:48:00 GMT
-proxy-connection: keep-alive
-server: Apache
-connection: close
-
-
-2021-03-20 17:33:46 [info] [tid : 68403] [test_response_parser.cc : 62 <main>] <html>
-<meta http-equiv="refresh" content="0;url=http://www.baidu.com/">
-</html>
-
-2021-03-20 17:33:47 [info] [tid : 68411] [test_response_parser.cc : 58 <main>] excute rt = 358 has_error = 1 is_finished = 1 total = 442 content_length = 81 tmp[s] = 
-2021-03-20 17:33:47 [info] [tid : 68411] [test_response_parser.cc : 61 <main>] HTTP/1.1 200 OK
-accept-ranges: bytes
-cache-control: max-age=86400
-content-length: 81
-content-type: text/html
-date: Sat, 20 Mar 2021 05:48:53 GMT
-etag: "51-47cf7e6ee8400"
-expires: Sun, 21 Mar 2021 05:48:53 GMT
-keep-alive: timeout=4
-last-modified: Tue, 12 Jan 2010 13:48:00 GMT
-proxy-connection: keep-alive
-server: Apache
-connection: close
-
-
-2021-03-20 17:33:47 [info] [tid : 68411] [test_response_parser.cc : 62 <main>] <html>
-<meta http-equiv="refresh" content="0;url=http://www.baidu.com/">
-</html>
-
-2021-03-20 17:34:39 [info] [tid : 68680] [test_response_parser.cc : 58 <main>] excute rt = 358 has_error = 1 is_finished = 1 total = 442 content_length = 81 tmp[s] = 
-2021-03-20 17:34:39 [info] [tid : 68680] [test_response_parser.cc : 61 <main>] HTTP/1.1 200 OK
-accept-ranges: bytes
-cache-control: max-age=86400
-content-length: 81
-content-type: text/html
-date: Sat, 20 Mar 2021 05:48:53 GMT
-etag: "51-47cf7e6ee8400"
-expires: Sun, 21 Mar 2021 05:48:53 GMT
-keep-alive: timeout=4
-last-modified: Tue, 12 Jan 2010 13:48:00 GMT
-proxy-connection: keep-alive
-server: Apache
-connection: close
-
-
-2021-03-20 17:34:39 [info] [tid : 68680] [test_response_parser.cc : 62 <main>] <html>
-<meta http-equiv="refresh" content="0;url=http://www.baidu.com/">
-</html>
-
-2021-03-20 17:34:46 [info] [tid : 68688] [test_response_parser.cc : 58 <main>] excute rt = 358 has_error = 1 is_finished = 1 total = 442 content_length = 81 tmp[s] = 
-2021-03-20 17:34:46 [info] [tid : 68688] [test_response_parser.cc : 61 <main>] HTTP/1.1 200 OK
-accept-ranges: bytes
-cache-control: max-age=86400
-content-length: 81
-content-type: text/html
-date: Sat, 20 Mar 2021 05:48:53 GMT
-etag: "51-47cf7e6ee8400"
-expires: Sun, 21 Mar 2021 05:48:53 GMT
-keep-alive: timeout=4
-last-modified: Tue, 12 Jan 2010 13:48:00 GMT
-proxy-connection: keep-alive
-server: Apache
-connection: close
-
-
-2021-03-20 17:34:46 [info] [tid : 68688] [test_response_parser.cc : 62 <main>] <html>
-<meta http-equiv="refresh" content="0;url=http://www.baidu.com/">
-</html>
-
-2021-03-20 17:34:47 [info] [tid : 68696] [test_response_parser.cc : 58 <main>] excute rt = 358 has_error = 1 is_finished = 1 total = 442 content_length = 81 tmp[s] = 
-2021-03-20 17:34:47 [info] [tid : 68696] [test_response_parser.cc : 61 <main>] HTTP/1.1 200 OK
-accept-ranges: bytes
-cache-control: max-age=86400
-content-length: 81
-content-type: text/html
-date: Sat, 20 Mar 2021 05:48:53 GMT
-etag: "51-47cf7e6ee8400"
-expires: Sun, 21 Mar 2021 05:48:53 GMT
-keep-alive: timeout=4
-last-modified: Tue, 12 Jan 2010 13:48:00 GMT
-proxy-connection: keep-alive
-server: Apache
-connection: close
-
-
-2021-03-20 17:34:47 [info] [tid : 68696] [test_response_parser.cc : 62 <main>] <html>
-<meta http-equiv="refresh" content="0;url=http://www.baidu.com/">
-</html>
-
-2021-03-20 17:34:48 [info] [tid : 68704] [test_response_parser.cc : 58 <main>] excute rt = 358 has_error = 1 is_finished = 1 total = 442 content_length = 81 tmp[s] = 
-2021-03-20 17:34:48 [info] [tid : 68704] [test_response_parser.cc : 61 <main>] HTTP/1.1 200 OK
-accept-ranges: bytes
-cache-control: max-age=86400
-content-length: 81
-content-type: text/html
-date: Sat, 20 Mar 2021 05:48:53 GMT
-etag: "51-47cf7e6ee8400"
-expires: Sun, 21 Mar 2021 05:48:53 GMT
-keep-alive: timeout=4
-last-modified: Tue, 12 Jan 2010 13:48:00 GMT
-proxy-connection: keep-alive
-server: Apache
-connection: close
-
-
-2021-03-20 17:34:48 [info] [tid : 68704] [test_response_parser.cc : 62 <main>] <html>
-<meta http-equiv="refresh" content="0;url=http://www.baidu.com/">
-</html>
-
-2021-03-20 17:34:48 [info] [tid : 68712] [test_response_parser.cc : 58 <main>] excute rt = 358 has_error = 1 is_finished = 1 total = 442 content_length = 81 tmp[s] = 
-2021-03-20 17:34:48 [info] [tid : 68712] [test_response_parser.cc : 61 <main>] HTTP/1.1 200 OK
-accept-ranges: bytes
-cache-control: max-age=86400
-content-length: 81
-content-type: text/html
-date: Sat, 20 Mar 2021 05:48:53 GMT
-etag: "51-47cf7e6ee8400"
-expires: Sun, 21 Mar 2021 05:48:53 GMT
-keep-alive: timeout=4
-last-modified: Tue, 12 Jan 2010 13:48:00 GMT
-proxy-connection: keep-alive
-server: Apache
-connection: close
-
-
-2021-03-20 17:34:48 [info] [tid : 68712] [test_response_parser.cc : 62 <main>] <html>
-<meta http-equiv="refresh" content="0;url=http://www.baidu.com/">
-</html>
-
+2021-03-31 22:21:26 [trace] [tid : 11482] [EventLoop.cc : 44 <Log>] Logger setup
+2021-03-31 22:21:26 [trace] [tid : 11482] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11482] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-31 22:21:26 [trace] [tid : 11482] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7ffed696fb90 
+2021-03-31 22:21:26 [trace] [tid : 11482] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11482] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-31 22:21:26 [warning] [tid : 11482] [HttpServer.h : 74 <start>] HttpServer[ dummy ] starts listening on 0.0.0.0:9001
+2021-03-31 22:21:26 [trace] [tid : 11490] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11490] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-03-31 22:21:26 [trace] [tid : 11490] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7fa1b63d8af0 
+2021-03-31 22:21:26 [trace] [tid : 11490] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11490] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-03-31 22:21:26 [trace] [tid : 11490] [EventLoop.cc : 92 <loop>] EventLoop 0x7fa1b63d8af0 start looping
+2021-03-31 22:21:26 [trace] [tid : 11490] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:21:26 [trace] [tid : 11491] [Epoll.cc : 49 <updateChannel>] fd = 13, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11491] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-03-31 22:21:26 [trace] [tid : 11491] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7fa1b5bd7af0 
+2021-03-31 22:21:26 [trace] [tid : 11491] [Epoll.cc : 49 <updateChannel>] fd = 14, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11491] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-03-31 22:21:26 [trace] [tid : 11491] [EventLoop.cc : 92 <loop>] EventLoop 0x7fa1b5bd7af0 start looping
+2021-03-31 22:21:26 [trace] [tid : 11491] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:21:26 [trace] [tid : 11492] [Epoll.cc : 49 <updateChannel>] fd = 16, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11492] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-03-31 22:21:26 [trace] [tid : 11492] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7fa1b53d6af0 
+2021-03-31 22:21:26 [trace] [tid : 11492] [Epoll.cc : 49 <updateChannel>] fd = 17, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11492] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-03-31 22:21:26 [trace] [tid : 11492] [EventLoop.cc : 92 <loop>] EventLoop 0x7fa1b53d6af0 start looping
+2021-03-31 22:21:26 [trace] [tid : 11492] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:21:26 [trace] [tid : 11493] [Epoll.cc : 49 <updateChannel>] fd = 19, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11493] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 19, event = [19: IN PRI ]
+2021-03-31 22:21:26 [trace] [tid : 11493] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7fa1b4bd5af0 
+2021-03-31 22:21:26 [trace] [tid : 11493] [Epoll.cc : 49 <updateChannel>] fd = 20, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11493] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 20, event = [20: IN PRI ]
+2021-03-31 22:21:26 [trace] [tid : 11493] [EventLoop.cc : 92 <loop>] EventLoop 0x7fa1b4bd5af0 start looping
+2021-03-31 22:21:26 [trace] [tid : 11493] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:21:26 [trace] [tid : 11494] [Epoll.cc : 49 <updateChannel>] fd = 22, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11494] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 22, event = [22: IN PRI ]
+2021-03-31 22:21:26 [trace] [tid : 11494] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7fa1a7ffeaf0 
+2021-03-31 22:21:26 [trace] [tid : 11494] [Epoll.cc : 49 <updateChannel>] fd = 23, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11494] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 23, event = [23: IN PRI ]
+2021-03-31 22:21:26 [trace] [tid : 11494] [EventLoop.cc : 92 <loop>] EventLoop 0x7fa1a7ffeaf0 start looping
+2021-03-31 22:21:26 [trace] [tid : 11494] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:21:26 [trace] [tid : 11482] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-31 22:21:26 [trace] [tid : 11482] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-31 22:21:26 [trace] [tid : 11482] [EventLoop.cc : 92 <loop>] EventLoop 2021-03-31 22:31:27 [trace] [tid : 11683] [EventLoop.cc : 44 <Log>] Logger setup
+2021-03-31 22:31:27 [trace] [tid : 11683] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11683] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-31 22:31:27 [trace] [tid : 11683] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7ffe606df3c0 
+2021-03-31 22:31:27 [trace] [tid : 11683] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11683] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-31 22:31:27 [warning] [tid : 11683] [HttpServer.h : 75 <start>] HttpServer[ dummy ] starts listening on 0.0.0.0:9001
+2021-03-31 22:31:27 [trace] [tid : 11691] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11691] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-03-31 22:31:27 [trace] [tid : 11691] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f38f4e13af0 
+2021-03-31 22:31:27 [trace] [tid : 11691] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11691] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-03-31 22:31:27 [trace] [tid : 11691] [EventLoop.cc : 92 <loop>] EventLoop 0x7f38f4e13af0 start looping
+2021-03-31 22:31:27 [trace] [tid : 11691] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:31:27 [trace] [tid : 11692] [Epoll.cc : 49 <updateChannel>] fd = 13, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11692] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-03-31 22:31:27 [trace] [tid : 11692] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f38efffeaf0 
+2021-03-31 22:31:27 [trace] [tid : 11692] [Epoll.cc : 49 <updateChannel>] fd = 14, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11692] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-03-31 22:31:27 [trace] [tid : 11692] [EventLoop.cc : 92 <loop>] EventLoop 0x7f38efffeaf0 start looping
+2021-03-31 22:31:27 [trace] [tid : 11692] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:31:27 [trace] [tid : 11693] [Epoll.cc : 49 <updateChannel>] fd = 16, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11693] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-03-31 22:31:27 [trace] [tid : 11693] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f38ef7fdaf0 
+2021-03-31 22:31:27 [trace] [tid : 11693] [Epoll.cc : 49 <updateChannel>] fd = 17, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11693] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-03-31 22:31:27 [trace] [tid : 11693] [EventLoop.cc : 92 <loop>] EventLoop 0x7f38ef7fdaf0 start looping
+2021-03-31 22:31:27 [trace] [tid : 11693] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:31:27 [trace] [tid : 11694] [Epoll.cc : 49 <updateChannel>] fd = 19, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11694] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 19, event = [19: IN PRI ]
+2021-03-31 22:31:27 [trace] [tid : 11694] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f38eeffcaf0 
+2021-03-31 22:31:27 [trace] [tid : 11694] [Epoll.cc : 49 <updateChannel>] fd = 20, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11694] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 20, event = [20: IN PRI ]
+2021-03-31 22:31:27 [trace] [tid : 11694] [EventLoop.cc : 92 <loop>] EventLoop 0x7f38eeffcaf0 start looping
+2021-03-31 22:31:27 [trace] [tid : 11694] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:31:27 [trace] [tid : 11695] [Epoll.cc : 49 <updateChannel>] fd = 22, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11695] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 22, event = [22: IN PRI ]
+2021-03-31 22:31:27 [trace] [tid : 11695] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f38ee7fbaf0 
+2021-03-31 22:31:27 [trace] [tid : 11695] [Epoll.cc : 49 <updateChannel>] fd = 23, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11695] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 23, event = [23: IN PRI ]
+2021-03-31 22:31:27 [trace] [tid : 11683] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-31 22:31:27 [trace] [tid : 11683] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-31 22:31:27 [trace] [tid : 11683] [EventLoop.cc : 92 <loop>] EventLoop 0x7ffe606df3c0 start looping
+2021-03-31 22:31:27 [trace] [tid : 11683] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-31 22:31:27 [trace] [tid : 11695] [EventLoop.cc : 92 <loop>] EventLoop 2021-03-31 22:32:48 [trace] [tid : 11884] [EventLoop.cc : 44 <Log>] Logger setup
+2021-03-31 22:32:48 [trace] [tid : 11884] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11884] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-31 22:32:48 [trace] [tid : 11884] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7ffe4206a5c0 
+2021-03-31 22:32:48 [trace] [tid : 11884] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11884] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-31 22:32:48 [warning] [tid : 11884] [HttpServer.h : 75 <start>] HttpServer[ dummy ] starts listening on 0.0.0.0:9001
+2021-03-31 22:32:48 [trace] [tid : 11892] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11892] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-03-31 22:32:48 [trace] [tid : 11892] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f2c576caaf0 
+2021-03-31 22:32:48 [trace] [tid : 11892] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11892] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-03-31 22:32:48 [trace] [tid : 11892] [EventLoop.cc : 92 <loop>] EventLoop 0x7f2c576caaf0 start looping
+2021-03-31 22:32:48 [trace] [tid : 11892] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:32:48 [trace] [tid : 11893] [Epoll.cc : 49 <updateChannel>] fd = 13, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-03-31 22:32:48 [trace] [tid : 11893] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f2c56ec9af0 
+2021-03-31 22:32:48 [trace] [tid : 11893] [Epoll.cc : 49 <updateChannel>] fd = 14, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11893] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-03-31 22:32:48 [trace] [tid : 11893] [EventLoop.cc : 92 <loop>] EventLoop 0x7f2c56ec9af0 start looping
+2021-03-31 22:32:48 [trace] [tid : 11893] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:32:48 [trace] [tid : 11894] [Epoll.cc : 49 <updateChannel>] fd = 16, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11894] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-03-31 22:32:48 [trace] [tid : 11894] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f2c566c8af0 
+2021-03-31 22:32:48 [trace] [tid : 11894] [Epoll.cc : 49 <updateChannel>] fd = 17, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11894] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-03-31 22:32:48 [trace] [tid : 11894] [EventLoop.cc : 92 <loop>] EventLoop 0x7f2c566c8af0 start looping
+2021-03-31 22:32:48 [trace] [tid : 11894] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:32:48 [trace] [tid : 11895] [Epoll.cc : 49 <updateChannel>] fd = 19, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11895] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 19, event = [19: IN PRI ]
+2021-03-31 22:32:48 [trace] [tid : 11895] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f2c55ec7af0 
+2021-03-31 22:32:48 [trace] [tid : 11895] [Epoll.cc : 49 <updateChannel>] fd = 20, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11895] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 20, event = [20: IN PRI ]
+2021-03-31 22:32:48 [trace] [tid : 11895] [EventLoop.cc : 92 <loop>] EventLoop 0x7f2c55ec7af0 start looping
+2021-03-31 22:32:48 [trace] [tid : 11895] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:32:48 [trace] [tid : 11896] [Epoll.cc : 49 <updateChannel>] fd = 22, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11896] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 22, event = [22: IN PRI ]
+2021-03-31 22:32:48 [trace] [tid : 11896] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f2c556c6af0 
+2021-03-31 22:32:48 [trace] [tid : 11896] [Epoll.cc : 49 <updateChannel>] fd = 23, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11896] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 23, event = [23: IN PRI ]
+2021-03-31 22:32:48 [trace] [tid : 11884] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-31 22:32:48 [trace] [tid : 11884] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-31 22:32:48 [trace] [tid : 11884] [EventLoop.cc : 92 <loop>] EventLoop 0x7ffe4206a5c0 start looping
+2021-03-31 22:32:48 [trace] [tid : 11884] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-31 22:32:48 [trace] [tid : 11896] [EventLoop.cc : 92 <loop>] EventLoop 2021-03-31 22:36:00 [trace] [tid : 12085] [EventLoop.cc : 44 <Log>] Logger setup
+2021-03-31 22:36:00 [trace] [tid : 12085] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12085] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-31 22:36:00 [trace] [tid : 12085] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7ffd93641050 
+2021-03-31 22:36:00 [trace] [tid : 12085] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12085] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-31 22:36:00 [warning] [tid : 12085] [HttpServer.h : 75 <start>] HttpServer[ dummy ] starts listening on 0.0.0.0:9001
+2021-03-31 22:36:00 [trace] [tid : 12093] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12093] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-03-31 22:36:00 [trace] [tid : 12093] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7fd37b126af0 
+2021-03-31 22:36:00 [trace] [tid : 12093] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12093] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-03-31 22:36:00 [trace] [tid : 12093] [EventLoop.cc : 92 <loop>] EventLoop 0x7fd37b126af0 start looping
+2021-03-31 22:36:00 [trace] [tid : 12093] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:36:00 [trace] [tid : 12094] [Epoll.cc : 49 <updateChannel>] fd = 13, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12094] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-03-31 22:36:00 [trace] [tid : 12094] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7fd37a925af0 
+2021-03-31 22:36:00 [trace] [tid : 12094] [Epoll.cc : 49 <updateChannel>] fd = 14, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12094] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-03-31 22:36:00 [trace] [tid : 12094] [EventLoop.cc : 92 <loop>] EventLoop 0x7fd37a925af0 start looping
+2021-03-31 22:36:00 [trace] [tid : 12094] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:36:00 [trace] [tid : 12095] [Epoll.cc : 49 <updateChannel>] fd = 16, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12095] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-03-31 22:36:00 [trace] [tid : 12095] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7fd37a124af0 
+2021-03-31 22:36:00 [trace] [tid : 12095] [Epoll.cc : 49 <updateChannel>] fd = 17, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12095] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-03-31 22:36:00 [trace] [tid : 12095] [EventLoop.cc : 92 <loop>] EventLoop 0x7fd37a124af0 start looping
+2021-03-31 22:36:00 [trace] [tid : 12095] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:36:00 [trace] [tid : 12096] [Epoll.cc : 49 <updateChannel>] fd = 19, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12096] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 19, event = [19: IN PRI ]
+2021-03-31 22:36:00 [trace] [tid : 12096] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7fd379923af0 
+2021-03-31 22:36:00 [trace] [tid : 12096] [Epoll.cc : 49 <updateChannel>] fd = 20, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12096] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 20, event = [20: IN PRI ]
+2021-03-31 22:36:00 [trace] [tid : 12096] [EventLoop.cc : 92 <loop>] EventLoop 0x7fd379923af0 start looping
+2021-03-31 22:36:00 [trace] [tid : 12096] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:36:00 [trace] [tid : 12097] [Epoll.cc : 49 <updateChannel>] fd = 22, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12097] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 22, event = [22: IN PRI ]
+2021-03-31 22:36:00 [trace] [tid : 12097] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7fd379122af0 
+2021-03-31 22:36:00 [trace] [tid : 12097] [Epoll.cc : 49 <updateChannel>] fd = 23, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12097] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 23, event = [23: IN PRI ]
+2021-03-31 22:36:00 [trace] [tid : 12085] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-31 22:36:00 [trace] [tid : 12085] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-31 22:36:00 [trace] [tid : 12085] [EventLoop.cc : 92 <loop>] EventLoop 0x7ffd93641050 start looping
+2021-03-31 22:36:00 [trace] [tid : 12085] [Epoll.cc : 21 <wait>] fd total count 3
+2021-03-31 22:36:00 [trace] [tid : 12097] [EventLoop.cc : 92 <loop>] EventLoop 2021-03-31 22:37:12 [trace] [tid : 12286] [EventLoop.cc : 44 <Log>] Logger setup
+2021-03-31 22:37:12 [trace] [tid : 12286] [Epoll.cc : 49 <updateChannel>] fd = 5, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12286] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-03-31 22:37:12 [trace] [tid : 12286] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7ffd113522d0 
+2021-03-31 22:37:12 [trace] [tid : 12286] [Epoll.cc : 49 <updateChannel>] fd = 6, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12286] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-03-31 22:37:12 [warning] [tid : 12286] [HttpServer.h : 75 <start>] HttpServer[ dummy ] starts listening on 0.0.0.0:9001
+2021-03-31 22:37:12 [trace] [tid : 12294] [Epoll.cc : 49 <updateChannel>] fd = 10, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12294] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-03-31 22:37:12 [trace] [tid : 12294] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f5a55d78af0 
+2021-03-31 22:37:12 [trace] [tid : 12294] [Epoll.cc : 49 <updateChannel>] fd = 11, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12294] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-03-31 22:37:12 [trace] [tid : 12294] [EventLoop.cc : 92 <loop>] EventLoop 0x7f5a55d78af0 start looping
+2021-03-31 22:37:12 [trace] [tid : 12294] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:37:12 [trace] [tid : 12295] [Epoll.cc : 49 <updateChannel>] fd = 13, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12295] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-03-31 22:37:12 [trace] [tid : 12295] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f5a55577af0 
+2021-03-31 22:37:12 [trace] [tid : 12295] [Epoll.cc : 49 <updateChannel>] fd = 14, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12295] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-03-31 22:37:12 [trace] [tid : 12295] [EventLoop.cc : 92 <loop>] EventLoop 0x7f5a55577af0 start looping
+2021-03-31 22:37:12 [trace] [tid : 12295] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:37:12 [trace] [tid : 12296] [Epoll.cc : 49 <updateChannel>] fd = 16, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12296] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-03-31 22:37:12 [trace] [tid : 12296] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f5a54d76af0 
+2021-03-31 22:37:12 [trace] [tid : 12296] [Epoll.cc : 49 <updateChannel>] fd = 17, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12296] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-03-31 22:37:12 [trace] [tid : 12296] [EventLoop.cc : 92 <loop>] EventLoop 0x7f5a54d76af0 start looping
+2021-03-31 22:37:12 [trace] [tid : 12296] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:37:12 [trace] [tid : 12297] [Epoll.cc : 49 <updateChannel>] fd = 19, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12297] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 19, event = [19: IN PRI ]
+2021-03-31 22:37:12 [trace] [tid : 12297] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f5a47ffeaf0 
+2021-03-31 22:37:12 [trace] [tid : 12297] [Epoll.cc : 49 <updateChannel>] fd = 20, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12297] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 20, event = [20: IN PRI ]
+2021-03-31 22:37:12 [trace] [tid : 12297] [EventLoop.cc : 92 <loop>] EventLoop 0x7f5a47ffeaf0 start looping
+2021-03-31 22:37:12 [trace] [tid : 12297] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:37:12 [trace] [tid : 12298] [Epoll.cc : 49 <updateChannel>] fd = 22, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12298] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 22, event = [22: IN PRI ]
+2021-03-31 22:37:12 [trace] [tid : 12298] [EventLoop.cc : 65 <EventLoop>] EventLoop created 0x7f5a477fdaf0 
+2021-03-31 22:37:12 [trace] [tid : 12298] [Epoll.cc : 49 <updateChannel>] fd = 23, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12298] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 23, event = [23: IN PRI ]
+2021-03-31 22:37:12 [trace] [tid : 12298] [EventLoop.cc : 92 <loop>] EventLoop 0x7f5a477fdaf0 start looping
+2021-03-31 22:37:12 [trace] [tid : 12298] [Epoll.cc : 21 <wait>] fd total count 2
+2021-03-31 22:37:12 [trace] [tid : 12286] [Epoll.cc : 49 <updateChannel>] fd = 7, events = 3, stauts = kNew
+2021-03-31 22:37:12 [trace] [tid : 12286] [Epoll.cc : 118 <epollctl>] epoll_ctl op = ADD, fd = 7, event = [7: IN PRI ]
+2021-03-31 22:37:12 [trace] [tid : 12286] [EventLoop.cc : 92 <loop>] EventLoop 

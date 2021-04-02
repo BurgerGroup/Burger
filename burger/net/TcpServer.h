@@ -26,7 +26,8 @@ public:
 
     const std::string& getHostIpPort() const { return hostIpPort_; }
     const std::string& getHostName() const { return hostName_; }
-
+    EventLoop* getLoop() const { return loop_; }
+    
     void setThreadNum(int numThreads);
     void setThreadInitCallback(const ThreadInitCallback& cb) { threadInitCallback_ = cb; }
     // not thread safe

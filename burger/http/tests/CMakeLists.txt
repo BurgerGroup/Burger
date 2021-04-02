@@ -18,3 +18,6 @@ target_link_libraries(test_req_parser burger_http)
 
 add_executable(test_response_parser test_response_parser.cc)
 target_link_libraries(test_response_parser burger_http)
+
+add_executable(example example.cc)
+target_link_libraries(example burger_http)
