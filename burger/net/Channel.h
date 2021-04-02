@@ -15,6 +15,9 @@ class EventLoop;
 class Epoll;
 // This class doesn't own the file descriptor.
 // Channel的成员函数都只能再IO线程调用，所以更新数据不需要加锁
+// reactor的核心 ： 事件分发机制，拿到IO事件分发给各个文件描述符(fd)的事件处理函数
+// 每个Channel对象自始至终都属于一个eventLoop, 只属于某一个IO线程， 只负责一个fd
+// 把不同的IO事件分发给不同的回调， 一般不给用户使用，封装给更高层的TcpConnection
 class Channel : boost::noncopyable {
 public: 
     enum class Status {
@@ -32,10 +35,14 @@ public:
     ~Channel();
 
     void handleEvent(Timestamp receiveTime);
-    // void setReadCallback(const ReadEventCallback& cb) { readCallback_ = cb; }
-    void setReadCallback(ReadEventCallback cb) { readCallback_ = std::move(cb); }
-    void setWriteCallback(EventCallback cb) { writeCallback_ = std::move(cb); }
-    void setCloseCallback(EventCallback cb) { closeCallback_ = std::move(cb); }
+    
+    void setReadCallback(const ReadEventCallback& cb) { readCallback_ = cb; }
+    void setReadCallback(ReadEventCallback&& cb) { readCallback_ = std::move(cb); }
+    void setWriteCallback(const EventCallback cb) { writeCallback_ = cb; }
+    void setWriteCallback(EventCallback&& cb) { writeCallback_ = std::move(cb); }
+    void setCloseCallback(const EventCallback& cb) { closeCallback_ = cb; }
+    void setCloseCallback(EventCallback&& cb) { closeCallback_ = std::move(cb); }
+    void setErrorCallback(const EventCallback&& cb) { errorCallback_ = cb; }
     void setErrorCallback(EventCallback cb) { errorCallback_ = std::move(cb); }
 
     void enableReading() { events_ |= kReadEvent; update(); }

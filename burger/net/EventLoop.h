@@ -11,7 +11,7 @@
 #include "burger/base/Timestamp.h"
 #include <sys/eventfd.h>
 #include "TimerId.h"
-
+#include "burger/base/MpscQueue.h"
 #include "SocketsOps.h"
 #include "Callbacks.h"
 
@@ -24,7 +24,7 @@ class Channel;
 
 class EventLoop : boost::noncopyable {
 public:
-    using Functor = std::function<void()>;
+    using Func = std::function<void()>;
     EventLoop();
     ~EventLoop();
     void loop();
@@ -32,10 +32,12 @@ public:
     Timestamp epollWaitRetrunTime() const { return epollWaitReturnTime_; }
     uint64_t iteration() const { return iteration_; }
     // 在主循环中进行， safe to call from other threads
-    void runInLoop(const Functor& func);
+    void runInLoop(const Func& func);
+    void runInLoop(Func&& func);
     // 插入主循环任务队列, safe to call from other threads
-    void queueInLoop(const Functor& func);
-    size_t queueSize() const;
+    void queueInLoop(const Func& func);
+    void queueInLoop(Func&& func);
+
     // timers , safe ti call from other threads
     TimerId runAt(Timestamp time, TimerCallback timercb);
     TimerId runAfter(double delay, TimerCallback timercb);
@@ -47,6 +49,11 @@ public:
     static EventLoop* getEventLoopOfCurrentThread();
 
     void wakeup();
+    // Move the EventLoop to the current thread, this method must be called before the loop is running.
+    void moveToCurrentThread();
+    bool isRunning();
+    bool isCallingQueueFuncs();
+
     void updateChannel(Channel* channel); // 从epoll添加或更新channel
     void removeChannel(Channel* channel); // 从epoll里移除channel
     bool hasChannel(Channel* channel);
@@ -55,24 +62,24 @@ private:
     void abortNotInLoopThread();
     void handleWakeupFd(); 
     void printActiveChannels() const;   // for DEBUG
-    void doPendingFunctors();
+    void doQueueInLoopFuncs();
 private:
     bool looping_; // atomic   
     std::atomic<bool> quit_;  // linux下bool也是atomic的
     bool eventHandling_;  // atomic
-    bool callingPendingFunctors_; // atomic
+    bool callingQueueFuncs_{false}; // atomic
     uint64_t iteration_;
-    const pid_t threadId_;  // 当前对象所属线程ID
+    pid_t threadId_;  // 当前对象所属线程ID
     Timestamp epollWaitReturnTime_;
     std::unique_ptr<Epoll> epoll_;
     std::unique_ptr<TimerQueue> timerQueue_;
     int wakeupFd_;
     std::unique_ptr<Channel> wakeupChannel_;
-    std::vector<Channel*> activeChannels_;
+    std::vector<Channel *> activeChannels_;
     Channel* currentActiveChannel_;
     mutable std::mutex mutex_;
-    // todo : 此处可以优化
-    std::vector<Functor> pendingFunctors_;
+    MpscQueue<Func> queueFuncs_;
+    EventLoop **threadLocalLoopPtr_;
 };
 
 

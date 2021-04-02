@@ -34,19 +34,19 @@ public:
 #pragma GCC diagnostic error "-Wold-style-cast"
 IgnoreSigPipe initObj;
 
-// 和IgnoreSigPipe一样再全局中init
-class Log {
-public:
-    Log() {
-        if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
-            ERROR("Logger init error");
-	    } else {
-            TRACE("Logger setup");
-        }
-    }
-};
+// // 和IgnoreSigPipe一样再全局中init
+// class Log {
+// public:
+//     Log() {
+//         if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
+//             ERROR("Logger init error");
+// 	    } else {
+//             TRACE("Logger setup");
+//         }
+//     }
+// };
 
-Log initLog;
+// Log initLog;
 
 }  // namespace
 
@@ -61,8 +61,10 @@ EventLoop::EventLoop() :
     epoll_(util::make_unique<Epoll>(this)),
     timerQueue_(util::make_unique<TimerQueue>(this)),
     wakeupFd_(createEventfd()),
-    wakeupChannel_(util::make_unique<Channel>(this, wakeupFd_)) {
-    TRACE("EventLoop created {} ", fmt::ptr(this));
+    wakeupChannel_(util::make_unique<Channel>(this, wakeupFd_)),
+    currentActiveChannel_(nullptr),
+    threadLocalLoopPtr_(&t_loopInthisThread) {
+    TRACE("EventLoop created {}", fmt::ptr(this));
     if(t_loopInthisThread) {
         CRITICAL("Another EventLoop {} exists in this Thread( tid = {} ) ...", fmt::ptr(t_loopInthisThread), util::tid()); 
     } else {
@@ -100,13 +102,13 @@ void EventLoop::loop() {
         // TODO : sort channel by priority
         eventHandling_ = true;
         for(auto channel: activeChannels_) {
-            // currentActiveChannel_ 在removeChannel()中需要做判断
+            // currentActiveChannel_ 在removeChannel()中需要做判断 todo 理
             currentActiveChannel_ = channel;
             currentActiveChannel_->handleEvent(epollWaitReturnTime_);
         }
         currentActiveChannel_ = nullptr;
         eventHandling_ = false;
-        doPendingFunctors();
+        doQueueInLoopFuncs();
     }
     TRACE("EventLoop {} stop looping", fmt::ptr(this));
     looping_ = false;
@@ -132,31 +134,39 @@ void EventLoop::quit() {
 // 为其他线程提供一个接口，其他线程将要执行的任务用这个接口交给当前线程
 // 这样当前线程统一处理自己的资源，而不用加锁，唯一需要加锁的地方就是
 // 通过接口添加任务的任务队列这个地方，大大减小了锁粒度
-void EventLoop::runInLoop(const Functor& func) {
+void EventLoop::runInLoop(const Func& func) {
     if(isInLoopThread()) {
         func();   // 如果在当前IO线程中调用，则同步调用
     } else {
         queueInLoop(func);   // 如果在其他线程中调用该函数，则异步调用，用queueInLoop添加到任务队列中
     }
 }
-// 加入队列中，等待被执行，该函数可以跨线程调用，即其他线程可以给当前线程添加任务
-void EventLoop::queueInLoop(const Functor& func)  {
-    {
-        std::lock_guard<std::mutex> lock(mutex_);
-        pendingFunctors_.push_back(std::move(func));
+
+void EventLoop::runInLoop(Func&& func) {
+    if(isInLoopThread()) {
+        func();
+    } else {
+        queueInLoop(std::move(func));
     }
+}
+// 加入队列中，等待被执行，该函数可以跨线程调用，即其他线程可以给当前线程添加任务
+void EventLoop::queueInLoop(const Func& func)  {
+    queueFuncs_.enqueue(func);  // 无锁队列入队
     // 如果不是当前线程(可能阻塞在wait)，需要唤醒 
     // 或者是当前线程但是在正在处理队列中的任务(使得处理完当前队列中的元素后立即在进行下一轮处理，因为在这里又添加了任务)需要唤醒
     // 只有当前IO线程的事件回调中调用queueInLoop才不需要唤醒(因为执行完handleEvent会自然执行loop()中的doPendingFunctor)
-    if(!isInLoopThread() || callingPendingFunctors_) {
+    if(!isInLoopThread() || !looping_) {  // todo !looping
         wakeup();
     }
 }
 
-size_t EventLoop::queueSize() const {
-    std::lock_guard<std::mutex> lock(mutex_);
-    return pendingFunctors_.size();
+void EventLoop::queueInLoop(Func&& func)  {
+    queueFuncs_.enqueue(std::move(func));
+    if(!isInLoopThread() || !looping_) {  // todo !looping
+        wakeup();
+    }
 }
+
 
 
 TimerId EventLoop::runAt(Timestamp time, TimerCallback timercb) {
@@ -187,6 +197,7 @@ bool EventLoop::isInLoopThread() const {
     return threadId_ == util::tid();  
 }
 
+// 如果当前线程不是IO线程则为nullptr
 EventLoop* EventLoop::getEventLoopOfCurrentThread() {
     return t_loopInthisThread;
 }
@@ -202,6 +213,26 @@ void EventLoop::wakeup() {
         ERROR("EventLoop::wakeup() writes {} bytes instead of 8", n);
     }
 } 
+void EventLoop::moveToCurrentThread() {
+    if (isRunning()) {
+        CRITICAL("EventLoop cannot be moved when running");
+    }
+    if (isInLoopThread()) {
+        WARN("This EventLoop is already in the current thread");
+        return;
+    }
+    if (t_loopInthisThread) {
+        CRITICAL("There is already an EventLoop in this thread, you cannot move another in");
+    }
+    // *threadLocalLoopPtr_ = nullptr;
+    t_loopInthisThread = this;
+    threadLocalLoopPtr_ = &t_loopInthisThread;
+    threadId_ = util::tid();
+}
+
+bool EventLoop::isRunning() {
+    return looping_ && (!quit_);
+}
 
 void EventLoop::updateChannel(Channel* channel) {
     assert(channel->ownerLoop() == this);
@@ -227,7 +258,6 @@ bool EventLoop::hasChannel(Channel* channel) {
 }
 
 void EventLoop::abortNotInLoopThread() {
-    std::cout << "11" << std::endl;
     CRITICAL("EventLoop::abortNotInLoopThread - EventLoop {} was \
         created in threadId_ = {}, and current id = {} ...", 
         fmt::ptr(this), threadId_, util::tid());
@@ -256,17 +286,15 @@ void EventLoop::printActiveChannels() const {
 
 // 3. 没有反复执行doPendingFunctors()直到pendingFunctors为空，
 // 这是有意的，否则IO线程可能陷入死循环，无法处理IO事件。
-void EventLoop::doPendingFunctors() {
-    std::vector<Functor> functors;
-    callingPendingFunctors_ = true;
-    {
-        std::lock_guard<std::mutex> lock(mutex_);
-        functors.swap(pendingFunctors_);
+void EventLoop::doQueueInLoopFuncs() {
+    callingQueueFuncs_ = true;
+    while(!queueFuncs_.empty()) {
+        Func func;
+        while(queueFuncs_.dequeue(func)) {
+            func();
+        }
     }
-    for(const auto& functor: functors) { 
-        functor();
-    }
-    callingPendingFunctors_ = false;
+    callingQueueFuncs_ = false;
 } 
 
 
