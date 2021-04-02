@@ -1,0 +1,10 @@
+2021-04-02 02:52:57 [debug] [tid : 1350] [log_test.cc : 26 <main>] DEBUG
+2021-04-02 02:52:57 [info] [tid : 1350] [log_test.cc : 27 <main>] INFO
+2021-04-02 02:52:57 [warning] [tid : 1350] [log_test.cc : 28 <main>] WARN
+2021-04-02 02:52:57 [debug] [tid : 1350] [log_test.cc : 29 <main>] 3 1 
+2021-04-02 02:52:57 [critical] [tid : 1350] [log_test.cc : 30 <main>] CRITICAL
+2021-04-02 02:56:28 [debug] [tid : 1358] [log_test.cc : 26 <main>] DEBUG
+2021-04-02 02:56:28 [info] [tid : 1358] [log_test.cc : 27 <main>] INFO
+2021-04-02 02:56:29 [warning] [tid : 1358] [log_test.cc : 28 <main>] WARN
+2021-04-02 02:56:31 [debug] [tid : 1358] [log_test.cc : 29 <main>] 3 1 
+2021-04-02 02:56:32 [critical] [tid : 1358] [log_test.cc : 30 <main>] CRITICAL
