@@ -41,10 +41,18 @@ $ make install
 * Docs:
   * [Performance benchmark todo]()
 
+## Projects Based on Burger
 
-## reference 
+- [BurgerChat](https://github.com/chanchann/BurgerChat) - 🍔 Console-based chat IM for Linux
 
-[muduo](https://github.com/chenshuo/muduo)
+## Maintainers
 
-[sylar](https://github.com/sylar-yin/sylar)
+[@chanchann](https://github.com/chanchann).
 
+[@skyu98](https://github.com/skyu98).
+
+# Thanks
+
+Thanks for [libevent], [spdlog], [gtest], [sylar], [trantor], [yaml-cpp] projects.
+
+[burger] is highly inspired by [muduo]. Thanks [Chen Shuo](https://github.com/chenshuo "https://github.com/chenshuo")
