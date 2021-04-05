@@ -101,7 +101,7 @@ size_t HttpRequestParser::execute(char* data, size_t len) {
     // if(offset == -1) {
     //     WARN("invalid request"); 
     // }
-    memmove(data, data + offset, (len - offset));
+    // memmove(data, data + offset, (len - offset));
     return offset;
 }
 

@@ -5,7 +5,7 @@ project(burger C CXX)
 enable_testing()
 
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Debug")
+  set(CMAKE_BUILD_TYPE "DEBUG")
 endif()
 
 # only build examples if this is the main project

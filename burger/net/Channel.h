@@ -38,12 +38,12 @@ public:
     
     void setReadCallback(const ReadEventCallback& cb) { readCallback_ = cb; }
     void setReadCallback(ReadEventCallback&& cb) { readCallback_ = std::move(cb); }
-    void setWriteCallback(const EventCallback cb) { writeCallback_ = cb; }
+    void setWriteCallback(const EventCallback& cb) { writeCallback_ = cb; }
     void setWriteCallback(EventCallback&& cb) { writeCallback_ = std::move(cb); }
     void setCloseCallback(const EventCallback& cb) { closeCallback_ = cb; }
     void setCloseCallback(EventCallback&& cb) { closeCallback_ = std::move(cb); }
-    void setErrorCallback(const EventCallback&& cb) { errorCallback_ = cb; }
-    void setErrorCallback(EventCallback cb) { errorCallback_ = std::move(cb); }
+    void setErrorCallback(const EventCallback& cb) { errorCallback_ = cb; }
+    void setErrorCallback(EventCallback&& cb) { errorCallback_ = std::move(cb); }
 
     void enableReading() { events_ |= kReadEvent; update(); }
     void disableReading() { events_ &= ~kReadEvent; update(); }

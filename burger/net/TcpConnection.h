@@ -44,9 +44,16 @@ public:
     void forceCloseWithDelay(double seconds);
     void setTcpNoDelay(bool on);
     
-    void setContext(const boost::any& context) { context_ = context; }
-    const boost::any& getContext() const { return context_; }
-    boost::any* getMutableContext() { return &context_; }
+    void setContext(const std::shared_ptr<void> &context) { contextPtr_ = context; }
+    void setContext(std::shared_ptr<void> &&context) { contextPtr_ = std::move(context); }
+    template <typename T>
+    std::shared_ptr<T> getContext() const {
+        return std::static_pointer_cast<T>(contextPtr_);
+    }
+    bool hasContext() const {
+        return static_cast<bool>(contextPtr_);
+    }
+    void clearContext() { contextPtr_.reset(); }
 
     void setConnectionCallback(const ConnectionCallback& cb) { connectionCallback_ = cb; }
     void setMessageCallback(const MessageCallback& cb) { messageCallback_ = cb; }
@@ -92,7 +99,7 @@ private:
     Buffer outputBuffer_;
     // https://blog.csdn.net/Solstice/article/details/6384968
     // 可变类型解决方案 ： 1. void* 这种方法不是类型安全 2. boost::any  -- 任意类型的类型安全存储和安全的取回，在标准容器中存放不同类型的方法，比如vector<boost::any>
-    boost::any context_;     // todo : 绑定一个未知类型的上下文对象 TCP连接的上下文，一般用于处理多次消息相互存在关联的情形，例如文件发送
+    std::shared_ptr<void> contextPtr_;
 };
 
 using TcpConnectionPtr = std::shared_ptr<TcpConnection>;

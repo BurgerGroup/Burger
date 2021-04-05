@@ -1,5 +1,5 @@
-#ifndef BURGER_H
-#define BURGER_H
+#ifndef BEEF_H
+#define BEEF_H
 
 #include <functional>
 #include <string>
@@ -22,7 +22,7 @@ public:
         EventLoop loop;
         HttpServer<Beef> server(this, &loop, InetAddress(port_), "dummy");
         // server.setThreadNum(numThreads_);
-        server.setThreadNum(5);
+        server.setThreadNum(1);
         server.start();
         loop.loop();
     }
@@ -35,4 +35,4 @@ private:
 
 
 
-#endif // BURGER_H
+#endif // BEEF_H

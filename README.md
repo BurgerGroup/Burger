@@ -55,4 +55,4 @@ $ make install
 
 Thanks for [libevent], [spdlog], [gtest], [sylar], [trantor], [yaml-cpp] projects.
 
-[burger] is highly inspired by [muduo]. Thanks [Chen Shuo](https://github.com/chenshuo "https://github.com/chenshuo")
+[Burger] is highly inspired by [muduo]. Thanks [Chen Shuo](https://github.com/chenshuo "https://github.com/chenshuo")

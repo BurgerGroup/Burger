@@ -38,7 +38,8 @@ std::ostream& HttpResponse::dump(std::ostream& os) const {
     }
     os << "connection: " << (close_ ? "close" : "keep-alive") << "\r\n";
     if(!body_.empty()) {
-        os << "content-length: " << body_.size() << "\r\n\r\n";
+        os << "content-length: " << body_.size() << "\r\n\r\n"
+            << body_;
     } else {
         os << "\r\n";
     }

@@ -16,7 +16,7 @@
 
 4. 域名解析
 
-5. logger 性能测试
+5. logger 性能测试 done
 
 6. threadpool性能测试
 
@@ -30,7 +30,8 @@
 
 11. 读写锁？spinlock是否不需要?
 
-12. 优化eventLoop中的pendingFunctors，可以用无锁队列
+12. 优化eventLoop中的pendingFunctors，可以用无锁队列  done 2021.4.2
 
 13. 优化EventLoop和EventLoopThread
 
+14. 客户端挂掉会使服务器挂掉 

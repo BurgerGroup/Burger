@@ -33,6 +33,7 @@ public:
     size_t getWritableBytes() const { return buffer_.size() - writerIndex_; }
     size_t getPrependableBytes() const { return readrIndex_; }
 
+    char* beginRead() { return begin() + readrIndex_; }
     char* beginWrite() { return begin() + writerIndex_; }
     const char* beginWrite() const { return begin() + writerIndex_; }
     void hasWritten(size_t len);

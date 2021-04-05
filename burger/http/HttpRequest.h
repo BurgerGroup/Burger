@@ -61,7 +61,7 @@ public:
     // bool hasHeader(const std::string& key, std::string* val = nullptr);
     // bool hasParam(const std::string& key, std::string* val = nullptr);
     // bool hasCookie(const std::string& key, std::string* val = nullptr);
-    // bool isClose() const { return close_; }
+    bool isClose() const { return close_; }
 
     // template<class T>
     // bool checkGetHeaderAs(const std::string& key, T& val, const T& def = T());

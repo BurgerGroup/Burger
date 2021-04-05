@@ -3,7 +3,6 @@
 
 #include "Mysql.h"
 
-
 namespace burger {
 namespace db {
 class MySQLStmt;

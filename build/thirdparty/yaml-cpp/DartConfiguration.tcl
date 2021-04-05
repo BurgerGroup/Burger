@@ -4,8 +4,8 @@
 
 
 # Configuration directories and files
-SourceDirectory: /home/pro/Burger/thirdparty/yaml-cpp
-BuildDirectory: /home/pro/Burger/build/thirdparty/yaml-cpp
+SourceDirectory: /home/pro/BurgerChat/3rdparty/Burger/thirdparty/yaml-cpp
+BuildDirectory: /home/pro/BurgerChat/3rdparty/Burger/build/thirdparty/yaml-cpp
 
 # Where to place the cost data store
 CostDataFile: 
@@ -26,7 +26,7 @@ SubmitURL: http://
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/usr/local/lib/python2.7/dist-packages/cmake/data/bin/cmake" "/home/pro/Burger/thirdparty/yaml-cpp"
+ConfigureCommand: "/usr/local/lib/python2.7/dist-packages/cmake/data/bin/cmake" "/home/pro/BurgerChat/3rdparty/Burger/thirdparty/yaml-cpp"
 MakeCommand: /usr/local/lib/python2.7/dist-packages/cmake/data/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 
