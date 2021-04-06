@@ -7,9 +7,9 @@ Logger& Logger::Instance() {
     return log;
 }
 
-bool Logger::init(const std::string& loggerName, 
-        const std::string& filePath, 
-        spdlog::level::level_enum level) {
+bool Logger::init(const std::string& filePath, 
+                const std::string& loggerName, 
+                spdlog::level::level_enum level) {
     if(isInited_) return true;
     try {
         // check log path and try to create log directory

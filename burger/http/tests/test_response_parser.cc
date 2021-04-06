@@ -50,7 +50,7 @@ const char test_response_data[] = "HTTP/1.1 200 OK\r\n"
 
 
 int main() {
-    LOGGER;
+    LOGGER();
     HttpResponseParser parser;
     std::string tmp = test_response_data;
     size_t s = parser.execute(&tmp[0], tmp.size(), true);

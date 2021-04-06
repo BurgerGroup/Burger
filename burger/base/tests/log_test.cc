@@ -17,7 +17,7 @@ using namespace burger;
 int main() {
     /* 1.原始的写法
 
-    if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
+    if (!Logger::Instance().init("logs/test.log", "log", spdlog::level::trace)) {
         //do something...
  	    return 1;
     }
@@ -25,8 +25,9 @@ int main() {
 
     */
 
-    // LOGGER;
-    LOGGER_WITH_NAME_AND_PATH("TEST", "logs/marco_test.log");
+    // LOGGER();
+    LOGGER("logs/marco_test.log", "TEST");
+    // LOGGER_WITH_NAME("BURGER");
     LOG_LEVEL_DEBUG;
     TRACE("TRACE");
     DEBUG("DEBUG");

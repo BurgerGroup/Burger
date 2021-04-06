@@ -17,32 +17,40 @@ bool Logger::init(const std::string& loggerName,
 
 ## 二、使用方法
 ### 设置全局Logger
-* 1. 您可以通过`LOGGER`宏来设置一个**默认的全局logger**：
+* 1. 您可以通过`LOGGER()`宏来设置一个**默认的全局logger**：
 ```cpp
 #include "burger/base/Log.h"
 using namespace burger;
 
 int main(void) {
-    LOGGER;
+    LOGGER();
     /* 该宏等价于：
-    Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)
+    Logger::Instance().init("Logger", "logs/log.txt", spdlog::level::info)
     */
 }
 ```
 <br>
 
-* 2. 如果想设置自己需要的名字和日志文件路径，可以使用`LOGGER_WITH_NAME_AND_PATH(name, path)`宏：
+* 2. 如果想设置自己需要的名字和日志文件路径，可以传入参数`LOGGER(path, name)`：
 ```cpp
 #include "burger/base/Log.h"
 using namespace burger;
 
 int main(void) {
-    LOGGER_WITH_NAME_AND_PATH(name, path);
+    LOGGER(path);
     /* 该宏等价于：
-    Logger::Instance().init(name, path, spdlog::level::trace)
+    Logger::Instance().init(path, "Logger", spdlog::level::info)
+    */
+    Logger::shutdown();
+
+    LOGGER(path, name);
+    /* 该宏等价于：
+    Logger::Instance().init(path, name, spdlog::level::info)
     */
 }
 ```
+
+* 3. 如果只想改变名称(暂时这很少见)，也可以使用`LOGGER_WITH_NAME(name)`来进行设置。
 
 <br>
 
@@ -74,7 +82,7 @@ WARN("WARN");
 DEBUG("DEBUG");
 CRITICAL("CRITICAL");
 ```
-**但是只有等级大于等于当前日志等级的信息会被记录（例如这里的TRACE信息就不会被输出）！**
+**但是只有等级大于等于当前日志等级的信息会被记录（例如等级为DEBUG试，这里的TRACE信息就不会被输出）！**
 
 <br>
  

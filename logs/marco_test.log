@@ -3,3 +3,8 @@
 2021-04-02 03:01:12 [warning] [tid : 1561] [log_test.cc : 28 <main>] WARN
 2021-04-02 03:01:12 [debug] [tid : 1561] [log_test.cc : 29 <main>] 3 1 
 2021-04-02 03:01:12 [critical] [tid : 1561] [log_test.cc : 30 <main>] CRITICAL
+2021-04-06 03:05:37 [debug] [tid : 906] [log_test.cc : 33 <main>] DEBUG
+2021-04-06 03:05:37 [info] [tid : 906] [log_test.cc : 34 <main>] INFO
+2021-04-06 03:05:37 [warning] [tid : 906] [log_test.cc : 35 <main>] WARN
+2021-04-06 03:05:37 [debug] [tid : 906] [log_test.cc : 36 <main>] 3 1 
+2021-04-06 03:05:37 [critical] [tid : 906] [log_test.cc : 37 <main>] CRITICAL

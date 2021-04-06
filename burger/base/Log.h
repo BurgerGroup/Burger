@@ -30,8 +30,8 @@ namespace burger {
 class Logger final : boost::noncopyable {
 public:
     static Logger& Instance();
-    bool init(const std::string& loggerName = "Logger", 
-        const std::string& filePath = "logs/test.txt", 
+    bool init( const std::string& filePath = "logs/log.txt", 
+            const std::string& loggerName = "Logger",
         spdlog::level::level_enum level = spdlog::level::info);
     void setLevel(spdlog::level::level_enum level = spdlog::level::info);
     static void shutdown() { spdlog::shutdown(); };
@@ -59,6 +59,8 @@ private:
 #define LOG_LEVEL_DEBUG spdlog::set_level(spdlog::level::debug);
 
 // todo need to improve
-#define LOGGER Logger::Instance().init("log", "logs/test.log", spdlog::level::trace);
-#define LOGGER_WITH_NAME_AND_PATH(name, path) Logger::Instance().init(name, path, spdlog::level::trace);
+// #define LOGGER Logger::Instance().init("Logger", "logs/log.txt", spdlog::level::trace);
+
+#define LOGGER(...) Logger::Instance().init(__VA_ARGS__);
+#define LOGGER_WITH_NAME(name) Logger::Instance().init("logs/log.txt", name, spdlog::level::info);
 #endif // LOG_H
