@@ -1,5 +1,6 @@
 #include "burger/base/Env.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace burger;
 
@@ -27,5 +28,8 @@ int main(int argc, char* argv[]) {
     if(EnvMgr::Instance().has("p")) {
         EnvMgr::Instance().printHelp();
     }
+    std::string basePath = EnvMgr::Instance().getCwd();
+    std::cout << basePath.find_last_of('/', basePath.size()-2) << std::endl;
+    std::cout << basePath.substr(0, basePath.find_last_of('/', basePath.size()-2)) << std::endl;
     return 0;
 }

@@ -7,7 +7,7 @@ using namespace burger::http;
 Beef app;
 
 int main() {
-    LOGGER;
+    LOGGER();
     app.route("/",
     []{
         return "Hello World!";

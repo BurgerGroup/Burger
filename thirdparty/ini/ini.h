@@ -338,7 +338,7 @@ public:
 
     // Get an integer (long) value from INI file, returning default_value if
     // not found or not a valid integer (decimal "1234", "-1234", or hex "0x4d2").
-    long GetInteger(std::string section, std::string name, long default_value) const;
+    int GetInteger(std::string section, std::string name, int default_value) const;
 
     // Get a real (floating point double) value from INI file, returning
     // default_value if not found or not a valid floating point value
@@ -350,6 +350,7 @@ public:
     // according to strtof().
     float GetFloat(std::string section, std::string name, float default_value) const;
   
+    double GetDouble(std::string section, std::string name, double default_value) const;
     // Get a boolean value from INI file, returning default_value if not found or if
     // not a valid true/false value. Valid true values are "true", "yes", "on", "1",
     // and valid false values are "false", "no", "off", "0" (not case sensitive).
@@ -400,14 +401,14 @@ inline std::string INIReader::Get(std::string section, std::string name, std::st
     return _values.count(key) ? _values.at(key) : default_value;
 }
 
-inline long INIReader::GetInteger(std::string section, std::string name, long default_value) const
+inline int INIReader::GetInteger(std::string section, std::string name, int default_value) const
 {
     std::string valstr = Get(section, name, "");
     const char* value = valstr.c_str();
     char* end;
     // This parses "1234" (decimal) and also "0x4D2" (hex)
     long n = strtol(value, &end, 0);
-    return end > value ? n : default_value;
+    return static_cast<int>(end > value ? n : default_value);
 }
 
 inline double INIReader::GetReal(std::string section, std::string name, double default_value) const
@@ -425,6 +426,16 @@ inline float INIReader::GetFloat(std::string section, std::string name, float de
     const char* value = valstr.c_str();
     char* end;
     float n = strtof(value, &end);
+    return end > value ? n : default_value;
+}
+
+inline double INIReader::GetDouble(std::string section, std::string name, double default_value) const
+{
+    std::string valstr = Get(section, name, "");
+    const char* value = valstr.c_str();
+    char* end;
+
+    double n = strtod(value, &end);
     return end > value ? n : default_value;
 }
 

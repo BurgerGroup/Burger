@@ -36,6 +36,21 @@ $ make
 $ make install   
 ```
 
+## Config Module
+
+A TCP connection timeout parameter is defined. 
+
+You can directly use CONF.Get() to get the value of the parameter. 
+
+todo : When the configuration is modified and reloaded, the value is automatically updated. The above configuration format is as follows:
+
+```
+[tcp]
+connection.Timeout = 100
+```
+
+## Docs 
+
 * Read [overview todo]() 
 * Read [getting started todo]() 
 * Docs:

@@ -27,7 +27,6 @@ void onMessage(const TcpConnectionPtr& conn,
 }   
 
 int main() {
-
     std::cout << "main() : pid = " << ::getpid() << std::endl;
     InetAddress listenAddr(8888);
     EventLoop loop;

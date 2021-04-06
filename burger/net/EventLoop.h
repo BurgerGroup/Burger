@@ -1,3 +1,12 @@
+// Copyright 2010, Shuo Chen.  All rights reserved.
+// http://code.google.com/p/muduo/
+//
+// Use of this source code is governed by a BSD-style license
+// that can be found in the License file.
+
+// Author: Shuo Chen (chenshuo at chenshuo dot com)
+
+// Taken from Muduo and modified
 #ifndef EVENTLOOP_H
 #define EVENTLOOP_H
 #include <boost/noncopyable.hpp>
@@ -77,7 +86,6 @@ private:
     std::unique_ptr<Channel> wakeupChannel_;
     std::vector<Channel *> activeChannels_;
     Channel* currentActiveChannel_;
-    mutable std::mutex mutex_;
     MpscQueue<Func> queueFuncs_;
     EventLoop **threadLocalLoopPtr_;
 };

@@ -154,20 +154,18 @@ void EventLoop::queueInLoop(const Func& func)  {
     queueFuncs_.enqueue(func);  // 无锁队列入队
     // 如果不是当前线程(可能阻塞在wait)，需要唤醒 
     // 或者是当前线程但是在正在处理队列中的任务(使得处理完当前队列中的元素后立即在进行下一轮处理，因为在这里又添加了任务)需要唤醒
-    // 只有当前IO线程的事件回调中调用queueInLoop才不需要唤醒(因为执行完handleEvent会自然执行loop()中的doPendingFunctor)
-    if(!isInLoopThread() || !looping_) {  // todo !looping
+    // 只有当前IO线程的事件回调中调用queueInLoop才不需要唤醒(因为执行完handleEvent会自然执行loop()doQueueInLoopFuncs)
+    if(!isInLoopThread()) {  // todo !looping
         wakeup();
     }
 }
 
 void EventLoop::queueInLoop(Func&& func)  {
     queueFuncs_.enqueue(std::move(func));
-    if(!isInLoopThread() || !looping_) {  // todo !looping
+    if(!isInLoopThread()) {  // todo !looping
         wakeup();
     }
 }
-
-
 
 TimerId EventLoop::runAt(Timestamp time, TimerCallback timercb) {
     return timerQueue_->addTimer(std::move(timercb), time, 0.0);
@@ -288,6 +286,8 @@ void EventLoop::printActiveChannels() const {
 // 这是有意的，否则IO线程可能陷入死循环，无法处理IO事件。
 void EventLoop::doQueueInLoopFuncs() {
     callingQueueFuncs_ = true;
+    // todo : the destructor for the Func may itself insert a new entry into the
+    // queue 从而造成死循环 p294
     while(!queueFuncs_.empty()) {
         Func func;
         while(queueFuncs_.dequeue(func)) {

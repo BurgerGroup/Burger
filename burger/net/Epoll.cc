@@ -41,6 +41,7 @@ Timestamp Epoll::wait(int timeoutMs, std::vector<Channel*>& activeChannels) {
     return now;
 }
 
+// 负责更新和维护channelMap_
 void Epoll::updateChannel(Channel* channel) {
     assertInLoopThread();
     const Channel::Status status = channel->getStatus();
@@ -92,6 +93,9 @@ void Epoll::removeChannel(Channel* channel)  {
     channel->setStatus(Channel::Status::kNew);
 }
 
+// O(N)
+// 这里不要一边遍历一边调用handleEvent,因为后者可能添加或删除Channel，导致遍历期间改变大小，非常危险
+// 简化Epoll职责，只负责IO多路复用，而不负责事件分发
 void Epoll::fillActiveChannels(int numEvents, 
             std::vector<Channel *>& activeChannels) const {
     assert(static_cast<size_t>(numEvents) <= eventList_.size());

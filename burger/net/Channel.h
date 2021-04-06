@@ -1,3 +1,13 @@
+// Copyright 2010, Shuo Chen.  All rights reserved.
+// http://code.google.com/p/muduo/
+//
+// Use of this source code is governed by a BSD-style license
+// that can be found in the License file.
+
+// Author: Shuo Chen (chenshuo at chenshuo dot com)
+
+// Taken from Muduo and modified
+
 #ifndef CHANNEL_H
 #define CHANNEL_H
 
@@ -18,6 +28,8 @@ class Epoll;
 // reactor的核心 ： 事件分发机制，拿到IO事件分发给各个文件描述符(fd)的事件处理函数
 // 每个Channel对象自始至终都属于一个eventLoop, 只属于某一个IO线程， 只负责一个fd
 // 把不同的IO事件分发给不同的回调， 一般不给用户使用，封装给更高层的TcpConnection
+
+// Epoll并不拥有Channel，析构之前必须removeChannel
 class Channel : boost::noncopyable {
 public: 
     enum class Status {
