@@ -1,0 +1,5 @@
+2021-04-06 03:18:14 [debug] [tid : 1295] [log_test.cc : 34 <main>] DEBUG
+2021-04-06 03:18:14 [info] [tid : 1295] [log_test.cc : 35 <main>] INFO
+2021-04-06 03:18:14 [warning] [tid : 1295] [log_test.cc : 36 <main>] WARN
+2021-04-06 03:18:14 [debug] [tid : 1295] [log_test.cc : 37 <main>] 3 1 
+2021-04-06 03:18:14 [critical] [tid : 1295] [log_test.cc : 38 <main>] CRITICAL

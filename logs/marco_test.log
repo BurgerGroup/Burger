@@ -8,3 +8,8 @@
 2021-04-06 03:05:37 [warning] [tid : 906] [log_test.cc : 35 <main>] WARN
 2021-04-06 03:05:37 [debug] [tid : 906] [log_test.cc : 36 <main>] 3 1 
 2021-04-06 03:05:37 [critical] [tid : 906] [log_test.cc : 37 <main>] CRITICAL
+2021-04-06 03:17:08 [debug] [tid : 1179] [log_test.cc : 34 <main>] DEBUG
+2021-04-06 03:17:08 [info] [tid : 1179] [log_test.cc : 35 <main>] INFO
+2021-04-06 03:17:08 [warning] [tid : 1179] [log_test.cc : 36 <main>] WARN
+2021-04-06 03:17:08 [debug] [tid : 1179] [log_test.cc : 37 <main>] 3 1 
+2021-04-06 03:17:08 [critical] [tid : 1179] [log_test.cc : 38 <main>] CRITICAL
