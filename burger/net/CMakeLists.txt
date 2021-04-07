@@ -14,6 +14,7 @@ set(net_SRCS
   TcpConnection.cc
   EventLoopThreadPool.cc
   Buffer.cc
+  RingBuffer.cc
   Connector.cc 
   TcpClient.cc
   )
