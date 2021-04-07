@@ -10,6 +10,10 @@ int Config::getInt(const std::string& section, const std::string& search, int de
     return reader_->GetInteger(section, search, defaultVal);
 }
 
+size_t Config::getSize(const std::string& section, const std::string& search, int defaultVal) {
+    return static_cast<size_t>(getInt(section, search, defaultVal));
+}
+
 std::string Config::getString(const std::string& section, const std::string& search, const std::string& defaultVal) {
     return reader_->Get(section, search, defaultVal);
 }

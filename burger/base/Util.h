@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <sys/syscall.h>
 #include <stdlib.h>
+#include <vector>
 #include <boost/lexical_cast.hpp>
 
 namespace burger {
@@ -82,7 +83,35 @@ auto as_integer(Enumeration const value)
     return static_cast<typename std::underlying_type<Enumeration>::type>(value);
 }
 
+void Backtrace(std::vector<std::string>& bt, int size = 64, int skip = 1);
+
+std::string BacktraceToString(int size = 64, int skip = 2, const std::string& prefix = "");
+
 } // namespace util
+
+#if defined __GNUC__ || defined __llvm__
+/// LIKCLY 宏的封装, 告诉编译器优化,条件大概率成立
+#   define BURGER_LIKELY(x)       __builtin_expect(!!(x), 1)
+/// LIKCLY 宏的封装, 告诉编译器优化,条件大概率不成立
+#   define BURGER_UNLIKELY(x)     __builtin_expect(!!(x), 0)
+#else
+#   define BURGER_LIKELY(x)      (x)
+#   define BURGER_UNLIKELY(x)      (x)
+#endif
+
+/// 断言宏封装
+#define BURGER_ASSERT(x) \
+    if(BURGER_UNLIKELY(!(x))) { \
+        ERROR("ASSERTION: {}\nbacktrace:\n{}", #x, util::BacktraceToString(100, 2, "    ")) \
+        assert(x); \
+    }
+
+/// 断言宏封装
+#define BURGER_ASSERT2(x, w) \
+    if(BURGER_UNLIKELY(!(x))) { \
+        ERROR("ASSERTION: {}\n{}\nbacktrace:\n{}", #X, w, util::BacktraceToString(100, 2, "    ")); \
+        assert(x); \
+    }
 
 } // namespace burger
 

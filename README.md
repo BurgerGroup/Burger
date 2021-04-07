@@ -68,6 +68,6 @@ connection.Timeout = 100
 
 # Thanks
 
-Thanks for [libevent], [spdlog], [gtest], [sylar], [trantor], [yaml-cpp] projects.
+Thanks for [crow] [spdlog], [gtest], [sylar], [trantor] projects.
 
 [Burger] is highly inspired by [muduo]. Thanks [Chen Shuo](https://github.com/chenshuo "https://github.com/chenshuo")
