@@ -6,12 +6,14 @@
 #include <memory>
 #include <functional>
 #include <atomic>
+#include "util.h"
+#include "Log.h"
 
 namespace burger {
 
 class Coroutine : public std::enable_shared_from_this<Coroutine> {
 public:
-    std::shared_ptr<Coroutine> ptr;
+    using ptr = std::shared_ptr<Coroutine>;
     using CallBack = std::function<void()>;
     enum class State {
         INIT,  // 初始化状态
@@ -21,7 +23,7 @@ public:
         READY,  // 可执行状态
         EXCEPT  // 异常状态
     };
-private:
+
     Coroutine(CallBack cb, size_t stackSize = 0, bool mainSched = false);
     ~Coroutine();
     void reset(CallBack cb);
@@ -49,7 +51,7 @@ private:
     ucontext_t ctx_; // 协程上下文
     void* stack_ = nullptr; // 协程运行栈指针
     CallBack callback_;      // 协程运行函数
-}
+};
 
 } // namespace burge 
 

@@ -1,6 +1,8 @@
 #include "Util.h"
 #include <string.h>
-
+#include <execinfo.h>
+#include <cxxabi.h>
+#include "Log.h"
 namespace burger {
 namespace util {
 thread_local pid_t t_cachedTid = 0;
@@ -33,15 +35,15 @@ static std::string demangle(const char* str) {
 }
 
 void Backtrace(std::vector<std::string>& bt, int size, int skip) {
-    void** array = (void**)malloc((sizeof(void*) * size));
-    size_t s = ::backtrace(array, size);
+    void** array = static_cast<void**>(malloc((sizeof(void*) * size)));
+    int s = ::backtrace(array, size);
 
     char** strings = backtrace_symbols(array, s);
     if(strings == NULL) {
         ERROR("backtrace_synbols error");
         return;
     }
-    for(size_t i = skip; i < s; ++i) {
+    for(int i = skip; i < s; ++i) {
         bt.push_back(demangle(strings[i]));
     }
 

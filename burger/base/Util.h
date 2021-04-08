@@ -109,7 +109,7 @@ std::string BacktraceToString(int size = 64, int skip = 2, const std::string& pr
 /// 断言宏封装
 #define BURGER_ASSERT2(x, w) \
     if(BURGER_UNLIKELY(!(x))) { \
-        ERROR("ASSERTION: {}\n{}\nbacktrace:\n{}", #X, w, util::BacktraceToString(100, 2, "    ")); \
+        ERROR("ASSERTION: {}\n{}\nbacktrace:\n{}", #x, w, util::BacktraceToString(100, 2, "    ")); \
         assert(x); \
     }
 
