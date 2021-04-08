@@ -33,8 +33,8 @@
 # add_executable(tcpConnection_test01 tcpConnection_test01.cc)
 # target_link_libraries(tcpConnection_test01 burger_net)
 
-add_executable(tcpConnection_test02 tcpConnection_test02.cc)
-target_link_libraries(tcpConnection_test02 burger_net)
+# add_executable(tcpConnection_test02 tcpConnection_test02.cc)
+# target_link_libraries(tcpConnection_test02 burger_net)
 
 # add_executable(tcpConnection_test03 tcpConnection_test03.cc)
 # target_link_libraries(tcpConnection_test03 burger_net)
@@ -55,6 +55,10 @@ target_link_libraries(tcpConnection_test02 burger_net)
 # target_link_libraries(Buffer_unittest burger_net gtest)
 # add_test(NAME Buffer_unittest COMMAND Buffer_unittest)
 
-add_executable(TcpClient_test TcpClient_test.cc)
-target_link_libraries(TcpClient_test burger_net)
+add_executable(RingBuffer_unittest RingBuffer_unittest.cc)
+target_link_libraries(RingBuffer_unittest burger_net gtest)
+add_test(NAME RingBuffer_unittest COMMAND RingBuffer_unittest)
+
+# add_executable(TcpClient_test TcpClient_test.cc)
+# target_link_libraries(TcpClient_test burger_net)
 
