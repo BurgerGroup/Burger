@@ -12,15 +12,15 @@ const char RingBuffer::kCRLF[] = "\r\n";
 const size_t RingBuffer::kCheapPrepend;
 const size_t RingBuffer::kInitialSize;
 
-RingBuffer::RingBuffer(size_t kInitialSize) :
-    buffer_(kCheapPrepend + kInitialSize),
+RingBuffer::RingBuffer(size_t initalSize) :
+    buffer_(kCheapPrepend + initalSize),
     readrIndex_(kCheapPrepend),
     writerIndex_(kCheapPrepend),
-    capacity_(kInitialSize),
-    totalSize_(kCheapPrepend + kInitialSize),
+    capacity_(initalSize),
+    totalSize_(kCheapPrepend + initalSize),
     hasData_(false)             {
     assert(getReadableBytes() == 0);
-    assert(getWritableBytes() == kInitialSize);
+    assert(getWritableBytes() == initalSize);
     assert(getPrependableBytes() == kCheapPrepend);
     assert(hasData_ == false);
 }
