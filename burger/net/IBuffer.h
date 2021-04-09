@@ -78,7 +78,7 @@ public:
     virtual void appendInt16(int16_t x) = 0;
     virtual void appendInt8(int8_t x) = 0;
     
-    virtual ssize_t readFd(int fd, int& savedErrno);
+    virtual ssize_t readFd(int fd, int& savedErrno) = 0;
 
 protected:
     virtual char* begin() = 0;
@@ -87,15 +87,13 @@ protected:
 
 protected:
     std::vector<char> buffer_;
-
     size_t readrIndex_;
     size_t writerIndex_;
 
-    static constexpr char kCRLF[] = "\r\n";
+    static const char kCRLF[];
 
 };
 
-// const char IBuffer::kCRLF[] = "\r\n";
 // const size_t IBuffer::kCheapPrepend;
 // const size_t IBuffer::kInitialSize;
 

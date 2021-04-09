@@ -8,6 +8,7 @@
 using namespace burger;
 using namespace burger::net;
 
+const char IBuffer::kCRLF[] = "\r\n";
 // const char RingBuffer::kCRLF[] = "\r\n";
 // const size_t RingBuffer::kCheapPrepend;
 // const size_t RingBuffer::kInitialSize;
@@ -363,7 +364,14 @@ void RingBuffer::appendInt8(int8_t x)  {
 ssize_t RingBuffer::readFd(int fd, int& savedErrno) {
     char extrabuf[65536];
     struct iovec vec[2];
-    const size_t writableBytes = getWritableBytes();
+    size_t writableBytes = 0;
+    if(!hasData_ || writerIndex_ < readrIndex_) {
+        writableBytes = getWritableBytes();
+    }
+    else {
+        writableBytes = totalSize_ - writerIndex_;
+    }
+
     vec[0].iov_base = beginWrite();
     vec[0].iov_len = writableBytes;
     vec[1].iov_base = extrabuf;
@@ -371,14 +379,16 @@ ssize_t RingBuffer::readFd(int fd, int& savedErrno) {
     // when there is enough space in this RingBuffer, don't read into extrabuf.
     // when extrabuf is used, we read 128k-1 bytes at most.
     // 这样只用调用一次readv
-    const int iovcnt = (writableBytes < sizeof(extrabuf)) ? 2 : 1;
+    const int iovcnt = /*(writableBytes < sizeof(extrabuf)) ? 2 : 1*/ 2;
     const ssize_t n = sockets::readv(fd, vec, iovcnt);
     if(n < 0) {
         savedErrno = errno;
     } else if(implicit_cast<size_t>(n) <= writableBytes) {
         writerIndex_ += n;
+        hasData_ = true;
     } else {
-        writerIndex_ = buffer_.size();
+        writerIndex_ += writableBytes;
+        hasData_ = true;
         append(extrabuf, n - writableBytes);  // append里有writerIndex_的移动
     }
     return n;
