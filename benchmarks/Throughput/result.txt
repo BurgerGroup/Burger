@@ -1,0 +1,21 @@
+pingpong_server: no process found
+Bufsize: 16384 Threads: 1 Sessions: 1
+20210409 03:11:46.667447Z  1727 INFO  pid = 1727, tid = 1727 - server.cc:38
+20210409 03:11:47.670891Z  1729 INFO  pid = 1729, tid = 1729 - client.cc:200
+20210409 03:11:47.677276Z  1729 WARN  all connected - client.cc:125
+20210409 03:12:37.671248Z  1729 WARN  stop - client.cc:161
+20210409 03:12:37.671516Z  1729 WARN  all disconnected - client.cc:133
+20210409 03:12:37.671545Z  1729 WARN  4828577792 total bytes read - client.cc:142
+20210409 03:12:37.671552Z  1729 WARN  294713 total messages read - client.cc:143
+20210409 03:12:37.671557Z  1729 WARN  16384 average message size - client.cc:144
+20210409 03:12:37.671564Z  1729 WARN  92.0978125 MiB/s throughput - client.cc:146
+Bufsize: 16384 Threads: 1 Sessions: 10
+20210409 03:12:42.686202Z  1731 INFO  pid = 1731, tid = 1731 - server.cc:38
+20210409 03:12:43.689383Z  1733 INFO  pid = 1733, tid = 1733 - client.cc:200
+20210409 03:12:43.691889Z  1733 WARN  all connected - client.cc:125
+20210409 03:13:33.690102Z  1733 WARN  stop - client.cc:161
+20210409 03:13:33.690974Z  1733 WARN  all disconnected - client.cc:133
+20210409 03:13:33.691049Z  1733 WARN  68651974656 total bytes read - client.cc:142
+20210409 03:13:33.691079Z  1733 WARN  4190184 total messages read - client.cc:143
+20210409 03:13:33.691106Z  1733 WARN  16384 average message size - client.cc:144
+20210409 03:13:33.691141Z  1733 WARN  1309.4325 MiB/s throughput - client.cc:146

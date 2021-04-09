@@ -1,5 +1,5 @@
 #include "burger/net/TcpClient.h"
-
+#include "burger/base/Atomic.h"
 #include "burger/base/Log.h"
 #include "burger/net/EventLoop.h"
 #include "burger/net/EventLoopThreadPool.h"
@@ -7,7 +7,6 @@
 #include "burger/net/RingBuffer.h"
 
 #include <utility>
-#include <atomic>
 #include <string>
 #include <stdio.h>
 #include <unistd.h>
@@ -59,10 +58,17 @@ private:
     void onConnection(const TcpConnectionPtr& conn);
 
     void onMessage(const TcpConnectionPtr& conn, IBuffer& buf, Timestamp) {
+        // printf("Client--------Msg!!!!!!!!!!!!!!!!!!\n");
+        // printf("Buffer.readablebytes() = %lu\n", buf.getReadableBytes());
         ++messagesRead_;
         bytesRead_ += buf.getReadableBytes();
+        buf.retrieve(50);
+        buf.append(std::string(42, 's'));
+        std::string tmp(8, 's');
+        buf.prepend(reinterpret_cast<const void*>(tmp.c_str()), 8); // 把前面填满
         bytesWritten_ += buf.getReadableBytes();
         conn->send(buf);
+        // printf("Client--------Send Over!!!!!!!!!!!!!!!!!!\n");
     }
 
     TcpClient client_;
@@ -109,13 +115,13 @@ public:
     }
 
     void onConnect() {
-        if (++numConnected_ == sessionCount_) {
+        if (numConnected_.incrementAndGet() == sessionCount_) {
             WARN("all connected");
         }
     }
 
     void onDisconnect(const TcpConnectionPtr& conn) {
-        if (--numConnected_ == 0) {
+        if (numConnected_.decrementAndGet() == 0) {
         WARN("all disconnected");
 
         int64_t totalBytesRead = 0;
@@ -147,16 +153,17 @@ private:
 
     EventLoop* loop_;
     EventLoopThreadPool threadPool_;
-    std::uint32_t sessionCount_;
+    int sessionCount_;
     int timeout_;
     std::vector<std::unique_ptr<Session>> sessions_;
     std::string message_;
-    std::atomic<std::uint32_t> numConnected_;
+    AtomicInt32 numConnected_;
 };
 
 void Session::onConnection(const TcpConnectionPtr& conn) {
     if (conn->isConnected()) {
         conn->setTcpNoDelay(true);
+        // printf("msg.length() = %lu\n", owner_->message().length());
         conn->send(owner_->message());
         owner_->onConnect();
     }
@@ -172,7 +179,7 @@ int main(int argc, char* argv[]) {
     }
     else {
         INFO("pid = {}, tid = {}", getpid(), util::tid());
-        LOG_LEVEL_INFO;
+        Logger::Instance().setLevel(spdlog::level::warn);
 
         const char* ip = argv[1];
         uint16_t port = static_cast<uint16_t>(atoi(argv[2]));
