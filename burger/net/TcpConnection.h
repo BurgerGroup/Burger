@@ -16,7 +16,9 @@
 #include "burger/base/Timestamp.h"
 #include "InetAddress.h"
 #include "Callbacks.h"
+#include "IBuffer.h"
 #include "Buffer.h"
+#include "RingBuffer.h"
 #include <boost/any.hpp>
 // struct tcp_info is in <netinet/tcp.h>
 struct tcp_info;
@@ -46,7 +48,8 @@ public:
     std::string getTcpInfoString() const;
     void send(const std::string& message);
     // void send(std::string&& message);  // todo
-    void send(Buffer& buf);
+    // void send(Buffer& buf);
+    void send(IBuffer& buf);
     // void send(Buffer&& message);  // todo
     void shutdown(); // NOT thread safe
     void forceClose();

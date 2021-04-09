@@ -8,14 +8,12 @@
 using namespace burger;
 using namespace burger::net;
 
-const char RingBuffer::kCRLF[] = "\r\n";
-const size_t RingBuffer::kCheapPrepend;
-const size_t RingBuffer::kInitialSize;
+// const char RingBuffer::kCRLF[] = "\r\n";
+// const size_t RingBuffer::kCheapPrepend;
+// const size_t RingBuffer::kInitialSize;
 
 RingBuffer::RingBuffer(size_t initalSize) :
-    buffer_(kCheapPrepend + initalSize),
-    readrIndex_(kCheapPrepend),
-    writerIndex_(kCheapPrepend),
+    IBuffer(initalSize),
     capacity_(initalSize),
     totalSize_(kCheapPrepend + initalSize),
     hasData_(false)             {
@@ -25,8 +23,17 @@ RingBuffer::RingBuffer(size_t initalSize) :
     assert(hasData_ == false);
 }
 
+void RingBuffer::swap(IBuffer& rhs) {
+    RingBuffer& that = dynamic_cast<RingBuffer&>(rhs);
+    buffer_.swap(that.buffer_);
+    std::swap(readrIndex_, that.readrIndex_);
+    std::swap(writerIndex_, that.writerIndex_);
+    std::swap(capacity_, that.capacity_);
+    std::swap(hasData_, that.hasData_);
+    std::swap(totalSize_, that.totalSize_);
+}
+
 void RingBuffer::swap(RingBuffer& rhs) {
-    // 只用交换数据成员
     buffer_.swap(rhs.buffer_);
     std::swap(readrIndex_, rhs.readrIndex_);
     std::swap(writerIndex_, rhs.writerIndex_);
@@ -376,7 +383,6 @@ ssize_t RingBuffer::readFd(int fd, int& savedErrno) {
     }
     return n;
 }
-
 
 void RingBuffer::makeSpace(size_t len) {
     if(!hasData_) {

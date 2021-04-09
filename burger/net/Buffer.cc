@@ -7,21 +7,28 @@
 using namespace burger;
 using namespace burger::net;
 
-const char Buffer::kCRLF[] = "\r\n";
-const size_t Buffer::kCheapPrepend;
-const size_t Buffer::kInitialSize;
+// const char Buffer::kCRLF[] = "\r\n";
+// const size_t Buffer::kCheapPrepend;
+// const size_t Buffer::kInitialSize;
 
 Buffer::Buffer(size_t initalSize) :
-    buffer_(kCheapPrepend + initalSize),
-    readrIndex_(kCheapPrepend),
-    writerIndex_(kCheapPrepend) {
+    // https://blog.csdn.net/uestcyms/article/details/103509443
+    // 子类的初始化列表，只能对子类的成员变量进行初始化
+    IBuffer(initalSize) {
     assert(getReadableBytes() == 0);
     assert(getWritableBytes() == initalSize);
     assert(getPrependableBytes() == kCheapPrepend);
 }
 
+void Buffer::swap(IBuffer& rhs) {
+    // 需要先将IBuffer&转换为Buffer&
+    Buffer& that = dynamic_cast<Buffer&>(rhs);
+    buffer_.swap(that.buffer_);
+    std::swap(readrIndex_, that.readrIndex_);
+    std::swap(writerIndex_, that.writerIndex_);
+}
+
 void Buffer::swap(Buffer& rhs) {
-    // 只用交换三个数据成员
     buffer_.swap(rhs.buffer_);
     std::swap(readrIndex_, rhs.readrIndex_);
     std::swap(writerIndex_, rhs.writerIndex_);
@@ -220,7 +227,6 @@ ssize_t Buffer::readFd(int fd, int& savedErrno) {
     }
     return n;
 }
-
 
 void Buffer::makeSpace(size_t len) {
     if(getWritableBytes() + getPrependableBytes() < len + kCheapPrepend) {

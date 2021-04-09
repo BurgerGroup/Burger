@@ -1,7 +1,7 @@
 #ifndef RINGBUFFER_H
 #define RINGBUFFER_H
 
-#include "burger/base/copyable.h"
+#include "burger/net/IBuffer.h"
 #include <assert.h>
 #include <string>
 #include <algorithm>
@@ -31,13 +31,15 @@ namespace net {
 /// 0            <=             writerIndex          <=              readerIndex   <=       size
 /// @endcode
 
-class RingBuffer : public burger::copyable {
+class RingBuffer : public burger::net::IBuffer {
 public:
-    static const size_t kCheapPrepend = 8;
-    static const size_t kInitialSize = 1024;
+    // static const size_t kCheapPrepend = 8;
+    // static const size_t kInitialSize = 1024;
     
     explicit RingBuffer(size_t initalSize = kInitialSize);
+    ~RingBuffer() = default;
     
+    void swap(IBuffer& rhs);
     void swap(RingBuffer& rhs);
 
     size_t getReadableBytes() const;
@@ -49,9 +51,9 @@ public:
     const char* beginWrite() const { return begin() + writerIndex_; }
 
     /* for test*/
-    size_t getWriterIndex() const { return writerIndex_; }
-    size_t getReaderIndex() const { return readrIndex_; }
-    size_t getTotalSize() const { return totalSize_; }
+    // size_t getWriterIndex() const { return writerIndex_; }
+    // size_t getReaderIndex() const { return readrIndex_; }
+    // size_t getTotalSize() const { return totalSize_; }
     
     void hasWritten(size_t len);
     // 获取可读数据的指针地址，类似vector中的data()
@@ -113,15 +115,13 @@ private:
 
     void makeSpace(size_t len);
 
-    private:
-        std::vector<char> buffer_;
-        size_t readrIndex_;
-        size_t writerIndex_;
-        size_t capacity_; //除去预留的空间外，实际可用的空间
-        size_t totalSize_;
-        bool hasData_;
-        
-        static const char kCRLF[];
+private:
+    // std::vector<char> buffer_;
+    // size_t readrIndex_;
+    // size_t writerIndex_;
+    size_t capacity_; //除去预留的空间外，实际可用的空间
+    size_t totalSize_;
+    bool hasData_;
 };
 
 }  // net

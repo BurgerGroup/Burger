@@ -13,7 +13,7 @@ void burger::net::defaultConnectionCallback(const TcpConnectionPtr& conn) {
 }
 
 void burger::net::defaultMessageCallback(const TcpConnectionPtr&,
-                                        Buffer& buf,
+                                        IBuffer& buf,
                                         Timestamp) {
     buf.retrieveAll();
 }
@@ -68,11 +68,22 @@ void TcpConnection::send(const std::string& message) {
     }
 }
 
-void TcpConnection::send(Buffer& buf) {
+// void TcpConnection::send(Buffer& buf) {
+//     if(status_ == Status::kConnected) {
+//         if(loop_->isInLoopThread()) {
+//             sendInLoop(buf.peek(), buf.getReadableBytes());
+//             buf.retrieveAll();
+//         } else {
+//             void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
+//             loop_->runInLoop(std::bind(fp, this, std::move(buf.retrieveAllAsString())));
+//         }
+//     }
+// }
+
+void TcpConnection::send(IBuffer& buf) {
     if(status_ == Status::kConnected) {
         if(loop_->isInLoopThread()) {
-            sendInLoop(buf.peek(), buf.getReadableBytes());
-            buf.retrieveAll();
+            sendInLoop(std::move(buf.retrieveAllAsString()));
         } else {
             void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
             loop_->runInLoop(std::bind(fp, this, std::move(buf.retrieveAllAsString())));

@@ -20,7 +20,7 @@ namespace net {
 // All client visible callbacks go here.
 
 class TcpConnection;
-class Buffer;
+class IBuffer;
 using TcpConnectionPtr = std::shared_ptr<TcpConnection>;
 using TimerCallback = std::function<void()> ;
 using ConnectionCallback = std::function<void(const TcpConnectionPtr&)>;
@@ -28,13 +28,17 @@ using CloseCallback = std::function<void(const TcpConnectionPtr&)>;
 using WriteCompleteCallback = std::function<void (const TcpConnectionPtr&)>;
 using HighWaterMarkCallback = std::function<void (const TcpConnectionPtr&, size_t)>;
 using MessageCallback = std::function<void (const TcpConnectionPtr&,
-                                                    Buffer&,
+                                                    IBuffer&,
                                                     Timestamp)>;
+
+// using MessageCallback = std::function<void (const TcpConnectionPtr&,
+//                                                     RingBuffer&,
+//                                                     Timestamp)>;
 // 声明于此，实现在Tcpconnection里面, 然后在Tcpserver里设置
 // TODO : 为何这么做                                                 
 void defaultConnectionCallback(const TcpConnectionPtr& conn);
 void defaultMessageCallback(const TcpConnectionPtr& conn,
-                            Buffer& buffer,
+                            IBuffer& buffer,
                             Timestamp receiveTime);
 
 } // namespace net

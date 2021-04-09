@@ -12,6 +12,7 @@
 #define BUFFER_H
 
 #include "burger/base/copyable.h"
+#include "burger/net/IBuffer.h"
 #include <vector>
 #include <string>
 #include <cstdlib>
@@ -31,13 +32,15 @@ namespace net {
 /// @endcode
 
 // 非线程安全
-class Buffer : public burger::copyable {
+class Buffer : public burger::net::IBuffer {
 public:
-    static const size_t kCheapPrepend = 8;
-    static const size_t kInitialSize = 1024;
+    // static const size_t kCheapPrepend = 8;
+    // static const size_t kInitialSize = 1024;
 
     explicit Buffer(size_t initalSize = kInitialSize);
+    ~Buffer() = default;
 
+    void swap(IBuffer& rhs);
     void swap(Buffer& rhs);
     size_t getReadableBytes() const { return writerIndex_ - readrIndex_; }
     size_t getWritableBytes() const { return buffer_.size() - writerIndex_; }
@@ -94,18 +97,19 @@ public:
     void appendInt8(int8_t x);
     
     ssize_t readFd(int fd, int& savedErrno);
+
 private:
     char* begin() { return &*buffer_.begin(); }
     const char* begin() const { return &*buffer_.begin(); }
     void makeSpace(size_t len);
 
-private:
-    std::vector<char> buffer_;
-    // to know whu use size_t other than char*
-    size_t readrIndex_;
-    size_t writerIndex_;
+// private:
+//     std::vector<char> buffer_;
+//     // to know whu use size_t other than char*
+//     size_t readrIndex_;
+//     size_t writerIndex_;
 
-    static const char kCRLF[];  // 
+//     static const char kCRLF[];  // 
 };
 
 } // namespace net
