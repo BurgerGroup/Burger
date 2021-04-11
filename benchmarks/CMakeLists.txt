@@ -12,3 +12,6 @@ target_link_libraries(pingpong_client burger_net)
 
 add_executable(pingpong_server Throughput/server.cc)
 target_link_libraries(pingpong_server burger_net)
+
+add_executable(RingBuffer_benchmark RingBuffer/RingBuffer_benchmark.cc)
+target_link_libraries(RingBuffer_benchmark burger_net benchmark)
