@@ -3,6 +3,8 @@
 * 1. 各组件的性能测试
     > * Threadpool
     > * Logger
+    > * RingBuffer
+
 * 2. 网络库整体的压测
     > 主要在各主流网络库之间进行比较。
 
@@ -107,3 +109,49 @@ auto BM_spdlog = [](benchmark::State& state, bool isAsync, bool isToFile, bool i
 |--|--|--|--|
 |spdlog|2.600M/s|2.803M/s|3.853M/s|
 |boost::log||||
+
+
+--- 
+
+## 3. Buffer
+### 实验环境
+实验在**MacBook Pro 13 2019**上进行，使用`Linux Ubuntu 16.04`Docker虚拟机环境.
+
+### 实验对象
+* `Burger::net::RingBuffer`
+* `Muduo::net::Buffer`
+
+### 实验内容
+使用上述两种缓冲区，在相同的条件下：
+* 1. 相同的缓冲区大小
+* 2. 相同的读写操作
+
+分别完成下列场景的任务（主要是腾挪的数据大小比例）：
+* 1. **需要腾挪95%+的数据**
+* 2. **需要腾挪50%的数据**
+* 3. **需要腾挪10%的数据**
+
+
+使用`Google::benchmark`工具分别迭代$500000$次读写任务：
+```cpp
+void rwBuffer(IBuffer& buf, size_t len) {
+    buf.append(msg);
+    buf.retrieve(len);
+    buf.append(std::string(len - 8, 's'));
+    std::string tmp(8, 's');
+    buf.prepend(reinterpret_cast<const void*>(tmp.c_str()), 8); // 把前面填满
+}
+```
+在所有任务完成之后，统计平均的执行速度.
+
+### 实验结果
+||95%+|50%|5%|
+|--|--|--|--|
+|RingBuffer|33.938G/s|18.186G/s|13.4162G/s|
+|Buffer|18.2195G/s|14.542G/s|13.2121G/s|
+
+* 可以看出，在**有大量内部腾挪的场景下**，`RingBuffer`的读写速度有着很明显的优势，**提高了$ 86.5\% $.**
+
+* 随着内部腾挪的数据占比下降，`RingBuffer`的读写速度优势也在下降；在几乎没有内部腾挪时，其读写速度和普通`Buffer`相当（在少数实验中，甚至会略微低一些）。
+
+* 因此，我们在`Burger`中保留了两种`Buffer`供用户选择；用户也可以通过继承`IBuffer基类`实现自己的`Buffer类`
