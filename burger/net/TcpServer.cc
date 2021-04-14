@@ -75,13 +75,17 @@ void TcpServer::removeConnection(const TcpConnectionPtr& conn) {
 }
 
 void TcpServer::removeConnectionInLoop(const TcpConnectionPtr& conn) {
+    INFO("Before Assert!!!");
     loop_->assertInLoopThread();
     INFO("TcpServer::removeConnectionInLoop [{}] - connection {}", hostName_, conn->getName());
     // TRACE("[8] usecount = {}", conn.use_count());  // 3  
     size_t n = connectionsMap_.erase(conn->getName());
     // TRACE("[9] usecount = {}", conn.use_count());  // 2
     assert(n == 1);
-    loop_->queueInLoop(std::bind(&TcpConnection::connectDestroyed, conn));  //将conn生命周期延长到connectDestroyed
+
+    EventLoop* ioLoop = conn->getLoop();    // conn的销毁需要它所在的io线程去操作
+    INFO("Get conn's ownnerLoop");
+    ioLoop->queueInLoop(std::bind(&TcpConnection::connectDestroyed, conn));  //将conn生命周期延长到connectDestroyed
     // TRACE("[10] usecount = {}", conn.use_count());  // 3 --  queueInLoop导致使bind的move到pendingFunctors里引用数+1
 }
 

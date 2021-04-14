@@ -13,6 +13,7 @@ set(net_SRCS
   TcpServer.cc
   TcpConnection.cc
   EventLoopThreadPool.cc
+  IBuffer.cc
   Buffer.cc
   RingBuffer.cc
   Connector.cc 

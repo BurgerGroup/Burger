@@ -8,7 +8,7 @@
 using namespace burger;
 using namespace burger::net;
 
-const char IBuffer::kCRLF[] = "\r\n";
+// const char IBuffer::kCRLF[] = "\r\n";
 // const char RingBuffer::kCRLF[] = "\r\n";
 // const size_t RingBuffer::kCheapPrepend;
 // const size_t RingBuffer::kInitialSize;

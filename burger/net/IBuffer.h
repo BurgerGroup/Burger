@@ -13,8 +13,8 @@ namespace net {
 
 class IBuffer : public burger::copyable {
 public:
-    static const size_t kCheapPrepend = 8;
-    static const size_t kInitialSize = 1024;
+    static const size_t kCheapPrepend;
+    static const size_t kInitialSize;
 
     IBuffer(size_t initalSize) :
     buffer_(kCheapPrepend + initalSize),
