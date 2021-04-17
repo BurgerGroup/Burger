@@ -1,16 +1,18 @@
 #include "coroutine.h"
 #include "config.h"
+#include "scheduler.h"
 
 using namespace burger;
-
 
 static std::atomic<uint64_t> s_CoId {0};
 static std::atomic<uint64_t> s_CoNum {0};
 
+// t_co is the coroutine currently executing on this thread
 static thread_local Coroutine* t_co = nullptr;
-static thread_local Coroutine::ptr t_threadCo = nullptr;  // master Co ??why
+static thread_local Coroutine::ptr t_main_thread_co = nullptr;  // 这个是调度协程
 
 static size_t g_coStackSize = Config::Instance().getSize("coroutine", "stackSize", 1024 * 1024);
+// static size_t coPoolSize
 
 
 // todo : RAII
@@ -27,37 +29,31 @@ public:
 
 using StackAllocator = MallocStackAllocator;
 
-
+// Create a Coroutine for the currently executing thread
+// No other Coroutine object represents the currently executing thread
+// state() == EXEC
 Coroutine::Coroutine() {
-    state_  = State::EXEC;
+    // coId_ = ++s_CoId;
+    state_ = State::EXEC;
     SetThis(this);
-    // get到当前线程的上下文
-    if(getcontext(&ctx_)) {
-        BURGER_ASSERT2(false, "getcontext");
-    }
     ++s_CoNum;
-    DEBUG("Coroutine:Coroutine main");
+    DEBUG("Coroutine:Coroutine sched co");
 }
 
-// 有参构造才是真正创建线程
-Coroutine::Coroutine(CallBack cb, size_t stackSize, bool mainSched)
+// 有参构造才是真正创建协程
+Coroutine::Coroutine(const CallBack& cb, size_t stackSize, bool mainSched)
     : coId_(++s_CoId),
     callback_(cb) {
     ++s_CoNum;
     stackSize_ = static_cast<uint32_t>(stackSize? stackSize : g_coStackSize);
+    // std::cout << "stackSize_" << stackSize_ << std::endl; // for test
     stack_ = StackAllocator::Alloc(stackSize_);
-    if(getcontext(&ctx_)) {
-        BURGER_ASSERT2(false, "getcontext");
-    }
-    ctx_.uc_link = nullptr;
-    ctx_.uc_stack.ss_sp = stack_;
-    ctx_.uc_stack.ss_size = stackSize_;
-    if(mainSched) {
-        makecontext(&ctx_, &Coroutine::MainFunc, 0);
-    } else {
-        makecontext(&ctx_, &Coroutine::CallMainFunc, 0);
-    }
 
+    if(!mainSched) {
+        ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::MainFunc);
+    } else {
+        ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::CallMainFunc);
+    }
     DEBUG("Coroutine::Coroutine coId = {}", coId_);
 }
 
@@ -79,78 +75,81 @@ Coroutine::~Coroutine() {
     DEBUG("Coroutine::~Coroutine coId = {} total = {}", coId_, s_CoNum );
 }
 
+// 重置协程函数，并重置状态
 void Coroutine::reset(CallBack cb) {
     BURGER_ASSERT(stack_);
     BURGER_ASSERT(state_ == State::TERM 
         || state_ == State::EXCEPT 
         || state_ == State::INIT);
     callback_ = cb;
-    if(getcontext(&ctx_)) {
-        BURGER_ASSERT2(false, "getcontext");
-    } 
-    ctx_.uc_link = nullptr;
-    ctx_.uc_stack.ss_sp = stack_;
-    ctx_.uc_stack.ss_size = stackSize_;
-    makecontext(&ctx_, &Coroutine::MainFunc, 0);
+    ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::MainFunc);
     state_ = State::INIT;
 }
 
+// 当前协程切换到运行状态
 void Coroutine::swapIn() {
-    SetThis(this);
-    BURGER_ASSERT(state_ != State::EXEC);
+    SetThis(this);  // 先将此协程设置成当前协程
+    BURGER_ASSERT(state_ != State::EXEC); 
     state_ = State::EXEC;
-    // if(swapcontextt(&Scheduler::GetMainCo()->ctx_, &ctx_)) {
-    //     BURGER_ASSERT2(false, "swapcontextt");
-    // }
+    // jump_fcontext(&Scheduler::GetSchedCo()->ctx_, ctx_, 0);
+    jump_fcontext(&t_main_thread_co->ctx_, ctx_, 0);
 }
 
+// 将当前线程切换到后台
 void Coroutine::swapOut() {
-    // SetThis(Scheduler::GetMainCo());
-    // if(swapcontextt(&ctx_, &Scheduler::GetMainCo()->ctx_)) {
-    //     BURGER_ASSERT2(false, "swapcontextt");
-    // }
+    SetThis(Scheduler::GetSchedCo());
+    jump_fcontext(&ctx_, t_main_thread_co->ctx_, 0);
+    // jump_fcontext(&ctx_, Scheduler::GetSchedCo()->ctx_, 0);
 }
 
+// 当前线程切换到执行状态
+// pre: 执行的为当前线程的主协程
 void Coroutine::call() {
     SetThis(this);
+    assert(state_ != State::EXEC);
     state_ = State::EXEC;
-    if(swapcontext(&t_threadCo->ctx_, &ctx_)) {
-        BURGER_ASSERT2(false, "swapcontextt");
-    }
+    jump_fcontext(&t_main_thread_co->ctx_, ctx_, 0);  // todo if check
 }
 
+// 当前线程切换到后台
+// pre : 执行的为该协程
+// 返回到现成的主协程
 void Coroutine::back() {
-    SetThis(t_threadCo.get());
-    if(swapcontext(&ctx_, &t_threadCo->ctx_)) {
-        BURGER_ASSERT2(false, "swapcontextt");
-    }
+    SetThis(t_main_thread_co.get());
+    jump_fcontext(&ctx_, t_main_thread_co->ctx_, 0);
 }
 
-void Coroutine::SetThis(Coroutine* f) {
-    t_co = f;
+// 设置协程为运行协程
+void Coroutine::SetThis(Coroutine* co) {
+    t_co = co;
 }
 
+// 返回当前所在的协程
+// 如果没有的话那么创建一个调度协程，由无参ctor构造
+// 
 Coroutine::ptr Coroutine::GetThis() {
     if(t_co) {
         return t_co->shared_from_this();
     }
-    Coroutine::ptr mainCo = std::shared_ptr<Coroutine>();
-    BURGER_ASSERT(t_co == mainCo.get());
-    t_threadCo = mainCo;
+    Coroutine::ptr schedCo = std::make_shared<Coroutine>();
+    // 构造的时候就把当前t_co设置成为了schedCo
+    BURGER_ASSERT(t_co == schedCo.get());
+    t_main_thread_co = schedCo;  // 调度协程设置为这个第一次创建的
     return t_co->shared_from_this();
 }
 
-void Coroutine::YeildToReady() {
+// 协程让出，设置为ready
+void Coroutine::YieldToReady() {
     Coroutine::ptr cur = GetThis();
     BURGER_ASSERT(cur->state_ == State::EXEC);
     cur->state_ = State::READY;
     cur->swapOut();
 }
 
-void Coroutine::YeildToHold() {
+void Coroutine::YieldToHold() {
     Coroutine::ptr cur = GetThis();
     BURGER_ASSERT(cur->state_ == State::EXEC);
-    // cur->state_ = State::HOLD;
+    cur->state_ = State::HOLD;  // todo: race condition -- how to solve
     cur->swapOut();
 }
 
@@ -159,7 +158,9 @@ uint64_t Coroutine::getCoNums() {
 }
 
 // 此两个函数可以优化
-void Coroutine::MainFunc() {
+
+// 执行完成返回到线程主协程
+void Coroutine::MainFunc(intptr_t vp) {
     Coroutine::ptr cur = GetThis();
     BURGER_ASSERT(cur);
     try {
@@ -181,7 +182,8 @@ void Coroutine::MainFunc() {
     BURGER_ASSERT2(false, "never reach coId = " + std::to_string(rawPtr->getCoId()));
 }
 
-void Coroutine::CallMainFunc() {
+// 执行完成返回到线程调度协程
+void Coroutine::CallMainFunc(intptr_t vp) {
     Coroutine::ptr cur = GetThis();
     BURGER_ASSERT(cur);
     try {

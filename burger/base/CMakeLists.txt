@@ -9,9 +9,12 @@ set(base_SRCS
   StringUtil.cc 
   Config.cc
   Env.cc
-  # coroutine.cc
+  coroutine.cc
+  scheduler.cc 
+  fcontext/fcontext.S 
+  fcontext/jump_x86_64_sysv_elf_gas.S
+  fcontext/make_x86_64_sysv_elf_gas.S
 )
-
 
 add_library(burger_base ${base_SRCS})
 target_link_libraries(burger_base ${GTEST_BOTH_LIBRARIES} pthread rt)

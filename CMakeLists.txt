@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.2)
 
 project(burger C CXX)
 
+enable_language(ASM)
+
 enable_testing()
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -125,7 +127,7 @@ add_subdirectory(burger/net)
 # add_subdirectory(burger/db)
 # add_subdirectory(burger/http)
 
-# add_subdirectory(thirdparty/googletest)
+add_subdirectory(thirdparty/googletest)
 
 
 if(BURGER_BUILD_EXAMPLES)

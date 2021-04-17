@@ -1,5 +1,6 @@
 #include "burger/base/coroutine.h"
 #include "burger/base/Log.h"
+#include "burger/base/scheduler.h"
 #include <vector>
 #include <thread>
 #include <algorithm>
@@ -29,17 +30,11 @@ void testCo() {
     INFO("main after end2");
 }
 
-void print() {
-    std::cout << "123" << std::endl;
-}
 int main() {
     LOGGER(); LOG_LEVEL_DEBUG;
-    std::vector<std::thread> threads;
-    for(int i = 0; i < 3; i++) {
-        threads.push_back(std::thread(testCo));
-        // threads.push_back(std::thread(print));
-    }
-    std::for_each(threads.begin(), threads.end(), std::mem_fn(&std::thread::join));
+    
+    testCo();
+
     return 0;
     
 }

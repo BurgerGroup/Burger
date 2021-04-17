@@ -27,12 +27,12 @@ bool Logger::init(const std::string& filePath,
         spdlog::flush_every(std::chrono::seconds(3));  // todo 这里能影响道logger吗
         // spdlog::flush_on(spdlog::level::warn);
 
-        // auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+        auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
         auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt> (filePath, 1024*1024*5, 5, false);
         // auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(filePath, true);
         // Async : https://github.com/gabime/spdlog/wiki/6.-Asynchronous-logging
-        // std::vector<spdlog::sink_ptr> sinks{console_sink, file_sink};
-        std::vector<spdlog::sink_ptr> sinks{file_sink};   // 暂时先不要输出到显示屏
+        std::vector<spdlog::sink_ptr> sinks{console_sink, file_sink};
+        // std::vector<spdlog::sink_ptr> sinks{file_sink};   // 暂时先不要输出到显示屏
         std::shared_ptr<spdlog::logger> logger = std::make_shared<spdlog::logger>(loggerName,  sinks.begin(), sinks.end());
         logger->set_level(level);    // 需要单独设置logger的level      
         logger->set_pattern("%Y-%m-%d %H:%M:%S [%l] [tid : %t] [%s : %# <%!>] %v");
