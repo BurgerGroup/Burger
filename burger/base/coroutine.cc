@@ -1,7 +1,7 @@
 #include "coroutine.h"
 #include "config.h"
 #include "scheduler.h"
-
+#include "util.h"
 using namespace burger;
 
 static std::atomic<uint64_t> s_CoId {0};
@@ -11,7 +11,8 @@ static std::atomic<uint64_t> s_CoNum {0};
 static thread_local Coroutine* t_co = nullptr;
 static thread_local Coroutine::ptr t_main_thread_co = nullptr;  // 这个是调度协程
 
-static size_t g_coStackSize = Config::Instance().getSize("coroutine", "stackSize", 1024 * 1024);
+static size_t g_coStackSize = Config::Instance().getSize("coroutine", "stackSize", 1024 * 1024);  
+// todo: 这直接写死了1M，如何像libgo一样动态
 // static size_t coPoolSize
 
 
@@ -22,7 +23,7 @@ public:
         return malloc(size);
     }
 
-    static void Dealloc(void* vp, size_t size) {
+    static void Dealloc(void* vp, size_t size) {  // todo 
         return free(vp);
     }
 };
@@ -64,7 +65,7 @@ Coroutine::~Coroutine() {
             || state_ == State::EXCEPT 
             || state_ == State::INIT);
         StackAllocator::Dealloc(stack_, stackSize_);    
-    } else {
+    } else {  // main co
         BURGER_ASSERT(!callback_);
         BURGER_ASSERT(state_ == State::EXEC);
         Coroutine* cur = t_co;
@@ -76,6 +77,9 @@ Coroutine::~Coroutine() {
 }
 
 // 重置协程函数，并重置状态
+// 当出问题或者执行完reset执行下一个，避免多余内存分配
+// pre: INIT, TERM, EXCEPT
+// post : INIT
 void Coroutine::reset(CallBack cb) {
     BURGER_ASSERT(stack_);
     BURGER_ASSERT(state_ == State::TERM 
@@ -199,11 +203,20 @@ void Coroutine::CallMainFunc(intptr_t vp) {
         ERROR("Coroutine Except coID = {} \n {}", 
             cur->getCoId(), util::BacktraceToString());
     }
-    auto rawPtr = cur.get();
+    auto rawPtr = cur.get();  // todo: why use raw ptr
     cur.reset();
-    rawPtr->back();
+    rawPtr->back();  // todo : 这里切换回去，避免内存泄漏
     BURGER_ASSERT2(false, "never reach coId = " + std::to_string(rawPtr->getCoId()));
 }
+
+// 获取当前协程id
+uint64_t Coroutine::GetCoId() {
+    if(t_co) {
+        return t_co->getCoId();
+    }
+    return 0;
+}
+
 
 
 

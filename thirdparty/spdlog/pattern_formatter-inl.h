@@ -26,7 +26,6 @@
 #include <thread>
 #include <utility>
 #include <vector>
-
 namespace spdlog {
 namespace details {
 

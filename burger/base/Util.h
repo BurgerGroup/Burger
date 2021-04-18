@@ -46,6 +46,8 @@ inline pid_t tid() {
     return t_cachedTid;
 }
 
+uint64_t getCoId();
+
 const char* strerror_tl(int savedErrno);
 
 // 忽略大小写比较仿函数 

@@ -6,9 +6,10 @@
 #include <memory>
 #include <functional>
 #include <atomic>
-#include "util.h"
 #include "Log.h"
+
 // todo : 主协程和调度协程??
+// todo: co_mem_pool
 namespace burger {
 
 class Coroutine : public std::enable_shared_from_this<Coroutine> {

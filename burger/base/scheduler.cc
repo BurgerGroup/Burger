@@ -1,5 +1,6 @@
 #include "scheduler.h"
 #include "coroutine.h"
+#include "Util.h"
 #include <cassert>
 
 using namespace burger;
@@ -20,7 +21,7 @@ Scheduler::Scheduler(size_t threadNum, bool useCaller, const std::string& name)
         rootCo_ = std::move(std::make_shared<Coroutine>(std::bind(&Scheduler::run, this), 0, true));
 
         t_scheduler_co = rootCo_.get();
-        rootThreadId_ = util::gettid();
+        rootThreadId_ = util::tid();
         // threadIdList_.push_back(rootThreadId_);
     } else {
         rootThreadId_ = -1;
@@ -111,7 +112,7 @@ void Scheduler::stop() {
 void Scheduler::switchTo(pid_t threadId) {
     BURGER_ASSERT(Scheduler::GetThis() != nullptr);
     if(Scheduler::GetThis() == this) {
-        if(threadId == -1 || threadId == util::gettid()) {
+        if(threadId == -1 || threadId == util::tid()) {
             return;
         }
     }
@@ -162,7 +163,7 @@ void Scheduler::run() {
     DEBUG("{} RUN...", name_);
     // set_hook_enable(true);
     setThis();   // 设置当前调度器为协程调度器
-    if(util::gettid() != rootThreadId_) {
+    if(util::tid() != rootThreadId_) {
         // todo
         t_scheduler_co = Coroutine::GetThis().get();
     } else {
@@ -181,7 +182,7 @@ void Scheduler::run() {
             std::lock_guard<std::mutex> lock(mutex_);
             auto it = coList_.begin();
             while(it != coList_.end()) {
-                if(it->threadId_ != -1 && it->threadId_ != util::gettid()) {
+                if(it->threadId_ != -1 && it->threadId_ != util::tid()) {
                     ++it;
                     tickleMe = true;
                     continue;

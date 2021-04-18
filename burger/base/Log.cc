@@ -1,6 +1,22 @@
 #include "Log.h"
+#include "Util.h"
+#include "spdlog/pattern_formatter.h"
 
 using namespace burger;
+
+// suppot for coid
+class my_formatter_flag : public spdlog::custom_flag_formatter {
+public:
+    void format(const spdlog::details::log_msg &, const std::tm &, spdlog::memory_buf_t &dest) override {
+        std::string coId = std::to_string(util::getCoId());  // todo : 可以优化吗 
+        dest.append(coId.data(), coId.data() + coId.size());    
+    }
+
+    std::unique_ptr<custom_flag_formatter> clone() const override {
+        return spdlog::details::make_unique<my_formatter_flag>();
+    }
+};
+
 
 Logger& Logger::Instance() {
     static Logger log;
@@ -35,7 +51,14 @@ bool Logger::init(const std::string& filePath,
         // std::vector<spdlog::sink_ptr> sinks{file_sink};   // 暂时先不要输出到显示屏
         std::shared_ptr<spdlog::logger> logger = std::make_shared<spdlog::logger>(loggerName,  sinks.begin(), sinks.end());
         logger->set_level(level);    // 需要单独设置logger的level      
-        logger->set_pattern("%Y-%m-%d %H:%M:%S [%l] [tid : %t] [%s : %# <%!>] %v");
+        
+
+        auto formatter = util::make_unique<spdlog::pattern_formatter>();
+        formatter->add_flag<my_formatter_flag>('*').set_pattern("%Y-%m-%d %H:%M:%S [%l] [tid : %t] [%s : %# <%!>] [coId : %*] %v");
+        // logger->set_pattern("%Y-%m-%d %H:%M:%S [%l] [tid : %t] [%s : %# <%!>] %v");
+        // spdlog::set_formatter();
+        logger->set_formatter(std::move(formatter));
+        
         logger->flush_on(spdlog::level::warn);
         spdlog::set_default_logger(logger);
     } catch(const spdlog::spdlog_ex& ex) {

@@ -6,6 +6,8 @@
 // todo : 比如client不需要在屏幕里显示信息，怎么去除sink?
 // todo 系统需要为不同任务设置log?
 // TODO : 设计下如何使用
+// todo: pattern + coroutine 
+// https://spdlog.docsforge.com/v1.x/3.custom-formatting/#extending-spdlog-with-your-own-flags
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/rotating_file_sink.h"
 #include "spdlog/sinks/daily_file_sink.h"

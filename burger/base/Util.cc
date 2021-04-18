@@ -3,8 +3,12 @@
 #include <execinfo.h>
 #include <cxxabi.h>
 #include "Log.h"
+#include "coroutine.h"
+
+
 namespace burger {
 namespace util {
+
 thread_local pid_t t_cachedTid = 0;
 static_assert(std::is_same<int, pid_t>::value, "pid_t should be int");
 
@@ -14,6 +18,9 @@ const char* strerror_tl(int savedErrno) {
     return strerror_r(savedErrno, t_errnobuf, sizeof(t_errnobuf));
 }
 
+uint64_t getCoId() {
+    return Coroutine::GetCoId();
+}
 
 static std::string demangle(const char* str) {
     size_t size = 0;

@@ -5,8 +5,9 @@ Coroutine::GetThis()
 Thread->main_co <-----------> sub_co
             |
             |
-            sub_co
+          sub_co
 
+main_co 负责切换，回收, 不分配栈空间
 ```
 
 协程调度模块scheduler
