@@ -20,8 +20,8 @@
 
 # add_executable(spdlog_test spdlog_test.cc)
 
-# add_executable(log_test log_test.cc)
-# target_link_libraries(log_test burger_base)
+add_executable(log_test log_test.cc)
+target_link_libraries(log_test burger_base)
 
 # add_executable(util_test util_test.cc)
 # target_link_libraries(util_test burger_base)

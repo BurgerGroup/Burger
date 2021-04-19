@@ -26,8 +26,10 @@ int main() {
     */
 
     // LOGGER();
-    // LOGGER("logs/marco_test.log", "TEST");
-    LOGGER("logs/marco_test2.log");
+    // ONLY_TO_CONSOLE;
+    ONLY_TO_FILE;
+    LOGGER("logs/marco_test.log", "TEST");
+    // LOGGER("logs/marco_test2.log");
     // LOGGER_WITH_NAME("BURGER");
     LOG_LEVEL_DEBUG;
     TRACE("TRACE");
