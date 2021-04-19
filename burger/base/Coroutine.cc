@@ -54,14 +54,14 @@ Coroutine::~Coroutine() {
 
 // 挂起当前正在执行的协程，切换到主协程执行，必须在非主协程调用
 void Coroutine::SwapOut() {
-	assert(GetCurCo() != nullptr);
+    assert(GetCurCo() != nullptr);
     // 必须在非主协程调用
-	if (GetCurCo() == GetMainCo()) {
-		return;
-	}
+    if (GetCurCo() == GetMainCo()) {
+	return;
+    }
     // 此处可以用智能指针否
     Coroutine* curCo = GetCurCo().get();
-	GetCurCo() = GetMainCo();
+    GetCurCo() = GetMainCo();
     jump_fcontext(&curCo->ctx_, GetMainCo()->ctx_, 0);
 }
 // 挂起主协程，执行当前协程，只能在主协程调用
@@ -73,26 +73,26 @@ void Coroutine::swapIn() {
 
 uint64_t Coroutine::GetCoId() {
     assert(GetCurCo() != nullptr);
-	return GetCurCo()->coId_;
+    return GetCurCo()->coId_;
 }
 
 Coroutine::ptr& Coroutine::GetCurCo() {
-	//第一个协程对象调用swapIn()时初始化
+    //第一个协程对象调用swapIn()时初始化
     // todo : 写在外面或许更好?
-	static thread_local Coroutine::ptr t_curCo;
-	return t_curCo;
+    static thread_local Coroutine::ptr t_curCo;
+    return t_curCo;
 }
 
 Coroutine::ptr Coroutine::GetMainCo() {
     static thread_local Coroutine::ptr t_main_co = std::make_shared<Coroutine>();
-	return t_main_co;
+    return t_main_co;
 }
 
 void Coroutine::RunInCo(intptr_t vp) {
     Coroutine::ptr cur = GetCurCo();
-	cur->cb_();
+    cur->cb_();
     cur->cb_ = nullptr;
-	cur->setState(State::TERM);
-	Coroutine::SwapOut();   	//重新返回主协程
+    cur->setState(State::TERM);
+    Coroutine::SwapOut();   	//重新返回主协程
 }
 
