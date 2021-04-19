@@ -1,45 +1,38 @@
-#include "burger/base/coroutine.h"
 #include "burger/base/Log.h"
+#include "burger/base/Coroutine.h"
+
 #include <vector>
-#include <thread>
-#include <algorithm>
 
 using namespace burger;
 
-void runInCo() {
-    INFO("RUN IN coroutine begin");
-    Coroutine::YieldToHold();
-    INFO("RUN IN coroutine end");
-    Coroutine::YieldToHold();
+static int sum = 0;
+
+void test() {
+    DEBUG("in Coroutine( {} )", Coroutine::GetCoId());
+	Coroutine::SwapOut();
+	sum++;
+    DEBUG("in Coroutine( {} )", Coroutine::GetCoId());
+	Coroutine::SwapOut();
 }
 
-
-void testCo() {
-    INFO("main begin -1");
-    {
-        Coroutine::GetThis();  
-        INFO("main begin");
-        Coroutine::ptr co = std::make_shared<Coroutine>(runInCo);
-        co->swapIn();
-        INFO("main after swapIn");
-        co->swapIn();
-        INFO("main after end");
-        co->swapIn();
-    }
-    INFO("main after end2");
-}
-
-void print() {
-    std::cout << "123" << std::endl;
-}
 int main() {
     LOGGER(); LOG_LEVEL_DEBUG;
-    std::vector<std::thread> threads;
-    for(int i = 0; i < 3; i++) {
-        threads.push_back(std::thread(testCo));
-        // threads.push_back(std::thread(print));
-    }
-    std::for_each(threads.begin(), threads.end(), std::mem_fn(&std::thread::join));
-    return 0;
-    
+	const int sz = 1000;
+	std::vector<Coroutine::ptr> coroutines;
+	for (int i = 0; i < sz; ++i) {
+		coroutines.push_back(std::make_shared<Coroutine>(test));
+	}
+
+	for (int i = 0; i < sz; ++i) {
+		coroutines[i]->swapIn();
+        DEBUG("back to main Coroutine( {} ) ", Coroutine::GetCoId());
+	}
+	for (int i = 0; i < sz; ++i) {
+		coroutines[i]->swapIn();
+        DEBUG("back to main Coroutine( {} ) ", Coroutine::GetCoId());
+	}
+    DEBUG("All coroutine terminated, sum = {}", sum);
+
+
+	return 0;
 }

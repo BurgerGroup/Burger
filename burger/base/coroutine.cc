@@ -1,229 +1,98 @@
-#include "coroutine.h"
-#include "config.h"
-#include "scheduler.h"
-#include "util.h"
+#include "Coroutine.h"
+#include "Util.h"
+#include "Log.h"
+#include "Config.h"
+
 using namespace burger;
 
-static std::atomic<uint64_t> s_CoId {0};
-static std::atomic<uint64_t> s_CoNum {0};
+static thread_local uint64_t s_coId {0};
+static thread_local uint64_t s_coNum {0};
 
-// t_co is the coroutine currently executing on this thread
-static thread_local Coroutine* t_co = nullptr;
-static thread_local Coroutine::ptr t_main_thread_co = nullptr;  // 这个是调度协程
+static size_t g_coStackSize = Config::Instance().getSize("coroutine", "stackSize", 1024*1024);
 
-static size_t g_coStackSize = Config::Instance().getSize("coroutine", "stackSize", 1024 * 1024);  
-// todo: 这直接写死了1M，如何像libgo一样动态
-// static size_t coPoolSize
-
-
-// todo : RAII
 class MallocStackAllocator {
 public:
     static void* Alloc(size_t size) {
         return malloc(size);
     }
-
-    static void Dealloc(void* vp, size_t size) {  // todo 
+    static void Dealloc(void* vp, size_t size) {
         return free(vp);
-    }
+    }  
 };
 
 using StackAllocator = MallocStackAllocator;
 
-// Create a Coroutine for the currently executing thread
-// No other Coroutine object represents the currently executing thread
-// state() == EXEC
-Coroutine::Coroutine() {
-    // coId_ = ++s_CoId;
-    state_ = State::EXEC;
-    SetThis(this);
-    ++s_CoNum;
-    DEBUG("Coroutine:Coroutine sched co");
+Coroutine::Coroutine(const Callback& cb, std::string name, size_t stackSize)
+    : coId_(++s_coId),
+    state_(State::EXEC),
+    name_(name + "-" +std::to_string(coId_)),
+    cb_(cb) {
+    ++s_coNum;
+    stackSize_ = stackSize? stackSize : g_coStackSize;
+    stack_ = StackAllocator::Alloc(stackSize_);
+    if(!stack_) {
+        ERROR("malloc error");
+    }
+    ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::RunInCo);
 }
 
-// 有参构造才是真正创建协程
-Coroutine::Coroutine(const CallBack& cb, size_t stackSize, bool mainSched)
-    : coId_(++s_CoId),
-    callback_(cb) {
-    ++s_CoNum;
-    stackSize_ = static_cast<uint32_t>(stackSize? stackSize : g_coStackSize);
-    // std::cout << "stackSize_" << stackSize_ << std::endl; // for test
-    stack_ = StackAllocator::Alloc(stackSize_);
-
-    if(!mainSched) {
-        ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::MainFunc);
-    } else {
-        ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::CallMainFunc);
-    }
-    DEBUG("Coroutine::Coroutine coId = {}", coId_);
+Coroutine::Coroutine()
+    : coId_(++s_coId),
+    state_(State::EXEC),
+    name_("Main -" + std::to_string(coId_)) {
+    ++s_coNum;
+    DEBUG("MAIN Coroutine ctor, coId = {}", s_coId);
 }
 
 Coroutine::~Coroutine() {
-    --s_CoNum;
+    --s_coNum;
     if(stack_) {
-        BURGER_ASSERT(state_ == State::TERM 
-            || state_ == State::EXCEPT 
-            || state_ == State::INIT);
-        StackAllocator::Dealloc(stack_, stackSize_);    
-    } else {  // main co
-        BURGER_ASSERT(!callback_);
-        BURGER_ASSERT(state_ == State::EXEC);
-        Coroutine* cur = t_co;
-        if(cur == this) {
-            SetThis(nullptr);
-        }
+        StackAllocator::Dealloc(stack_, stackSize_);
     }
-    DEBUG("Coroutine::~Coroutine coId = {} total = {}", coId_, s_CoNum );
+    DEBUG("Coroutine::~Coroutine coId = {} total = {}", coId_, s_coNum);
 }
 
-// 重置协程函数，并重置状态
-// 当出问题或者执行完reset执行下一个，避免多余内存分配
-// pre: INIT, TERM, EXCEPT
-// post : INIT
-void Coroutine::reset(CallBack cb) {
-    BURGER_ASSERT(stack_);
-    BURGER_ASSERT(state_ == State::TERM 
-        || state_ == State::EXCEPT 
-        || state_ == State::INIT);
-    callback_ = cb;
-    ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::MainFunc);
-    state_ = State::INIT;
+// 挂起当前正在执行的协程，切换到主协程执行，必须在非主协程调用
+void Coroutine::SwapOut() {
+	assert(GetCurCo() != nullptr);
+    // 必须在非主协程调用
+	if (GetCurCo() == GetMainCo()) {
+		return;
+	}
+    // 此处可以用智能指针否
+    Coroutine* curCo = GetCurCo().get();
+	GetCurCo() = GetMainCo();
+    jump_fcontext(&curCo->ctx_, GetMainCo()->ctx_, 0);
 }
-
-// 当前协程切换到运行状态
+// 挂起主协程，执行当前协程，只能在主协程调用
 void Coroutine::swapIn() {
-    SetThis(this);  // 先将此协程设置成当前协程
-    BURGER_ASSERT(state_ != State::EXEC); 
-    state_ = State::EXEC;
-    // jump_fcontext(&Scheduler::GetSchedCo()->ctx_, ctx_, 0);
-    jump_fcontext(&t_main_thread_co->ctx_, ctx_, 0);
+    if(state_ == State::TERM) return;
+    GetCurCo() = shared_from_this();
+    jump_fcontext(&GetMainCo()->ctx_, ctx_, 0);
 }
 
-// 将当前线程切换到后台
-void Coroutine::swapOut() {
-    SetThis(Scheduler::GetSchedCo());
-    jump_fcontext(&ctx_, t_main_thread_co->ctx_, 0);
-    // jump_fcontext(&ctx_, Scheduler::GetSchedCo()->ctx_, 0);
-}
-
-// 当前线程切换到执行状态
-// pre: 执行的为当前线程的主协程
-void Coroutine::call() {
-    SetThis(this);
-    assert(state_ != State::EXEC);
-    state_ = State::EXEC;
-    jump_fcontext(&t_main_thread_co->ctx_, ctx_, 0);  // todo if check
-}
-
-// 当前线程切换到后台
-// pre : 执行的为该协程
-// 返回到现成的主协程
-void Coroutine::back() {
-    SetThis(t_main_thread_co.get());
-    jump_fcontext(&ctx_, t_main_thread_co->ctx_, 0);
-}
-
-// 设置协程为运行协程
-void Coroutine::SetThis(Coroutine* co) {
-    t_co = co;
-}
-
-// 返回当前所在的协程
-// 如果没有的话那么创建一个调度协程，由无参ctor构造
-// 
-Coroutine::ptr Coroutine::GetThis() {
-    if(t_co) {
-        return t_co->shared_from_this();
-    }
-    Coroutine::ptr schedCo = std::make_shared<Coroutine>();
-    // 构造的时候就把当前t_co设置成为了schedCo
-    BURGER_ASSERT(t_co == schedCo.get());
-    t_main_thread_co = schedCo;  // 调度协程设置为这个第一次创建的
-    return t_co->shared_from_this();
-}
-
-// 协程让出，设置为ready
-void Coroutine::YieldToReady() {
-    Coroutine::ptr cur = GetThis();
-    BURGER_ASSERT(cur->state_ == State::EXEC);
-    cur->state_ = State::READY;
-    cur->swapOut();
-}
-
-void Coroutine::YieldToHold() {
-    Coroutine::ptr cur = GetThis();
-    BURGER_ASSERT(cur->state_ == State::EXEC);
-    cur->state_ = State::HOLD;  // todo: race condition -- how to solve
-    cur->swapOut();
-}
-
-uint64_t Coroutine::getCoNums() {
-    return s_CoNum;
-}
-
-// 此两个函数可以优化
-
-// 执行完成返回到线程主协程
-void Coroutine::MainFunc(intptr_t vp) {
-    Coroutine::ptr cur = GetThis();
-    BURGER_ASSERT(cur);
-    try {
-        cur->callback_();
-        cur->callback_ = nullptr;
-        cur->state_ = State::TERM;
-    } catch(std::exception& ex) {
-        cur->state_ = State::EXCEPT;
-        ERROR("Coroutine Except : {} coId = {} \n {}",
-             ex.what(), cur->getCoId(), util::BacktraceToString());
-    } catch(...) {
-        cur->state_ = State::EXCEPT;
-        ERROR("Coroutine Except coID = {} \n {}", 
-            cur->getCoId(), util::BacktraceToString());
-    }
-    auto rawPtr = cur.get();
-    cur.reset();
-    rawPtr->swapOut();
-    BURGER_ASSERT2(false, "never reach coId = " + std::to_string(rawPtr->getCoId()));
-}
-
-// 执行完成返回到线程调度协程
-void Coroutine::CallMainFunc(intptr_t vp) {
-    Coroutine::ptr cur = GetThis();
-    BURGER_ASSERT(cur);
-    try {
-        cur->callback_();
-        cur->callback_ = nullptr;
-        cur->state_ = State::TERM;
-    } catch(std::exception& ex) {
-        cur->state_ = State::EXCEPT;
-        ERROR("Coroutine Except : {} coId = {} \n {}",
-             ex.what(), cur->getCoId(), util::BacktraceToString());
-    } catch(...) {
-        cur->state_ = State::EXCEPT;
-        ERROR("Coroutine Except coID = {} \n {}", 
-            cur->getCoId(), util::BacktraceToString());
-    }
-    auto rawPtr = cur.get();  // todo: why use raw ptr
-    cur.reset();
-    rawPtr->back();  // todo : 这里切换回去，避免内存泄漏
-    BURGER_ASSERT2(false, "never reach coId = " + std::to_string(rawPtr->getCoId()));
-}
-
-// 获取当前协程id
 uint64_t Coroutine::GetCoId() {
-    if(t_co) {
-        return t_co->getCoId();
-    }
-    return 0;
+    assert(GetCurCo() != nullptr);
+	return GetCurCo()->coId_;
 }
 
+Coroutine::ptr& Coroutine::GetCurCo() {
+	//第一个协程对象调用swapIn()时初始化
+    // todo : 写在外面或许更好?
+	static thread_local Coroutine::ptr t_curCo;
+	return t_curCo;
+}
 
+Coroutine::ptr Coroutine::GetMainCo() {
+    static thread_local Coroutine::ptr t_main_co = std::make_shared<Coroutine>();
+	return t_main_co;
+}
 
-
-
-
-
- 
-
-
+void Coroutine::RunInCo(intptr_t vp) {
+    Coroutine::ptr cur = GetCurCo();
+	cur->cb_();
+    cur->cb_ = nullptr;
+	cur->setState(State::TERM);
+	Coroutine::SwapOut();   	//重新返回主协程
+}
 

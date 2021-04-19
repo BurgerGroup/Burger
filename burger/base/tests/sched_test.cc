@@ -9,7 +9,7 @@ void test_co() {
 
     sleep(1);
     if(--s_count >= 0) {
-        Scheduler::GetThis()->schedule(&test_co, util::gettid());
+        Scheduler::GetSched()->schedule(&test_co, util::tid());
     }
 }
 

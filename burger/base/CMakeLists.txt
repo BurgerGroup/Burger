@@ -9,8 +9,8 @@ set(base_SRCS
   StringUtil.cc 
   Config.cc
   Env.cc
-  coroutine.cc
-  scheduler.cc
+  Coroutine.cc
+  # scheduler.cc
   fcontext/fcontext.S 
   fcontext/jump_x86_64_sysv_elf_gas.S
   fcontext/make_x86_64_sysv_elf_gas.S

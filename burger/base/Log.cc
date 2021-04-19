@@ -5,7 +5,7 @@
 using namespace burger;
 
 // suppot for coid
-class my_formatter_flag : public spdlog::custom_flag_formatter {
+class co_formatter_flag : public spdlog::custom_flag_formatter {
 public:
     void format(const spdlog::details::log_msg &, const std::tm &, spdlog::memory_buf_t &dest) override {
         std::string coId = std::to_string(util::getCoId());  // todo : 可以优化吗 
@@ -13,7 +13,7 @@ public:
     }
 
     std::unique_ptr<custom_flag_formatter> clone() const override {
-        return spdlog::details::make_unique<my_formatter_flag>();
+        return spdlog::details::make_unique<co_formatter_flag>();
     }
 };
 
@@ -54,7 +54,7 @@ bool Logger::init(const std::string& filePath,
         
 
         auto formatter = util::make_unique<spdlog::pattern_formatter>();
-        formatter->add_flag<my_formatter_flag>('*').set_pattern("%Y-%m-%d %H:%M:%S [%l] [tid : %t] [%s : %# <%!>] [coId : %*] %v");
+        formatter->add_flag<co_formatter_flag>('*').set_pattern("%Y-%m-%d %H:%M:%S [%l] [tid : %t] [%s : %# <%!>] [coId : %*] %v");
         // logger->set_pattern("%Y-%m-%d %H:%M:%S [%l] [tid : %t] [%s : %# <%!>] %v");
         // spdlog::set_formatter();
         logger->set_formatter(std::move(formatter));
