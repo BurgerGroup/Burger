@@ -21,33 +21,33 @@ public:
         TERM   // 运行结束
     };
     // why can't define private??
-	Coroutine();
-	Coroutine(const Callback& cb, std::string name = "anonymous", size_t stackSize = 0);
-	~Coroutine();
+    Coroutine();
+    Coroutine(const Callback& cb, std::string name = "anonymous", size_t stackSize = 0);
+    ~Coroutine();
 
-	static void SwapOut();  //切换到当前线程的主协程
-	void swapIn(); //执行当前协程
-	Callback getCallback() { return cb_; }
-	std::string name() const { return name_; };
-	void setState(State state) { state_ = state; };
-	State getState() { return state_; }
+    static void SwapOut();  //切换到当前线程的主协程
+    void swapIn(); //执行当前协程
+    Callback getCallback() { return cb_; }
+    std::string name() const { return name_; };
+    void setState(State state) { state_ = state; };
+    State getState() { return state_; }
 
     uint64_t getCoId() const { return coId_; }
-	static uint64_t GetCoId();
-	static Coroutine::ptr& GetCurCo();
-	static Coroutine::ptr GetMainCo();
+    static uint64_t GetCoId();
+    static Coroutine::ptr& GetCurCo();
+    static Coroutine::ptr GetMainCo();
 	
 private:
 
-	static void RunInCo(intptr_t vp);
+    static void RunInCo(intptr_t vp);
 
-	uint64_t coId_;
-	size_t stackSize_ = 0; 
-	State state_;
-	std::string name_;
-	fcontext_t ctx_;
+    uint64_t coId_;
+    size_t stackSize_ = 0; 
+    State state_;
+    std::string name_;
+    fcontext_t ctx_;
     void* stack_ = nullptr;
-	Callback cb_ = nullptr;
+    Callback cb_ = nullptr;
 };
 
 } // namespace burger
