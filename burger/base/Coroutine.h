@@ -28,17 +28,16 @@ public:
     static void SwapOut();  //切换到当前线程的主协程
     void swapIn(); //执行当前协程
     Callback getCallback() { return cb_; }
-    std::string name() const { return name_; };
+    std::string getName() const { return name_; };
     void setState(State state) { state_ = state; };
     State getState() { return state_; }
 
     uint64_t getCoId() const { return coId_; }
     static uint64_t GetCoId();
-    static Coroutine::ptr& GetCurCo();
+    static Coroutine::ptr GetCurCo();
     static Coroutine::ptr GetMainCo();
-	
+    static void SetThisCo(Coroutine* co); // 色湖之当前线程的运行协程
 private:
-
     static void RunInCo(intptr_t vp);
 
     uint64_t coId_;

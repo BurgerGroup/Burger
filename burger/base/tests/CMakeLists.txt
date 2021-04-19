@@ -35,5 +35,7 @@
 add_executable(Coroutine_test Coroutine_test.cc)
 target_link_libraries(Coroutine_test burger_base)
 
+add_executable(co_single_thrd_test co_single_thrd_test.cc)
+target_link_libraries(co_single_thrd_test burger_base)
 
 

@@ -5,8 +5,11 @@
 
 using namespace burger;
 
-static thread_local uint64_t s_coId {0};
-static thread_local uint64_t s_coNum {0};
+static thread_local Coroutine* t_co = nullptr;
+static thread_local Coroutine::ptr t_main_co = nullptr;
+
+static std::atomic<uint64_t> s_coId {0};
+static std::atomic<uint64_t> s_coNum {0};
 
 static size_t g_coStackSize = Config::Instance().getSize("coroutine", "stackSize", 1024*1024);
 
@@ -29,11 +32,13 @@ Coroutine::Coroutine(const Callback& cb, std::string name, size_t stackSize)
     cb_(cb) {
     ++s_coNum;
     stackSize_ = stackSize? stackSize : g_coStackSize;
+    assert(stackSize_ > 0);
     stack_ = StackAllocator::Alloc(stackSize_);
     if(!stack_) {
         ERROR("malloc error");
     }
     ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::RunInCo);
+    DEBUG("Coroutine ctor, coId = {}", s_coId);
 }
 
 Coroutine::Coroutine()
@@ -41,51 +46,75 @@ Coroutine::Coroutine()
     state_(State::EXEC),
     name_("Main -" + std::to_string(coId_)) {
     ++s_coNum;
+    SetThisCo(this);
     DEBUG("MAIN Coroutine ctor, coId = {}", s_coId);
 }
 
 Coroutine::~Coroutine() {
     --s_coNum;
     if(stack_) {
+        std::cout << coId_ << std::endl;
+        BURGER_ASSERT(state_ == State::TERM);
         StackAllocator::Dealloc(stack_, stackSize_);
+    } else {
+        BURGER_ASSERT(!cb_);
+        BURGER_ASSERT(state_ == State::EXEC);
+        Coroutine* cur = t_co;
+        if(cur == this) {
+            SetThisCo(nullptr);
+        }
     }
     DEBUG("Coroutine::~Coroutine coId = {} total = {}", coId_, s_coNum);
 }
 
 // 挂起当前正在执行的协程，切换到主协程执行，必须在非主协程调用
 void Coroutine::SwapOut() {
-    assert(GetCurCo() != nullptr);
     // 必须在非主协程调用
-    if (GetCurCo() == GetMainCo()) {
-	return;
+    if (GetCurCo() == t_main_co) {
+	    return;
     }
-    // 此处可以用智能指针否
-    Coroutine* curCo = GetCurCo().get();
-    GetCurCo() = GetMainCo();
-    jump_fcontext(&curCo->ctx_, GetMainCo()->ctx_, 0);
+    // jump 切换不回来，如果此处用智能指针将无法释放
+    // Coroutine* curCo = GetCurCo().get();
+    Coroutine* curCo = t_co;
+    SetThisCo(t_main_co.get());
+    jump_fcontext(&curCo->ctx_, t_main_co->ctx_, 0);
 }
 // 挂起主协程，执行当前协程，只能在主协程调用
 void Coroutine::swapIn() {
+    SetThisCo(this);
     if(state_ == State::TERM) return;
-    GetCurCo() = shared_from_this();
     jump_fcontext(&GetMainCo()->ctx_, ctx_, 0);
 }
 
 uint64_t Coroutine::GetCoId() {
-    assert(GetCurCo() != nullptr);
-    return GetCurCo()->coId_;
+    if(t_co) {
+        return t_co->getCoId();
+    }
+    return 0;
 }
 
-Coroutine::ptr& Coroutine::GetCurCo() {
-    //第一个协程对象调用swapIn()时初始化
-    // todo : 写在外面或许更好?
-    static thread_local Coroutine::ptr t_curCo;
-    return t_curCo;
+Coroutine::ptr Coroutine::GetCurCo() {
+    if(t_co) {
+        return t_co->shared_from_this();
+    }
+    // 当前无co的时候，创建一个无参的主协程
+    Coroutine::ptr mainCo = std::make_shared<Coroutine>();
+    assert(t_co == mainCo.get());
+    t_main_co = mainCo;
+    return t_co->shared_from_this();
 }
 
 Coroutine::ptr Coroutine::GetMainCo() {
-    static thread_local Coroutine::ptr t_main_co = std::make_shared<Coroutine>();
+    if(t_main_co) {
+        return t_main_co;
+    }
+    Coroutine::ptr mainCo = std::make_shared<Coroutine>();
+    t_main_co = mainCo;
     return t_main_co;
+}
+
+void Coroutine::SetThisCo(Coroutine* co) {
+    t_co = co;
 }
 
 void Coroutine::RunInCo(intptr_t vp) {
@@ -93,6 +122,8 @@ void Coroutine::RunInCo(intptr_t vp) {
     cur->cb_();
     cur->cb_ = nullptr;
     cur->setState(State::TERM);
+    // std::cout << cur.use_count() << std::endl;
+    cur.reset();  // 防止无法析构
     Coroutine::SwapOut();   	//重新返回主协程
 }
 
