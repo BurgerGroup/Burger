@@ -1,7 +1,46 @@
 #include "Config.h"
-
+#include <unistd.h>
 namespace burger {
-namespace compute {
+
+Config& Config::Instance(const std::string& relativePath) {
+    static Config conf(relativePath);
+    return conf;
+}
+
+int Config::getInt(const std::string& section, const std::string& search, int defaultVal) {
+    std::string expression = reader_->Get(section, search, std::to_string(defaultVal));
+    // return reader_->GetInteger(section, search, defaultVal);
+    return detail::getIntFromStringExpression(std::move(expression));
+}
+
+size_t Config::getSize(const std::string& section, const std::string& search, int defaultVal) {
+    return static_cast<size_t>(getInt(section, search, defaultVal));
+}
+
+std::string Config::getString(const std::string& section, const std::string& search, const std::string& defaultVal) {
+    return reader_->Get(section, search, defaultVal);
+}
+
+bool Config::getBool(const std::string& section, const std::string& search, bool defaultVal) {
+    return reader_->GetBoolean(section, search, defaultVal);
+}
+
+double Config::getDouble(const std::string& section, const std::string& search, double defaultVal) {
+    return reader_->GetDouble(section, search, defaultVal);
+}
+
+// todo: 这种方式不够好，修改灵活点，不要写死,或者写一个setConfigFile()
+Config::Config(const std::string& relativePath)
+    : relativePath_(relativePath) {
+    std::string filePath = detail::getFilePath() + relativePath_;
+    // printf("%s\n", filePath.c_str());   // for test
+    reader_ = util::make_unique<INIReader>(filePath);
+    if(reader_->ParseError() != 0) {
+        ERROR("Can't load config file");
+    }
+}
+
+namespace detail {
 
 int getPriority(const char& ch) {
     if(ch == '+' || ch == '-') return 1;
@@ -102,47 +141,29 @@ int getIntFromStringExpression(const std::string& expression) {
         }
         else {
             nums.push(atoi(str.c_str()));
-        }
+        }       
     }
     return nums.top();
 }
-}
 
-Config& Config::Instance() {
-    static Config conf;
-    return conf;
-}
 
-int Config::getInt(const std::string& section, const std::string& search, int defaultVal) {
-    std::string expression = reader_->Get(section, search, std::to_string(defaultVal));
-    // return reader_->GetInteger(section, search, defaultVal);
-    return compute::getIntFromStringExpression(std::move(expression));
-}
-
-size_t Config::getSize(const std::string& section, const std::string& search, int defaultVal) {
-    return static_cast<size_t>(getInt(section, search, defaultVal));
-}
-
-std::string Config::getString(const std::string& section, const std::string& search, const std::string& defaultVal) {
-    return reader_->Get(section, search, defaultVal);
-}
-
-bool Config::getBool(const std::string& section, const std::string& search, bool defaultVal) {
-    return reader_->GetBoolean(section, search, defaultVal);
-}
-
-double Config::getDouble(const std::string& section, const std::string& search, double defaultVal) {
-    return reader_->GetDouble(section, search, defaultVal);
-}
-
-// todo: 这种方式不够好，修改灵活点，不要写死,或者写一个setConfigFile()
-Config::Config() {
-
-    std::string filePath = "./config/conf.ini";
-
-    reader_ = util::make_unique<INIReader>(filePath);
-    if(reader_->ParseError() != 0) {
-        ERROR("Can't load config file");
+std::string getFilePath() {
+    char buffer[1024];   
+    if(!getcwd(buffer, sizeof(buffer))) {
+        ERROR("Can't get current work directory.")
+        return "";
     }
+
+    std::string path(buffer);
+    std::string mainPath("Burger");
+    size_t idx = path.rfind(mainPath);
+    if(idx == path.npos) {
+        ERROR("Can't get 'Burger' directory.")
+        return "";
+    }
+
+    path.resize(idx + mainPath.size());
+    return path;
 }
+}  // detail
 } // burger
