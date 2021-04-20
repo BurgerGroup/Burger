@@ -4,6 +4,7 @@
 #include "Channel.h"
 namespace burger {
 namespace net {
+
 namespace detail {
 
 int createTimerfd() {
@@ -60,6 +61,10 @@ void resetTimerfd(int timerfd, Timestamp expiration) {
 using namespace burger;
 using namespace burger::net;
 using namespace burger::net::detail;
+
+TimerQueue::TimerQueue()
+    : timerfd_(createTimerfd()) {
+}
 
 TimerQueue::TimerQueue(EventLoop* loop):
     loop_(loop),

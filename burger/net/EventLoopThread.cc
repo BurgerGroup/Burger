@@ -23,6 +23,7 @@ EventLoop* EventLoopThread::startLoop() {
     // https://stackoverflow.com/questions/23594244/is-there-a-safe-way-to-have-a-stdthread-as-a-member-of-a-class/
     thread_ = std::thread{&EventLoopThread::threadFunc, this};
     // 这里启动了一个新线程执行threadFunc，旧线程继续在这执行，两者顺序不一定
+    // todo : 这里为何如此
     EventLoop* loop = nullptr;
     {
         std::unique_lock<std::mutex> lock(mutex_);

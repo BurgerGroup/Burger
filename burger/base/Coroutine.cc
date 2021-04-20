@@ -53,7 +53,6 @@ Coroutine::Coroutine()
 Coroutine::~Coroutine() {
     --s_coNum;
     if(stack_) {
-        std::cout << coId_ << std::endl;
         BURGER_ASSERT(state_ == State::TERM);
         StackAllocator::Dealloc(stack_, stackSize_);
     } else {
@@ -122,7 +121,6 @@ void Coroutine::RunInCo(intptr_t vp) {
     cur->cb_();
     cur->cb_ = nullptr;
     cur->setState(State::TERM);
-    // std::cout << cur.use_count() << std::endl;
     cur.reset();  // 防止无法析构
     Coroutine::SwapOut();   	//重新返回主协程
 }

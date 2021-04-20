@@ -32,10 +32,11 @@ target_link_libraries(log_test burger_base)
 # add_executable(env_test env_test.cc)
 # target_link_libraries(env_test burger_base)
 
-add_executable(Coroutine_test Coroutine_test.cc)
-target_link_libraries(Coroutine_test burger_base)
+add_executable(Coroutine_test01 Coroutine_test01.cc)
+target_link_libraries(Coroutine_test01 burger_base)
 
-add_executable(co_single_thrd_test co_single_thrd_test.cc)
-target_link_libraries(co_single_thrd_test burger_base)
+add_executable(Coroutine_test02 Coroutine_test02.cc)
+target_link_libraries(Coroutine_test02 burger_base)
 
-
+add_executable(Coroutine_test03 Coroutine_test03.cc)
+target_link_libraries(Coroutine_test03 burger_base)

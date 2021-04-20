@@ -1,13 +1,3 @@
-// Copyright 2010, Shuo Chen.  All rights reserved.
-// http://code.google.com/p/muduo/
-//
-// Use of this source code is governed by a BSD-style license
-// that can be found in the License file.
-
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
-
-// Taken from Muduo and modified
-
 #ifndef TIMER_H
 #define TIMER_H
 
@@ -19,12 +9,15 @@
 namespace burger {
 namespace net {
 
+class Coroutine;
+class Processor;
 // internal class for time event
 // timerfd_create, setime都没操作，只是高层次抽象
 class Timer : boost::noncopyable {
 public:
     // when何时执行任务 
     Timer(TimerCallback timercb, Timestamp when, double interval);
+    Timer(std::shared_ptr<Coroutine> co, Processor* proc, Timestamp when, double interval);
     void run() const { timercb_(); } 
     // 重置任务，主要是针对需要重复执行的任务
     void restart(Timestamp now);
@@ -36,6 +29,8 @@ public:
 private:
     const TimerCallback timercb_;
     Timestamp expiration_; // 下一次的超时时刻
+    Processor* proc_;
+    std::shared_ptr<Coroutine> co_;
     const double interval_; // 超时时间间隔，如果是一次性定时器，该值为0
     const bool repeat_;    // 是否重复
     const uint64_t seq_;     // 定时器序号

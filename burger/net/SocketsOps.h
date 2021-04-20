@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <string>
+#include <sys/eventfd.h>
 
 namespace burger {
 namespace net {
@@ -51,6 +52,9 @@ std::string toIpStr(const struct sockaddr_in* addr);
 struct sockaddr_in getLocalAddr(int sockfd);
 struct sockaddr_in getPeerAddr(int sockfd);
 bool isSelfConnect(int sockfd);
+
+int createEventfd();
+
 
 } // namespace sockets
 } // namespace net
