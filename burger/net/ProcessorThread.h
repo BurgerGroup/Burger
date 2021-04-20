@@ -16,18 +16,18 @@ class Processor;
 // todo : EventLoopThread
 class ProcessThread :public boost::noncopyable {
 public:
-	using ptr = std::shared_ptr<ProcessThread>;
+    using ptr = std::shared_ptr<ProcessThread>;
 
-	ProcessThread(Scheduler* scheduler);
-	~ProcessThread();
+    ProcessThread(Scheduler* scheduler);
+    ~ProcessThread();
 
-	Processor* startProcess();
+    Processor* startProcess();
 
 private:
-	void threadFunc();
-	std::thread thread_;	
-	Scheduler* scheduler_;
-	Processor* proc_ = nullptr;
+    void threadFunc();
+    std::thread thread_;	
+    Scheduler* scheduler_;
+    Processor* proc_ = nullptr;
     std::mutex mutex_;
     std::condition_variable cv_;
 };
