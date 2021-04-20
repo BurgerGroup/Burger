@@ -1,8 +1,13 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+
 #include <string>
 #include <memory>
+#include <stack>
+#include <map>
+#include <queue>
+#include <algorithm>
 #include "Singleton.h"
 #include "ini/ini.h"
 #include "Env.h"
@@ -10,6 +15,16 @@
 #include "Log.h"
 
 namespace burger {
+
+namespace compute {
+
+bool isDigit(char ch);
+int getIntFromStringExpression(const std::string&);
+int getPriority(const char& ch);
+bool isOperator(const std::string& str);
+int calculate(int left, int right, const std::string& op);
+
+} // namespace compute
     
 // todo : 类型 -- 泛型
 // todo:  getSize 优化
