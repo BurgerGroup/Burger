@@ -14,7 +14,7 @@ Processor::Processor(Scheduler* scheduler)
     epoll_(util::make_unique<CoEpoll>(this)),
     eventFd_(sockets::createEventfd()) {
 	// 当有新事件来时唤醒Epoll 协程
-    addTask([&](){
+    addTask([&]() {
         while (!stop_) {
             if (comsumeWakeEvent() < 0) {
                 ERROR("read eventfd : {}", strerror_tl(errno));
@@ -22,12 +22,12 @@ Processor::Processor(Scheduler* scheduler)
             }
         }
     }, "Wake");
-    // GetCurCo(); todo need this?
+    GetCurCo();  // todo need this?
 }
 
 void Processor::run() {
 	if (GetProcesserOfThisThread() != nullptr) {
-        CRITICAL("Run two processers in one thread");
+    	CRITICAL("Run two processers in one thread");
 	} else {
 		GetProcesserOfThisThread() = this;
 	}
