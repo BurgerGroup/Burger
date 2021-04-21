@@ -1,13 +1,3 @@
-  // Copyright 2010, Shuo Chen.  All rights reserved.
-// http://code.google.com/p/muduo/
-//
-// Use of this source code is governed by a BSD-style license
-// that can be found in the License file.
-
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
-
-// Taken from Muduo and modified
-
 #ifndef TIMERQUEUE_H
 #define TIMERQUEUE_H
 
@@ -31,6 +21,7 @@ class Channel;
 // No guarantee that the callback will be on time
 class TimerQueue : boost::noncopyable {
 public:
+    TimerQueue();  // for co
     explicit TimerQueue(EventLoop* loop);
     ~TimerQueue();
     // 一定线程安全，可以跨线程调用，通常情况下被其他线程调用

@@ -32,6 +32,10 @@ int main() {
 		coroutines[i]->swapIn();
         DEBUG("back to main Coroutine( {} ) ", Coroutine::GetCoId());
 	}
+	for (int i = 0; i < sz; ++i) {
+		coroutines[i]->swapIn();
+        DEBUG("back to main Coroutine( {} ) ", Coroutine::GetCoId());
+	}
     DEBUG("All coroutine terminated, sum = {}", sum);
 
 	return 0;

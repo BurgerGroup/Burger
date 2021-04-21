@@ -2,6 +2,7 @@
 #include "Epoll.h"
 #include "TimerId.h"
 #include "TimerQueue.h"
+#include "SocketsOps.h"
 #include "Channel.h"
 #include <signal.h>
 
@@ -12,16 +13,6 @@ namespace {
 thread_local EventLoop* t_loopInthisThread = nullptr;
 
 const int kEpollTimesMs = 10000;  // epoll 超时10 s
-
-int createEventfd() {
-    int efd = ::eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
-    if(efd < 0) {
-        ERROR("Failed in eventfd");
-        abort();
-    }
-    return efd;
-}
-
 
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 class IgnoreSigPipe {
@@ -34,22 +25,7 @@ public:
 #pragma GCC diagnostic error "-Wold-style-cast"
 IgnoreSigPipe initObj;
 
-// // 和IgnoreSigPipe一样再全局中init
-// class Log {
-// public:
-//     Log() {
-//         if (!Logger::Instance().init("log", "logs/test.log", spdlog::level::trace)) {
-//             ERROR("Logger init error");
-// 	    } else {
-//             TRACE("Logger setup");
-//         }
-//     }
-// };
-
-// Log initLog;
-
 }  // namespace
-
 
 
 EventLoop::EventLoop() : 
@@ -60,7 +36,7 @@ EventLoop::EventLoop() :
     threadId_(util::tid()),
     epoll_(util::make_unique<Epoll>(this)),
     timerQueue_(util::make_unique<TimerQueue>(this)),
-    wakeupFd_(createEventfd()),
+    wakeupFd_(sockets::createEventfd()),
     wakeupChannel_(util::make_unique<Channel>(this, wakeupFd_)),
     currentActiveChannel_(nullptr),
     threadLocalLoopPtr_(&t_loopInthisThread) {

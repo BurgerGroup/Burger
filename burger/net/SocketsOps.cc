@@ -199,3 +199,13 @@ bool sockets::isSelfConnect(int sockfd) {
         && localaddr.sin_addr.s_addr == peeraddr.sin_addr.s_addr;
 }
 
+// create a file descriptor for event notification
+// 主要是用于进程或者线程间的通信(如通知/等待机制的实现)。
+int sockets::createEventfd() {
+    int efd = ::eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
+    if(efd < 0) {
+        ERROR("Failed in eventfd");
+        abort();
+    }
+    return efd;
+}
