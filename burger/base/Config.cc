@@ -36,7 +36,7 @@ Config::Config(const std::string& relativePath)
     // printf("%s\n", filePath.c_str());   // for test
     reader_ = util::make_unique<INIReader>(filePath);
     if(reader_->ParseError() != 0) {
-        ERROR("Can't load config file");
+        ERROR("Can't load config file at: {}", filePath);
     }
 }
 
