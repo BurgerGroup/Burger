@@ -63,6 +63,7 @@ private:
     std::set<std::shared_ptr<Timer> > cancelingTimers_;    // 保存的是取消的定时器 --- todo 此处数据结构可否优化
     bool callingExpiredTimers_;     // atomic, 是否正在处理超时事件
     std::mutex mutex_;
+    bool mode_;
 };
 
 } // namespace net

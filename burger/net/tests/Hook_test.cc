@@ -8,6 +8,7 @@ using namespace burger::net;
 int main() {
     // todo : sigleton error
     // auto sched = Singleton<Scheduler>::Instance();
+    LOGGER(); LOG_LEVEL_DEBUG;
     auto sched = util::make_unique<Scheduler>();
     sched->addTask([]() {
         DEBUG("before sleep");

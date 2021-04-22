@@ -46,7 +46,7 @@ private:
     // bool quit_ = false;
     size_t threadNum_;
     Processor mainProc_;
-    std::vector<Processor *> workProcVec_;  // unique_ptr here?
+    std::vector<Processor *> workProcVec_;  
     std::vector<std::shared_ptr<ProcessThread> > workThreadVec_;
     //单独一个线程处理定时任务
     Processor* timerProc_;

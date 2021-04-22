@@ -39,6 +39,7 @@ public:
     static void SetThisCo(Coroutine* co); // 色湖之当前线程的运行协程
 private:
     static void RunInCo(intptr_t vp);
+    void checkCurCo();
 
     uint64_t coId_;
     size_t stackSize_ = 0; 

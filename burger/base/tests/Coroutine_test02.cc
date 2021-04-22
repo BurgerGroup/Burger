@@ -17,7 +17,6 @@ void runInCo() {
 void testCo() {
     INFO("main begin -1");
     {
-        Coroutine::GetCurCo();
         INFO("main begin");
         Coroutine::ptr co = std::make_shared<Coroutine>(runInCo);
         co->swapIn();

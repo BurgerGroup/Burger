@@ -29,22 +29,24 @@ Scheduler::Scheduler(size_t threadNum)
     mainProc_(this),
     timerQueue_(util::make_unique<TimerQueue>()) {
     assert(threadNum_ > 0);
+    DEBUG("Scheduler ctor");
     // assert(Processer::GetProcesserOfThisThread() == nullptr);
     workProcVec_.push_back(&mainProc_);
 }
 
 Scheduler::~Scheduler() {
+    DEBUG("Scheduler dtor");
     stop();
 }
 
 void Scheduler::start() {
     if(running_) return;
-    // todo : check = 1 无工作线程?
     for(size_t i = 0; i < threadNum_ - 1; i++) {
         auto procThrd = std::make_shared<ProcessThread>(this);
         workThreadVec_.push_back(procThrd);
         workProcVec_.push_back(procThrd->startProcess());
     }
+    // 能不能不单开timerThread
     timerThread_ = std::make_shared<ProcessThread>(this);
     timerThread_->startProcess()->addTask([&](){
         while(true) {
@@ -90,6 +92,7 @@ void Scheduler::stop() {
 }
 
 void Scheduler::addTask(const Coroutine::Callback& task, std::string name) {
+    DEBUG("add task {}", name);
     Processor* proc = pickOneProcesser();
     assert(proc != nullptr);
     proc->addTask(task, name);

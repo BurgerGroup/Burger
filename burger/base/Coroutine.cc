@@ -30,6 +30,7 @@ Coroutine::Coroutine(const Callback& cb, std::string name, size_t stackSize)
     state_(State::EXEC),
     name_(name + "-" +std::to_string(coId_)),
     cb_(cb) {
+    checkCurCo();
     ++s_coNum;
     stackSize_ = stackSize? stackSize : g_coStackSize;
     assert(stackSize_ > 0);
@@ -55,6 +56,7 @@ Coroutine::~Coroutine() {
     if(stack_) {
         BURGER_ASSERT(state_ == State::TERM);
         StackAllocator::Dealloc(stack_, stackSize_);
+        DEBUG("~Coroutine coId = {} total = {}", coId_, s_coNum);
     } else {
         BURGER_ASSERT(!cb_);
         BURGER_ASSERT(state_ == State::EXEC);
@@ -62,8 +64,9 @@ Coroutine::~Coroutine() {
         if(cur == this) {
             SetThisCo(nullptr);
         }
+        DEBUG("MAIN ~Coroutine coId = {} total = {}", coId_, s_coNum);
     }
-    DEBUG("Coroutine::~Coroutine coId = {} total = {}", coId_, s_coNum);
+    
 }
 
 // 挂起当前正在执行的协程，切换到主协程执行，必须在非主协程调用
@@ -101,6 +104,16 @@ Coroutine::ptr Coroutine::GetCurCo() {
     assert(t_co == mainCo.get());
     t_main_co = mainCo;
     return t_co->shared_from_this();
+}
+
+void Coroutine::checkCurCo() {
+    if(t_co) {
+        return;
+    }
+    // 当前无co的时候，创建一个无参的主协程
+    Coroutine::ptr mainCo = std::make_shared<Coroutine>();
+    assert(t_co == mainCo.get());
+    t_main_co = mainCo;
 }
 
 Coroutine::ptr Coroutine::GetMainCo() {

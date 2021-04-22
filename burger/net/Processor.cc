@@ -18,7 +18,8 @@ Processor::Processor(Scheduler* scheduler)
     : scheduler_(scheduler),
     epoll_(this),
     wakeupFd_(sockets::createEventfd()) {
-	// 当有新事件来时唤醒Epoll 协程
+	DEBUG("Processor ctor");
+	// 当有新事件来时唤醒Epoll 协程(唤醒协程)
     addTask([&]() {
         while (!stop_) {
             if (consumeWakeUp() < 0) {
@@ -27,11 +28,13 @@ Processor::Processor(Scheduler* scheduler)
             }
         }
     }, "Wake");
-    Coroutine::GetCurCo();  // todo need this?
+	
 }
 
 // https://zhuanlan.zhihu.com/p/321947743
-Processor::~Processor() = default;
+Processor::~Processor() {
+	DEBUG("Processor dtor");
+};
 
 void Processor::run() {
 	if (GetProcesserOfThisThread() != nullptr) {
@@ -40,26 +43,20 @@ void Processor::run() {
 		t_proc = this;
 	}
 	setHookEnabled(true);
-	Coroutine::ptr cur;
-
 	//没有可以执行协程时调用epoll协程
 	Coroutine::ptr epollCo = std::make_shared<Coroutine>(std::bind(&CoEpoll::poll, &epoll_, kEpollTimeMs), "Epoll");
-
+	
+	Coroutine::ptr cur;
 	while (!stop_) {
 		{
             std::lock_guard<std::mutex> lock(mutex_);
 			//没有协程时执行epoll协程
-			if (coList_.empty()) {
+			if (coQue_.empty()) {
 				cur = epollCo;
 				epoll_.setEpolling(true);
 			} else {
-                //  todo : 此处可优化
-				for (auto it = coList_.begin();
-				        it != coList_.end(); ++it) {
-					cur = *it;
-					coList_.erase(it);
-					break;
-				}
+				cur = coQue_.front(); 
+				coQue_.pop();
 			}
 		}
 		cur->swapIn();
@@ -78,15 +75,16 @@ void Processor::stop() {
 
 void Processor::addTask(Coroutine::ptr co) {
     std::lock_guard<std::mutex> lock(mutex_);
-    coList_.push_back(co);
+	coQue_.push(co);
     load_++;
+	DEBUG("add task, total task = {}", load_);
     if(epoll_.isEpolling()) {
         wakeupEpollCo();
     }
 }
 
 void Processor::addTask(const Coroutine::Callback& cb, std::string name) {
-    addTask(std::make_shared<Coroutine>(std::move(cb), name));
+    addTask(std::make_shared<Coroutine>(cb, name));
 }
 
 void Processor::updateEvent(int fd, int events, Coroutine::ptr co) {

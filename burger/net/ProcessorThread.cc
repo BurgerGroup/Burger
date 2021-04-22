@@ -12,6 +12,7 @@ ProcessThread::~ProcessThread() {
 }
 
 Processor* ProcessThread::startProcess() {
+    assert(!thread_.joinable());
     thread_ = std::thread{&ProcessThread::threadFunc, this};
     Processor* proc = nullptr;
     {

@@ -66,14 +66,16 @@ using namespace burger::net::detail;
 
 // for co
 TimerQueue::TimerQueue()
-    : timerfd_(createTimerfd()) {
+    : timerfd_(createTimerfd()),
+    mode_(false) {
 }
 
 TimerQueue::TimerQueue(EventLoop* loop):
     loop_(loop),
     timerfd_(createTimerfd()),
     timerfdChannel_(util::make_unique<Channel>(loop, timerfd_)),
-    callingExpiredTimers_(false) {
+    callingExpiredTimers_(false),
+    mode_(true) {
     // 设置Channel的常规步骤
     timerfdChannel_->setReadCallback(std::bind(&TimerQueue::handleRead, this));
     // we are always reading the timerfd, we disarm it with timerfd_settime.
@@ -81,7 +83,7 @@ TimerQueue::TimerQueue(EventLoop* loop):
 }
 
 TimerQueue::~TimerQueue() {
-    if(timerfdChannel_) {
+    if(mode_) {
         timerfdChannel_->disableAll();  // channel不再关注任何事件
         timerfdChannel_->remove();       // 在三角循环中删除此channel
     }
@@ -110,7 +112,7 @@ TimerId TimerQueue::addTimer(Coroutine::ptr co, Processor* proc, Timestamp when,
 }
 
 void TimerQueue::cancel(TimerId timerId) {
-    if(loop_) {
+    if(mode_) {
         loop_->runInLoop(std::bind(&TimerQueue::cancelInLoop, this, timerId));
     } else {
         auto timer = timerId.timer_;
@@ -203,17 +205,31 @@ void TimerQueue::reset(const std::vector<Entry>& expiredList, Timestamp now) {
 }
 
 bool TimerQueue::insert(std::shared_ptr<Timer> timer) {
-    loop_->assertInLoopThread();
     bool earliestChanged = false;
-    Timestamp when = timer->getExpiration();
-    auto it = timers_.begin();
-    // 如果timers_为空或者when小于timers_中最早到期时间
-    if(it == timers_.end() || when < it->first) {
-        earliestChanged = true;
+    if(mode_) {  
+        loop_->assertInLoopThread();
+        Timestamp when = timer->getExpiration();
+        auto it = timers_.begin();
+        // 如果timers_为空或者when小于timers_中最早到期时间
+        if(it == timers_.end() || when < it->first) {
+            earliestChanged = true;
+        }
+        // 注意insert的返回参数， std::pair<iterator,bool>
+        auto res = timers_.insert(Entry(when, timer));
+        assert(res.second);
+    } else {
+        Timestamp when = timer->getExpiration();
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            auto it = timers_.begin();
+            // 如果timers_为空或者when小于timers_中最早到期时间
+            if(it == timers_.end() || when < it->first) {
+                earliestChanged = true;
+            }
+            // 注意insert的返回参数， std::pair<iterator,bool>
+            auto res = timers_.insert(Entry(when, timer));
+        }
     }
-    // 注意insert的返回参数， std::pair<iterator,bool>
-    auto res = timers_.insert(Entry(when, timer));
-    assert(res.second);
     return earliestChanged;
 }
 

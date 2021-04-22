@@ -6,6 +6,7 @@
 #include <list>
 #include <memory>
 #include <functional>
+#include <queue>
 #include "burger/base/Coroutine.h"
 #include "CoEpoll.h"
 
@@ -46,7 +47,8 @@ private:
     // std::unique_ptr<CoEpoll> epoll_; // https://stackoverflow.com/questions/20268482/binding-functions-with-unique-ptr-arguments-to-stdfunctionvoid
 
     int wakeupFd_;
-    std::list<Coroutine::ptr> coList_;
+    std::queue<Coroutine::ptr> coQue_;
+    // std::list<> coList_;
 };
 
 

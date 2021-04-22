@@ -19,7 +19,6 @@ int main() {
     LOGGER(); LOG_LEVEL_DEBUG;
 	const int sz = 5;
 	std::vector<Coroutine::ptr> coroutines;
-	Coroutine::GetCurCo();
 	for (int i = 0; i < sz; ++i) {
 		coroutines.push_back(std::make_shared<Coroutine>(test));
 	}
