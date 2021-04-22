@@ -1,10 +1,12 @@
 #include "TimerQueue.h"
+#include "processor.h"
+
 #include "Timer.h"
 #include "TimerId.h"
 #include "Channel.h"
+
 namespace burger {
 namespace net {
-
 namespace detail {
 
 int createTimerfd() {
@@ -62,6 +64,7 @@ using namespace burger;
 using namespace burger::net;
 using namespace burger::net::detail;
 
+// for co
 TimerQueue::TimerQueue()
     : timerfd_(createTimerfd()) {
 }
@@ -78,8 +81,10 @@ TimerQueue::TimerQueue(EventLoop* loop):
 }
 
 TimerQueue::~TimerQueue() {
-    timerfdChannel_->disableAll();  // channel不再关注任何事件
-    timerfdChannel_->remove();       // 在三角循环中删除此channel
+    if(timerfdChannel_) {
+        timerfdChannel_->disableAll();  // channel不再关注任何事件
+        timerfdChannel_->remove();       // 在三角循环中删除此channel
+    }
     ::close(timerfd_);
 }
 
@@ -91,9 +96,39 @@ TimerId TimerQueue::addTimer(TimerCallback timercb, Timestamp when, double inter
     return TimerId(timer, timer->getSeq());
 }
 
-void TimerQueue::cancel(TimerId timerId) {
-    loop_->runInLoop(std::bind(&TimerQueue::cancelInLoop, this, timerId));
+TimerId TimerQueue::addTimer(Coroutine::ptr co, Processor* proc, Timestamp when, double interval) {
+    Timer::ptr timer = std::make_shared<Timer>(co, proc, when, interval);
+    bool earliestChanged = false;
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        earliestChanged = insert(timer); // 是否将timer插入set首部，比现有队列里的所有的都更早
+    }
+    if(earliestChanged) {   // 如果插入首部，更新timerfd关注的到期时间
+        resetTimerfd(timerfd_, timer->getExpiration());   // 启动定时器
+    }
+    return TimerId(timer, timer->getSeq());
 }
+
+void TimerQueue::cancel(TimerId timerId) {
+    if(loop_) {
+        loop_->runInLoop(std::bind(&TimerQueue::cancelInLoop, this, timerId));
+    } else {
+        auto timer = timerId.timer_;
+        auto cancelTimer = Entry(timer->getExpiration(), timer);
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            if(timers_.find(cancelTimer) != timers_.end()) {
+                size_t n = timers_.erase(cancelTimer);
+                assert(n == 1);
+            } else if(callingExpiredTimers_) {
+                // 不在列表里，说明可能已经到期getExpiered出来了，并且正在调用定时器的回调函数
+                cancelingTimers_.insert(timer);
+            }
+        }
+    }
+}
+
+
 
 void TimerQueue::addTimerInLoop(std::shared_ptr<Timer> timer) {
     loop_->assertInLoopThread();
@@ -180,5 +215,51 @@ bool TimerQueue::insert(std::shared_ptr<Timer> timer) {
     auto res = timers_.insert(Entry(when, timer));
     assert(res.second);
     return earliestChanged;
+}
+
+bool TimerQueue::findFirstTimestamp(const Timestamp& now, Timestamp& ts) {
+    std::lock_guard<std::mutex> lock(mutex_);  // todo : need lock here?
+    if(timers_.empty()) return false;
+    ts = (*timers_.begin()).first;
+    return true;
+}
+
+void TimerQueue::dealWithExpiredTimer() {
+    readTimerfd(timerfd_, Timestamp::now());   // todo : why this here?
+    std::vector<Entry> expiredList;
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        expiredList = getExpiredList(Timestamp::now());
+    }
+    for(const auto& pair : expiredList) {
+        Timer::ptr oldTimer = pair.second;
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            if(cancelingTimers_.find(oldTimer) != cancelingTimers_.end()) {
+                continue;
+            }
+        }
+        assert(oldTimer->getProcessor() != nullptr);
+        oldTimer->getProcessor()->addTask(oldTimer->getCo());
+        if(oldTimer->getInterval() > 0) {
+            Timestamp newTs = Timestamp::now() + oldTimer->getInterval();
+            oldTimer->setExpiration(newTs);
+            // todo : 为啥还要重新设置
+            oldTimer->setCo(std::make_shared<Coroutine>(oldTimer->getCo()->getCallback()));
+            {
+                std::lock_guard<std::mutex> lock(mutex_);
+                timers_.insert({newTs, oldTimer});
+            }
+        } 
+    }
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        cancelingTimers_.clear(); // 优化
+    }
+    Timestamp ts;
+    if(findFirstTimestamp(Timestamp::now(), ts)) {
+        resetTimerfd(timerfd_, ts);
+    }
+    
 }
 

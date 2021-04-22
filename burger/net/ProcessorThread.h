@@ -22,7 +22,8 @@ public:
     ~ProcessThread();
 
     Processor* startProcess();
-
+    void join();
+    
 private:
     void threadFunc();
     std::thread thread_;	

@@ -22,8 +22,12 @@ Processor* ProcessThread::startProcess() {
     return proc;
 }
 
+void ProcessThread::join() {
+    thread_.join();
+}
+
 void ProcessThread::threadFunc() {
-    Processor proc;
+    Processor proc(scheduler_);
     {
         std::lock_guard<std::mutex> lock(mutex_);
         proc_ = &proc;

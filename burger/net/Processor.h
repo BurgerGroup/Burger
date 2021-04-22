@@ -4,19 +4,23 @@
 #include <boost/noncopyable.hpp>
 #include <mutex>
 #include <list>
-#include "Coroutine.h"
+#include <memory>
+#include <functional>
+#include "burger/base/Coroutine.h"
+#include "CoEpoll.h"
 
 namespace burger {
 namespace net {
 
-class Epoll;
+class CoEpoll;
 class Scheduler;
+
 class Processor : boost::noncopyable {
 public:
     using ptr = std::shared_ptr<Processor>;
 
     Processor(Scheduler* scheduler);
-    virtual ~Processor() {}
+    virtual ~Processor();
 
     virtual void run();
     void stop();
@@ -25,22 +29,23 @@ public:
     Scheduler* getScheduler() { return scheduler_; }
     void addTask(Coroutine::ptr co);
     void addTask(const Coroutine::Callback& cb, std::string name = "");
-    // void updateEvent(int fd, int events, Coroutine::ptr coroutine = nullptr);
-    // void removeEvent(int fd);
+    void updateEvent(int fd, int events, Coroutine::ptr co = nullptr);
+    void removeEvent(int fd);
 
     static Processor* GetProcesserOfThisThread();
 
 private:
     void wakeupEpollCo();
-    ssize_t comsumeWakeEvent();
+    ssize_t consumeWakeUp();
 
     bool stop_ = false;
     size_t load_ = 0;
     std::mutex mutex_;
     Scheduler* scheduler_;
-    std::unique_ptr<Epoll> epoll_;
+    CoEpoll epoll_;
+    // std::unique_ptr<CoEpoll> epoll_; // https://stackoverflow.com/questions/20268482/binding-functions-with-unique-ptr-arguments-to-stdfunctionvoid
 
-    int eventFd_;
+    int wakeupFd_;
     std::list<Coroutine::ptr> coList_;
 };
 

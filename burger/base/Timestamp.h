@@ -45,6 +45,16 @@ inline Timestamp addTime(Timestamp timestamp, double seconds) {
     return Timestamp(timestamp.microSecondsSinceEpoch() + delta);
 }
 
+inline Timestamp operator+(Timestamp lhs, uint64_t ms) {
+    return Timestamp(lhs.microSecondsSinceEpoch() + ms);
+}
+
+inline Timestamp operator+(Timestamp lhs, double seconds) {
+    uint64_t delta = static_cast<uint64_t>(seconds * Timestamp::kMicroSecondsPerSecond);
+    return Timestamp(lhs.microSecondsSinceEpoch() + delta);
+}
+
+
 }; // namespace burger
 
 #endif // TIMESTAMP_H

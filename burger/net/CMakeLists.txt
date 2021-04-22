@@ -1,3 +1,14 @@
+set(hook_SRCS
+  Hook.cc)
+
+# https://www.coder.work/article/6663009
+
+set_source_files_properties(
+  ${hook_SRCS}
+  PROPERTIES
+  COMPILE_FLAGS "-w"
+)
+
 set(net_SRCS
   EventLoop.cc
   Channel.cc 
@@ -18,10 +29,15 @@ set(net_SRCS
   RingBuffer.cc
   Connector.cc 
   TcpClient.cc
+  CoEpoll.cc
+  Processor.cc
+  ProcessorThread.cc
+  Hook.cc
+  Scheduler.cc 
   )
 
 add_library(burger_net ${net_SRCS})
-target_link_libraries(burger_net burger_base)
+target_link_libraries(burger_net burger_base ${CMAKE_DL_LIBS})
 
 install(TARGETS burger_net DESTINATION lib)
 

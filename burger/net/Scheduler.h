@@ -1,13 +1,17 @@
 #ifndef SCHEDULER_H
 #define SCHEDULER_H
 
-#include "burger/base/Coroutine.h"
+
 #include "burger/base/Timestamp.h"
 #include "Processor.h"
+#include "burger/base/Singleton.h"
+#include "burger/base/Coroutine.h"
+#include "TimerId.h"
 #include <memory>
 #include <vector>
 #include <thread>
 #include <mutex>
+#include <condition_variable>
 #include <boost/noncopyable.hpp>
 
 namespace burger {
@@ -16,6 +20,7 @@ namespace net {
 class Processor;
 class ProcessThread;
 class TimerQueue;
+
 class Scheduler : boost::noncopyable {
 public:
     using ptr = std::shared_ptr<Scheduler>;
@@ -24,29 +29,39 @@ public:
 
     void start();
     void startAsync();
-    void wait();
+    // void wait();
     void stop();
-    void addTask(Coroutine::Callback task, std::string name = "");
-    int64_t runAt(Timestamp time, Coroutine::ptr coroutine);
-    int64_t runAfter(uint64_t microDelay, Coroutine::ptr coroutine);
-    int64_t runEvery(uint64_t microInterval, Coroutine::ptr coroutine);
-    void cancel(int64_t);
+    
+    void addTask(const Coroutine::Callback& task, std::string name = "");
+    TimerId runAt(Coroutine::ptr co, Timestamp when);
+    TimerId runAfter(Coroutine::ptr co, double delay);
+    TimerId runEvery(Coroutine::ptr co, double interval);
+    void cancel(TimerId timerId);
 protected:
     Processor* pickOneProcesser();
 private:
+    void joinThread();
+private:
     bool running_ = false;
+    // bool quit_ = false;
     size_t threadNum_;
     Processor mainProc_;
-    std::vector<Processor *> workProc_;  // unique_ptr here?
-    std::vector<std::shared_ptr<ProcessThread> > procThreadList_;
+    std::vector<Processor *> workProcVec_;  // unique_ptr here?
+    std::vector<std::shared_ptr<ProcessThread> > workThreadVec_;
     //单独一个线程处理定时任务
     Processor* timerProc_;
     std::shared_ptr<ProcessThread> timerThread_;
     std::unique_ptr<TimerQueue> timerQueue_;
     std::thread thread_;
     std::mutex mutex_;
+    std::condition_variable cv_;
+    // std::condition_variable quitCv_;
+
+    std::thread joinThrd_;  // for stop
 
 };
+
+
 } // namespace net
 
     
