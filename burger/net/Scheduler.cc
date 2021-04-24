@@ -41,11 +41,13 @@ Scheduler::~Scheduler() {
 
 void Scheduler::start() {
     if(running_) return;
+    DEBUG("Schedular start");
     for(size_t i = 0; i < threadNum_ - 1; i++) {
         auto procThrd = std::make_shared<ProcessThread>(this);
         workThreadVec_.push_back(procThrd);
         workProcVec_.push_back(procThrd->startProcess());
     }
+    // DEBUG("work thread started");
     // 能不能不单开timerThread
     timerThread_ = std::make_shared<ProcessThread>(this);
     timerThread_->startProcess()->addTask([&](){
@@ -53,10 +55,8 @@ void Scheduler::start() {
             timerQueue_->dealWithExpiredTimer();
         }
     }, "timer"); 
-    {
-        std::lock_guard<std::mutex> lock(mutex_);
-        running_ = true;
-    }
+    // DEBUG("timer thread started");
+    running_ = true;
     cv_.notify_one();
     mainProc_.run();
 }
@@ -70,11 +70,13 @@ void Scheduler::startAsync() {
     }
 }
 
-// void Scheduler::wait() {
-//     std::unique_lock<std::mutex> lock(mutex_);
-//     quitCv_.wait(lock);
-// }
+void Scheduler::wait() {
+    std::unique_lock<std::mutex> lock(mutex_);
+    quitCv_.wait(lock, [this] { return quit_ == true; });
+}
 
+
+// todo : 如何优雅退出
 void Scheduler::stop() {
     if(!running_) return;
     running_ = false;
@@ -92,7 +94,6 @@ void Scheduler::stop() {
 }
 
 void Scheduler::addTask(const Coroutine::Callback& task, std::string name) {
-    DEBUG("add task {}", name);
     Processor* proc = pickOneProcesser();
     assert(proc != nullptr);
     proc->addTask(task, name);
@@ -140,7 +141,8 @@ void Scheduler::joinThread() {
         thrd->join();
     }
     timerThread_->join();
-    // quitCv_.notify_one();
+    quit_ = true;
+    quitCv_.notify_one();
 }
 
 

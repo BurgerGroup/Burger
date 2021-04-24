@@ -109,6 +109,20 @@ ssize_t sockets::write(int sockfd, const void *buf, size_t count) {
     return ::write(sockfd, buf, count);
 }
 
+// ssize_t sockets::writen(int sockfd, const void* buf, size_t count) {
+// 	size_t writen = 0;
+// 	size_t left = count;
+// 	while (left > 0) {
+// 		ssize_t n = ::write(static_cast<const char*>(buf) + writen, left);
+// 		if (n <= 0) {
+// 			return writen;
+// 		}
+// 		writen += n;
+// 		left -= n;
+// 	}
+// 	return count;
+// }
+
 ssize_t sockets::read(int sockfd, void *buf, size_t count) {
     return ::read(sockfd, buf, count);
 }
@@ -116,7 +130,19 @@ ssize_t sockets::read(int sockfd, void *buf, size_t count) {
 ssize_t sockets::readv(int sockfd, const struct iovec *iov, int iovcnt) {
     return ::readv(sockfd, iov, iovcnt);
 }
-
+// ssize_t sockets::readn(int sockfd, void* buf, size_t count) {
+// 	size_t readn = 0;
+// 	size_t left = count;
+// 	while (left > 0) {
+// 		ssize_t n = read(static_cast<char*>(buf) + readn, left);
+// 		if (n <= 0) {
+// 			return readn;
+// 		}
+// 		readn += n;
+// 		left -= n;
+// 	}
+// 	return count;
+// }
 
 void sockets::ipPortToAddrin(const std::string& ip, uint16_t port, 
                         struct sockaddr_in* addr) {

@@ -6,7 +6,7 @@
 #include <string>
 #include <algorithm>
 #include <vector>
-
+#include <memory>
 namespace burger {
 namespace net {
 
@@ -35,7 +35,7 @@ class RingBuffer : public burger::net::IBuffer {
 public:
     // static const size_t kCheapPrepend = 8;
     // static const size_t kInitialSize = 1024;
-    
+    using ptr = std::shared_ptr<RingBuffer>;
     explicit RingBuffer(size_t initalSize = kInitialSize);
     ~RingBuffer() = default;
     

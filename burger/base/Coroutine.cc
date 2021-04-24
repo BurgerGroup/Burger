@@ -26,11 +26,11 @@ public:
 using StackAllocator = MallocStackAllocator;
 
 Coroutine::Coroutine(const Callback& cb, std::string name, size_t stackSize)
-    : coId_(++s_coId),
-    state_(State::EXEC),
+    : state_(State::EXEC),
     name_(name + "-" +std::to_string(coId_)),
     cb_(cb) {
     checkCurCo();
+    coId_ = ++s_coId;
     ++s_coNum;
     stackSize_ = stackSize? stackSize : g_coStackSize;
     assert(stackSize_ > 0);
@@ -39,7 +39,7 @@ Coroutine::Coroutine(const Callback& cb, std::string name, size_t stackSize)
         ERROR("malloc error");
     }
     ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::RunInCo);
-    DEBUG("Coroutine ctor, coId = {}", s_coId);
+    DEBUG("Co <{}> created, coId = {}", name ,s_coId);
 }
 
 Coroutine::Coroutine()

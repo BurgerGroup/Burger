@@ -34,6 +34,8 @@ set(net_SRCS
   ProcessorThread.cc
   Hook.cc
   Scheduler.cc 
+  CoTcpConnection.cc
+  CoTcpServer.cc
   )
 
 add_library(burger_net ${net_SRCS})

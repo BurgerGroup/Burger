@@ -32,6 +32,7 @@ void CoEpoll::updateEvent(int fd, int events, Coroutine::ptr co) {
     event.events = events;
     auto it = coMap_.find(fd);
     if(it == coMap_.end()) {  // not find, add 
+        DEBUG("add event {} - {}", fd, co->getName());
         coMap_.insert({fd, co});
         int ret = epoll_ctl(epollFd_, EPOLL_CTL_ADD, fd, &event);
         if(ret == 1) {
@@ -49,8 +50,10 @@ void CoEpoll::updateEvent(int fd, int events, Coroutine::ptr co) {
 void CoEpoll::removeEvent(int fd) {
     auto it = coMap_.find(fd);
     if(it == coMap_.end()) {
+        DEBUG("remove event but not found");
         return; // 未找到这个fd    
     } else {
+        DEBUG("remove event {} - {}", fd, it->second->getName());
         coMap_.erase(fd);
     }
     int ret = ::epoll_ctl(epollFd_, EPOLL_CTL_DEL, fd, nullptr);
@@ -62,8 +65,10 @@ void CoEpoll::removeEvent(int fd) {
 void CoEpoll::poll(int timeoutMs) {
     while(!proc_->stoped()) {
         TRACE("fd total count {}", coMap_.size());
+        isEpolling_ = true;
         int numEvents = ::epoll_wait(epollFd_, eventList_.data(),
                     static_cast<int>(eventList_.size()), timeoutMs);
+        isEpolling_ = false;
         int savedErrno = errno;
         if(numEvents > 0) {
             TRACE("{} events happended", numEvents);

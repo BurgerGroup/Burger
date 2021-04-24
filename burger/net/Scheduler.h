@@ -29,7 +29,7 @@ public:
 
     void start();
     void startAsync();
-    // void wait();
+    void wait();
     void stop();
     
     void addTask(const Coroutine::Callback& task, std::string name = "");
@@ -43,7 +43,7 @@ private:
     void joinThread();
 private:
     bool running_ = false;
-    // bool quit_ = false;
+    bool quit_ = false;
     size_t threadNum_;
     Processor mainProc_;
     std::vector<Processor *> workProcVec_;  
@@ -55,7 +55,7 @@ private:
     std::thread thread_;
     std::mutex mutex_;
     std::condition_variable cv_;
-    // std::condition_variable quitCv_;
+    std::condition_variable quitCv_;
 
     std::thread joinThrd_;  // for stop
 

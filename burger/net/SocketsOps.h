@@ -30,10 +30,12 @@ void listenOrDie(int sockfd);
 int accept(int sockfd, struct sockaddr_in& addrin);
 
 ssize_t write(int sockfd, const std::string& msg);
-
 ssize_t write(int sockfd, const void *buf, size_t count);
+// ssize_t writen(int sockfd, const void* buf, size_t count);
+
 ssize_t read(int sockfd, void *buf, size_t count);
 ssize_t readv(int sockfd, const struct iovec *iov, int iovcnt);
+// ssize_t readn(int sockfd, void* buf, size_t count);
 
 void close(int sockfd);
 void shutdownWrite(int sockfd);

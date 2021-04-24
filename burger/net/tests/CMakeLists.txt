@@ -62,8 +62,14 @@ add_test(NAME RingBuffer_unittest COMMAND RingBuffer_unittest)
 # add_executable(TcpClient_test TcpClient_test.cc)
 # target_link_libraries(TcpClient_test burger_net)
 
-add_executable(Sched_test Sched_test.cc)
-target_link_libraries(Sched_test burger_net)
+add_executable(sched_test sched_test.cc)
+target_link_libraries(sched_test burger_net)
 
 add_executable(Hook_test Hook_test.cc)
 target_link_libraries(Hook_test burger_net)
+
+add_executable(sched_timer_test sched_timer_test.cc)
+target_link_libraries(sched_timer_test burger_net)
+
+add_executable(coTcpServer_test coTcpServer_test.cc)
+target_link_libraries(coTcpServer_test burger_net)

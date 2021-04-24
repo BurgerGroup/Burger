@@ -18,8 +18,7 @@ Processor::Processor(Scheduler* scheduler)
     : scheduler_(scheduler),
     epoll_(this),
     wakeupFd_(sockets::createEventfd()) {
-	DEBUG("Processor ctor");
-	// 当有新事件来时唤醒Epoll 协程(唤醒协程)
+	// 当有新事件来时唤醒Epoll 协程
     addTask([&]() {
         while (!stop_) {
             if (consumeWakeUp() < 0) {
@@ -28,11 +27,13 @@ Processor::Processor(Scheduler* scheduler)
             }
         }
     }, "Wake");
-	
+	DEBUG("Processor ctor");
 }
 
 // https://zhuanlan.zhihu.com/p/321947743
 Processor::~Processor() {
+	epoll_.removeEvent(wakeupFd_);
+	::close(wakeupFd_);
 	DEBUG("Processor dtor");
 };
 
@@ -73,18 +74,18 @@ void Processor::stop() {
 	}
 }
 
-void Processor::addTask(Coroutine::ptr co) {
+void Processor::addTask(Coroutine::ptr co, std::string name) {
     std::lock_guard<std::mutex> lock(mutex_);
 	coQue_.push(co);
     load_++;
-	DEBUG("add task, total task = {}", load_);
+	DEBUG("add task <{}>, total task = {}", name, load_);
     if(epoll_.isEpolling()) {
         wakeupEpollCo();
     }
 }
 
 void Processor::addTask(const Coroutine::Callback& cb, std::string name) {
-    addTask(std::make_shared<Coroutine>(cb, name));
+	addTask(std::make_shared<Coroutine>(cb, name), name);
 }
 
 void Processor::updateEvent(int fd, int events, Coroutine::ptr co) {
@@ -101,7 +102,7 @@ Processor* Processor::GetProcesserOfThisThread() {
 
 void Processor::wakeupEpollCo() {
 	uint64_t one = 1;
-	ssize_t n = sockets::write(wakeupFd_, &one, sizeof one);
+	ssize_t n = ::write(wakeupFd_, &one, sizeof one);
 	if(n != sizeof one) {
 		ERROR("writes {} bytes instead of 8", n);
 	}
@@ -115,5 +116,6 @@ ssize_t Processor::consumeWakeUp() {
 	}
 	return n;
 }
+
 
 

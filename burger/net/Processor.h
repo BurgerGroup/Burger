@@ -28,17 +28,18 @@ public:
     bool stoped() { return stop_; }
     size_t getLoad() { return load_; }
     Scheduler* getScheduler() { return scheduler_; }
-    void addTask(Coroutine::ptr co);
+    void addTask(Coroutine::ptr co, std::string name = "  ");
     void addTask(const Coroutine::Callback& cb, std::string name = "");
     void updateEvent(int fd, int events, Coroutine::ptr co = nullptr);
     void removeEvent(int fd);
 
     static Processor* GetProcesserOfThisThread();
 
-private:
+
     void wakeupEpollCo();
     ssize_t consumeWakeUp();
-
+    // void enableReadEvent(int fd); // need wrap ?
+private: 
     bool stop_ = false;
     size_t load_ = 0;
     std::mutex mutex_;
@@ -48,7 +49,6 @@ private:
 
     int wakeupFd_;
     std::queue<Coroutine::ptr> coQue_;
-    // std::list<> coList_;
 };
 
 

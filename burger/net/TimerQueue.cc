@@ -108,6 +108,7 @@ TimerId TimerQueue::addTimer(Coroutine::ptr co, Processor* proc, Timestamp when,
     if(earliestChanged) {   // 如果插入首部，更新timerfd关注的到期时间
         resetTimerfd(timerfd_, timer->getExpiration());   // 启动定时器
     }
+    DEBUG("add timer {}", timer->getSeq());
     return TimerId(timer, timer->getSeq());
 }
 
@@ -127,6 +128,7 @@ void TimerQueue::cancel(TimerId timerId) {
                 cancelingTimers_.insert(timer);
             }
         }
+        DEBUG("cancel Timer {}", cancelTimer.second->getSeq());
     }
 }
 

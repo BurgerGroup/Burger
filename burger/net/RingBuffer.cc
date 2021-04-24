@@ -182,16 +182,16 @@ void RingBuffer::retrieveAll() {
     hasData_ = false;
 }
 
-void RingBuffer::retrieveUntil(const char* ptr) {
+void RingBuffer::retrieveUntil(const char* rawptr) {
     if(!hasData_) return;
 
-    if(peek() <= ptr) {
-        retrieve(ptr - peek());
+    if(peek() <= rawptr) {
+        retrieve(rawptr - peek());
     }
     else {
-        assert(ptr <= beginWrite());
+        assert(rawptr <= beginWrite());
         retrieve(end() - beginRead());
-        retrieve(ptr - continueRead());
+        retrieve(rawptr - continueRead());
     }
 }
 
