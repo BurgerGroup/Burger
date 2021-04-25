@@ -48,16 +48,16 @@ void Scheduler::start() {
         workThreadVec_.push_back(procThrd);
         workProcVec_.push_back(procThrd->startProcess());
     }
-    // DEBUG("work thread started");
+    DEBUG("work thread started");
     // 能不能不单开timerThread
-    // timerThread_ = std::make_shared<ProcessThread>(this);
-    // timerProc_ = timerThread_->startProcess();
-    // timerProc_->addTask([&]() {
-    //     while(running_) { // todo : check
-    //         timerQueue_->dealWithExpiredTimer();
-    //     }
-    // }, "timer"); 
-    // DEBUG("timer thread started");
+    timerThread_ = std::make_shared<ProcessThread>(this);
+    timerProc_ = timerThread_->startProcess();
+    timerProc_->addTask([&]() {
+        while(true) { // todo : check
+            timerQueue_->dealWithExpiredTimer();
+        }
+    }, "timer"); 
+    DEBUG("timer thread started");
     running_ = true;
     cv_.notify_one();  // todo : 无其他线程，有影响吗
     mainProc_->run(); 

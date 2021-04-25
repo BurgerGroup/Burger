@@ -33,7 +33,6 @@ Processor::Processor(Scheduler* scheduler)
 
 // https://zhuanlan.zhihu.com/p/321947743
 Processor::~Processor() {
-	epoll_.removeEvent(wakeupFd_);
 	::close(wakeupFd_);
 	DEBUG("Processor dtor");
 };
