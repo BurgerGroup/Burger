@@ -58,7 +58,7 @@ void Scheduler::start() {
     // DEBUG("timer thread started");
     running_ = true;
     cv_.notify_one();
-    mainProc_.run();
+    mainProc_.run(); 
 }
 
 void Scheduler::startAsync() {
@@ -87,7 +87,8 @@ void Scheduler::stop() {
     timerProc_->stop();
     // todo : 如果stop在scheduler线程中调用,在新建的线程中join
     if(isHookEnable()) {
-        joinThrd_ = std::thread{&Scheduler::joinThread, this};
+        std::thread joinThrd = std::thread{&Scheduler::joinThread, this};
+        joinThrd.detach();
     } else {
         joinThread();
     }

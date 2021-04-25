@@ -33,6 +33,7 @@ public:
     void stop();
     
     void addTask(const Coroutine::Callback& task, std::string name = "");
+    
     TimerId runAt(Coroutine::ptr co, Timestamp when);
     TimerId runAfter(Coroutine::ptr co, double delay);
     TimerId runEvery(Coroutine::ptr co, double interval);
@@ -57,7 +58,6 @@ private:
     std::condition_variable cv_;
     std::condition_variable quitCv_;
 
-    std::thread joinThrd_;  // for stop
 
 };
 

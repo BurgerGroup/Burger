@@ -17,7 +17,7 @@ void test() {
 
 int main() {
     LOGGER(); LOG_LEVEL_DEBUG;
-	const int sz = 5;
+	const int sz = 1000;
 	std::vector<Coroutine::ptr> coroutines;
 	for (int i = 0; i < sz; ++i) {
 		coroutines.push_back(std::make_shared<Coroutine>(test));

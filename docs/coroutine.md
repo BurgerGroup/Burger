@@ -1,8 +1,8 @@
 ## 协程模块
 
 ```
-Coroutine::GetThis()
-Thread->main_co <-----------> sub_co
+Coroutine::GetCurCo()
+Thread -> main_co <-----------> sub_co
             |
             |
           sub_co

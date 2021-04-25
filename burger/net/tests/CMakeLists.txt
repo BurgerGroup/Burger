@@ -73,3 +73,6 @@ target_link_libraries(sched_timer_test burger_net)
 
 add_executable(coTcpServer_test coTcpServer_test.cc)
 target_link_libraries(coTcpServer_test burger_net)
+
+add_executable(sched_stop_test sched_stop_test.cc)
+target_link_libraries(sched_stop_test burger_net)

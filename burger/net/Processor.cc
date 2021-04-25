@@ -18,6 +18,7 @@ Processor::Processor(Scheduler* scheduler)
     : scheduler_(scheduler),
     epoll_(this),
     wakeupFd_(sockets::createEventfd()) {
+	DEBUG("wakeup fd : {}", wakeupFd_);
 	// 当有新事件来时唤醒Epoll 协程
     addTask([&]() {
         while (!stop_) {
@@ -58,7 +59,7 @@ void Processor::run() {
 			} else {
 				cur = coQue_.front(); 
 				coQue_.pop();
-			}
+			} 
 		}
 		cur->swapIn();
 		if (cur->getState() == Coroutine::State::TERM) {
@@ -102,6 +103,7 @@ Processor* Processor::GetProcesserOfThisThread() {
 
 void Processor::wakeupEpollCo() {
 	uint64_t one = 1;
+	DEBUG("wakeup fd : {}", wakeupFd_);
 	ssize_t n = ::write(wakeupFd_, &one, sizeof one);
 	if(n != sizeof one) {
 		ERROR("writes {} bytes instead of 8", n);
@@ -110,6 +112,7 @@ void Processor::wakeupEpollCo() {
 
 ssize_t Processor::consumeWakeUp() {
 	uint64_t one;
+	DEBUG("wakeup fd : {}", wakeupFd_);
 	ssize_t n = ::read(wakeupFd_, &one, sizeof one);
 	if(n != sizeof one) {
 		ERROR("READ {} instead of 8", n);

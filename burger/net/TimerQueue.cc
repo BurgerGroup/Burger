@@ -243,7 +243,7 @@ bool TimerQueue::findFirstTimestamp(const Timestamp& now, Timestamp& ts) {
 }
 
 void TimerQueue::dealWithExpiredTimer() {
-    readTimerfd(timerfd_, Timestamp::now());   // todo : why this here?
+    readTimerfd(timerfd_, Timestamp::now());  
     std::vector<Entry> expiredList;
     {
         std::lock_guard<std::mutex> lock(mutex_);
