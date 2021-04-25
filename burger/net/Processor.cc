@@ -66,13 +66,17 @@ void Processor::run() {
 			load_--;
 		}
 	}
+	epollCo->swapIn();
 }
 
 void Processor::stop() {
 	stop_ = true; 
+	DEBUG("STOP : WAKEUP 111-FD: {}", wakeupFd_);
 	if(epoll_.isEpolling()) {
+		DEBUG("STOP : WAKEUP 222-FD: {}", wakeupFd_);
 		wakeupEpollCo();
 	}
+
 }
 
 void Processor::addTask(Coroutine::ptr co, std::string name) {

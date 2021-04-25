@@ -46,7 +46,8 @@ private:
     bool running_ = false;
     bool quit_ = false;
     size_t threadNum_;
-    Processor mainProc_;
+    std::unique_ptr<Processor> mainProc_;
+    // Processor mainProc_;
     std::vector<Processor *> workProcVec_;  
     std::vector<std::shared_ptr<ProcessThread> > workThreadVec_;
     //单独一个线程处理定时任务
@@ -57,20 +58,9 @@ private:
     std::mutex mutex_;
     std::condition_variable cv_;
     std::condition_variable quitCv_;
-
-
 };
 
-
-} // namespace net
-
-    
+} // namespace net    
 } // namespace burger
-
-
-
-
-
-
 
 #endif // SCHEDULER_H

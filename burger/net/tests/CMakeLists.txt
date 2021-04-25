@@ -55,24 +55,24 @@
 # target_link_libraries(Buffer_unittest burger_net gtest)
 # add_test(NAME Buffer_unittest COMMAND Buffer_unittest)
 
-add_executable(RingBuffer_unittest RingBuffer_unittest.cc)
-target_link_libraries(RingBuffer_unittest burger_net gtest)
-add_test(NAME RingBuffer_unittest COMMAND RingBuffer_unittest)
+# add_executable(RingBuffer_unittest RingBuffer_unittest.cc)
+# target_link_libraries(RingBuffer_unittest burger_net gtest)
+# add_test(NAME RingBuffer_unittest COMMAND RingBuffer_unittest)
 
 # add_executable(TcpClient_test TcpClient_test.cc)
 # target_link_libraries(TcpClient_test burger_net)
 
-add_executable(sched_test sched_test.cc)
-target_link_libraries(sched_test burger_net)
+# add_executable(sched_test sched_test.cc)
+# target_link_libraries(sched_test burger_net)
 
-add_executable(Hook_test Hook_test.cc)
-target_link_libraries(Hook_test burger_net)
+# add_executable(Hook_test Hook_test.cc)
+# target_link_libraries(Hook_test burger_net)
 
-add_executable(sched_timer_test sched_timer_test.cc)
-target_link_libraries(sched_timer_test burger_net)
+# add_executable(sched_timer_test sched_timer_test.cc)
+# target_link_libraries(sched_timer_test burger_net)
 
-add_executable(coTcpServer_test coTcpServer_test.cc)
-target_link_libraries(coTcpServer_test burger_net)
+# add_executable(coTcpServer_test coTcpServer_test.cc)
+# target_link_libraries(coTcpServer_test burger_net)
 
 add_executable(sched_stop_test sched_stop_test.cc)
 target_link_libraries(sched_stop_test burger_net)

@@ -26,22 +26,23 @@ using namespace burger::net;
 
 Scheduler::Scheduler(size_t threadNum) 
     : threadNum_(threadNum),
-    mainProc_(this),
     timerQueue_(util::make_unique<TimerQueue>()) {
     assert(threadNum_ > 0);
     DEBUG("Scheduler ctor");
-    // assert(Processer::GetProcesserOfThisThread() == nullptr);
-    workProcVec_.push_back(&mainProc_);
+    assert(Processor::GetProcesserOfThisThread() == nullptr);
 }
 
 Scheduler::~Scheduler() {
     DEBUG("Scheduler dtor");
     stop();
+    // joinThread();
 }
 
 void Scheduler::start() {
     if(running_) return;
     DEBUG("Schedular start");
+    mainProc_ = util::make_unique<Processor>(this);
+    workProcVec_.push_back(mainProc_.get());
     for(size_t i = 0; i < threadNum_ - 1; i++) {
         auto procThrd = std::make_shared<ProcessThread>(this);
         workThreadVec_.push_back(procThrd);
@@ -49,16 +50,17 @@ void Scheduler::start() {
     }
     // DEBUG("work thread started");
     // 能不能不单开timerThread
-    timerThread_ = std::make_shared<ProcessThread>(this);
-    timerThread_->startProcess()->addTask([&](){
-        while(true) {
-            timerQueue_->dealWithExpiredTimer();
-        }
-    }, "timer"); 
+    // timerThread_ = std::make_shared<ProcessThread>(this);
+    // timerProc_ = timerThread_->startProcess();
+    // timerProc_->addTask([&]() {
+    //     while(running_) { // todo : check
+    //         timerQueue_->dealWithExpiredTimer();
+    //     }
+    // }, "timer"); 
     // DEBUG("timer thread started");
     running_ = true;
-    cv_.notify_one();
-    mainProc_.run(); 
+    cv_.notify_one();  // todo : 无其他线程，有影响吗
+    mainProc_->run(); 
 }
 
 void Scheduler::startAsync() {
@@ -80,11 +82,10 @@ void Scheduler::wait() {
 void Scheduler::stop() {
     if(!running_) return;
     running_ = false;
-    mainProc_.stop();
-    for(auto proc : workProcVec_) {
+    for(const auto& proc : workProcVec_) {
         proc->stop();
     }
-    timerProc_->stop();
+    // timerProc_->stop();
     // todo : 如果stop在scheduler线程中调用,在新建的线程中join
     if(isHookEnable()) {
         std::thread joinThrd = std::thread{&Scheduler::joinThread, this};
@@ -141,7 +142,8 @@ void Scheduler::joinThread() {
     for(auto thrd : workThreadVec_) {
         thrd->join();
     }
-    timerThread_->join();
+    // timerThread_->join();
+    DEBUG("JOIN THREAD");
     quit_ = true;
     quitCv_.notify_one();
 }
