@@ -5,6 +5,7 @@
 #include "Hook.h"
 #include "Scheduler.h"
 #include "TimerQueue.h"
+
 using namespace burger;
 using namespace burger::net;
 
@@ -141,8 +142,8 @@ void Processor::addPendingTasksIntoQueue() {
         std::lock_guard<std::mutex> lock(mutex_);
         tasks.swap(pendingTasks_);
     }
-    for(const auto& task : tasks) {
-        addTask(task.first, task.second);
+    for(const auto& t : tasks) {
+        addTask(t.first, t.second);
     }
     addingPendingTasks_ = false;
 }

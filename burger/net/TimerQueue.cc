@@ -101,8 +101,6 @@ TimerId TimerQueue::addTimer(TimerCallback timercb, Timestamp when, double inter
 TimerId TimerQueue::addTimer(Coroutine::ptr co, Processor* proc, Timestamp when, double interval) {
     Timer::ptr timer = std::make_shared<Timer>(co, proc, when, interval);
     bool earliestChanged = false;
-
-    DEBUG("insert timer 111");
     earliestChanged = insert(timer); // 是否将timer插入set首部，比现有队列里的所有的都更早
 
     if(earliestChanged) {   // 如果插入首部，更新timerfd关注的到期时间
@@ -230,7 +228,6 @@ bool TimerQueue::insert(std::shared_ptr<Timer> timer) {
                 earliestChanged = true;
             }
             // 注意insert的返回参数， std::pair<iterator,bool>
-            DEBUG("INSERT TIMER 222");
             auto res = timers_.insert(Entry(when, timer));
         }
     }

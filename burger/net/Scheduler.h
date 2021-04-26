@@ -51,9 +51,6 @@ private:
     std::unique_ptr<Processor> mainProc_;
     std::vector<Processor *> workProcVec_;  // todo : 优先队列
     std::vector<std::shared_ptr<ProcessThread> > workThreadVec_;
-    //单独一个线程处理定时任务
-    // Processor* timerProc_;
-    // std::shared_ptr<ProcessThread> timerThread_;
     std::unique_ptr<TimerQueue> timerQueue_;
     std::thread thread_;
     std::mutex mutex_;

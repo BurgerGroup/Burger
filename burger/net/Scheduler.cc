@@ -49,14 +49,6 @@ void Scheduler::start() {
         workProcVec_.push_back(procThrd->startProcess());
     }
     DEBUG("timer thread started");
-    // 能不能不单开timerThread
-    // timerThread_ = std::make_shared<ProcessThread>(this);
-    // timerProc_ = timerThread_->startProcess();
-    // timerProc_->addTask([&]() {
-    //     while(true) { // todo : check
-    //         timerQueue_->dealWithExpiredTimer();
-    //     }
-    // }, "timer"); 
     running_ = true;
     cv_.notify_one();  // todo : 无其他线程，有影响吗
     mainProc_->run(); 
@@ -83,7 +75,6 @@ void Scheduler::stop() {
     for(const auto& proc : workProcVec_) {
         proc->stop();
     }
-    // timerProc_->stop();
     // 如果在scheduler线程join，会自己join自己，导致dead lock error
     if(isHookEnable()) {
         std::thread joinThrd = std::thread{&Scheduler::joinThread, this};
@@ -100,10 +91,6 @@ void Scheduler::addTask(const Coroutine::Callback& task, std::string name) {
 }
 
 TimerId Scheduler::runAt(Coroutine::ptr co, Timestamp when) {
-    // Processor* proc = Processor::GetProcesserOfThisThread();
-    // if(proc == nullptr) {
-    //     proc = pickOneProcesser();
-    // } 
     Processor* proc = pickOneProcesser();
     return timerQueue_->addTimer(co, proc, when);
 }
@@ -114,10 +101,6 @@ TimerId Scheduler::runAfter(Coroutine::ptr co, double delay) {
 }
 
 TimerId Scheduler::runEvery(Coroutine::ptr co, double interval) {
-    // Processor* proc = Processor::GetProcesserOfThisThread();
-    // if(proc == nullptr) {
-    //     proc = pickOneProcesser();
-    // } 
     Processor* proc = pickOneProcesser();
     Timestamp when = Timestamp::now() + interval; 
     return timerQueue_->addTimer(co, proc, when, interval);
@@ -146,7 +129,6 @@ void Scheduler::joinThread() {
     for(auto thrd : workThreadVec_) {
         thrd->join();
     }
-    // timerThread_->join();
     quit_ = true;
     quitCv_.notify_one();
     DEBUG("Thread Join");
