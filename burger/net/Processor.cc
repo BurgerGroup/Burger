@@ -64,6 +64,9 @@ void Processor::run() {
 		if (cur->getState() == Coroutine::State::TERM) {
 			load_--;
 		}
+
+        // 避免在其他线程添加任务时错误地创建多余的协程（确保协程只在processor中）
+        addPendingTasksIntoQueue();
 	}
 	epollCo->swapIn();
 }
@@ -90,6 +93,11 @@ void Processor::addTask(Coroutine::ptr co, std::string name) {
 
 void Processor::addTask(const Coroutine::Callback& cb, std::string name) {
 	addTask(std::make_shared<Coroutine>(cb, name), name);
+}
+
+void Processor::addPendingTask(const Coroutine::Callback& cb, std::string name) {
+    pendingTasks_.emplace_back(cb, name);
+    wakeupEpollCo();
 }
 
 void Processor::updateEvent(int fd, int events, Coroutine::ptr co) {
@@ -121,6 +129,19 @@ ssize_t Processor::consumeWakeUp() {
 		ERROR("READ {} instead of 8", n);
 	}
 	return n;
+}
+
+void Processor::addPendingTasksIntoQueue() {
+    std::vector<task> tasks;
+    addingPendingTasks_ = true;
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        tasks.swap(pendingTasks_);
+    }
+    for(const auto& task : tasks) {
+        addTask(task.first, task.second);
+    }
+    addingPendingTasks_ = false;
 }
 
 

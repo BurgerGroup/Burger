@@ -1,0 +1,515 @@
+2021-04-25 08:38:23 [debug] [tid : 1542] [Coroutine.cc : 51 <Coroutine>] [coId : 1] MAIN Coroutine ctor, coId = 1
+2021-04-25 08:38:23 [debug] [tid : 1542] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Wake> created, coId = 2
+2021-04-25 08:38:23 [debug] [tid : 1542] [Processor.cc : 81 <addTask>] [coId : 1] add task <Wake>, total task = 1
+2021-04-25 08:38:23 [debug] [tid : 1542] [Processor.cc : 30 <Processor>] [coId : 1] Processor ctor
+2021-04-25 08:38:23 [debug] [tid : 1542] [Scheduler.cc : 32 <Scheduler>] [coId : 1] Scheduler ctor
+2021-04-25 08:38:23 [debug] [tid : 1548] [Scheduler.cc : 44 <start>] [coId : 0] Schedular start
+2021-04-25 08:38:23 [debug] [tid : 1549] [Coroutine.cc : 51 <Coroutine>] [coId : 3] MAIN Coroutine ctor, coId = 3
+2021-04-25 08:38:23 [debug] [tid : 1549] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Wake> created, coId = 4
+2021-04-25 08:38:23 [debug] [tid : 1549] [Processor.cc : 81 <addTask>] [coId : 3] add task <Wake>, total task = 1
+2021-04-25 08:38:23 [debug] [tid : 1549] [Processor.cc : 30 <Processor>] [coId : 3] Processor ctor
+2021-04-25 08:38:23 [debug] [tid : 1549] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Epoll> created, coId = 5
+2021-04-25 08:38:23 [debug] [tid : 1548] [Coroutine.cc : 51 <Coroutine>] [coId : 6] MAIN Coroutine ctor, coId = 6
+2021-04-25 08:38:23 [debug] [tid : 1548] [Coroutine.cc : 42 <Coroutine>] [coId : 6] Co <timer> created, coId = 7
+2021-04-25 08:38:23 [debug] [tid : 1548] [Processor.cc : 81 <addTask>] [coId : 6] add task <timer>, total task = 2
+2021-04-25 08:38:23 [debug] [tid : 1548] [Coroutine.cc : 42 <Coroutine>] [coId : 6] Co <Epoll> created, coId = 8
+2021-04-25 08:38:23 [debug] [tid : 1548] [CoEpoll.cc : 35 <updateEvent>] [coId : 2] add event 5 - Wake-0
+2021-04-25 08:38:23 [trace] [tid : 1548] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 1
+2021-04-25 08:38:23 [debug] [tid : 1542] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <foo> created, coId = 9
+2021-04-25 08:38:23 [debug] [tid : 1542] [Processor.cc : 81 <addTask>] [coId : 1] add task <foo>, total task = 2
+2021-04-25 08:38:23 [trace] [tid : 1548] [CoEpoll.cc : 74 <poll>] [coId : 8] 1 events happended
+2021-04-25 08:38:23 [debug] [tid : 1548] [CoEpoll.cc : 56 <removeEvent>] [coId : 8] remove event 5 - Wake-0
+2021-04-25 08:38:23 [debug] [tid : 1548] [Processor.cc : 81 <addTask>] [coId : 8] add task <  >, total task = 3
+2021-04-25 08:38:23 [debug] [tid : 1549] [CoEpoll.cc : 35 <updateEvent>] [coId : 4] add event 8 - Wake-0
+2021-04-25 08:38:23 [debug] [tid : 1549] [CoEpoll.cc : 35 <updateEvent>] [coId : 7] add event 6 - timer-0
+2021-04-25 08:38:23 [trace] [tid : 1549] [CoEpoll.cc : 67 <poll>] [coId : 5] fd total count 2
+2021-04-25 08:38:24 [info] [tid : 1548] [sched_stop_test.cc : 14 <foo>] [coId : 9] IN foo
+2021-04-25 08:38:24 [error] [tid : 1548] [Processor.cc : 107 <wakeupEpollCo>] [coId : 9] writes -1 bytes instead of 8
+2021-04-25 08:38:24 [info] [tid : 1548] [sched_stop_test.cc : 16 <foo>] [coId : 9] leave foo
+2021-04-25 08:38:24 [debug] [tid : 1548] [Coroutine.cc : 59 <~Coroutine>] [coId : 6] ~Coroutine coId = 9 total = 8
+2021-04-25 08:38:24 [debug] [tid : 1548] [Coroutine.cc : 67 <~Coroutine>] [coId : 0] MAIN ~Coroutine coId = 6 total = 7
+2021-04-25 08:38:33 [trace] [tid : 1549] [CoEpoll.cc : 87 <poll>] [coId : 5] Nothing happened ....
+2021-04-25 08:38:33 [trace] [tid : 1549] [CoEpoll.cc : 67 <poll>] [coId : 5] fd total count 2
+2021-04-25 08:55:17 [debug] [tid : 1740] [Coroutine.cc : 51 <Coroutine>] [coId : 1] MAIN Coroutine ctor, coId = 1
+2021-04-25 08:55:17 [debug] [tid : 1740] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Wake> created, coId = 2
+2021-04-25 08:55:17 [debug] [tid : 1740] [Processor.cc : 81 <addTask>] [coId : 1] add task <Wake>, total task = 1
+2021-04-25 08:55:17 [debug] [tid : 1740] [Processor.cc : 30 <Processor>] [coId : 1] Processor ctor
+2021-04-25 08:55:17 [debug] [tid : 1740] [Scheduler.cc : 32 <Scheduler>] [coId : 1] Scheduler ctor
+2021-04-25 08:55:17 [debug] [tid : 1746] [Scheduler.cc : 44 <start>] [coId : 0] Schedular start
+2021-04-25 08:55:17 [debug] [tid : 1747] [Coroutine.cc : 51 <Coroutine>] [coId : 3] MAIN Coroutine ctor, coId = 3
+2021-04-25 08:55:17 [debug] [tid : 1747] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Wake> created, coId = 4
+2021-04-25 08:55:17 [debug] [tid : 1747] [Processor.cc : 81 <addTask>] [coId : 3] add task <Wake>, total task = 1
+2021-04-25 08:55:17 [debug] [tid : 1747] [Processor.cc : 30 <Processor>] [coId : 3] Processor ctor
+2021-04-25 08:55:17 [debug] [tid : 1746] [Coroutine.cc : 51 <Coroutine>] [coId : 5] MAIN Coroutine ctor, coId = 5
+2021-04-25 08:55:17 [debug] [tid : 1746] [Coroutine.cc : 42 <Coroutine>] [coId : 5] Co <timer> created, coId = 6
+2021-04-25 08:55:17 [debug] [tid : 1746] [Processor.cc : 81 <addTask>] [coId : 5] add task <timer>, total task = 2
+2021-04-25 08:55:17 [debug] [tid : 1746] [Coroutine.cc : 42 <Coroutine>] [coId : 5] Co <Epoll> created, coId = 7
+2021-04-25 08:55:17 [debug] [tid : 1746] [CoEpoll.cc : 35 <updateEvent>] [coId : 2] add event 5 - Wake-0
+2021-04-25 08:55:17 [trace] [tid : 1746] [CoEpoll.cc : 67 <poll>] [coId : 7] fd total count 1
+2021-04-25 08:55:17 [debug] [tid : 1740] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <foo> created, coId = 8
+2021-04-25 08:55:17 [debug] [tid : 1740] [Processor.cc : 81 <addTask>] [coId : 1] add task <foo>, total task = 2
+2021-04-25 08:55:17 [trace] [tid : 1746] [CoEpoll.cc : 74 <poll>] [coId : 7] 1 events happended
+2021-04-25 08:55:17 [debug] [tid : 1746] [CoEpoll.cc : 56 <removeEvent>] [coId : 7] remove event 5 - Wake-0
+2021-04-25 08:55:17 [debug] [tid : 1746] [Processor.cc : 81 <addTask>] [coId : 7] add task <  >, total task = 3
+2021-04-25 08:55:17 [debug] [tid : 1747] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Epoll> created, coId = 9
+2021-04-25 08:55:17 [debug] [tid : 1747] [CoEpoll.cc : 35 <updateEvent>] [coId : 4] add event 8 - Wake-0
+2021-04-25 08:55:17 [debug] [tid : 1747] [CoEpoll.cc : 35 <updateEvent>] [coId : 6] add event 6 - timer-0
+2021-04-25 08:55:17 [trace] [tid : 1747] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 08:55:18 [info] [tid : 1746] [sched_stop_test.cc : 14 <foo>] [coId : 8] IN foo
+2021-04-25 08:55:18 [error] [tid : 1746] [Processor.cc : 107 <wakeupEpollCo>] [coId : 8] writes -1 bytes instead of 8
+2021-04-25 08:55:18 [info] [tid : 1746] [sched_stop_test.cc : 16 <foo>] [coId : 8] leave foo
+2021-04-25 08:55:18 [debug] [tid : 1746] [Coroutine.cc : 59 <~Coroutine>] [coId : 5] ~Coroutine coId = 8 total = 8
+2021-04-25 08:55:18 [debug] [tid : 1746] [Coroutine.cc : 67 <~Coroutine>] [coId : 0] MAIN ~Coroutine coId = 5 total = 7
+2021-04-25 08:55:27 [trace] [tid : 1747] [CoEpoll.cc : 87 <poll>] [coId : 9] Nothing happened ....
+2021-04-25 08:55:27 [trace] [tid : 1747] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:01:00 [debug] [tid : 1751] [Coroutine.cc : 51 <Coroutine>] [coId : 1] MAIN Coroutine ctor, coId = 1
+2021-04-25 09:01:00 [debug] [tid : 1751] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Wake> created, coId = 2
+2021-04-25 09:01:00 [debug] [tid : 1751] [Processor.cc : 81 <addTask>] [coId : 1] add task <Wake>, total task = 1
+2021-04-25 09:01:00 [debug] [tid : 1751] [Processor.cc : 30 <Processor>] [coId : 1] Processor ctor
+2021-04-25 09:01:00 [debug] [tid : 1751] [Scheduler.cc : 32 <Scheduler>] [coId : 1] Scheduler ctor
+2021-04-25 09:01:00 [debug] [tid : 1760] [Scheduler.cc : 44 <start>] [coId : 0] Schedular start
+2021-04-25 09:01:00 [debug] [tid : 1761] [Coroutine.cc : 51 <Coroutine>] [coId : 3] MAIN Coroutine ctor, coId = 3
+2021-04-25 09:01:00 [debug] [tid : 1761] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Wake> created, coId = 4
+2021-04-25 09:01:00 [debug] [tid : 1761] [Processor.cc : 81 <addTask>] [coId : 3] add task <Wake>, total task = 1
+2021-04-25 09:01:00 [debug] [tid : 1761] [Processor.cc : 30 <Processor>] [coId : 3] Processor ctor
+2021-04-25 09:01:00 [debug] [tid : 1760] [Coroutine.cc : 51 <Coroutine>] [coId : 5] MAIN Coroutine ctor, coId = 5
+2021-04-25 09:01:00 [debug] [tid : 1760] [Coroutine.cc : 42 <Coroutine>] [coId : 5] Co <timer> created, coId = 6
+2021-04-25 09:01:00 [debug] [tid : 1760] [Processor.cc : 81 <addTask>] [coId : 5] add task <timer>, total task = 2
+2021-04-25 09:01:00 [debug] [tid : 1760] [Coroutine.cc : 42 <Coroutine>] [coId : 5] Co <Epoll> created, coId = 7
+2021-04-25 09:01:00 [debug] [tid : 1751] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <foo> created, coId = 8
+2021-04-25 09:01:00 [debug] [tid : 1751] [Processor.cc : 81 <addTask>] [coId : 1] add task <foo>, total task = 2
+2021-04-25 09:01:00 [debug] [tid : 1761] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Epoll> created, coId = 9
+2021-04-25 09:01:00 [debug] [tid : 1761] [CoEpoll.cc : 35 <updateEvent>] [coId : 4] add event 8 - Wake-0
+2021-04-25 09:01:00 [debug] [tid : 1761] [CoEpoll.cc : 35 <updateEvent>] [coId : 6] add event 6 - timer-0
+2021-04-25 09:01:00 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:01:00 [debug] [tid : 1760] [CoEpoll.cc : 35 <updateEvent>] [coId : 2] add event 5 - Wake-0
+2021-04-25 09:01:05 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:01:05 [info] [tid : 1760] [sched_stop_test.cc : 14 <foo>] [coId : 8] IN foo
+2021-04-25 09:01:06 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:01:12 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:01:13 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:01:19 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:01:40 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:01:45 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:02:12 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:02:16 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:02:29 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:02:34 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:02:37 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:02:38 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:02:54 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:02:58 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:03:00 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:03:04 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:03:06 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:03:44 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:03:51 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:03:57 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:03:58 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:04:00 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:04:18 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:04:21 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:04:29 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:05:05 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:05:07 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:05:12 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:05:36 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:06:26 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:06:34 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:06:40 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:06:45 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:06:52 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:06:58 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:07:01 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:07:03 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:07:04 [error] [tid : 1760] [Processor.cc : 107 <wakeupEpollCo>] [coId : 8] writes -1 bytes instead of 8
+2021-04-25 09:07:05 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:07:07 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:07:24 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:11:19 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:11:21 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:11:23 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:11:28 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:11:28 [info] [tid : 1760] [sched_stop_test.cc : 16 <foo>] [coId : 8] leave foo
+2021-04-25 09:11:30 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:11:31 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:11:34 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:11:35 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:11:46 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:11:47 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:11:49 [trace] [tid : 1761] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 09:11:49 [debug] [tid : 1760] [Coroutine.cc : 59 <~Coroutine>] [coId : 5] ~Coroutine coId = 8 total = 8
+2021-04-25 09:11:49 [error] [tid : 1760] [Coroutine.cc : 57 <~Coroutine>] [coId : 5] ASSERTION: state_ == State::TERM
+backtrace:
+    burger::Coroutine::~Coroutine()
+    void __gnu_cxx::new_allocator<burger::Coroutine>::destroy<burger::Coroutine>(burger::Coroutine*)
+    void std::allocator_traits<std::allocator<burger::Coroutine> >::destroy<burger::Coroutine>(std::allocator<burger::Coroutine>&, burger::Coroutine*)
+    std::_Sp_counted_ptr_inplace<burger::Coroutine, std::allocator<burger::Coroutine>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+    std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()
+    std::__shared_count<(__gnu_cxx::_Lock_policy)2>::~__shared_count()
+    std::__shared_ptr<burger::Coroutine, (__gnu_cxx::_Lock_policy)2>::~__shared_ptr()
+    std::shared_ptr<burger::Coroutine>::~shared_ptr()
+    burger::net::Processor::run()
+    burger::net::Scheduler::start()
+    void std::_Mem_fn_base<void (burger::net::Scheduler::*)(), true>::operator()<, void>(burger::net::Scheduler*) const
+    void std::_Bind_simple<std::_Mem_fn<void (burger::net::Scheduler::*)()> (burger::net::Scheduler*)>::_M_invoke<0ul>(std::_Index_tuple<0ul>)
+    std::_Bind_simple<std::_Mem_fn<void (burger::net::Scheduler::*)()> (burger::net::Scheduler*)>::operator()()
+    std::thread::_Impl<std::_Bind_simple<std::_Mem_fn<void (burger::net::Scheduler::*)()> (burger::net::Scheduler*)> >::_M_run()
+    /usr/lib/x86_64-linux-gnu/libstdc++.so.6(+0xb8c80)                                                                                                                                                                                                              
+    /lib/x86_64-linux-gnu/libpthread.so.0(+0x76ba)                                                                                                                                                                                                                  
+    /lib/x86_64-linux-gnu/libc.so.6(clone+0x6d)                                                                                                                                                                                                                     
+
+2021-04-25 09:14:10 [debug] [tid : 1763] [Coroutine.cc : 51 <Coroutine>] [coId : 1] MAIN Coroutine ctor, coId = 1
+2021-04-25 09:14:10 [debug] [tid : 1763] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Wake> created, coId = 2
+2021-04-25 09:14:10 [debug] [tid : 1763] [Processor.cc : 81 <addTask>] [coId : 1] add task <Wake>, total task = 1
+2021-04-25 09:14:10 [debug] [tid : 1763] [Processor.cc : 30 <Processor>] [coId : 1] Processor ctor
+2021-04-25 09:14:10 [debug] [tid : 1763] [Scheduler.cc : 32 <Scheduler>] [coId : 1] Scheduler ctor
+2021-04-25 09:14:10 [debug] [tid : 1769] [Scheduler.cc : 44 <start>] [coId : 0] Schedular start
+2021-04-25 09:14:10 [debug] [tid : 1770] [Coroutine.cc : 51 <Coroutine>] [coId : 3] MAIN Coroutine ctor, coId = 3
+2021-04-25 09:14:10 [debug] [tid : 1770] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Wake> created, coId = 4
+2021-04-25 09:14:10 [debug] [tid : 1770] [Processor.cc : 81 <addTask>] [coId : 3] add task <Wake>, total task = 1
+2021-04-25 09:14:10 [debug] [tid : 1770] [Processor.cc : 30 <Processor>] [coId : 3] Processor ctor
+2021-04-25 09:14:10 [debug] [tid : 1770] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Epoll> created, coId = 5
+2021-04-25 09:14:10 [debug] [tid : 1770] [CoEpoll.cc : 35 <updateEvent>] [coId : 4] add event 8 - Wake-0
+2021-04-25 09:14:10 [trace] [tid : 1770] [CoEpoll.cc : 67 <poll>] [coId : 5] fd total count 1
+2021-04-25 09:14:10 [debug] [tid : 1769] [Coroutine.cc : 51 <Coroutine>] [coId : 6] MAIN Coroutine ctor, coId = 6
+2021-04-25 09:14:10 [debug] [tid : 1769] [Coroutine.cc : 42 <Coroutine>] [coId : 6] Co <timer> created, coId = 7
+2021-04-25 09:14:10 [debug] [tid : 1769] [Processor.cc : 81 <addTask>] [coId : 6] add task <timer>, total task = 2
+2021-04-25 09:14:10 [trace] [tid : 1770] [CoEpoll.cc : 74 <poll>] [coId : 5] 1 events happended
+2021-04-25 09:14:10 [debug] [tid : 1763] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <foo> created, coId = 9
+2021-04-25 09:14:10 [debug] [tid : 1763] [Processor.cc : 81 <addTask>] [coId : 1] add task <foo>, total task = 2
+2021-04-25 09:14:10 [debug] [tid : 1769] [Coroutine.cc : 42 <Coroutine>] [coId : 6] Co <Epoll> created, coId = 8
+2021-04-25 09:14:10 [debug] [tid : 1769] [CoEpoll.cc : 35 <updateEvent>] [coId : 2] add event 5 - Wake-0
+2021-04-25 09:14:10 [debug] [tid : 1770] [CoEpoll.cc : 56 <removeEvent>] [coId : 5] remove event 8 - Wake-0
+2021-04-25 09:14:10 [debug] [tid : 1770] [Processor.cc : 81 <addTask>] [coId : 5] add task <  >, total task = 3
+2021-04-25 09:14:10 [debug] [tid : 1770] [CoEpoll.cc : 35 <updateEvent>] [coId : 7] add event 6 - timer-0
+2021-04-25 09:14:10 [debug] [tid : 1770] [CoEpoll.cc : 35 <updateEvent>] [coId : 4] add event 8 - Wake-0
+2021-04-25 09:14:10 [trace] [tid : 1770] [CoEpoll.cc : 67 <poll>] [coId : 5] fd total count 2
+2021-04-25 09:14:11 [info] [tid : 1769] [sched_stop_test.cc : 14 <foo>] [coId : 9] IN foo
+2021-04-25 09:14:11 [error] [tid : 1769] [Processor.cc : 107 <wakeupEpollCo>] [coId : 9] writes -1 bytes instead of 8
+2021-04-25 09:14:11 [info] [tid : 1769] [sched_stop_test.cc : 16 <foo>] [coId : 9] leave foo
+2021-04-25 09:14:11 [debug] [tid : 1769] [Coroutine.cc : 59 <~Coroutine>] [coId : 6] ~Coroutine coId = 9 total = 8
+2021-04-25 09:14:11 [error] [tid : 1769] [Coroutine.cc : 57 <~Coroutine>] [coId : 6] ASSERTION: state_ == State::TERM
+backtrace:
+    burger::Coroutine::~Coroutine()
+    void __gnu_cxx::new_allocator<burger::Coroutine>::destroy<burger::Coroutine>(burger::Coroutine*)
+    void std::allocator_traits<std::allocator<burger::Coroutine> >::destroy<burger::Coroutine>(std::allocator<burger::Coroutine>&, burger::Coroutine*)
+    std::_Sp_counted_ptr_inplace<burger::Coroutine, std::allocator<burger::Coroutine>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+    std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()
+    std::__shared_count<(__gnu_cxx::_Lock_policy)2>::~__shared_count()
+    std::__shared_ptr<burger::Coroutine, (__gnu_cxx::_Lock_policy)2>::~__shared_ptr()
+    std::shared_ptr<burger::Coroutine>::~shared_ptr()
+    burger::net::Processor::run()
+    burger::net::Scheduler::start()
+    void std::_Mem_fn_base<void (burger::net::Scheduler::*)(), true>::operator()<, void>(burger::net::Scheduler*) const
+    void std::_Bind_simple<std::_Mem_fn<void (burger::net::Scheduler::*)()> (burger::net::Scheduler*)>::_M_invoke<0ul>(std::_Index_tuple<0ul>)
+    std::_Bind_simple<std::_Mem_fn<void (burger::net::Scheduler::*)()> (burger::net::Scheduler*)>::operator()()
+    std::thread::_Impl<std::_Bind_simple<std::_Mem_fn<void (burger::net::Scheduler::*)()> (burger::net::Scheduler*)> >::_M_run()
+    /usr/lib/x86_64-linux-gnu/libstdc++.so.6(+0xb8c80)                                                                                                                                                                                                              
+    /lib/x86_64-linux-gnu/libpthread.so.0(+0x76ba)                                                                                                                                                                                                                  
+    /lib/x86_64-linux-gnu/libc.so.6(clone+0x6d)                                                                                                                                                                                                                     
+
+2021-04-25 09:18:33 [debug] [tid : 1918] [Coroutine.cc : 51 <Coroutine>] [coId : 1] MAIN Coroutine ctor, coId = 1
+2021-04-25 09:18:33 [debug] [tid : 1918] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Wake> created, coId = 2
+2021-04-25 09:18:33 [debug] [tid : 1918] [Processor.cc : 81 <addTask>] [coId : 1] add task <Wake>, total task = 1
+2021-04-25 09:18:33 [debug] [tid : 1918] [Processor.cc : 30 <Processor>] [coId : 1] Processor ctor
+2021-04-25 09:18:33 [debug] [tid : 1918] [Scheduler.cc : 32 <Scheduler>] [coId : 1] Scheduler ctor
+2021-04-25 09:18:33 [debug] [tid : 1918] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <foo> created, coId = 3
+2021-04-25 09:18:33 [debug] [tid : 1918] [Processor.cc : 81 <addTask>] [coId : 1] add task <foo>, total task = 2
+2021-04-25 09:18:33 [debug] [tid : 1918] [Scheduler.cc : 44 <start>] [coId : 1] Schedular start
+2021-04-25 09:18:33 [debug] [tid : 1924] [Coroutine.cc : 51 <Coroutine>] [coId : 4] MAIN Coroutine ctor, coId = 4
+2021-04-25 09:18:33 [debug] [tid : 1924] [Coroutine.cc : 42 <Coroutine>] [coId : 4] Co <Wake> created, coId = 5
+2021-04-25 09:18:33 [debug] [tid : 1924] [Processor.cc : 81 <addTask>] [coId : 4] add task <Wake>, total task = 1
+2021-04-25 09:18:33 [debug] [tid : 1924] [Processor.cc : 30 <Processor>] [coId : 4] Processor ctor
+2021-04-25 09:18:33 [debug] [tid : 1924] [Coroutine.cc : 42 <Coroutine>] [coId : 4] Co <Epoll> created, coId = 6
+2021-04-25 09:18:33 [debug] [tid : 1924] [CoEpoll.cc : 35 <updateEvent>] [coId : 5] add event 8 - Wake-0
+2021-04-25 09:18:33 [trace] [tid : 1924] [CoEpoll.cc : 67 <poll>] [coId : 6] fd total count 1
+2021-04-25 09:18:33 [debug] [tid : 1918] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <timer> created, coId = 7
+2021-04-25 09:18:33 [debug] [tid : 1918] [Processor.cc : 81 <addTask>] [coId : 1] add task <timer>, total task = 2
+2021-04-25 09:18:33 [debug] [tid : 1918] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Epoll> created, coId = 8
+2021-04-25 09:18:33 [debug] [tid : 1918] [CoEpoll.cc : 35 <updateEvent>] [coId : 2] add event 5 - Wake-0
+2021-04-25 09:18:33 [trace] [tid : 1924] [CoEpoll.cc : 74 <poll>] [coId : 6] 1 events happended
+2021-04-25 09:18:33 [debug] [tid : 1924] [CoEpoll.cc : 56 <removeEvent>] [coId : 6] remove event 8 - Wake-0
+2021-04-25 09:18:33 [debug] [tid : 1924] [Processor.cc : 81 <addTask>] [coId : 6] add task <  >, total task = 3
+2021-04-25 09:18:33 [debug] [tid : 1924] [CoEpoll.cc : 35 <updateEvent>] [coId : 7] add event 6 - timer-0
+2021-04-25 09:18:33 [debug] [tid : 1924] [CoEpoll.cc : 35 <updateEvent>] [coId : 5] add event 8 - Wake-0
+2021-04-25 09:18:33 [trace] [tid : 1924] [CoEpoll.cc : 67 <poll>] [coId : 6] fd total count 2
+2021-04-25 09:18:43 [info] [tid : 1918] [sched_stop_test.cc : 14 <foo>] [coId : 3] IN foo
+2021-04-25 09:18:43 [error] [tid : 1918] [Processor.cc : 107 <wakeupEpollCo>] [coId : 3] writes -1 bytes instead of 8
+2021-04-25 09:18:43 [info] [tid : 1918] [sched_stop_test.cc : 16 <foo>] [coId : 3] leave foo
+2021-04-25 09:18:43 [debug] [tid : 1918] [Coroutine.cc : 59 <~Coroutine>] [coId : 1] ~Coroutine coId = 3 total = 7
+2021-04-25 09:18:43 [trace] [tid : 1924] [CoEpoll.cc : 87 <poll>] [coId : 6] Nothing happened ....
+2021-04-25 09:18:43 [trace] [tid : 1924] [CoEpoll.cc : 67 <poll>] [coId : 6] fd total count 2
+2021-04-25 09:18:43 [error] [tid : 1918] [Coroutine.cc : 57 <~Coroutine>] [coId : 1] ASSERTION: state_ == State::TERM
+backtrace:
+    burger::Coroutine::~Coroutine()
+    void __gnu_cxx::new_allocator<burger::Coroutine>::destroy<burger::Coroutine>(burger::Coroutine*)
+    void std::allocator_traits<std::allocator<burger::Coroutine> >::destroy<burger::Coroutine>(std::allocator<burger::Coroutine>&, burger::Coroutine*)
+    std::_Sp_counted_ptr_inplace<burger::Coroutine, std::allocator<burger::Coroutine>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+    std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()
+    std::__shared_count<(__gnu_cxx::_Lock_policy)2>::~__shared_count()
+    std::__shared_ptr<burger::Coroutine, (__gnu_cxx::_Lock_policy)2>::~__shared_ptr()
+    std::shared_ptr<burger::Coroutine>::~shared_ptr()
+    burger::net::Processor::run()
+    burger::net::Scheduler::start()
+    ./build/debug-cpp11/sched_stop_test(main+0x194)                                                                                                                                                                                                                 
+    /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf0)                                                                                                                                                                                                         
+    ./build/debug-cpp11/sched_stop_test(_start+0x29)                                                                                                                                                                                                                
+
+2021-04-25 11:55:29 [debug] [tid : 1928] [Coroutine.cc : 51 <Coroutine>] [coId : 1] MAIN Coroutine ctor, coId = 1
+2021-04-25 11:55:29 [debug] [tid : 1928] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Wake> created, coId = 2
+2021-04-25 11:55:29 [debug] [tid : 1928] [Processor.cc : 81 <addTask>] [coId : 1] add task <Wake>, total task = 1
+2021-04-25 11:55:29 [debug] [tid : 1928] [Processor.cc : 30 <Processor>] [coId : 1] Processor ctor
+2021-04-25 11:55:29 [debug] [tid : 1928] [Scheduler.cc : 32 <Scheduler>] [coId : 1] Scheduler ctor
+2021-04-25 11:55:29 [debug] [tid : 1928] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <foo> created, coId = 3
+2021-04-25 11:55:29 [debug] [tid : 1928] [Processor.cc : 81 <addTask>] [coId : 1] add task <foo>, total task = 2
+2021-04-25 11:55:29 [debug] [tid : 1928] [Scheduler.cc : 44 <start>] [coId : 1] Schedular start
+2021-04-25 11:55:29 [debug] [tid : 1937] [Coroutine.cc : 51 <Coroutine>] [coId : 4] MAIN Coroutine ctor, coId = 4
+2021-04-25 11:55:29 [debug] [tid : 1937] [Coroutine.cc : 42 <Coroutine>] [coId : 4] Co <Wake> created, coId = 5
+2021-04-25 11:55:29 [debug] [tid : 1937] [Processor.cc : 81 <addTask>] [coId : 4] add task <Wake>, total task = 1
+2021-04-25 11:55:29 [debug] [tid : 1937] [Processor.cc : 30 <Processor>] [coId : 4] Processor ctor
+2021-04-25 11:55:29 [debug] [tid : 1928] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <timer> created, coId = 6
+2021-04-25 11:55:29 [debug] [tid : 1928] [Processor.cc : 81 <addTask>] [coId : 1] add task <timer>, total task = 2
+2021-04-25 11:55:29 [debug] [tid : 1928] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Epoll> created, coId = 8
+2021-04-25 11:55:29 [debug] [tid : 1928] [CoEpoll.cc : 35 <updateEvent>] [coId : 2] add event 5 - Wake-0
+2021-04-25 11:55:29 [debug] [tid : 1937] [Coroutine.cc : 42 <Coroutine>] [coId : 4] Co <Epoll> created, coId = 8
+2021-04-25 11:55:29 [debug] [tid : 1937] [CoEpoll.cc : 35 <updateEvent>] [coId : 5] add event 8 - Wake-0
+2021-04-25 11:55:29 [debug] [tid : 1937] [CoEpoll.cc : 35 <updateEvent>] [coId : 6] add event 6 - timer-0
+2021-04-25 11:55:29 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:55:39 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:55:39 [info] [tid : 1928] [sched_stop_test.cc : 14 <foo>] [coId : 3] IN foo
+2021-04-25 11:55:43 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:55:46 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:56:01 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:56:57 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:57:41 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:57:52 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:57:56 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:57:57 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:57:58 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:58:08 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:58:18 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:58:44 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:58:47 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:58:50 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 11:58:51 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:01:22 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:36 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:37 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:38 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:39 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:39 [error] [tid : 1928] [Processor.cc : 107 <wakeupEpollCo>] [coId : 3] writes -1 bytes instead of 8
+2021-04-25 12:03:40 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:42 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:44 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:47 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:49 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:49 [info] [tid : 1928] [sched_stop_test.cc : 16 <foo>] [coId : 3] leave foo
+2021-04-25 12:03:53 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:55 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:58 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:03:59 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:04:00 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:04:01 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:04:02 [trace] [tid : 1937] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 2
+2021-04-25 12:04:02 [debug] [tid : 1928] [Coroutine.cc : 59 <~Coroutine>] [coId : 1] ~Coroutine coId = 3 total = 7
+2021-04-25 12:04:02 [error] [tid : 1928] [Coroutine.cc : 57 <~Coroutine>] [coId : 1] ASSERTION: state_ == State::TERM
+backtrace:
+    burger::Coroutine::~Coroutine()
+    void __gnu_cxx::new_allocator<burger::Coroutine>::destroy<burger::Coroutine>(burger::Coroutine*)
+    void std::allocator_traits<std::allocator<burger::Coroutine> >::destroy<burger::Coroutine>(std::allocator<burger::Coroutine>&, burger::Coroutine*)
+    std::_Sp_counted_ptr_inplace<burger::Coroutine, std::allocator<burger::Coroutine>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+    std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()
+    std::__shared_count<(__gnu_cxx::_Lock_policy)2>::~__shared_count()
+    std::__shared_ptr<burger::Coroutine, (__gnu_cxx::_Lock_policy)2>::~__shared_ptr()
+    std::shared_ptr<burger::Coroutine>::~shared_ptr()
+    burger::net::Processor::run()
+    burger::net::Scheduler::start()
+    /home/yx/BurgerChat/3rdparty/Burger/build/debug-cpp11/sched_stop_test(main+0x194)                                                                                                                                                                               
+    /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf0)                                                                                                                                                                                                         
+    /home/yx/BurgerChat/3rdparty/Burger/build/debug-cpp11/sched_stop_test(_start+0x29)                                                                                                                                                                              
+
+2021-04-25 14:06:31 [debug] [tid : 2729] [Processor.cc : 21 <Processor>] [coId : 0] wakeup fd : 5
+2021-04-25 14:06:31 [debug] [tid : 2729] [Coroutine.cc : 51 <Coroutine>] [coId : 1] MAIN Coroutine ctor, coId = 1
+2021-04-25 14:06:31 [debug] [tid : 2729] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Wake> created, coId = 2
+2021-04-25 14:06:31 [debug] [tid : 2729] [Processor.cc : 83 <addTask>] [coId : 1] add task <Wake>, total task = 1
+2021-04-25 14:06:31 [debug] [tid : 2729] [Processor.cc : 31 <Processor>] [coId : 1] Processor ctor
+2021-04-25 14:06:31 [debug] [tid : 2729] [Scheduler.cc : 32 <Scheduler>] [coId : 1] Scheduler ctor
+2021-04-25 14:06:31 [debug] [tid : 2735] [Scheduler.cc : 44 <start>] [coId : 0] Schedular start
+2021-04-25 14:06:31 [debug] [tid : 2736] [Processor.cc : 21 <Processor>] [coId : 0] wakeup fd : 8
+2021-04-25 14:06:31 [debug] [tid : 2736] [Coroutine.cc : 51 <Coroutine>] [coId : 3] MAIN Coroutine ctor, coId = 3
+2021-04-25 14:06:31 [debug] [tid : 2736] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Wake> created, coId = 4
+2021-04-25 14:06:31 [debug] [tid : 2736] [Processor.cc : 83 <addTask>] [coId : 3] add task <Wake>, total task = 1
+2021-04-25 14:06:31 [debug] [tid : 2736] [Processor.cc : 31 <Processor>] [coId : 3] Processor ctor
+2021-04-25 14:06:31 [debug] [tid : 2735] [Coroutine.cc : 51 <Coroutine>] [coId : 5] MAIN Coroutine ctor, coId = 5
+2021-04-25 14:06:31 [debug] [tid : 2735] [Coroutine.cc : 42 <Coroutine>] [coId : 5] Co <timer> created, coId = 6
+2021-04-25 14:06:31 [debug] [tid : 2735] [Processor.cc : 83 <addTask>] [coId : 5] add task <timer>, total task = 2
+2021-04-25 14:06:31 [debug] [tid : 2729] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <foo> created, coId = 8
+2021-04-25 14:06:31 [debug] [tid : 2729] [Processor.cc : 83 <addTask>] [coId : 1] add task <foo>, total task = 2
+2021-04-25 14:06:31 [debug] [tid : 2735] [Coroutine.cc : 42 <Coroutine>] [coId : 5] Co <Epoll> created, coId = 7
+2021-04-25 14:06:31 [debug] [tid : 2735] [Processor.cc : 116 <consumeWakeUp>] [coId : 2] wakeup fd : 5
+2021-04-25 14:06:31 [debug] [tid : 2735] [CoEpoll.cc : 35 <updateEvent>] [coId : 2] add event 5 - Wake-0
+2021-04-25 14:06:31 [debug] [tid : 2736] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Epoll> created, coId = 9
+2021-04-25 14:06:31 [debug] [tid : 2736] [Processor.cc : 116 <consumeWakeUp>] [coId : 4] wakeup fd : 8
+2021-04-25 14:06:31 [debug] [tid : 2736] [CoEpoll.cc : 35 <updateEvent>] [coId : 4] add event 8 - Wake-0
+2021-04-25 14:06:31 [debug] [tid : 2736] [CoEpoll.cc : 35 <updateEvent>] [coId : 6] add event 6 - timer-0
+2021-04-25 14:06:31 [trace] [tid : 2736] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 14:06:32 [info] [tid : 2735] [sched_stop_test.cc : 14 <foo>] [coId : 8] IN foo
+2021-04-25 14:06:32 [debug] [tid : 2735] [Processor.cc : 107 <wakeupEpollCo>] [coId : 8] wakeup fd : 8
+2021-04-25 14:06:32 [info] [tid : 2735] [sched_stop_test.cc : 16 <foo>] [coId : 8] leave foo
+2021-04-25 14:06:32 [trace] [tid : 2736] [CoEpoll.cc : 74 <poll>] [coId : 9] 1 events happended
+2021-04-25 14:06:32 [debug] [tid : 2736] [CoEpoll.cc : 56 <removeEvent>] [coId : 9] remove event 8 - Wake-0
+2021-04-25 14:06:32 [debug] [tid : 2736] [Processor.cc : 83 <addTask>] [coId : 9] add task <Wake-0>, total task = 3
+2021-04-25 14:06:32 [debug] [tid : 2735] [Coroutine.cc : 59 <~Coroutine>] [coId : 5] ~Coroutine coId = 8 total = 8
+2021-04-25 14:06:32 [debug] [tid : 2735] [Coroutine.cc : 59 <~Coroutine>] [coId : 5] ~Coroutine coId = 7 total = 6
+2021-04-25 14:06:32 [debug] [tid : 2735] [Coroutine.cc : 67 <~Coroutine>] [coId : 0] MAIN ~Coroutine coId = 5 total = 5
+2021-04-25 14:06:32 [debug] [tid : 2736] [Coroutine.cc : 59 <~Coroutine>] [coId : 3] ~Coroutine coId = 9 total = 7
+2021-04-25 14:06:32 [debug] [tid : 2736] [CoEpoll.cc : 53 <removeEvent>] [coId : 3] remove event but not found
+2021-04-25 14:06:32 [debug] [tid : 2736] [Processor.cc : 38 <~Processor>] [coId : 3] Processor dtor
+2021-04-25 14:06:32 [debug] [tid : 2736] [Coroutine.cc : 67 <~Coroutine>] [coId : 0] MAIN ~Coroutine coId = 3 total = 4
+2021-04-25 14:06:32 [debug] [tid : 2729] [Scheduler.cc : 38 <~Scheduler>] [coId : 1] Scheduler dtor
+2021-04-25 14:08:30 [debug] [tid : 2740] [Processor.cc : 21 <Processor>] [coId : 0] wakeup fd : 5
+2021-04-25 14:08:30 [debug] [tid : 2740] [Coroutine.cc : 51 <Coroutine>] [coId : 1] MAIN Coroutine ctor, coId = 1
+2021-04-25 14:08:30 [debug] [tid : 2740] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Wake> created, coId = 2
+2021-04-25 14:08:30 [debug] [tid : 2740] [Processor.cc : 83 <addTask>] [coId : 1] add task <Wake>, total task = 1
+2021-04-25 14:08:30 [debug] [tid : 2740] [Processor.cc : 31 <Processor>] [coId : 1] Processor ctor
+2021-04-25 14:08:30 [debug] [tid : 2740] [Scheduler.cc : 32 <Scheduler>] [coId : 1] Scheduler ctor
+2021-04-25 14:08:30 [debug] [tid : 2749] [Scheduler.cc : 44 <start>] [coId : 0] Schedular start
+2021-04-25 14:08:30 [debug] [tid : 2750] [Processor.cc : 21 <Processor>] [coId : 0] wakeup fd : 8
+2021-04-25 14:08:30 [debug] [tid : 2750] [Coroutine.cc : 51 <Coroutine>] [coId : 3] MAIN Coroutine ctor, coId = 3
+2021-04-25 14:08:30 [debug] [tid : 2750] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Wake> created, coId = 4
+2021-04-25 14:08:30 [debug] [tid : 2750] [Processor.cc : 83 <addTask>] [coId : 3] add task <Wake>, total task = 1
+2021-04-25 14:08:30 [debug] [tid : 2750] [Processor.cc : 31 <Processor>] [coId : 3] Processor ctor
+2021-04-25 14:08:30 [debug] [tid : 2750] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Epoll> created, coId = 5
+2021-04-25 14:08:30 [debug] [tid : 2749] [Coroutine.cc : 51 <Coroutine>] [coId : 6] MAIN Coroutine ctor, coId = 6
+2021-04-25 14:08:30 [debug] [tid : 2750] [Processor.cc : 116 <consumeWakeUp>] [coId : 4] wakeup fd : 8
+2021-04-25 14:08:30 [debug] [tid : 2749] [Coroutine.cc : 42 <Coroutine>] [coId : 6] Co <timer> created, coId = 7
+2021-04-25 14:08:30 [debug] [tid : 2749] [Processor.cc : 83 <addTask>] [coId : 6] add task <timer>, total task = 2
+2021-04-25 14:08:30 [debug] [tid : 2750] [CoEpoll.cc : 35 <updateEvent>] [coId : 4] add event 8 - Wake-0
+2021-04-25 14:08:30 [debug] [tid : 2749] [Coroutine.cc : 42 <Coroutine>] [coId : 6] Co <Epoll> created, coId = 8
+2021-04-25 14:08:30 [debug] [tid : 2749] [Processor.cc : 116 <consumeWakeUp>] [coId : 2] wakeup fd : 5
+2021-04-25 14:08:30 [debug] [tid : 2749] [CoEpoll.cc : 35 <updateEvent>] [coId : 2] add event 5 - Wake-0
+2021-04-25 14:08:30 [trace] [tid : 2749] [CoEpoll.cc : 67 <poll>] [coId : 8] fd total count 1
+2021-04-25 14:08:30 [debug] [tid : 2740] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <foo> created, coId = 9
+2021-04-25 14:08:30 [debug] [tid : 2740] [Processor.cc : 83 <addTask>] [coId : 1] add task <foo>, total task = 2
+2021-04-25 14:08:30 [debug] [tid : 2740] [Processor.cc : 107 <wakeupEpollCo>] [coId : 1] wakeup fd : 5
+2021-04-25 14:08:30 [trace] [tid : 2749] [CoEpoll.cc : 74 <poll>] [coId : 8] 1 events happended
+2021-04-25 14:08:30 [debug] [tid : 2749] [CoEpoll.cc : 56 <removeEvent>] [coId : 8] remove event 5 - Wake-0
+2021-04-25 14:08:30 [debug] [tid : 2750] [CoEpoll.cc : 35 <updateEvent>] [coId : 7] add event 6 - timer-0
+2021-04-25 14:08:30 [debug] [tid : 2749] [Processor.cc : 83 <addTask>] [coId : 8] add task <Wake-0>, total task = 3
+2021-04-25 14:08:30 [trace] [tid : 2750] [CoEpoll.cc : 67 <poll>] [coId : 5] fd total count 2
+2021-04-25 14:08:31 [info] [tid : 2749] [sched_stop_test.cc : 14 <foo>] [coId : 9] IN foo
+2021-04-25 14:08:31 [debug] [tid : 2749] [Processor.cc : 107 <wakeupEpollCo>] [coId : 9] wakeup fd : 8
+2021-04-25 14:08:31 [trace] [tid : 2750] [CoEpoll.cc : 74 <poll>] [coId : 5] 1 events happended
+2021-04-25 14:08:31 [debug] [tid : 2750] [CoEpoll.cc : 56 <removeEvent>] [coId : 5] remove event 8 - Wake-0
+2021-04-25 14:08:31 [debug] [tid : 2750] [Processor.cc : 83 <addTask>] [coId : 5] add task <Wake-0>, total task = 3
+2021-04-25 14:08:31 [debug] [tid : 2750] [Coroutine.cc : 59 <~Coroutine>] [coId : 3] ~Coroutine coId = 5 total = 8
+2021-04-25 14:08:31 [debug] [tid : 2750] [CoEpoll.cc : 53 <removeEvent>] [coId : 3] remove event but not found
+2021-04-25 14:08:31 [debug] [tid : 2750] [Processor.cc : 38 <~Processor>] [coId : 3] Processor dtor
+2021-04-25 14:08:31 [debug] [tid : 2750] [Coroutine.cc : 67 <~Coroutine>] [coId : 0] MAIN ~Coroutine coId = 3 total = 7
+2021-04-25 14:08:31 [info] [tid : 2749] [sched_stop_test.cc : 16 <foo>] [coId : 9] leave foo
+2021-04-25 14:08:31 [debug] [tid : 2749] [Coroutine.cc : 59 <~Coroutine>] [coId : 6] ~Coroutine coId = 9 total = 6
+2021-04-25 14:08:31 [debug] [tid : 2749] [Coroutine.cc : 59 <~Coroutine>] [coId : 6] ~Coroutine coId = 8 total = 5
+2021-04-25 14:08:31 [debug] [tid : 2749] [Coroutine.cc : 67 <~Coroutine>] [coId : 0] MAIN ~Coroutine coId = 6 total = 4
+2021-04-25 14:08:34 [debug] [tid : 2740] [Scheduler.cc : 38 <~Scheduler>] [coId : 1] Scheduler dtor
+2021-04-25 14:33:08 [debug] [tid : 2752] [Processor.cc : 21 <Processor>] [coId : 0] wakeup fd : 5
+2021-04-25 14:33:08 [debug] [tid : 2752] [Coroutine.cc : 51 <Coroutine>] [coId : 1] MAIN Coroutine ctor, coId = 1
+2021-04-25 14:33:08 [debug] [tid : 2752] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Wake> created, coId = 2
+2021-04-25 14:33:08 [debug] [tid : 2752] [Processor.cc : 83 <addTask>] [coId : 1] add task <Wake>, total task = 1
+2021-04-25 14:33:08 [debug] [tid : 2752] [Processor.cc : 31 <Processor>] [coId : 1] Processor ctor
+2021-04-25 14:33:08 [debug] [tid : 2752] [Scheduler.cc : 32 <Scheduler>] [coId : 1] Scheduler ctor
+2021-04-25 14:33:08 [debug] [tid : 2758] [Scheduler.cc : 44 <start>] [coId : 0] Schedular start
+2021-04-25 14:33:08 [debug] [tid : 2759] [Processor.cc : 21 <Processor>] [coId : 0] wakeup fd : 8
+2021-04-25 14:33:08 [debug] [tid : 2759] [Coroutine.cc : 51 <Coroutine>] [coId : 3] MAIN Coroutine ctor, coId = 3
+2021-04-25 14:33:08 [debug] [tid : 2759] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Wake> created, coId = 4
+2021-04-25 14:33:08 [debug] [tid : 2759] [Processor.cc : 83 <addTask>] [coId : 3] add task <Wake>, total task = 1
+2021-04-25 14:33:08 [debug] [tid : 2759] [Processor.cc : 31 <Processor>] [coId : 3] Processor ctor
+2021-04-25 14:33:08 [debug] [tid : 2758] [Coroutine.cc : 51 <Coroutine>] [coId : 5] MAIN Coroutine ctor, coId = 5
+2021-04-25 14:33:08 [debug] [tid : 2758] [Coroutine.cc : 42 <Coroutine>] [coId : 5] Co <timer> created, coId = 6
+2021-04-25 14:33:08 [debug] [tid : 2758] [Processor.cc : 83 <addTask>] [coId : 5] add task <timer>, total task = 2
+2021-04-25 14:33:08 [debug] [tid : 2758] [Coroutine.cc : 42 <Coroutine>] [coId : 5] Co <Epoll> created, coId = 7
+2021-04-25 14:33:08 [debug] [tid : 2758] [Processor.cc : 116 <consumeWakeUp>] [coId : 2] wakeup fd : 5
+2021-04-25 14:33:08 [debug] [tid : 2758] [CoEpoll.cc : 35 <updateEvent>] [coId : 2] add event 5 - Wake-0
+2021-04-25 14:33:08 [trace] [tid : 2758] [CoEpoll.cc : 67 <poll>] [coId : 7] fd total count 1
+2021-04-25 14:33:08 [debug] [tid : 2752] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <foo> created, coId = 8
+2021-04-25 14:33:08 [debug] [tid : 2752] [Processor.cc : 83 <addTask>] [coId : 1] add task <foo>, total task = 2
+2021-04-25 14:33:08 [debug] [tid : 2752] [Processor.cc : 107 <wakeupEpollCo>] [coId : 1] wakeup fd : 5
+2021-04-25 14:33:08 [trace] [tid : 2758] [CoEpoll.cc : 74 <poll>] [coId : 7] 1 events happended
+2021-04-25 14:33:08 [debug] [tid : 2758] [CoEpoll.cc : 56 <removeEvent>] [coId : 7] remove event 5 - Wake-0
+2021-04-25 14:33:08 [debug] [tid : 2758] [Processor.cc : 83 <addTask>] [coId : 7] add task <Wake-0>, total task = 3
+2021-04-25 14:33:08 [debug] [tid : 2759] [Coroutine.cc : 42 <Coroutine>] [coId : 3] Co <Epoll> created, coId = 9
+2021-04-25 14:33:08 [debug] [tid : 2759] [Processor.cc : 116 <consumeWakeUp>] [coId : 4] wakeup fd : 8
+2021-04-25 14:33:08 [debug] [tid : 2759] [CoEpoll.cc : 35 <updateEvent>] [coId : 4] add event 8 - Wake-0
+2021-04-25 14:33:08 [debug] [tid : 2759] [CoEpoll.cc : 35 <updateEvent>] [coId : 6] add event 6 - timer-0
+2021-04-25 14:33:08 [trace] [tid : 2759] [CoEpoll.cc : 67 <poll>] [coId : 9] fd total count 2
+2021-04-25 14:33:09 [info] [tid : 2758] [sched_stop_test.cc : 14 <foo>] [coId : 8] IN foo
+2021-04-25 14:33:09 [debug] [tid : 2758] [Processor.cc : 107 <wakeupEpollCo>] [coId : 8] wakeup fd : 8
+2021-04-25 14:33:09 [trace] [tid : 2759] [CoEpoll.cc : 74 <poll>] [coId : 9] 1 events happended
+2021-04-25 14:33:09 [debug] [tid : 2759] [CoEpoll.cc : 56 <removeEvent>] [coId : 9] remove event 8 - Wake-0
+2021-04-25 14:33:09 [debug] [tid : 2759] [Processor.cc : 83 <addTask>] [coId : 9] add task <Wake-0>, total task = 3
+2021-04-25 14:33:09 [info] [tid : 2758] [sched_stop_test.cc : 16 <foo>] [coId : 8] leave foo
+2021-04-25 14:33:09 [debug] [tid : 2759] [Coroutine.cc : 59 <~Coroutine>] [coId : 3] ~Coroutine coId = 9 total = 7
+2021-04-25 14:33:09 [debug] [tid : 2759] [CoEpoll.cc : 53 <removeEvent>] [coId : 3] remove event but not found
+2021-04-25 14:33:09 [debug] [tid : 2758] [Coroutine.cc : 59 <~Coroutine>] [coId : 5] ~Coroutine coId = 8 total = 7
+2021-04-25 14:33:09 [debug] [tid : 2759] [Processor.cc : 38 <~Processor>] [coId : 3] Processor dtor
+2021-04-25 14:33:09 [debug] [tid : 2758] [Coroutine.cc : 59 <~Coroutine>] [coId : 5] ~Coroutine coId = 7 total = 6
+2021-04-25 14:33:09 [debug] [tid : 2758] [Coroutine.cc : 67 <~Coroutine>] [coId : 0] MAIN ~Coroutine coId = 5 total = 4
+2021-04-25 14:33:09 [debug] [tid : 2759] [Coroutine.cc : 67 <~Coroutine>] [coId : 0] MAIN ~Coroutine coId = 3 total = 5
+2021-04-25 14:33:09 [debug] [tid : 2752] [Scheduler.cc : 38 <~Scheduler>] [coId : 1] Scheduler dtor
+2021-04-26 02:06:26 [debug] [tid : 190] [Scheduler.cc : 31 <Scheduler>] [coId : 0] Scheduler ctor
+2021-04-26 02:06:26 [debug] [tid : 196] [Scheduler.cc : 43 <start>] [coId : 0] Schedular start
+2021-04-26 02:06:26 [debug] [tid : 196] [Processor.cc : 21 <Processor>] [coId : 0] wakeup fd : 6
+2021-04-26 02:06:26 [debug] [tid : 196] [Coroutine.cc : 51 <Coroutine>] [coId : 1] MAIN Coroutine ctor, coId = 1
+2021-04-26 02:06:26 [debug] [tid : 196] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Wake> created, coId = 2
+2021-04-26 02:06:26 [debug] [tid : 196] [Processor.cc : 88 <addTask>] [coId : 1] add task <Wake>, total task = 1
+2021-04-26 02:06:26 [debug] [tid : 196] [Processor.cc : 31 <Processor>] [coId : 1] Processor ctor
+2021-04-26 02:06:26 [debug] [tid : 196] [Scheduler.cc : 51 <start>] [coId : 1] work thread started
+2021-04-26 02:06:26 [debug] [tid : 196] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Epoll> created, coId = 3
+2021-04-26 02:06:26 [debug] [tid : 196] [Processor.cc : 126 <consumeWakeUp>] [coId : 2] wakeup fd : 6
+2021-04-26 02:06:26 [debug] [tid : 196] [CoEpoll.cc : 28 <updateEvent>] [coId : 2] fd = 6
+2021-04-26 02:06:26 [debug] [tid : 196] [CoEpoll.cc : 36 <updateEvent>] [coId : 2] add event 6 - Wake-0
+2021-04-26 02:06:26 [debug] [tid : 196] [CoEpoll.cc : 49 <updateEvent>] [coId : 2] fd = 6
+2021-04-26 02:06:26 [trace] [tid : 196] [CoEpoll.cc : 69 <poll>] [coId : 3] fd total count 1
+2021-04-26 02:06:26 [debug] [tid : 190] [Coroutine.cc : 51 <Coroutine>] [coId : 4] MAIN Coroutine ctor, coId = 4
+2021-04-26 02:06:26 [debug] [tid : 190] [Coroutine.cc : 42 <Coroutine>] [coId : 4] Co <foo> created, coId = 5
+2021-04-26 02:06:26 [debug] [tid : 190] [Processor.cc : 88 <addTask>] [coId : 4] add task <foo>, total task = 2
+2021-04-26 02:06:26 [debug] [tid : 190] [Processor.cc : 117 <wakeupEpollCo>] [coId : 4] wakeup fd : 6
+2021-04-26 02:06:26 [trace] [tid : 196] [CoEpoll.cc : 76 <poll>] [coId : 3] 1 events happended
+2021-04-26 02:06:26 [debug] [tid : 196] [CoEpoll.cc : 58 <removeEvent>] [coId : 3] remove event 6 - Wake-0
+2021-04-26 02:06:26 [debug] [tid : 196] [Processor.cc : 88 <addTask>] [coId : 3] add task <Wake-0>, total task = 3
+2021-04-26 02:06:27 [info] [tid : 196] [sched_stop_test.cc : 14 <foo>] [coId : 5] IN foo
+2021-04-26 02:06:27 [debug] [tid : 196] [Processor.cc : 76 <stop>] [coId : 5] STOP : WAKEUP 111-FD: 6
+2021-04-26 02:06:27 [info] [tid : 196] [sched_stop_test.cc : 16 <foo>] [coId : 5] leave foo
+2021-04-26 02:06:27 [debug] [tid : 196] [Coroutine.cc : 59 <~Coroutine>] [coId : 1] ~Coroutine coId = 5 total = 4
+2021-04-26 02:06:27 [debug] [tid : 196] [Coroutine.cc : 59 <~Coroutine>] [coId : 1] ~Coroutine coId = 3 total = 3
+2021-04-26 02:06:27 [debug] [tid : 196] [Coroutine.cc : 67 <~Coroutine>] [coId : 0] MAIN ~Coroutine coId = 1 total = 2
+2021-04-26 02:06:27 [debug] [tid : 197] [Scheduler.cc : 146 <joinThread>] [coId : 0] JOIN THREAD
+2021-04-26 02:06:27 [debug] [tid : 190] [Scheduler.cc : 36 <~Scheduler>] [coId : 4] Scheduler dtor
+2021-04-26 02:06:27 [debug] [tid : 190] [Processor.cc : 37 <~Processor>] [coId : 4] Processor dtor
+2021-04-26 02:06:27 [debug] [tid : 190] [Coroutine.cc : 67 <~Coroutine>] [coId : 0] MAIN ~Coroutine coId = 4 total = 1
+2021-04-26 02:09:20 [debug] [tid : 322] [Scheduler.cc : 31 <Scheduler>] [coId : 0] Scheduler ctor
+2021-04-26 02:09:20 [debug] [tid : 328] [Scheduler.cc : 43 <start>] [coId : 0] Schedular start
+2021-04-26 02:09:20 [debug] [tid : 328] [Processor.cc : 21 <Processor>] [coId : 0] wakeup fd : 6
+2021-04-26 02:09:20 [debug] [tid : 328] [Coroutine.cc : 51 <Coroutine>] [coId : 1] MAIN Coroutine ctor, coId = 1
+2021-04-26 02:09:20 [debug] [tid : 328] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Wake> created, coId = 2
+2021-04-26 02:09:20 [debug] [tid : 328] [Processor.cc : 88 <addTask>] [coId : 1] add task <Wake>, total task = 1
+2021-04-26 02:09:20 [debug] [tid : 328] [Processor.cc : 31 <Processor>] [coId : 1] Processor ctor
+2021-04-26 02:09:20 [debug] [tid : 328] [Scheduler.cc : 51 <start>] [coId : 1] work thread started
+2021-04-26 02:09:20 [debug] [tid : 322] [Processor.cc : 117 <wakeupEpollCo>] [coId : 0] wakeup fd : 6
+2021-04-26 02:09:20 [debug] [tid : 328] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <Epoll> created, coId = 3
+2021-04-26 02:09:20 [debug] [tid : 328] [Processor.cc : 126 <consumeWakeUp>] [coId : 2] wakeup fd : 6
+2021-04-26 02:09:20 [debug] [tid : 328] [Processor.cc : 126 <consumeWakeUp>] [coId : 2] wakeup fd : 6
+2021-04-26 02:09:20 [debug] [tid : 328] [CoEpoll.cc : 28 <updateEvent>] [coId : 2] fd = 6
+2021-04-26 02:09:20 [debug] [tid : 328] [CoEpoll.cc : 36 <updateEvent>] [coId : 2] add event 6 - Wake-0
+2021-04-26 02:09:20 [debug] [tid : 328] [CoEpoll.cc : 49 <updateEvent>] [coId : 2] fd = 6
+2021-04-26 02:09:20 [debug] [tid : 328] [Coroutine.cc : 42 <Coroutine>] [coId : 1] Co <foo> created, coId = 4
+2021-04-26 02:09:20 [debug] [tid : 328] [Processor.cc : 88 <addTask>] [coId : 1] add task <foo>, total task = 2
+2021-04-26 02:09:21 [info] [tid : 328] [sched_stop_test.cc : 14 <foo>] [coId : 4] IN foo
+2021-04-26 02:09:21 [debug] [tid : 328] [Processor.cc : 76 <stop>] [coId : 4] STOP : WAKEUP 111-FD: 6
+2021-04-26 02:09:21 [info] [tid : 328] [sched_stop_test.cc : 16 <foo>] [coId : 4] leave foo
+2021-04-26 02:09:21 [debug] [tid : 328] [Coroutine.cc : 59 <~Coroutine>] [coId : 1] ~Coroutine coId = 4 total = 3
+2021-04-26 02:09:21 [debug] [tid : 328] [Coroutine.cc : 59 <~Coroutine>] [coId : 1] ~Coroutine coId = 3 total = 2
+2021-04-26 02:09:21 [debug] [tid : 328] [Coroutine.cc : 67 <~Coroutine>] [coId : 0] MAIN ~Coroutine coId = 1 total = 1
+2021-04-26 02:09:21 [debug] [tid : 329] [Scheduler.cc : 146 <joinThread>] [coId : 0] JOIN THREAD
+2021-04-26 02:09:21 [debug] [tid : 322] [Scheduler.cc : 36 <~Scheduler>] [coId : 0] Scheduler dtor
+2021-04-26 02:09:21 [debug] [tid : 322] [Processor.cc : 37 <~Processor>] [coId : 0] Processor dtor

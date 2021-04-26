@@ -50,14 +50,14 @@ void Scheduler::start() {
     }
     DEBUG("work thread started");
     // 能不能不单开timerThread
-    timerThread_ = std::make_shared<ProcessThread>(this);
-    timerProc_ = timerThread_->startProcess();
-    timerProc_->addTask([&]() {
-        while(true) { // todo : check
-            timerQueue_->dealWithExpiredTimer();
-        }
-    }, "timer"); 
-    DEBUG("timer thread started");
+    // timerThread_ = std::make_shared<ProcessThread>(this);
+    // timerProc_ = timerThread_->startProcess();
+    // timerProc_->addTask([&]() {
+    //     while(true) { // todo : check
+    //         timerQueue_->dealWithExpiredTimer();
+    //     }
+    // }, "timer"); 
+    // DEBUG("timer thread started");
     running_ = true;
     cv_.notify_one();  // todo : 无其他线程，有影响吗
     mainProc_->run(); 
@@ -98,7 +98,7 @@ void Scheduler::stop() {
 void Scheduler::addTask(const Coroutine::Callback& task, std::string name) {
     Processor* proc = pickOneProcesser();
     assert(proc != nullptr);
-    proc->addTask(task, name);
+    proc->addPendingTask(task, name);
 }
 
 TimerId Scheduler::runAt(Coroutine::ptr co, Timestamp when) {
