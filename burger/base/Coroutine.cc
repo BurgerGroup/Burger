@@ -131,6 +131,7 @@ void Coroutine::SetThisCo(Coroutine* co) {
 
 void Coroutine::RunInCo(intptr_t vp) {
     Coroutine::ptr cur = GetCurCo();
+    DEBUG("Co : {} - {} is going to run and finish", cur->getCoId(), cur->getName());
     cur->cb_();
     cur->cb_ = nullptr;
     cur->setState(State::TERM);

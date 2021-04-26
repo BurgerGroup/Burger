@@ -3,7 +3,8 @@
 #include "burger/base/Util.h"
 #include "burger/base/Log.h"
 #include "Hook.h"
-
+#include "Scheduler.h"
+#include "TimerQueue.h"
 using namespace burger;
 using namespace burger::net;
 
@@ -28,6 +29,12 @@ Processor::Processor(Scheduler* scheduler)
             }
         }
     }, "Wake");
+
+    addTask([&]() {
+        while (!stop_) {
+            scheduler_->getTimerQueue()->dealWithExpiredTimer();
+        }
+    }, "timerQue");
 	DEBUG("Processor ctor");
 }
 
@@ -73,9 +80,7 @@ void Processor::run() {
 
 void Processor::stop() {
 	stop_ = true; 
-	DEBUG("STOP : WAKEUP 111-FD: {}", wakeupFd_);
 	if(epoll_.isEpolling()) {
-		DEBUG("STOP : WAKEUP 222-FD: {}", wakeupFd_);
 		wakeupEpollCo();
 	}
 
@@ -114,7 +119,6 @@ Processor* Processor::GetProcesserOfThisThread() {
 
 void Processor::wakeupEpollCo() {
 	uint64_t one = 1;
-	DEBUG("wakeup fd : {}", wakeupFd_);
 	ssize_t n = ::write(wakeupFd_, &one, sizeof one);
 	if(n != sizeof one) {
 		ERROR("writes {} bytes instead of 8", n);
@@ -123,7 +127,6 @@ void Processor::wakeupEpollCo() {
 
 ssize_t Processor::consumeWakeUp() {
 	uint64_t one;
-	DEBUG("wakeup fd : {}", wakeupFd_);
 	ssize_t n = ::read(wakeupFd_, &one, sizeof one);
 	if(n != sizeof one) {
 		ERROR("READ {} instead of 8", n);

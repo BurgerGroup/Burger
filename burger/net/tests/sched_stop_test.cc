@@ -5,7 +5,7 @@
 using namespace burger;
 using namespace burger::net;
 
-// todo : 优雅退出实验
+// 优雅退出实验
 
 Scheduler* g_sched;
 

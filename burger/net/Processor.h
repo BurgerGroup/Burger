@@ -37,10 +37,8 @@ public:
 
     static Processor* GetProcesserOfThisThread();
 
-
     void wakeupEpollCo();
     ssize_t consumeWakeUp();
-    // void enableReadEvent(int fd); // need wrap ?
 private: 
     void addPendingTasksIntoQueue();
     bool stop_ = false;
