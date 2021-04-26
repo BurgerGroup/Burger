@@ -26,7 +26,7 @@ public:
 using StackAllocator = MallocStackAllocator;
 
 Coroutine::Coroutine(const Callback& cb, std::string name, size_t stackSize)
-    : state_(State::EXEC),
+    : state_(State::TERM),
     name_(name + "-" +std::to_string(coId_)),
     cb_(cb) {
     checkCurCo();

@@ -86,11 +86,7 @@ TimerQueue::~TimerQueue() {
     if(mode_) {
         timerfdChannel_->disableAll();  // channel不再关注任何事件
         timerfdChannel_->remove();       // 在三角循环中删除此channel
-    } else {
-        for(auto& it : timers_) {
-            it.second->getCo()->termiate();
-        }
-    }
+    } 
     ::close(timerfd_);
 }
 

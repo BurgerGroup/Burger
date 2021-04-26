@@ -54,6 +54,7 @@ void Processor::run() {
 	setHookEnabled(true);
 	//没有可以执行协程时调用epoll协程
 	Coroutine::ptr epollCo = std::make_shared<Coroutine>(std::bind(&CoEpoll::poll, &epoll_, kEpollTimeMs), "Epoll");
+	epollCo->setState(Coroutine::State::EXEC);
 	
 	Coroutine::ptr cur;
 	while (!stop_ || !coQue_.empty()) {
@@ -87,7 +88,8 @@ void Processor::stop() {
 }
 
 void Processor::addTask(Coroutine::ptr co, std::string name) {
-    std::lock_guard<std::mutex> lock(mutex_);
+    co->setState(Coroutine::State::EXEC);
+	std::lock_guard<std::mutex> lock(mutex_);
 	coQue_.push(co);
     load_++;
 	DEBUG("add task <{}>, total task = {}", name, load_);
