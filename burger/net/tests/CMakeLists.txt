@@ -11,8 +11,8 @@
 # add_executable(timerfd_test timerfd_test.cc)
 # target_link_libraries(timerfd_test burger_net)
 
-# add_executable(timer_test timer_test.cc)
-# target_link_libraries(timer_test burger_net)
+add_executable(timer_test timer_test.cc)
+target_link_libraries(timer_test burger_net)
 
 # add_executable(runInLoop_test runInLoop_test.cc)
 # target_link_libraries(runInLoop_test burger_net)
@@ -68,8 +68,13 @@ target_link_libraries(Hook_test burger_net)
 add_executable(sched_timer_test01 sched_timer_test01.cc)
 target_link_libraries(sched_timer_test01 burger_net)
 
+add_executable(sched_timer_test02 sched_timer_test02.cc)
+target_link_libraries(sched_timer_test02 burger_net)
+
 # add_executable(coTcpServer_test coTcpServer_test.cc)
 # target_link_libraries(coTcpServer_test burger_net)
 
 add_executable(sched_stop_test sched_stop_test.cc)
 target_link_libraries(sched_stop_test burger_net)
+
+

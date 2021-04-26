@@ -54,9 +54,9 @@ Coroutine::Coroutine()
 Coroutine::~Coroutine() {
     --s_coNum;
     if(stack_) {
+        DEBUG("~Coroutine coId = {} total = {}", coId_, s_coNum);
         BURGER_ASSERT(state_ == State::TERM);
         StackAllocator::Dealloc(stack_, stackSize_);
-        DEBUG("~Coroutine coId = {} total = {}", coId_, s_coNum);
     } else {
         BURGER_ASSERT(!cb_);
         BURGER_ASSERT(state_ == State::EXEC);
@@ -127,6 +127,11 @@ Coroutine::ptr Coroutine::GetMainCo() {
 
 void Coroutine::SetThisCo(Coroutine* co) {
     t_co = co;
+}
+
+void Coroutine::termiate() {
+    state_ = State::TERM;
+    cb_ = nullptr;
 }
 
 void Coroutine::RunInCo(intptr_t vp) {

@@ -6,6 +6,7 @@
 #include "Processor.h"
 #include "burger/base/Singleton.h"
 #include "burger/base/Coroutine.h"
+#include "Callbacks.h"
 #include "TimerId.h"
 #include <memory>
 #include <vector>
@@ -34,9 +35,12 @@ public:
     
     void addTask(const Coroutine::Callback& task, std::string name = "");
     
-    TimerId runAt(Coroutine::ptr co, Timestamp when);
-    TimerId runAfter(Coroutine::ptr co, double delay);
-    TimerId runEvery(Coroutine::ptr co, double interval);
+    TimerId runAt(Timestamp when, Coroutine::ptr co);
+    TimerId runAfter(double delay, Coroutine::ptr co);
+    TimerId runEvery(double interval, Coroutine::ptr co);
+    TimerId runAt(Timestamp when, TimerCallback cb);
+    TimerId runAfter(double delay, TimerCallback cb);
+    TimerId runEvery(double interval, TimerCallback cb);
     void cancel(TimerId timerId);
     TimerQueue* getTimerQueue() { return timerQueue_.get(); }
 

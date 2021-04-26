@@ -86,6 +86,10 @@ TimerQueue::~TimerQueue() {
     if(mode_) {
         timerfdChannel_->disableAll();  // channel不再关注任何事件
         timerfdChannel_->remove();       // 在三角循环中删除此channel
+    } else {
+        for(auto& it : timers_) {
+            it.second->getCo()->termiate();
+        }
     }
     ::close(timerfd_);
 }
@@ -122,7 +126,7 @@ void TimerQueue::cancel(TimerId timerId) {
             if(timers_.find(cancelTimer) != timers_.end()) {
                 size_t n = timers_.erase(cancelTimer);
                 assert(n == 1);
-            } else if(callingExpiredTimers_) {
+            } else {
                 // 不在列表里，说明可能已经到期getExpiered出来了，并且正在调用定时器的回调函数
                 cancelingTimers_.insert(timer);
             }
@@ -148,7 +152,7 @@ void TimerQueue::cancelInLoop(TimerId timerId) {
     if(timers_.find(cancelTimer) != timers_.end()) {
         size_t n = timers_.erase(cancelTimer);
         assert(n == 1);
-    } else if(callingExpiredTimers_) {
+    } else {
         // 不在列表里，说明可能已经到期getExpiered出来了，并且正在调用定时器的回调函数
         cancelingTimers_.insert(timer);
     }
@@ -237,7 +241,6 @@ bool TimerQueue::insert(std::shared_ptr<Timer> timer) {
 bool TimerQueue::findFirstTimestamp(const Timestamp& now, Timestamp& ts) {
     std::lock_guard<std::mutex> lock(mutex_);  // todo : need lock here?
     if(timers_.empty()) return false;
-    // ts = (*timers_.begin()).first;
     ts = timers_.begin()->first;
     return true;
 }
@@ -262,7 +265,7 @@ void TimerQueue::dealWithExpiredTimer() {
         if(oldTimer->getInterval() > 0) {
             Timestamp newTs = Timestamp::now() + oldTimer->getInterval();
             oldTimer->setExpiration(newTs);
-            // oldTimer->setCo(std::make_shared<Coroutine>(oldTimer->getCo()->getCallback()));
+            oldTimer->setCo(std::make_shared<Coroutine>(oldTimer->getCo()->getCallback(), "repeat timer"));
             {
                 std::lock_guard<std::mutex> lock(mutex_);
                 timers_.insert(Entry(newTs, oldTimer));

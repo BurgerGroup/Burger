@@ -90,20 +90,35 @@ void Scheduler::addTask(const Coroutine::Callback& task, std::string name) {
     proc->addPendingTask(task, name);
 }
 
-TimerId Scheduler::runAt(Coroutine::ptr co, Timestamp when) {
+TimerId Scheduler::runAt(Timestamp when, Coroutine::ptr co) {
     Processor* proc = pickOneProcesser();
     return timerQueue_->addTimer(co, proc, when);
 }
 
-TimerId Scheduler::runAfter(Coroutine::ptr co, double delay) {
+TimerId Scheduler::runAfter(double delay, Coroutine::ptr co) {
     Timestamp when = Timestamp::now() + delay;
-    return runAt(co, when);
+    return runAt(when, co);
 }
 
-TimerId Scheduler::runEvery(Coroutine::ptr co, double interval) {
+TimerId Scheduler::runEvery(double interval, Coroutine::ptr co) {
     Processor* proc = pickOneProcesser();
     Timestamp when = Timestamp::now() + interval; 
     return timerQueue_->addTimer(co, proc, when, interval);
+}
+
+TimerId Scheduler::runAt(Timestamp when, TimerCallback cb) {
+    Coroutine::ptr co = std::make_shared<Coroutine>(cb, "timer");
+    return runAt(when, co);
+}
+
+TimerId Scheduler::runAfter(double delay, TimerCallback cb) {
+    Coroutine::ptr co = std::make_shared<Coroutine>(cb, "timer");
+    return runAfter(delay, co);
+}
+
+TimerId Scheduler::runEvery(double interval, TimerCallback cb) {
+    Coroutine::ptr co = std::make_shared<Coroutine>(cb, "timer");
+    return runEvery(interval, co);
 }
 
 void Scheduler::cancel(TimerId timerId) {

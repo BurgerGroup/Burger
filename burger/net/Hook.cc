@@ -105,7 +105,7 @@ unsigned int sleep(unsigned int seconds) {
 
 	burger::net::Scheduler* sched = proc->getScheduler();
 	assert(sched != nullptr);
-	sched->runAt(burger::Coroutine::GetCurCo(), burger::Timestamp::now() + static_cast<uint64_t>(seconds * burger::Timestamp::kMicroSecondsPerSecond));
+	sched->runAt(burger::Timestamp::now() + static_cast<uint64_t>(seconds * burger::Timestamp::kMicroSecondsPerSecond), burger::Coroutine::GetCurCo());
 	burger::Coroutine::SwapOut();
 	return 0;
 }

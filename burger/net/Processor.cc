@@ -56,7 +56,7 @@ void Processor::run() {
 	Coroutine::ptr epollCo = std::make_shared<Coroutine>(std::bind(&CoEpoll::poll, &epoll_, kEpollTimeMs), "Epoll");
 	
 	Coroutine::ptr cur;
-	while (!stop_) {
+	while (!stop_ || !coQue_.empty()) {
 		{
             std::lock_guard<std::mutex> lock(mutex_);
 			//没有协程时执行epoll协程
@@ -84,7 +84,6 @@ void Processor::stop() {
 	if(epoll_.isEpolling()) {
 		wakeupEpollCo();
 	}
-
 }
 
 void Processor::addTask(Coroutine::ptr co, std::string name) {
