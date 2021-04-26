@@ -35,10 +35,8 @@ public:
 
     static Processor* GetProcesserOfThisThread();
 
-
     void wakeupEpollCo();
     ssize_t consumeWakeUp();
-    // void enableReadEvent(int fd); // need wrap ?
 private: 
     bool stop_ = false;
     size_t load_ = 0;

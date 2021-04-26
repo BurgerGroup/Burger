@@ -33,34 +33,34 @@ Scheduler::Scheduler(size_t threadNum)
 }
 
 Scheduler::~Scheduler() {
-    DEBUG("Scheduler dtor");
     stop();
-    // joinThread();
+    DEBUG("Scheduler dtor");
 }
 
 void Scheduler::start() {
     if(running_) return;
-    DEBUG("Schedular start");
-    mainProc_ = util::make_unique<Processor>(this);
-    workProcVec_.push_back(mainProc_.get());
+    if(mainProc_ == nullptr) {
+        mainProc_ = util::make_unique<Processor>(this);
+        workProcVec_.push_back(mainProc_.get());
+    }
     for(size_t i = 0; i < threadNum_ - 1; i++) {
         auto procThrd = std::make_shared<ProcessThread>(this);
         workThreadVec_.push_back(procThrd);
         workProcVec_.push_back(procThrd->startProcess());
     }
-    DEBUG("work thread started");
-    // 能不能不单开timerThread
-    timerThread_ = std::make_shared<ProcessThread>(this);
-    timerProc_ = timerThread_->startProcess();
-    timerProc_->addTask([&]() {
-        while(true) { // todo : check
-            timerQueue_->dealWithExpiredTimer();
-        }
-    }, "timer"); 
     DEBUG("timer thread started");
+    // 能不能不单开timerThread
+    // timerThread_ = std::make_shared<ProcessThread>(this);
+    // timerProc_ = timerThread_->startProcess();
+    // timerProc_->addTask([&]() {
+    //     while(true) { // todo : check
+    //         timerQueue_->dealWithExpiredTimer();
+    //     }
+    // }, "timer"); 
     running_ = true;
     cv_.notify_one();  // todo : 无其他线程，有影响吗
     mainProc_->run(); 
+    DEBUG("Schedular start");
 }
 
 void Scheduler::startAsync() {
@@ -77,8 +77,6 @@ void Scheduler::wait() {
     quitCv_.wait(lock, [this] { return quit_ == true; });
 }
 
-
-// todo : 如何优雅退出
 void Scheduler::stop() {
     if(!running_) return;
     running_ = false;
@@ -86,7 +84,7 @@ void Scheduler::stop() {
         proc->stop();
     }
     // timerProc_->stop();
-    // todo : 如果stop在scheduler线程中调用,在新建的线程中join
+    // 如果在scheduler线程join，会自己join自己，导致dead lock error
     if(isHookEnable()) {
         std::thread joinThrd = std::thread{&Scheduler::joinThread, this};
         joinThrd.detach();
@@ -102,10 +100,11 @@ void Scheduler::addTask(const Coroutine::Callback& task, std::string name) {
 }
 
 TimerId Scheduler::runAt(Coroutine::ptr co, Timestamp when) {
-    Processor* proc = Processor::GetProcesserOfThisThread();
-    if(proc == nullptr) {
-        proc = pickOneProcesser();
-    } 
+    // Processor* proc = Processor::GetProcesserOfThisThread();
+    // if(proc == nullptr) {
+    //     proc = pickOneProcesser();
+    // } 
+    Processor* proc = pickOneProcesser();
     return timerQueue_->addTimer(co, proc, when);
 }
 
@@ -115,10 +114,11 @@ TimerId Scheduler::runAfter(Coroutine::ptr co, double delay) {
 }
 
 TimerId Scheduler::runEvery(Coroutine::ptr co, double interval) {
-    Processor* proc = Processor::GetProcesserOfThisThread();
-    if(proc == nullptr) {
-        proc = pickOneProcesser();
-    } 
+    // Processor* proc = Processor::GetProcesserOfThisThread();
+    // if(proc == nullptr) {
+    //     proc = pickOneProcesser();
+    // } 
+    Processor* proc = pickOneProcesser();
     Timestamp when = Timestamp::now() + interval; 
     return timerQueue_->addTimer(co, proc, when, interval);
 }
@@ -129,6 +129,11 @@ void Scheduler::cancel(TimerId timerId) {
 
 Processor* Scheduler::pickOneProcesser() {
     std::lock_guard<std::mutex> lock(mutex_);
+    if(mainProc_ == nullptr) {
+        mainProc_ = util::make_unique<Processor>(this);
+        workProcVec_.push_back(mainProc_.get());
+        return mainProc_.get();
+    }
     static size_t index = 0;
     assert(index < workProcVec_.size());
     Processor* proc = workProcVec_[index++];
@@ -136,16 +141,15 @@ Processor* Scheduler::pickOneProcesser() {
     return proc;
 }
 
-
 void Scheduler::joinThread() {
     if(thread_.joinable()) thread_.join();
     for(auto thrd : workThreadVec_) {
         thrd->join();
     }
     // timerThread_->join();
-    DEBUG("JOIN THREAD");
     quit_ = true;
     quitCv_.notify_one();
+    DEBUG("Thread Join");
 }
 
 

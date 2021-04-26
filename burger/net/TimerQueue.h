@@ -27,7 +27,7 @@ class Processor;
 // A best effort timer queue
 // No guarantee that the callback will be on time
 class TimerQueue : boost::noncopyable {
-friend class Scheduler;
+friend class Processor;
 public:
     TimerQueue();  // for co
     explicit TimerQueue(EventLoop* loop);

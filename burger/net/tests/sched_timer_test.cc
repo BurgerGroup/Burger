@@ -20,8 +20,9 @@ int main() {
     Scheduler sched;
     sched.startAsync();
     auto co = std::make_shared<Coroutine>(test, "timerTest");
-    TimerId timerid = sched.runEvery(co, 2);
+    TimerId timerid = sched.runAfter(co, 2);
     sleep(5);
     sched.cancel(timerid);
+    sched.wait();
     return 0;
 }
