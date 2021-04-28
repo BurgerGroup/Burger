@@ -13,8 +13,8 @@ void connHandler(CoTcpConnection::ptr conn) {
 
 int main() {
     LOGGER(); LOG_LEVEL_TRACE;
-    InetAddress listenAddr(8888);
-    CoTcpServer server(listenAddr, 2);
+    CoTcpServer server(8888, 2);
+    server.setConnectionHandler(connHandler);
     server.start();
     return 0;
 }

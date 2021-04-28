@@ -18,7 +18,10 @@ class Socket;
 class CoTcpServer : boost::noncopyable {
 public:
     using ConnectionHandler = std::function<void (CoTcpConnection::ptr)>;
+    CoTcpServer(uint16_t port, int threadNum = 1, const std::string& name = "tcpserver");
+    CoTcpServer(const std::string& ip, uint16_t port, int threadNum = 1, const std::string& name = "tcpserver");
     CoTcpServer(const InetAddress& listenAddr, int threadNum = 1, const std::string& name = "tcpserver");
+
     ~CoTcpServer();
 
     void start();
