@@ -134,6 +134,14 @@ void Coroutine::termiate() {
     cb_ = nullptr;
 }
 
+// 重置协程函数，并重置状态
+void Coroutine::reset(const Callback& cb) {
+    BURGER_ASSERT(stack_);
+    BURGER_ASSERT(state_ == State::TERM);
+    cb_ = cb;
+    ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::RunInCo);
+}
+
 void Coroutine::RunInCo(intptr_t vp) {
     Coroutine::ptr cur = GetCurCo();
     DEBUG("Co : {} - {} is going to run and finish", cur->getCoId(), cur->getName());

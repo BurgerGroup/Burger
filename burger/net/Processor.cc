@@ -114,7 +114,8 @@ void Processor::addTask(const Coroutine::Callback& cb, std::string name) {
             co = idleCoQue_.front();
             idleCoQue_.pop();
         }
-        co->setCallback(cb);
+        // co->setCallback(cb);
+        co->reset(cb);
         co->setName(name);
         addTask(co, name);
     }

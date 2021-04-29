@@ -41,6 +41,7 @@ public:
     static Coroutine::ptr GetMainCo();
     static void SetThisCo(Coroutine* co); // 色湖之当前线程的运行协程
     void termiate();
+    void reset(const Callback& cb);
 private:
     static void RunInCo(intptr_t vp);
     void checkCurCo();
