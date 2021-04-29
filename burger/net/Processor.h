@@ -29,9 +29,9 @@ public:
     bool stoped() { return stop_; }
     size_t getLoad() { return load_; }
     Scheduler* getScheduler() { return scheduler_; }
-    void addTask(Coroutine::ptr co, std::string name = "  ");
+    void addTask(Coroutine::ptr co, std::string name = "");
     void addTask(const Coroutine::Callback& cb, std::string name = "");
-    void addPendingTask(const Coroutine::Callback& cb, std::string name = "");
+    void addPendingTask(const Coroutine::Callback& cb, const std::string& name = "");
     void updateEvent(int fd, int events, Coroutine::ptr co = nullptr);
     void removeEvent(int fd);
 
@@ -50,7 +50,8 @@ private:
     // std::unique_ptr<CoEpoll> epoll_; // https://stackoverflow.com/questions/20268482/binding-functions-with-unique-ptr-arguments-to-stdfunctionvoid
 
     int wakeupFd_;
-    std::queue<Coroutine::ptr> coQue_;
+    std::queue<Coroutine::ptr> runnableCoQue_;
+    std::queue<Coroutine::ptr> idleCoQue_;
     std::vector<task> pendingTasks_;
 };
 

@@ -52,7 +52,7 @@ void Scheduler::start() {
     running_ = true;
     cv_.notify_one();  // todo : 无其他线程，有影响吗
     mainProc_->run(); 
-    DEBUG("Schedular start");
+    DEBUG("Schedular start() end");
 }
 
 void Scheduler::startAsync() {

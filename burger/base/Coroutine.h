@@ -28,9 +28,12 @@ public:
     static void SwapOut();  //切换到当前线程的主协程
     void swapIn(); //执行当前协程
     Callback getCallback() { return cb_; }
-    std::string getName() const { return name_; };
-    void setState(State state) { state_ = state; };
+    std::string getName() const { return name_; }; 
     State getState() { return state_; }
+    void setState(State state) { state_ = state; };
+    void setCallback(const Callback& cb) { cb_ = cb; }
+    void setName(const std::string& name) { name_ = name; }; 
+   
 
     uint64_t getCoId() const { return coId_; }
     static uint64_t GetCoId();

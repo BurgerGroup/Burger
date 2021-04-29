@@ -25,7 +25,6 @@ CoEpoll::~CoEpoll() {
 }
 
 void CoEpoll::updateEvent(int fd, int events, Coroutine::ptr co) {
-    DEBUG("fd = {}", fd);
     assert(co != nullptr);
     struct epoll_event event;
     bzero(&event, sizeof event);
@@ -46,7 +45,6 @@ void CoEpoll::updateEvent(int fd, int events, Coroutine::ptr co) {
             ERROR("CoEpoll mod error");
         }
     }
-    DEBUG("fd = {}", fd);
 }
 
 void CoEpoll::removeEvent(int fd) {
@@ -79,7 +77,7 @@ void CoEpoll::poll(int timeoutMs) {
                 assert(co != nullptr);
                 
                 removeEvent(eventList_[i].data.fd);
-                co->setState(Coroutine::State::EXEC);
+                // co->setState(Coroutine::State::EXEC);
                 proc_->addTask(co, co->getName());
             }
             if(static_cast<size_t>(numEvents) == eventList_.size()) {

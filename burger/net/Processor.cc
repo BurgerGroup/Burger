@@ -57,21 +57,24 @@ void Processor::run() {
 	epollCo->setState(Coroutine::State::EXEC);
 	
 	Coroutine::ptr cur;
-	while (!stop_ || !coQue_.empty()) {
+	while (!stop_ || !runnableCoQue_.empty()) {
 		{
             std::lock_guard<std::mutex> lock(mutex_);
 			//没有协程时执行epoll协程
-			if (coQue_.empty()) {
+			if (runnableCoQue_.empty()) {
 				cur = epollCo;
 				epoll_.setEpolling(true);
 			} else {
-				cur = coQue_.front(); 
-				coQue_.pop();
+				cur = runnableCoQue_.front(); 
+				runnableCoQue_.pop();
 			} 
 		}
 		cur->swapIn();
 		if (cur->getState() == Coroutine::State::TERM) {
-			load_--;
+            INFO("Get idle co!!!");
+            std::lock_guard<std::mutex> lock(mutex_);
+            --load_;
+            idleCoQue_.push(cur);
 		}
 
         // 避免在其他线程添加任务时错误地创建多余的协程（确保协程只在processor中）
@@ -90,7 +93,7 @@ void Processor::stop() {
 void Processor::addTask(Coroutine::ptr co, std::string name) {
     co->setState(Coroutine::State::EXEC);
 	std::lock_guard<std::mutex> lock(mutex_);
-	coQue_.push(co);
+	runnableCoQue_.push(co);
     load_++;
 	DEBUG("add task <{}>, total task = {}", name, load_);
     if(epoll_.isEpolling()) {
@@ -99,10 +102,25 @@ void Processor::addTask(Coroutine::ptr co, std::string name) {
 }
 
 void Processor::addTask(const Coroutine::Callback& cb, std::string name) {
-	addTask(std::make_shared<Coroutine>(cb, name), name);
+    if(idleCoQue_.empty()) {
+        INFO("No idle co!!!");
+        addTask(std::make_shared<Coroutine>(cb, name), name);
+    }
+    else {
+        INFO("Use idle co!!!");
+        Coroutine::ptr co;
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            co = idleCoQue_.front();
+            idleCoQue_.pop();
+        }
+        co->setCallback(cb);
+        co->setName(name);
+        addTask(co, name);
+    }
 }
 
-void Processor::addPendingTask(const Coroutine::Callback& cb, std::string name) {
+void Processor::addPendingTask(const Coroutine::Callback& cb, const std::string& name) {
     pendingTasks_.emplace_back(cb, name);
     wakeupEpollCo();
 }
