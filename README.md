@@ -28,7 +28,7 @@ c++11基于协程和reator的高性能Linux服务器框架
 ```
 $ sudo apt install g++ cmake make libboost-all-dev mysql-server libmysqlclient-dev libcurl4-openssl-dev
  
-$ git clone https://github.com/chanchann/Burger.git
+$ git clone https://github.com/BurgerGroup/Burger.git
 
 $ cd Burger
 
@@ -144,7 +144,6 @@ hook系统底层和socket相关的API，socket io相关的API，以及sleep系�
   * [benchmarks性能对比测试](./benchmarks/README.md)
   * [配置文件系统](./docs/configSys.md)
   * [Buffer实现](./docs/buffer.md)
-  * [Buffer实现](./docs/buffer.md)
   * [协程](./docs/coroutine.md)
   * [日志系统](./docs/logger.md)
 
@@ -158,7 +157,7 @@ hook系统底层和socket相关的API，socket io相关的API，以及sleep系�
 
 [@skyu98](https://github.com/skyu98).
 
-如有任何问题，请发送邮件ysyfrank DOT gmail.com交流学习
+如有任何问题，请发送邮件ysyfrank@gmail.com交流学习
 
 ## 致谢
 
