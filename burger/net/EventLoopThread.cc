@@ -47,7 +47,6 @@ void EventLoopThread::threadFunc() {
     }
     loop.loop();
 
-    // 这里为什么还要加锁
     std::lock_guard<std::mutex> lock(mutex_);
     loop_ = nullptr;
 }

@@ -2,6 +2,7 @@
 
 ```
 Coroutine::GetCurCo()
+
 Thread -> main_co <-----------> sub_co
             |
             |
@@ -19,12 +20,13 @@ main_co 负责切换，回收, 不分配栈空间
 scheduler --> thread --> co
 
         N  - --------  M 
-1. 线程池，分配一组线程
-2. 协程调度器，将协程，指定到相应的线程上去执行
+1. 执行器Processor,每一个IO线程都有一个独一无二的Processor
+2. 协程调度器，将协程，指定到相应的线程(Processor)上去执行
 
 ```
 
-## questions 
+## FAQ 
+
 * 1. `CoEpoller`的作用？为什么源码里是wait？
     答：协程因为阻塞swapOut之后，需要`CoEpoller`来监听状态；在事件来临时，将对应的协程重新加入就绪队列。
     （简洁地说：没有协程可执行，就epoll监听事件，来临时获取对应协程）

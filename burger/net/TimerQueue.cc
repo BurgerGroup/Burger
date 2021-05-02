@@ -161,7 +161,7 @@ void TimerQueue::handleRead() {
     auto expiredList = getExpiredList(now);  // 获取此时刻之前所有定时器列表
     callingExpiredTimers_ = true;
     // 清空去存已经从timers_取出过期的正在执行的timer,在reset的时候这些timer里面已取消的定时器就不必再重启了
-    cancelingTimers_.clear();  
+    cancelingTimers_.clear();   // todo : 理
     for(const Entry& expired: expiredList) {
         expired.second->run();
     }
