@@ -71,44 +71,38 @@ bool CoTimerQueue::insert(std::shared_ptr<Timer> timer) {
 void CoTimerQueue::dealWithExpiredTimer() {
     std::vector<Entry> expiredList;
     detail::readTimerfd(timerfd_, Timestamp::now());  
-    {
-        std::lock_guard<std::mutex> lock(mutex_);
-        expiredList = getExpiredList(Timestamp::now());
-    }
+
+    expiredList = getExpiredList(Timestamp::now());
+
+    DEBUG("1111");
     for(const auto& pair : expiredList) {
         Timer::ptr oldTimer = pair.second;
-        {
-            std::lock_guard<std::mutex> lock(mutex_);
-            if(cancelingTimers_.find(oldTimer) != cancelingTimers_.end()) {
-                continue;
-            }
+        
+        if(cancelingTimers_.find(oldTimer) != cancelingTimers_.end()) {
+            continue;
         }
+
+        DEBUG("2222");
         assert(oldTimer->getProcessor() != nullptr);
         if(oldTimer->getCo() != nullptr) {
             oldTimer->getProcessor()->addTask(oldTimer->getCo(), "timer");
-        }
-        else {
+        } else {
             oldTimer->getProcessor()->addPendingTask(oldTimer->getCb(), oldTimer->getName());
         }
+        DEBUG("333");
         if(oldTimer->getInterval() > 0) {
             Timestamp newTs = Timestamp::now() + oldTimer->getInterval();
             oldTimer->setExpiration(newTs);
             if(oldTimer->getCo() != nullptr) {
                 oldTimer->setCo(std::make_shared<Coroutine>(oldTimer->getCo()->getCallback(), "repeat timer"));
-            }
-            else {
+            } else {
                 oldTimer->setCo(std::make_shared<Coroutine>(oldTimer->getCb(), "repeat timer"));
             }
-            {
-                std::lock_guard<std::mutex> lock(mutex_);
-                timers_.insert(Entry(newTs, oldTimer));
-            }
+            timers_.insert(Entry(newTs, oldTimer));
         } 
     }
-    {
-        std::lock_guard<std::mutex> lock(mutex_);
-        cancelingTimers_.clear(); // 优化
-    }
+    cancelingTimers_.clear(); // 优化
+
     Timestamp ts;
     if(findFirstTimestamp(Timestamp::now(), ts)) {
         detail::resetTimerfd(timerfd_, ts);

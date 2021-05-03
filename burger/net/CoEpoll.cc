@@ -22,6 +22,11 @@ CoEpoll::CoEpoll(Processor* proc)
 
 CoEpoll::~CoEpoll() {
     ::close(epollFd_);
+    // 关注的都进去
+    for(auto it = coMap_.begin(); it != coMap_.end(); it++) {
+        it->second->swapIn();
+    }
+    DEBUG("CoEpoll dtor");
 }
 
 void CoEpoll::updateEvent(int fd, int events, Coroutine::ptr co) {
@@ -77,7 +82,7 @@ void CoEpoll::poll(int timeoutMs) {
                 assert(co != nullptr);
                 
                 removeEvent(eventList_[i].data.fd);
-                // co->setState(Coroutine::State::EXEC);
+                // co-d>setState(Coroutine::State::EXEC);
                 proc_->addTask(co, co->getName());
             }
             if(static_cast<size_t>(numEvents) == eventList_.size()) {
