@@ -4,7 +4,7 @@
 #include "burger/base/Log.h"
 #include "Hook.h"
 #include "Scheduler.h"
-#include "TimerQueue.h"
+#include "CoTimerQueue.h"
 
 using namespace burger;
 using namespace burger::net;
@@ -19,6 +19,7 @@ static thread_local Processor* t_proc = nullptr;
 Processor::Processor(Scheduler* scheduler) 
     : scheduler_(scheduler),
     epoll_(this),
+    timerQueue_(util::make_unique<CoTimerQueue>(this)),
     wakeupFd_(sockets::createEventfd()) {
 	DEBUG("wakeup fd : {}", wakeupFd_);
 	// 当有新事件来时唤醒Epoll 协程
@@ -33,7 +34,7 @@ Processor::Processor(Scheduler* scheduler)
 
     addTask([&]() {
         while (!stop_) {
-            scheduler_->getTimerQueue()->dealWithExpiredTimer();
+            timerQueue_->dealWithExpiredTimer();
         }
     }, "timerQue");
 	DEBUG("Processor ctor");
@@ -71,7 +72,6 @@ void Processor::run() {
 		}
 		cur->swapIn();
 		if (cur->getState() == Coroutine::State::TERM) {
-            INFO("Get idle co!!!");
             std::lock_guard<std::mutex> lock(mutex_);
             --load_;
             idleCoQue_.push(cur);
@@ -90,7 +90,7 @@ void Processor::stop() {
 	}
 }
 
-void Processor::addTask(Coroutine::ptr co, std::string name) {
+void Processor::addTask(Coroutine::ptr co, const std::string& name) {
     co->setState(Coroutine::State::EXEC);
 	std::lock_guard<std::mutex> lock(mutex_);
 	runnableCoQue_.push(co);
@@ -101,13 +101,11 @@ void Processor::addTask(Coroutine::ptr co, std::string name) {
     }
 }
 
-void Processor::addTask(const Coroutine::Callback& cb, std::string name) {
+void Processor::addTask(const Coroutine::Callback& cb, const std::string& name) {
     if(idleCoQue_.empty()) {
-        INFO("No idle co!!!");
         addTask(std::make_shared<Coroutine>(cb, name), name);
     }
     else {
-        INFO("Use idle co!!!");
         Coroutine::ptr co;
         {
             std::lock_guard<std::mutex> lock(mutex_);

@@ -1,8 +1,9 @@
 #include "Scheduler.h"
 #include "Processor.h"
 #include "ProcessorThread.h"
-#include "TimerQueue.h"
+#include "CoTimerQueue.h"
 #include "Hook.h"
+#include "Timer.h"
 #include "burger/base/Log.h"
 #include "burger/base/Util.h"
 
@@ -25,8 +26,7 @@ using namespace burger;
 using namespace burger::net;
 
 Scheduler::Scheduler(size_t threadNum) 
-    : threadNum_(threadNum),
-    timerQueue_(util::make_unique<TimerQueue>()) {
+    : threadNum_(threadNum) {
     assert(threadNum_ > 0);
     DEBUG("Scheduler ctor");
     assert(Processor::GetProcesserOfThisThread() == nullptr);
@@ -48,11 +48,9 @@ void Scheduler::start() {
         workThreadVec_.push_back(procThrd);
         workProcVec_.push_back(procThrd->startProcess());
     }
-    DEBUG("timer thread started");
     running_ = true;
     cv_.notify_one();  // todo : 无其他线程，有影响吗
     mainProc_->run(); 
-    DEBUG("Schedular start() end");
 }
 
 void Scheduler::startAsync() {
@@ -84,7 +82,7 @@ void Scheduler::stop() {
     }
 }
 
-void Scheduler::addTask(const Coroutine::Callback& task, std::string name) {
+void Scheduler::addTask(const Coroutine::Callback& task, const std::string& name) {
     Processor* proc = pickOneProcesser();
     assert(proc != nullptr);
     proc->addPendingTask(task, name);
@@ -92,7 +90,7 @@ void Scheduler::addTask(const Coroutine::Callback& task, std::string name) {
 
 TimerId Scheduler::runAt(Timestamp when, Coroutine::ptr co) {
     Processor* proc = pickOneProcesser();
-    return timerQueue_->addTimer(co, proc, when);
+    return proc->getTimerQueue()->addTimer(co, when);
 }
 
 TimerId Scheduler::runAfter(double delay, Coroutine::ptr co) {
@@ -103,26 +101,28 @@ TimerId Scheduler::runAfter(double delay, Coroutine::ptr co) {
 TimerId Scheduler::runEvery(double interval, Coroutine::ptr co) {
     Processor* proc = pickOneProcesser();
     Timestamp when = Timestamp::now() + interval; 
-    return timerQueue_->addTimer(co, proc, when, interval);
+    return proc->getTimerQueue()->addTimer(co, when, interval);
 }
 
-TimerId Scheduler::runAt(Timestamp when, TimerCallback cb) {
-    Coroutine::ptr co = std::make_shared<Coroutine>(cb, "timer");
-    return runAt(when, co);
+TimerId Scheduler::runAt(Timestamp when, TimerCallback cb, const std::string& name) {
+    Processor* proc = pickOneProcesser();
+    return proc->getTimerQueue()->addTimer(cb, name, when);
 }
 
-TimerId Scheduler::runAfter(double delay, TimerCallback cb) {
-    Coroutine::ptr co = std::make_shared<Coroutine>(cb, "timer");
-    return runAfter(delay, co);
+TimerId Scheduler::runAfter(double delay, TimerCallback cb, const std::string& name) {
+    Timestamp when = Timestamp::now() + delay;
+    return runAt(when, cb, name);
 }
 
-TimerId Scheduler::runEvery(double interval, TimerCallback cb) {
-    Coroutine::ptr co = std::make_shared<Coroutine>(cb, "timer");
-    return runEvery(interval, co);
+TimerId Scheduler::runEvery(double interval, TimerCallback cb, const std::string& name) {
+    Processor* proc = pickOneProcesser();
+    Timestamp when = Timestamp::now() + interval; 
+    return proc->getTimerQueue()->addTimer(cb, name, when, interval);
 }
 
 void Scheduler::cancel(TimerId timerId) {
-    return timerQueue_->cancel(timerId);
+    Processor* proc = timerId.timer_->getProcessor();
+    return proc->getTimerQueue()->cancel(timerId);
 }
 
 Processor* Scheduler::pickOneProcesser() {

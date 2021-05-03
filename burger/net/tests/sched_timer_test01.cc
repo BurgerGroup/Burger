@@ -18,13 +18,13 @@ void test() {
 
 
 int main() {
-    LOGGER(); LOG_LEVEL_TRACE;
+    LOGGER(); LOG_LEVEL_DEBUG;
     Scheduler sched;
     sched.startAsync();
-    auto co = std::make_shared<Coroutine>(test, "timerTest");
-    TimerId timerid = sched.runEvery(2, co);
-    sleep(5);
+    TimerId timerid = sched.runEvery(2, test, "timerTest");
+    sleep(7);
     sched.cancel(timerid);
+    sched.stop();
     sched.wait();
     return 0;
 }

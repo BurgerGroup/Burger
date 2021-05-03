@@ -1,7 +1,7 @@
 #ifndef COTCPSERVER_H
 #define COTCPSERVER_H
 
-#include <vector>
+#include <map>
 #include <boost/noncopyable.hpp>
 #include <functional>
 #include <memory>

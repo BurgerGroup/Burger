@@ -23,6 +23,17 @@ Timer::Timer(std::shared_ptr<Coroutine> co, Processor* proc, Timestamp when, dou
     seq_(s_numCreated_.incrementAndGet()) {
 }
 
+Timer::Timer(TimerCallback timercb, const std::string& name, Processor* proc, Timestamp when, double interval)
+    : timercb_(timercb),
+    name_(name),
+    co_(nullptr),
+    proc_(proc),
+    expiration_(when),
+    interval_(interval),
+    repeat_(interval_ > 0.0),
+    seq_(s_numCreated_.incrementAndGet()) {
+}
+
 void Timer::restart(Timestamp now) {
     if(repeat_) {
         // 如果重复，那么将时间设置为下次过期的时间

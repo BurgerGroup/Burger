@@ -6,6 +6,7 @@
 #include "burger/base/Atomic.h"
 #include "burger/base/Coroutine.h"
 #include <boost/noncopyable.hpp>
+#include <string>
 
 namespace burger {
 namespace net {
@@ -19,12 +20,17 @@ public:
     Timer(TimerCallback timercb, Timestamp when, double interval);
     // for co
     Timer(std::shared_ptr<Coroutine> co, Processor* proc, Timestamp when, double interval);
+    Timer(TimerCallback timercb, const std::string& name, Processor* proc, Timestamp when, double interval);
+
     void run() const { timercb_(); } 
     // 重置任务，主要是针对需要重复执行的任务
     void restart(Timestamp now);
     std::shared_ptr<Coroutine> getCo() { return co_; }
+    TimerCallback getCb() const {return timercb_; }
+    const std::string& getName() const { return name_; }
     void setCo(std::shared_ptr<Coroutine> co) { co_ = co; }
     Processor* getProcessor() { return proc_; }
+
     // 获取任务的本次到期时间
     Timestamp getExpiration() const { return expiration_; }
     void setExpiration(Timestamp expiration) { expiration_ = expiration; }
@@ -34,6 +40,7 @@ public:
     static uint64_t getNumCreated() { return s_numCreated_.get(); }
 private:
     const TimerCallback timercb_;
+    std::string name_;
     std::shared_ptr<Coroutine> co_;
     Processor* proc_;
     Timestamp expiration_; // 下一次的超时时刻

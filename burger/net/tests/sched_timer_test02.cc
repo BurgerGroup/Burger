@@ -32,8 +32,12 @@ void cancel(TimerId timer, const std::string& name) {
     std::cout << name <<" cancelled at " << Timestamp::now().toString() << std::endl;
 }
 
+void stopSched() {
+    g_sched->stop();
+}
+
 int main() {
-    LOGGER(); LOG_LEVEL_TRACE;
+    LOGGER(); LOG_LEVEL_DEBUG;
     printTid();
 
     Scheduler sched;
@@ -52,6 +56,7 @@ int main() {
     sched.runEvery(2, std::bind(print, "every2"));
     TimerId t3 = sched.runEvery(3, std::bind(print, "every3"));
     sched.runAfter(9.001, std::bind(cancel, t3, "t3"));
+    sched.runAfter(10, stopSched);
 
     sched.wait();
     return 0;

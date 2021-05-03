@@ -1,17 +1,7 @@
 #ifndef TIMERQUEUE_H
 #define TIMERQUEUE_H
 
-#include "burger/base/Timestamp.h"
-#include <boost/noncopyable.hpp>
-#include <memory>
-#include <set>
-#include <vector>
-#include <mutex>
-#include <functional>
-#include "EventLoop.h"
-#include <sys/timerfd.h>
-#include "Callbacks.h"
-#include "burger/base/Coroutine.h"
+#include "burger/net/ITimerQueue.h"
 
 namespace burger {
 namespace net {
@@ -21,21 +11,15 @@ class Timer;
 class EventLoop;
 class Channel;
 
-class Processor;
-
-// todo: 职责过于混乱，这里使用继承
 // A best effort timer queue
 // No guarantee that the callback will be on time
-class TimerQueue : boost::noncopyable {
-friend class Processor;
+class TimerQueue : public ITimerQueue {
 public:
-    TimerQueue();  // for co
     explicit TimerQueue(EventLoop* loop);
     ~TimerQueue();
     // 一定线程安全，可以跨线程调用，通常情况下被其他线程调用
     // 供EventLoop使用，封装成runAt,runAfter等使用
     TimerId addTimer(TimerCallback timercb, Timestamp when, double interval);
-    TimerId addTimer(Coroutine::ptr co, Processor* proc, Timestamp when, double interval = 0);
     void cancel(TimerId timerId);
 private:
     // set是排序的, 这样可以根据当前时间快速查找添加删除 Timer，并且能够处理相同的时间key的问题
@@ -54,16 +38,14 @@ private:
     bool insert(std::shared_ptr<Timer> timer);
 
     bool findFirstTimestamp(const Timestamp& now, Timestamp& ts);
-    void dealWithExpiredTimer();  // for co
 private:
     EventLoop* loop_;
-    const int timerfd_; 
+    // const int timerfd_; 
     std::unique_ptr<Channel> timerfdChannel_;
-    TimerSet timers_;
-    std::set<std::shared_ptr<Timer> > cancelingTimers_;    // 保存的是取消的定时器 --- todo 此处数据结构可否优化
+    // TimerSet timers_;
+    // std::set<std::shared_ptr<Timer> > cancelingTimers_;    // 保存的是取消的定时器 --- todo 此处数据结构可否优化
     bool callingExpiredTimers_;     // atomic, 是否正在处理超时事件
-    std::mutex mutex_;
-    bool mode_;
+    // std::mutex mutex_;
 };
 
 } // namespace net

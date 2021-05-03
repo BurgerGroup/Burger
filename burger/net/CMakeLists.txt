@@ -16,6 +16,8 @@ set(net_SRCS
   SocketsOps.cc
   Timer.cc
   TimerId.cc
+  ITimerQueue.cc
+  CoTimerQueue.cc
   TimerQueue.cc
   EventLoopThread.cc
   InetAddress.cc

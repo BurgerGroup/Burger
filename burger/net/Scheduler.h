@@ -12,6 +12,7 @@
 #include <vector>
 #include <thread>
 #include <mutex>
+#include <string>
 #include <condition_variable>
 #include <boost/noncopyable.hpp>
 
@@ -20,7 +21,6 @@ namespace net {
 
 class Processor;
 class ProcessThread;
-class TimerQueue;
 
 class Scheduler : boost::noncopyable {
 public:
@@ -33,17 +33,17 @@ public:
     void wait();
     void stop();
     
-    void addTask(const Coroutine::Callback& task, std::string name = "");
+    void addTask(const Coroutine::Callback& task, const std::string& name = "");
     
-    TimerId runAt(Timestamp when, Coroutine::ptr co);
+    // 定时完成协程任务（这里的协程一定是processor中已经存在的，而不是在其他地方新建的）
+    TimerId runAt(Timestamp when, Coroutine::ptr co); 
     TimerId runAfter(double delay, Coroutine::ptr co);
     TimerId runEvery(double interval, Coroutine::ptr co);
-    TimerId runAt(Timestamp when, TimerCallback cb);
-    TimerId runAfter(double delay, TimerCallback cb);
-    TimerId runEvery(double interval, TimerCallback cb);
+    TimerId runAt(Timestamp when, TimerCallback cb, const std::string& name = "timer");
+    TimerId runAfter(double delay, TimerCallback cb, const std::string& name = "timer");
+    TimerId runEvery(double interval, TimerCallback cb, const std::string& name = "timer");
     void cancel(TimerId timerId);
-    TimerQueue* getTimerQueue() { return timerQueue_.get(); }
-
+    
 protected:
     Processor* pickOneProcesser();
 private:
@@ -55,7 +55,6 @@ private:
     std::unique_ptr<Processor> mainProc_;
     std::vector<Processor *> workProcVec_;  // todo : 优先队列
     std::vector<std::shared_ptr<ProcessThread> > workThreadVec_;
-    std::unique_ptr<TimerQueue> timerQueue_;
     std::thread thread_;
     std::mutex mutex_;
     std::condition_variable cv_;

@@ -15,6 +15,7 @@ namespace net {
 
 class CoEpoll;
 class Scheduler;
+class CoTimerQueue;
 
 class Processor : boost::noncopyable {
 public:
@@ -29,13 +30,17 @@ public:
     bool stoped() { return stop_; }
     size_t getLoad() { return load_; }
     Scheduler* getScheduler() { return scheduler_; }
-    void addTask(Coroutine::ptr co, std::string name = "");
-    void addTask(const Coroutine::Callback& cb, std::string name = "");
+    
+    void addTask(Coroutine::ptr co, const std::string& name = "");
+    void addTask(const Coroutine::Callback& cb, const std::string& name = "");
     void addPendingTask(const Coroutine::Callback& cb, const std::string& name = "");
     void updateEvent(int fd, int events, Coroutine::ptr co = nullptr);
     void removeEvent(int fd);
 
     static Processor* GetProcesserOfThisThread();
+
+    CoTimerQueue* getTimerQueue() { return timerQueue_.get(); }
+
 
     void wakeupEpollCo();
     ssize_t consumeWakeUp();
@@ -48,7 +53,7 @@ private:
     Scheduler* scheduler_;
     CoEpoll epoll_;
     // std::unique_ptr<CoEpoll> epoll_; // https://stackoverflow.com/questions/20268482/binding-functions-with-unique-ptr-arguments-to-stdfunctionvoid
-
+    std::unique_ptr<CoTimerQueue> timerQueue_;
     int wakeupFd_;
     std::queue<Coroutine::ptr> runnableCoQue_;
     std::queue<Coroutine::ptr> idleCoQue_;
