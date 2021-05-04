@@ -17,11 +17,11 @@ static thread_local Processor* t_proc = nullptr;
 
 
 Processor::Processor(Scheduler* scheduler) 
-    : scheduler_(scheduler),
+    : mainCo_(Coroutine::GetCurCo()),
+    scheduler_(scheduler),
     epoll_(this),
     timerQueue_(util::make_unique<CoTimerQueue>(this)),
     wakeupFd_(sockets::createEventfd()) {
-	DEBUG("wakeup fd : {}", wakeupFd_);
 	// 当有新事件来时唤醒Epoll 协程
     addTask([&]() {
         while (!stop_) {
@@ -52,6 +52,7 @@ void Processor::run() {
 	} else {
 		t_proc = this;
 	}
+    DEBUG("t_proc : {}", fmt::ptr(this));
 	setHookEnabled(true);
 	//没有可以执行协程时调用epoll协程
 	Coroutine::ptr epollCo = std::make_shared<Coroutine>(std::bind(&CoEpoll::poll, &epoll_, kEpollTimeMs), "Epoll");
@@ -59,20 +60,16 @@ void Processor::run() {
 	
 	Coroutine::ptr cur;
 	while (!stop_ || !runnableCoQue_.empty()) {
-		{
-            std::lock_guard<std::mutex> lock(mutex_);
-			//没有协程时执行epoll协程
-			if (runnableCoQue_.empty()) {
-				cur = epollCo;
-				epoll_.setEpolling(true);
-			} else {
-				cur = runnableCoQue_.front(); 
-				runnableCoQue_.pop();
-			} 
-		}
+        //没有协程时执行epoll协程
+        if (runnableCoQue_.empty()) {
+            cur = epollCo;
+            epoll_.setEpolling(true);
+        } else {
+            cur = runnableCoQue_.front(); 
+            runnableCoQue_.pop();
+        } 
 		cur->swapIn();
 		if (cur->getState() == Coroutine::State::TERM) {
-            std::lock_guard<std::mutex> lock(mutex_);
             --load_;
             idleCoQue_.push(cur);
 		}
@@ -80,7 +77,7 @@ void Processor::run() {
         // 避免在其他线程添加任务时错误地创建多余的协程（确保协程只在processor中）
         addPendingTasksIntoQueue();
 	}
-	epollCo->swapIn();
+	epollCo->swapIn();  // epoll进去把cb执行完
 }
 
 void Processor::stop() {
@@ -92,7 +89,6 @@ void Processor::stop() {
 
 void Processor::addTask(Coroutine::ptr co, const std::string& name) {
     co->setState(Coroutine::State::EXEC);
-	std::lock_guard<std::mutex> lock(mutex_);
 	runnableCoQue_.push(co);
     load_++;
 	DEBUG("add task <{}>, total task = {}", name, load_);
@@ -107,11 +103,10 @@ void Processor::addTask(const Coroutine::Callback& cb, const std::string& name) 
     }
     else {
         Coroutine::ptr co;
-        {
-            std::lock_guard<std::mutex> lock(mutex_);
-            co = idleCoQue_.front();
-            idleCoQue_.pop();
-        }
+
+        co = idleCoQue_.front();
+        idleCoQue_.pop();
+
         // co->setCallback(cb);
         co->reset(cb);
         co->setName(name);

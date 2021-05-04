@@ -39,9 +39,10 @@ Scheduler::~Scheduler() {
 
 void Scheduler::start() {
     if(running_) return;
-    if(mainProc_ == nullptr) {
-        mainProc_ = util::make_unique<Processor>(this);
-        workProcVec_.push_back(mainProc_.get());
+    std::unique_ptr<Processor> mainProc;
+    if(workProcVec_.empty()) {
+        mainProc = util::make_unique<Processor>(this);
+        workProcVec_.push_back(mainProc.get());
     }
     for(size_t i = 0; i < threadNum_ - 1; i++) {
         auto procThrd = std::make_shared<ProcessThread>(this);
@@ -50,7 +51,7 @@ void Scheduler::start() {
     }
     running_ = true;
     cv_.notify_one();  // todo : 无其他线程，有影响吗
-    mainProc_->run(); 
+    mainProc->run();  // startAsync 在此处线程函数已执行结束
 }
 
 void Scheduler::startAsync() {
@@ -127,10 +128,8 @@ void Scheduler::cancel(TimerId timerId) {
 
 Processor* Scheduler::pickOneProcesser() {
     std::lock_guard<std::mutex> lock(mutex_);
-    if(mainProc_ == nullptr) {
-        mainProc_ = util::make_unique<Processor>(this);
-        workProcVec_.push_back(mainProc_.get());
-        return mainProc_.get();
+    if(workProcVec_.empty()) {
+        CRITICAL("start scheduler first");
     }
     static size_t index = 0;
     assert(index < workProcVec_.size());

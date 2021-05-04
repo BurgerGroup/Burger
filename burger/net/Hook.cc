@@ -69,7 +69,8 @@ retry:
 		proc->updateEvent(fd, event, burger::Coroutine::GetCurCo());
 		burger::Coroutine::GetCurCo()->setState(burger::Coroutine::State::HOLD);
 		burger::Coroutine::SwapOut();
-		if(proc->stoped()) return 8;  // 当processor qstop后，直接返回并且没有while，优雅走完函数并析构
+
+		if(proc->stoped()) return 8;  // 当processor stop后，直接返回并且没有while，优雅走完函数并析构
 		
 		goto retry;
 	}

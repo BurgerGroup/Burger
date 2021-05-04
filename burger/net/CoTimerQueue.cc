@@ -5,9 +5,9 @@
 
 namespace burger{
 namespace net {
+
 CoTimerQueue::CoTimerQueue(Processor* proc) 
     : proc_(proc) {
-    
 }
 
 TimerId CoTimerQueue::addTimer(Coroutine::ptr co, Timestamp when, double interval) {
@@ -71,25 +71,24 @@ bool CoTimerQueue::insert(std::shared_ptr<Timer> timer) {
 void CoTimerQueue::dealWithExpiredTimer() {
     std::vector<Entry> expiredList;
     detail::readTimerfd(timerfd_, Timestamp::now());  
+    
+    if(proc_->stoped()) return;
 
     expiredList = getExpiredList(Timestamp::now());
 
-    DEBUG("1111");
     for(const auto& pair : expiredList) {
         Timer::ptr oldTimer = pair.second;
-        
+
         if(cancelingTimers_.find(oldTimer) != cancelingTimers_.end()) {
             continue;
         }
 
-        DEBUG("2222");
         assert(oldTimer->getProcessor() != nullptr);
         if(oldTimer->getCo() != nullptr) {
             oldTimer->getProcessor()->addTask(oldTimer->getCo(), "timer");
         } else {
             oldTimer->getProcessor()->addPendingTask(oldTimer->getCb(), oldTimer->getName());
         }
-        DEBUG("333");
         if(oldTimer->getInterval() > 0) {
             Timestamp newTs = Timestamp::now() + oldTimer->getInterval();
             oldTimer->setExpiration(newTs);

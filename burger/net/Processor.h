@@ -46,6 +46,7 @@ public:
     ssize_t consumeWakeUp();
 private: 
     void addPendingTasksIntoQueue();
+    std::shared_ptr<Coroutine> mainCo_;
     bool stop_ = false;
     bool addingPendingTasks_ = false;
     size_t load_ = 0;
@@ -58,6 +59,7 @@ private:
     std::queue<Coroutine::ptr> runnableCoQue_;
     std::queue<Coroutine::ptr> idleCoQue_;
     std::vector<task> pendingTasks_;
+
 };
 
 

@@ -61,9 +61,9 @@ Coroutine::~Coroutine() {
         BURGER_ASSERT(!cb_);
         BURGER_ASSERT(state_ == State::EXEC);
         Coroutine* cur = t_co;
-        if(cur == this) {
-            SetThisCo(nullptr);
-        }
+        // if(cur == this) {
+        //     SetThisCo(nullptr);
+        // }
         DEBUG("MAIN ~Coroutine coId = {} total = {}", coId_, s_coNum);
     }
     
@@ -81,6 +81,7 @@ void Coroutine::SwapOut() {
     SetThisCo(t_main_co.get());
     jump_fcontext(&curCo->ctx_, t_main_co->ctx_, 0);
 }
+
 // 挂起主协程，执行当前协程，只能在主协程调用
 void Coroutine::swapIn() {
     SetThisCo(this);
@@ -144,10 +145,11 @@ void Coroutine::reset(const Callback& cb) {
 
 void Coroutine::RunInCo(intptr_t vp) {
     Coroutine::ptr cur = GetCurCo();
-    DEBUG("Co : {} - {} is going to run and finish", cur->getCoId(), cur->getName());
+    DEBUG("Co : {} - {} running", cur->getCoId(), cur->getName());
     cur->cb_();
     cur->cb_ = nullptr;
     cur->setState(State::TERM);
+    DEBUG("Co : {} - {} run end", cur->getCoId(), cur->getName());
     cur.reset();  // 防止无法析构
     Coroutine::SwapOut();   	//重新返回主协程
 }
