@@ -30,13 +30,14 @@ public:
     bool stoped() { return stop_; }
     size_t getLoad() { return load_; }
     Scheduler* getScheduler() { return scheduler_; }
-    
+    Coroutine::ptr getResetIdleCo(const Coroutine::Callback& cb, const std::string& name);
+
     void addTask(Coroutine::ptr co, const std::string& name = "");
     void addTask(const Coroutine::Callback& cb, const std::string& name = "");
     void addPendingTask(const Coroutine::Callback& cb, const std::string& name = "");
     void updateEvent(int fd, int events, Coroutine::ptr co = nullptr);
     void removeEvent(int fd);
-
+    
     static Processor* GetProcesserOfThisThread();
 
     CoTimerQueue* getTimerQueue() { return timerQueue_.get(); }

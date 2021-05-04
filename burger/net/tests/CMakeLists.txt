@@ -65,11 +65,11 @@
 # add_executable(Hook_test Hook_test.cc)
 # target_link_libraries(Hook_test burger_net)
 
-# add_executable(sched_timer_test01 sched_timer_test01.cc)
-# target_link_libraries(sched_timer_test01 burger_net)
+add_executable(sched_timer_test01 sched_timer_test01.cc)
+target_link_libraries(sched_timer_test01 burger_net)
 
-# add_executable(sched_timer_test02 sched_timer_test02.cc)
-# target_link_libraries(sched_timer_test02 burger_net)
+add_executable(sched_timer_test02 sched_timer_test02.cc)
+target_link_libraries(sched_timer_test02 burger_net)
 
 add_executable(sched_timer_test03 sched_timer_test03.cc)
 target_link_libraries(sched_timer_test03 burger_net)

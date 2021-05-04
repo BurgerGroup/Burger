@@ -87,6 +87,19 @@ void Processor::stop() {
 	}
 }
 
+Coroutine::ptr Processor::getResetIdleCo(const Coroutine::Callback& cb, const std::string& name) {
+        if(idleCoQue_.empty()) {
+            return std::make_shared<Coroutine>(cb, name);
+        } else {
+            Coroutine::ptr co = idleCoQue_.front();
+            idleCoQue_.pop();
+
+            co->reset(cb);
+            co->setName(name);
+            return co;
+        }
+}
+
 void Processor::addTask(Coroutine::ptr co, const std::string& name) {
     co->setState(Coroutine::State::EXEC);
 	runnableCoQue_.push(co);
@@ -107,7 +120,6 @@ void Processor::addTask(const Coroutine::Callback& cb, const std::string& name) 
         co = idleCoQue_.front();
         idleCoQue_.pop();
 
-        // co->setCallback(cb);
         co->reset(cb);
         co->setName(name);
         addTask(co, name);
