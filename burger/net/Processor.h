@@ -30,9 +30,9 @@ public:
     bool stoped() { return stop_; }
     size_t getLoad() { return load_; }
     Scheduler* getScheduler() { return scheduler_; }
-    Coroutine::ptr getResetIdleCo(const Coroutine::Callback& cb, const std::string& name);
+    Coroutine::ptr resetAndGetCo(const Coroutine::Callback& cb, const std::string& name);
 
-    void addTask(Coroutine::ptr co, const std::string& name = "");
+    void addTask(Coroutine::ptr co);
     void addTask(const Coroutine::Callback& cb, const std::string& name = "");
     void addPendingTask(const Coroutine::Callback& cb, const std::string& name = "");
     void updateEvent(int fd, int events, Coroutine::ptr co = nullptr);
@@ -41,7 +41,6 @@ public:
     static Processor* GetProcesserOfThisThread();
 
     CoTimerQueue* getTimerQueue() { return timerQueue_.get(); }
-
 
     void wakeupEpollCo();
     ssize_t consumeWakeUp();

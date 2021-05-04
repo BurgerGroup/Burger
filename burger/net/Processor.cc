@@ -87,7 +87,7 @@ void Processor::stop() {
 	}
 }
 
-Coroutine::ptr Processor::getResetIdleCo(const Coroutine::Callback& cb, const std::string& name) {
+Coroutine::ptr Processor::resetAndGetCo(const Coroutine::Callback& cb, const std::string& name) {
         if(idleCoQue_.empty()) {
             return std::make_shared<Coroutine>(cb, name);
         } else {
@@ -100,30 +100,18 @@ Coroutine::ptr Processor::getResetIdleCo(const Coroutine::Callback& cb, const st
         }
 }
 
-void Processor::addTask(Coroutine::ptr co, const std::string& name) {
+void Processor::addTask(Coroutine::ptr co) {
     co->setState(Coroutine::State::EXEC);
 	runnableCoQue_.push(co);
     load_++;
-	DEBUG("add task <{}>, total task = {}", name, load_);
+	DEBUG("add task <{}>, total task = {}", co->getName(), load_);
     if(epoll_.isEpolling()) {
         wakeupEpollCo();
     }
 }
 
 void Processor::addTask(const Coroutine::Callback& cb, const std::string& name) {
-    if(idleCoQue_.empty()) {
-        addTask(std::make_shared<Coroutine>(cb, name), name);
-    }
-    else {
-        Coroutine::ptr co;
-
-        co = idleCoQue_.front();
-        idleCoQue_.pop();
-
-        co->reset(cb);
-        co->setName(name);
-        addTask(co, name);
-    }
+    addTask(resetAndGetCo(cb, name));
 }
 
 void Processor::addPendingTask(const Coroutine::Callback& cb, const std::string& name) {

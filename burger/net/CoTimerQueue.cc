@@ -86,7 +86,7 @@ void CoTimerQueue::dealWithExpiredTimer() {
         assert(oldTimer->getProcessor() != nullptr);
         
         if(oldTimer->getCo() != nullptr) {
-            oldTimer->getProcessor()->addTask(oldTimer->getCo(), "timer");
+            oldTimer->getProcessor()->addTask(oldTimer->getCo());
         } else {
             oldTimer->getProcessor()->addPendingTask(oldTimer->getCb(), oldTimer->getName());
         }
@@ -94,7 +94,7 @@ void CoTimerQueue::dealWithExpiredTimer() {
             Timestamp newTs = Timestamp::now() + oldTimer->getInterval();
             oldTimer->setExpiration(newTs);
             if(oldTimer->getCo() != nullptr) {
-                oldTimer->setCo(oldTimer->getProcessor()->getResetIdleCo(oldTimer->getCo()->getCallback(), "repeat timer"));
+                oldTimer->setCo(oldTimer->getProcessor()->resetAndGetCo(oldTimer->getCo()->getCallback(), "repeat timer"));
             } else {
                 oldTimer->setCo(std::make_shared<Coroutine>(oldTimer->getCb(), "repeat timer"));
             }

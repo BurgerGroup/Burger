@@ -83,7 +83,7 @@ void CoEpoll::poll(int timeoutMs) {
                 
                 removeEvent(eventList_[i].data.fd);
                 // co-d>setState(Coroutine::State::EXEC);
-                proc_->addTask(co, co->getName());
+                proc_->addTask(co);
             }
             if(static_cast<size_t>(numEvents) == eventList_.size()) {
                 eventList_.resize(eventList_.size() * 2);
