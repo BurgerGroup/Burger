@@ -1,5 +1,7 @@
 ## 协程模块
 
+实现非对称协程
+
 ```
 Coroutine::GetCurCo()
 
@@ -19,11 +21,13 @@ main_co 负责切换，回收, 不分配栈空间
     1    --     N      1 -- M
 scheduler --> thread --> co
 
-        N  - --------  M 
+        N  - --------  M
+
 1. 执行器Processor,每一个IO线程都有一个独一无二的Processor
-2. 协程调度器，将协程，指定到相应的线程(Processor)上去执行
+2. 协程调度器，将协程，分配到线程(Processor)上去执行
 
 ```
+
 
 ## FAQ 
 

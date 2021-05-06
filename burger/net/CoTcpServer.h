@@ -32,7 +32,6 @@ private:
 private:
     using ConnectionMap = std::map<std::string, CoTcpConnection::ptr>;  // 每个TcpConnection都有一个名字，作为key
 
-    InetAddress listenAddr_; // really need this?
     std::unique_ptr<Socket> listenSock_;    
     std::unique_ptr<Scheduler> sched_;
     ConnectionHandler connHandler_;  
