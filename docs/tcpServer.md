@@ -99,6 +99,7 @@ void TcpServer::newConnection(int sockfd, const InetAddress& peerAddr) {
 
 ```cpp
 // 这里实际上是去将conn的添加到epoll关注
+// 然后执行用户设置的connectionCallback_
 void TcpConnection::connectEstablished() {
     loop_->assertInLoopThread();
     assert(status_ == Status::kConnecting);
@@ -108,3 +109,4 @@ void TcpConnection::connectEstablished() {
     connectionCallback_(shared_from_this());
 }
 ```
+

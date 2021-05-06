@@ -33,16 +33,31 @@ ssize_t CoTcpConnection::recv(RingBuffer::ptr buf) {
 }
 
 ssize_t CoTcpConnection::send(RingBuffer::ptr buf) {
-    ssize_t n = sockets::write(socket_->getFd(), buf->peek(), buf->getReadableBytes());
-    if(n > 0) {
-        buf->retrieve(n);
-    }
+    size_t remain = buf->getReadableBytes();
+    while(remain) {
+        ssize_t n = sockets::write(socket_->getFd(), buf->peek(), remain);
+        if(n > 0) {
+            buf->retrieve(n);
+            remain -= n;
+        }
+    } 
     return 0;
 }
 
-ssize_t CoTcpConnection::send(const std::string& msg) {
-    return sockets::write(socket_->getFd(), msg);
+ssize_t CoTcpConnection::send(RingBuffer::ptr buf, size_t sendSize) {
+    if(sendSize <= 0) return 0;
+    while(sendSize) {
+        ssize_t n = sockets::write(socket_->getFd(), buf->peek(), sendSize);
+        if(n > 0) {
+            buf->retrieve(n);
+            sendSize -= n;
+        }
+    } 
+    return 0;
 }
+// ssize_t CoTcpConnection::send(const std::string& msg) {
+//     return sockets::write(socket_->getFd(), msg);
+// }
 
 
 
