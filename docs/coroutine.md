@@ -132,9 +132,56 @@ void CoTcpServer::startAccept() {
     * 接下来，```onMessage()```被回调，我们将InputBuffer中的数据取出，计算长度，并且原封不动地发送回去
 
     ```cpp
+    // onMsg中是我们的业务逻辑处理
     void onMessage(const TcpConnectionPtr& conn, Buffer& buf, Timestamp receiveTime) {    
         std::string msg(buf.retrieveAllAsString());
         std::cout << "New message from " << conn->getName() << ":" << msg << std::endl;
         conn->send(msg);
     }   
     ```
+* `Co`
+Co模式下，该协程只包含一个整体任务：
+```cpp
+void connHandler(CoTcpConnection::ptr conn) {
+    RingBuffer::ptr buffer = std::make_shared<RingBuffer>();
+    while(conn->recv(buffer) > 0) {
+        conn->send(buffer);
+    }
+}
+```
+当该协程被执行时，它创建了一个Buffer对象；接下来**它尝试从该连接对应的fd中读取数据，然而可能此时并没有数据到来**————于是在Hook函数中，**它把该fd上树监听，并且主动将自己换出，让Processor执行下一个协程**：
+```cpp
+template<typename OriginFun, typename... Args>
+static ssize_t ioHook(int fd, OriginFun origin_func, int event, Args&&... args) {
+	ssize_t n;
+
+	burger::net::Processor* proc = burger::net::Processor::GetProcesserOfThisThread();
+	if (!burger::net::isHookEnable()) {
+		return origin_func(fd, std::forward<Args>(args)...);
+	}
+
+retry:
+	do {
+		n = origin_func(fd, std::forward<Args>(args)...);
+	} while (n == -1 && errno == EINTR);
+
+	if (n == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
+
+		//注册事件，事件到来后，将当前上下文作为一个新的协程进行调度
+		proc->updateEvent(fd, event, burger::Coroutine::GetCurCo());
+		burger::Coroutine::GetCurCo()->setState(burger::Coroutine::State::HOLD);
+		burger::Coroutine::SwapOut();
+
+		if(proc->stoped()) return 8;  // 当processor stop后，直接返回并且没有while，优雅走完函数并析构
+		
+		goto retry;
+	}
+
+	return n;
+}
+```
+**当事件到来后，CoEpoll又回重新将该协程添加到队列中，当下次执行该协程时，则可以成功读取到数据**，并且继续我们的业务流程。
+
+* 对比：
+    * 虽然二者都存在使用Epoll监听事件到来的设计，**但是在协程中由于hook和上下文的存在，我们的业务逻辑完全是同步的写法**；
+    * Reactor中，是**先上树监听，才有有事件到来，才有对应的执行动作（回调函数）**；Co中，是**先有执行动作（任务），才可能会有阻塞情况，才会上树监听**。
