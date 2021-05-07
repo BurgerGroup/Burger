@@ -28,6 +28,8 @@ public:
     ssize_t send(const std::string& msg);
     ssize_t send(RingBuffer::ptr buf, size_t sendSize);
     const InetAddress& getPeerAddr() const { return peerAddr_; }
+    const std::string& getName() const { return connName_; }
+    
     void shutdown();
     // void close();
 

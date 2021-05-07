@@ -51,6 +51,7 @@ ssize_t CoTcpConnection::send(RingBuffer::ptr buf, size_t sendSize) {
     if(sendSize <= 0) return 0;
     while(sendSize) {
         ssize_t n = sockets::write(socket_->getFd(), buf->peek(), sendSize);
+        TRACE("send {} bytes ...", n);
         if(n > 0) {
             buf->retrieve(n);
             sendSize -= n;
@@ -65,6 +66,7 @@ ssize_t CoTcpConnection::send(const std::string& msg) {
     const char* start = msg.c_str();
     while(sendSize) {
         ssize_t n = sockets::write(socket_->getFd(), start, sendSize);
+        TRACE("send {} bytes ...", n);
         if(n > 0) {
             start += n;
             sendSize -= n;

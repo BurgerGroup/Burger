@@ -141,6 +141,7 @@ endif()
 
 if(BUILD_TYPE STREQUAL "DEBUG")
     add_subdirectory(tests)
+    add_subdirectory(examples)
 endif()
 
 if(BUILD_TYPE STREQUAL "RELEASE")

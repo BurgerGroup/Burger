@@ -81,10 +81,10 @@ void CoTcpServer::startAccept() {
         int connfd = listenSock_->accept(peerAddr);
         if(connfd > 0) {
             TRACE("Accept of {}", peerAddr.getIpPortStr());
-            // std::string connName = hostName_ + "-" + hostIpPort_ + "#" + std::to_string(nextConnId_++);
+            std::string connName = hostName_ + "-" + hostIpPort_ + "#" + std::to_string(nextConnId_++);
             CoTcpConnection::ptr conn = std::make_shared<CoTcpConnection>(connfd, 
                         listenAddr_, peerAddr, connName);
-            newConnectionCallback_(conn);
+            // newConnectionCallback_(conn);
             sched_->addTask(std::bind(connHandler_, conn));
         } 
         // todo : idlefd
