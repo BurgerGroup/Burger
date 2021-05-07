@@ -25,7 +25,7 @@ public:
     // todo : more operation
     ssize_t recv(RingBuffer::ptr buf);
     ssize_t send(RingBuffer::ptr buf);
-    // ssize_t send(const std::string& msg);
+    ssize_t send(const std::string& msg);
     ssize_t send(RingBuffer::ptr buf, size_t sendSize);
     const InetAddress& getPeerAddr() const { return peerAddr_; }
     void shutdown();
