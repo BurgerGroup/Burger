@@ -28,17 +28,20 @@ public:
     // ssize_t send(const std::string& msg);
     ssize_t send(RingBuffer::ptr buf, size_t sendSize);
     const InetAddress& getPeerAddr() const { return peerAddr_; }
-    // void shutdown();
+    void shutdown();
     // void close();
 private:
     std::unique_ptr<Socket> socket_;
     const InetAddress localAddr_;
     const InetAddress peerAddr_;
     const std::string connName_;
+    bool quit_;
     // todo : 需要重新设计
     // RingBuffer inputBuffer_;
     // RingBuffer outputBuffer_;  
 };
+
+
 
 } // namespace net
 
