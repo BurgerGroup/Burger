@@ -8,6 +8,7 @@
 #include "burger/base/Atomic.h"
 #include "InetAddress.h"
 #include "CoTcpConnection.h"
+#include "Callbacks.h"
 namespace burger { 
 namespace net {
 class InetAddress;

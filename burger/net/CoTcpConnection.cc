@@ -15,14 +15,15 @@ CoTcpConnection::CoTcpConnection(int sockfd,
     localAddr_(localAddr),
     peerAddr_(peerAddr),
     connName_(connName) {
-    DEBUG("TcpConnection created [{}] at fd = {}",
-         connName_, fmt::ptr(this), sockfd);
+    TRACE("TcpConnection {} - {} , {} created [{}] at fd = {}",
+        localAddr_.getIpPortStr(), peerAddr_.getIpPortStr(), connName_, fmt::ptr(this), sockfd);
     socket_->setKeepAlive(true);
 }
 
 CoTcpConnection::~CoTcpConnection() {
-    DEBUG("TcpConnection created [{}] at fd = {}",
-         connName_, fmt::ptr(this), socket_->getFd());
+    TRACE("TcpConnection {} - {} , {} destroyed [{}] at fd = {}",
+        localAddr_.getIpPortStr(), peerAddr_.getIpPortStr(),
+             connName_, fmt::ptr(this), socket_->getFd());
 }
 
 ssize_t CoTcpConnection::recv(RingBuffer::ptr buf) {

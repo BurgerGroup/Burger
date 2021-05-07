@@ -30,6 +30,7 @@ public:
     const InetAddress& getPeerAddr() const { return peerAddr_; }
     // void shutdown();
     // void close();
+
 private:
     std::unique_ptr<Socket> socket_;
     const InetAddress localAddr_;
@@ -37,7 +38,8 @@ private:
     const std::string connName_;
     // todo : 需要重新设计
     // RingBuffer inputBuffer_;
-    // RingBuffer outputBuffer_;  
+    // RingBuffer outputBuffer_;
+
 };
 
 } // namespace net

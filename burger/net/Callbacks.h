@@ -21,6 +21,7 @@ namespace net {
 
 class TcpConnection;
 class IBuffer;
+class CoTcpConnection;
 using TcpConnectionPtr = std::shared_ptr<TcpConnection>;
 using TimerCallback = std::function<void()> ;
 using ConnectionCallback = std::function<void(const TcpConnectionPtr&)>;
@@ -31,6 +32,7 @@ using MessageCallback = std::function<void (const TcpConnectionPtr&,
                                                     IBuffer&,
                                                     Timestamp)>;
 
+
 // using MessageCallback = std::function<void (const TcpConnectionPtr&,
 //                                                     RingBuffer&,
 //                                                     Timestamp)>;
@@ -40,6 +42,7 @@ void defaultConnectionCallback(const TcpConnectionPtr& conn);
 void defaultMessageCallback(const TcpConnectionPtr& conn,
                             IBuffer& buffer,
                             Timestamp receiveTime);
+
 
 } // namespace net
 

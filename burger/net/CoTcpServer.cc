@@ -13,6 +13,8 @@ void defualtHandler(CoTcpConnection::ptr conn) {
     INFO("new connection, peer addr : {}", conn->getPeerAddr().getPortStr());
 }
 
+
+
 } // namespace
 
 CoTcpServer::CoTcpServer(uint16_t port, int threadNum, const std::string& name)
@@ -79,10 +81,11 @@ void CoTcpServer::startAccept() {
         int connfd = listenSock_->accept(peerAddr);
         if(connfd > 0) {
             TRACE("Accept of {}", peerAddr.getIpPortStr());
-            std::string connName = hostName_ + "-" + hostIpPort_ + "#" + std::to_string(nextConnId_++);
-            sched_->addTask(std::bind(connHandler_, 
-                std::make_shared<CoTcpConnection>(connfd, 
-                        listenAddr_, peerAddr, connName)));
+            // std::string connName = hostName_ + "-" + hostIpPort_ + "#" + std::to_string(nextConnId_++);
+            CoTcpConnection::ptr conn = std::make_shared<CoTcpConnection>(connfd, 
+                        listenAddr_, peerAddr, connName);
+            newConnectionCallback_(conn);
+            sched_->addTask(std::bind(connHandler_, conn));
         } 
         // todo : idlefd
     }
