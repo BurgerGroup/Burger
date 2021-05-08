@@ -1,71 +1,49 @@
 #include "chargen.h"
-#include "burger/net/EventLoop.h"
+#include "burger/base/Log.h"
+#include "burger/net/Scheduler.h"
+#include <stdio.h>
 
-ChargenServer::ChargenServer(EventLoop* loop,
-        const InetAddress& listenAddr,
-        bool print):
-        server_(loop, listenAddr, "ChargenServer"),
-        transferred_(0),
-        startTime_(Timestamp::now()) {
-    server_.setConnectionCallback(std::bind(&ChargenServer::onConnection, this,
-                                            std::placeholders::_1));  // conn
-    server_.setMessageCallback(std::bind(&ChargenServer::onMessage, this, 
-                                            std::placeholders::_1,    // conn 
-                                            std::placeholders::_2,    // buffer
-                                            std::placeholders::_3));  // timestamp
-    server_.setWriteCompleteCallback(std::bind(&ChargenServer::onWriteComplete, this, 
-                                            std::placeholders::_1));   // conn
-    if (print) {
-        loop->runEvery(3.0, std::bind(&ChargenServer::printThroughput, this));
-    }
+using namespace std::placeholders;
 
+ChargenServer::ChargenServer(Scheduler* sched, const InetAddress& listenAddr)
+    : server_(sched, listenAddr, "Chargen Server"),
+    transferred_(0),
+    startTime_(Timestamp::now()) {
+    server_.setConnectionHandler(std::bind(&ChargenServer::connHandler, this, _1));
+    TRACE("ChargenServer created");
+    // runXX只能在start后使用
+    sched->runEvery(3.0, std::bind(&ChargenServer::printThroughput, this));
+    
     std::string line;
-    for (int i = 33; i < 127; ++i) {
+    // 33 - 126的可打印ascii
+    for(int i = 33; i < 127; i++) {
         line.push_back(char(i));
     }
+    // 33 34 ... 126 33 34 .. 126
     line += line;
-    for (size_t i = 0; i < 127-33; ++i) {
+    // 滑动窗口一样的操作，每排72个，一共94排
+    for(size_t i = 0; i < 127-33; i++) {
         message_ += line.substr(i, 72) + '\n';
     }
+    
 }
 
 void ChargenServer::start() {
     server_.start();
 }
 
-void ChargenServer::onConnection(const TcpConnectionPtr& conn) {
-    INFO("ChargenServer - {} -> {} is {}", 
-        conn->getPeerAddress().getIpPortStr(), 
-        conn->getLocalAddress().getIpPortStr(),
-        (conn->isConnected() ? "UP" : "DOWN"));
-    if(conn->isConnected()) {
-        conn->setTcpNoDelay(true);
-        conn->send(message_);
+void ChargenServer::connHandler(CoTcpConnection::ptr conn) {
+    conn->setTcpNoDelay(true); // 设置true为了测试吞吐量  有数据就立刻发送，不需要等待
+    while(conn->isConnected()) {
+        conn->send(message_);  // 然后发送94行的数据过去
+        transferred_ += message_.size();
     }
 }
 
-void ChargenServer::onMessage(const TcpConnectionPtr& conn,
-                   Buffer& buf,
-                   Timestamp time) {
-    std::string msg(buf.retrieveAllAsString());
-    INFO("{} discards {} bytes received at {}",
-            conn->getName(), msg.size(), time.toFormatTime());
-}
-
-void ChargenServer::onWriteComplete(const TcpConnectionPtr& conn) {
-    // INFO("CALL WriteComplete");
-    transferred_ += message_.size();
-    conn->send(message_);
-}
-
 void ChargenServer::printThroughput() {
-    Timestamp endTime(Timestamp::now());
+    Timestamp endTime = Timestamp::now();
     double time = timeDifference(endTime, startTime_);
-    std::cout << static_cast<double>(transferred_)/time/1024/1024 << " MiB/s" << std::endl;
+    printf("%4.3f MiB/s\n", static_cast<double>(transferred_)/time/1024/1024);
     transferred_ = 0;
     startTime_ = endTime;
 }
-
-
-
-

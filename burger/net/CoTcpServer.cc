@@ -20,10 +20,12 @@ void defualtHandler(CoTcpConnection::ptr conn) {
 
 } // namespace
 
-CoTcpServer::CoTcpServer(uint16_t port, int threadNum, const std::string& name)
-    : listenAddr_(port),
+
+CoTcpServer::CoTcpServer(Scheduler* sched, const InetAddress& listenAddr, 
+                            const std::string& name, bool reuseport) 
+    : sched_(sched),
+    listenAddr_(listenAddr),
     listenSock_(util::make_unique<Socket>(sockets::createNonblockingOrDie())),
-    sched_(util::make_unique<Scheduler>(threadNum)),
     connHandler_(defualtHandler),
     hostIpPort_(listenAddr_.getIpPortStr()),
     hostName_(name),
@@ -32,36 +34,8 @@ CoTcpServer::CoTcpServer(uint16_t port, int threadNum, const std::string& name)
     listenSock_->bindAddress(listenAddr_);
     DEBUG("CoTcpServer created {}", hostName_);
 }
-
-CoTcpServer::CoTcpServer(const std::string& ip, uint16_t port, int threadNum, const std::string& name)
-    : listenAddr_(ip, port),
-    listenSock_(util::make_unique<Socket>(sockets::createNonblockingOrDie())),
-    sched_(util::make_unique<Scheduler>(threadNum)),
-    connHandler_(defualtHandler),
-    hostIpPort_(listenAddr_.getIpPortStr()),
-    hostName_(name),
-    nextConnId_(1) {
-    listenSock_->setReuseAddr(true);
-    listenSock_->bindAddress(listenAddr_);
-    DEBUG("CoTcpServer created {}", hostName_);
-}
-
-CoTcpServer::CoTcpServer(const InetAddress& listenAddr, int threadNum, const std::string& name) 
-    : listenAddr_(listenAddr),
-    listenSock_(util::make_unique<Socket>(sockets::createNonblockingOrDie())),
-    sched_(util::make_unique<Scheduler>(threadNum)),
-    connHandler_(defualtHandler),
-    hostIpPort_(listenAddr_.getIpPortStr()),
-    hostName_(name),
-    nextConnId_(1) {
-    listenSock_->setReuseAddr(true);
-    listenSock_->bindAddress(listenAddr_);
-    DEBUG("CoTcpServer created {}", hostName_);
-}
-
 
 CoTcpServer::~CoTcpServer() {
-    sched_->wait();  // todo: need put here ? 
     DEBUG("CoTcpServer destroyed {}", hostName_);
 }
 

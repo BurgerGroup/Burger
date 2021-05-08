@@ -17,7 +17,7 @@ using namespace burger::net;
 // todo : 我们这里应该不会堆积把
 class EchoServer {
 public:
-    EchoServer(const InetAddress& listenAddr, int threadNum = 1, const std::string& name = "tcpserver");
+    EchoServer(Scheduler* sched, const InetAddress& listenAddr);
     void start();  
 private:
     void connHandler(CoTcpConnection::ptr conn);

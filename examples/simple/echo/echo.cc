@@ -2,8 +2,8 @@
 
 using namespace std::placeholders;
 
-EchoServer::EchoServer(const InetAddress& listenAddr, int threadNum, const std::string& name)
-    : server_(listenAddr, threadNum, name) {
+EchoServer::EchoServer(Scheduler* sched, const InetAddress& listenAddr)
+    : server_(sched, listenAddr, "EchoServer") {
     server_.setConnectionHandler(std::bind(&EchoServer::connHandler, this, _1));
 }
 

@@ -22,6 +22,7 @@ CoTcpConnection::CoTcpConnection(int sockfd,
 }
 
 CoTcpConnection::~CoTcpConnection() {
+    quit_ = true;
     TRACE("TcpConnection {} - {} , {} destroyed [{}] at fd = {}",
         localAddr_.getIpPortStr(), peerAddr_.getIpPortStr(),
              connName_, fmt::ptr(this), socket_->getFd());
@@ -66,13 +67,17 @@ ssize_t CoTcpConnection::send(const std::string& msg) {
     const char* start = msg.c_str();
     while(sendSize) {
         ssize_t n = sockets::write(socket_->getFd(), start, sendSize);
-        TRACE("send {} bytes ...", n);
+        DEBUG("send {} bytes ...", n);
         if(n > 0) {
             start += n;
             sendSize -= n;
         }
     } 
     return 0;
+}
+
+void CoTcpConnection::setTcpNoDelay(bool on) {
+    socket_->setTcpNoDelay(on);
 }
 
 

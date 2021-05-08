@@ -16,13 +16,12 @@ class InetAddress;
 class Scheduler;
 class Socket;
 
-
 class CoTcpServer : boost::noncopyable {
 public:
     using ConnectionHandler = std::function<void (CoTcpConnection::ptr)>;
-    CoTcpServer(uint16_t port, int threadNum = 1, const std::string& name = "tcpserver");
-    CoTcpServer(const std::string& ip, uint16_t port, int threadNum = 1, const std::string& name = "tcpserver");
-    CoTcpServer(const InetAddress& listenAddr, int threadNum = 1, const std::string& name = "tcpserver");
+
+    CoTcpServer(Scheduler* sched, const InetAddress& listenAddr, 
+                            const std::string& name = "CoTcpServer", bool reuseport = true);
 
     ~CoTcpServer();
 
@@ -33,9 +32,10 @@ private:
     void startAccept();
 
 private:
+    Scheduler* sched_;
     InetAddress listenAddr_; 
     std::unique_ptr<Socket> listenSock_;    
-    std::unique_ptr<Scheduler> sched_;
+    // std::unique_ptr<Scheduler> sched_;
     ConnectionHandler connHandler_;  
     AtomicInt32 started_;
     const std::string hostIpPort_;

@@ -1,6 +1,7 @@
 #include "burger/net/CoTcpServer.h"
 #include "burger/base/Log.h"
 #include "burger/net/RingBuffer.h"
+#include "burger/net/Scheduler.h"
 #include <string>
 #include <iostream>
 
@@ -24,8 +25,12 @@ void connHandler(CoTcpConnection::ptr conn) {
 
 int main() {
     LOGGER(); LOG_LEVEL_TRACE;
-    CoTcpServer server(8888, 2);
+    InetAddress listenAddr(8888);
+    Scheduler sched;
+    CoTcpServer server(&sched, listenAddr, "stopTestServer");
     server.setConnectionHandler(connHandler);
     server.start();
+
+    sched.wait();
     return 0;
 }

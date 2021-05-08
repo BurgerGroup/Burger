@@ -31,7 +31,9 @@ public:
     const InetAddress& getLocalAddress() const { return localAddr_; }
     const InetAddress& getPeerAddr() const { return peerAddr_; }
     const std::string& getName() const { return connName_; }
-    
+    void setTcpNoDelay(bool on);
+    bool isConnected() const { return !quit_; }
+
     void shutdown();
     // void close();
 private:

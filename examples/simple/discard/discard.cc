@@ -2,10 +2,11 @@
 
 using namespace std::placeholders;
 
-DiscardServer::DiscardServer(const InetAddress& listenAddr, int threadNum, const std::string& name)
-    : server_(listenAddr, threadNum, name) {
+DiscardServer::DiscardServer(Scheduler* sched, const InetAddress& listenAddr)
+    : server_(sched, listenAddr) {
     server_.setConnectionHandler(std::bind(&DiscardServer::connHandler, this, _1));
 }
+
 void DiscardServer::start() {
     server_.start();
 }

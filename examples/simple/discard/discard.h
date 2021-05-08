@@ -10,7 +10,7 @@ using namespace burger::net;
 // 最简单的长连接TCP应用层协议
 class DiscardServer {
 public:
-    DiscardServer(const InetAddress& listenAddr, int threadNum = 1, const std::string& name = "tcpserver");
+    DiscardServer(Scheduler* sched, const InetAddress& listenAddr);
     void start();
 private:
     void connHandler(CoTcpConnection::ptr conn);

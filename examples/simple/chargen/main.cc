@@ -1,12 +1,14 @@
 #include "chargen.h"
-#include "burger/net/EventLoop.h"
+#include "burger/net/Scheduler.h"
+#include "burger/base/Log.h"
 
 int main() {
-    LOG_LEVEL_INFO;
-    INFO("pid = {}", ::getpid());
-    EventLoop loop;
+    LOGGER(); LOG_LEVEL_INFO;
+    Scheduler sched;
+
     InetAddress listenAddr(8888);
-    ChargenServer server(&loop, listenAddr, true);
+    ChargenServer server(&sched, listenAddr);
+    
     server.start();
-    loop.loop();
+    sched.wait();
 }
