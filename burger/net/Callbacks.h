@@ -22,7 +22,10 @@ namespace net {
 class TcpConnection;
 class IBuffer;
 class CoTcpConnection;
+
 using TcpConnectionPtr = std::shared_ptr<TcpConnection>;
+using CoTcpConnectionPtr = std::shared_ptr<CoTcpConnection>;
+
 using TimerCallback = std::function<void()> ;
 using ConnectionCallback = std::function<void(const TcpConnectionPtr&)>;
 using CloseCallback = std::function<void(const TcpConnectionPtr&)>;
@@ -31,6 +34,8 @@ using HighWaterMarkCallback = std::function<void (const TcpConnectionPtr&, size_
 using MessageCallback = std::function<void (const TcpConnectionPtr&,
                                                     IBuffer&,
                                                     Timestamp)>;
+
+// using CoConnEstablishCallback = std::function<void(const CoTcpConnectionPtr&)>;
 
 
 // using MessageCallback = std::function<void (const TcpConnectionPtr&,
@@ -43,6 +48,7 @@ void defaultMessageCallback(const TcpConnectionPtr& conn,
                             IBuffer& buffer,
                             Timestamp receiveTime);
 
+// void CoDefaultConnEstablishCallback(const CoTcpConnectionPtr& conn);
 
 } // namespace net
 

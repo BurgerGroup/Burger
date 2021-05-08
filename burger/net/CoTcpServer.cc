@@ -13,7 +13,10 @@ void defualtHandler(CoTcpConnection::ptr conn) {
     INFO("new connection, peer addr : {}", conn->getPeerAddr().getPortStr());
 }
 
-
+// void CoDefaultConnEstablishCallback(const CoTcpConnectionPtr& conn) {
+//     TRACE("{} - {} conn is established", conn->getLocalAddress().getIpPortStr(),
+//         conn->getPeerAddr().getIpPortStr());
+// }
 
 } // namespace
 
@@ -84,7 +87,7 @@ void CoTcpServer::startAccept() {
             std::string connName = hostName_ + "-" + hostIpPort_ + "#" + std::to_string(nextConnId_++);
             CoTcpConnection::ptr conn = std::make_shared<CoTcpConnection>(connfd, 
                         listenAddr_, peerAddr, connName);
-            // newConnectionCallback_(conn);
+            // conn->setConnEstablishCallback(connEstablishCallback_);
             sched_->addTask(std::bind(connHandler_, conn));
         } 
         // todo : idlefd

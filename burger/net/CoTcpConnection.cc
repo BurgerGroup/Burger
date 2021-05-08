@@ -16,7 +16,7 @@ CoTcpConnection::CoTcpConnection(int sockfd,
     peerAddr_(peerAddr),
     connName_(connName),
     quit_(false) {
-    DEBUG("TcpConnection created [{}] at fd = {}",
+    TRACE("TcpConnection created [{}] at fd = {}",
          connName_, fmt::ptr(this), sockfd);
     socket_->setKeepAlive(true);
 }

@@ -9,6 +9,7 @@
 #include "InetAddress.h"
 #include "CoTcpConnection.h"
 #include "Callbacks.h"
+
 namespace burger { 
 namespace net {
 class InetAddress;
@@ -27,6 +28,7 @@ public:
 
     void start();
     void setConnectionHandler(const ConnectionHandler& handler);
+    // void setConnEstablishCallback(const CoConnEstablishCallback& cb) { connEstablishCallback_ = cb; }
 private:
     void startAccept();
 
@@ -39,6 +41,7 @@ private:
     const std::string hostIpPort_;
     const std::string hostName_;
     int nextConnId_;
+    // CoConnEstablishCallback connEstablishCallback_;   // no need this
 };
 
 

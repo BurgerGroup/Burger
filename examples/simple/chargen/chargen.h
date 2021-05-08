@@ -9,7 +9,7 @@ using namespace burger::net;
 // RFC 864
 // chargen服务器很特殊，只发送数据，不接收数据
 // 而且它发送的数据不能快过客户端接收的速度
-// 因此要关注三个半事件中的半个"消息/数据发送完毕"事件onWriteComplete
+// onWriteComplete
 class ChargenServer {
 public:
     ChargenServer(EventLoop* loop,
