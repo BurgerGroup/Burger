@@ -19,6 +19,8 @@
 #include <cassert>
 #include <cstring>
 #include <algorithm>
+#include <memory>
+
 namespace burger {
 namespace net {
 
@@ -36,7 +38,7 @@ class Buffer : public burger::net::IBuffer {
 public:
     // static const size_t kCheapPrepend = 8;
     // static const size_t kInitialSize = 1024;
-
+    using ptr = std::shared_ptr<Buffer>;
     explicit Buffer(size_t initalSize = kInitialSize);
     ~Buffer() = default;
 

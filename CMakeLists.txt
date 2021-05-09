@@ -128,7 +128,7 @@ add_subdirectory(burger/net)
 # add_subdirectory(burger/http)
 
 add_subdirectory(thirdparty/googletest)
-
+add_subdirectory(thirdparty/spdlog)
 
 if(BURGER_BUILD_EXAMPLES)
     # add_subdirectory(contrib)

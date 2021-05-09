@@ -11,9 +11,6 @@ ChargenServer::ChargenServer(Scheduler* sched, const InetAddress& listenAddr)
     startTime_(Timestamp::now()) {
     server_.setConnectionHandler(std::bind(&ChargenServer::connHandler, this, _1));
     TRACE("ChargenServer created");
-    // runXX只能在start后使用
-    sched->runEvery(3.0, std::bind(&ChargenServer::printThroughput, this));
-    
     std::string line;
     // 33 - 126的可打印ascii
     for(int i = 33; i < 127; i++) {
@@ -30,6 +27,8 @@ ChargenServer::ChargenServer(Scheduler* sched, const InetAddress& listenAddr)
 
 void ChargenServer::start() {
     server_.start();
+    // runEvery 等要在start后才能执行，之前reactor模式是先建立好
+    server_.getScheduler()->runEvery(3.0, std::bind(&ChargenServer::printThroughput, this));
 }
 
 void ChargenServer::connHandler(CoTcpConnection::ptr conn) {

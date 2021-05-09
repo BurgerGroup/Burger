@@ -27,6 +27,8 @@ public:
     ssize_t recv(RingBuffer::ptr buf);
     ssize_t send(RingBuffer::ptr buf);
     ssize_t send(const std::string& msg);
+    ssize_t send(const char* start, size_t sendSize);  
+
     ssize_t send(RingBuffer::ptr buf, size_t sendSize);
     const InetAddress& getLocalAddress() const { return localAddr_; }
     const InetAddress& getPeerAddr() const { return peerAddr_; }

@@ -23,21 +23,20 @@ public:
     void cancel(TimerId timerId);
 private:
     // set是排序的, 这样可以根据当前时间快速查找添加删除 Timer，并且能够处理相同的时间key的问题
-    using Entry = std::pair<Timestamp, std::shared_ptr<Timer> >;
-    using TimerSet = std::set<Entry>;
+    // using Entry = std::pair<Timestamp, std::shared_ptr<Timer> >;
+    // using TimerSet = std::set<Entry>;
     // 以下函数只可能在所属的IO线程中调用，因而不用加锁
     // 服务器性能杀手之一就是锁竞争，所以尽量少用
     void addTimerInLoop(std::shared_ptr<Timer> timer);
     void cancelInLoop(TimerId timerId);
     void handleRead();
-    // 返回超时的定时器列表, 并从timers_中删除
-    std::vector<Entry> getExpiredList(Timestamp now);
-    // 处理完任务后，需要根据是否重复，将某些任务重新放入
-    void reset(const std::vector<Entry>& expiredList, Timestamp now);
+    // 继承 : 返回超时的定时器列表, 并从timers_中删除
+    // std::vector<Entry> getExpiredList(Timestamp now);
+    // 继承 : 处理完任务后，需要根据是否重复，将某些任务重新放入
+    // void reset(const std::vector<Entry>& expiredList, Timestamp now);
     // 插入定时器
     bool insert(std::shared_ptr<Timer> timer);
 
-    bool findFirstTimestamp(const Timestamp& now, Timestamp& ts);
 private:
     EventLoop* loop_;
     // const int timerfd_; 

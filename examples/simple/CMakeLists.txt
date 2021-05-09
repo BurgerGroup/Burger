@@ -10,3 +10,6 @@ target_link_libraries(simple_echo burger_net)
 # add_executable(simple_send_client send_client/client.cc send_client/main.cc)
 # target_link_libraries(simple_send_client burger_net)
 
+add_executable(simple_chargenclient chargenclient/chargenclient.cc)
+target_link_libraries(simple_chargenclient burger_net)
+

@@ -43,38 +43,55 @@ void CoTcpConnection::shutdown() {
 }
 
 ssize_t CoTcpConnection::send(RingBuffer::ptr buf) {
-    size_t remain = buf->getReadableBytes();
-    return send(buf, remain);
+    size_t sendSize = buf->getReadableBytes();
+    ssize_t nSend = send(buf->peek(), sendSize);
+    buf->retrieve(sendSize);
+    return nSend;
 }
 
 ssize_t CoTcpConnection::send(RingBuffer::ptr buf, size_t sendSize) {
-    if(quit_) return 0;
-    if(sendSize <= 0) return 0;
-    while(sendSize) {
-        ssize_t n = sockets::write(socket_->getFd(), buf->peek(), sendSize);
-        TRACE("send {} bytes ...", n);
-        if(n > 0) {
-            buf->retrieve(n);
-            sendSize -= n;
-        }
-    } 
-    return 0;
+    ssize_t nSend = send(buf->peek(), sendSize);
+    buf->retrieve(sendSize);
+    return nSend;
 }
 
 ssize_t CoTcpConnection::send(const std::string& msg) {
-    if(quit_) return 0;
-    size_t sendSize = msg.size();
-    const char* start = msg.c_str();
+    return send(msg.c_str(), msg.size());
+}
+
+ssize_t CoTcpConnection::send(const char* start, size_t sendSize) {
+    if(quit_) {
+        WARN("Disconnected, give up writing");
+        return 0;
+    }
+    ssize_t sendBytes = 0;
     while(sendSize) {
-        ssize_t n = sockets::write(socket_->getFd(), start, sendSize);
-        DEBUG("send {} bytes ...", n);
-        if(n > 0) {
-            start += n;
-            sendSize -= n;
+        ssize_t nwrote = sockets::write(socket_->getFd(), start, sendSize);
+        DEBUG("send {} bytes ...", nwrote); 
+        if(nwrote >= 0) {
+            sendBytes += nwrote;   
+            start += nwrote;
+            sendSize -= nwrote;
+        } else {  // nwrote < 0
+            if(errno != EWOULDBLOCK) {
+                ERROR("CoTcpConnection can't send");
+                // 连接已经关闭导致
+                // socket write中，对方socket中断，发送端write会先返回已经发送的字节数,再次write时返回-1,errno号为ECONNRESET
+                // write一个已经接受到RST的socket，系统内核会发送SIGPIPE给发送进程，如果进程catch/ignore这个信号，write都返回EPIPE错误
+                if(errno == EPIPE || errno == ECONNRESET) {
+                    WARN("peer is disconnected..");
+                }
+                // 本端关闭，对端关闭都要注意quit_的改变
+                quit_ = true;
+                break;
+            }
         }
     } 
-    return 0;
+    return sendBytes;
+
 }
+
+
 
 void CoTcpConnection::setTcpNoDelay(bool on) {
     socket_->setTcpNoDelay(on);
