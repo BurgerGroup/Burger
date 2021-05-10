@@ -4,12 +4,13 @@
 #include "burger/base/Timestamp.h"
 #include "sudoku.h"
 #include "burger/base/Util.h"
-
+#include "burger/base/Log.h"
 
 using namespace burger;
 using namespace burger::net;
 using namespace std::placeholders;
 
+// todo : need test
 class SudokuServer {
 public:
     // 注意，这里的numThreads是计算线程池的线程数，而不是IO线程的
@@ -17,7 +18,7 @@ public:
         : server_(sched, listenAddr, "SudokuServer"),
         numThreads_(numThreads),
         startTime_(Timestamp::now()) {
-        server_.setConnectionHandler(&SudokuServer::connHandler, this, _1);
+        server_.setConnectionHandler(std::bind(&SudokuServer::connHandler, this, _1));
         // server_.setThreadNum(xxx);  todo : need to implement 多线程IO
     }
     void start() {
@@ -72,7 +73,6 @@ private:
     }
     static void solve(const CoTcpConnection::ptr& conn, 
             const std::string& puzzle, const std::string& id) {
-        std::string result = solveSudoku(puzzle);
         std::string result = solveSudoku(puzzle);
         if(id.empty()) {
             conn->send(result+"\r\n");  // 这里发送回去还是IO线程发送，而不是计算线程池发送
