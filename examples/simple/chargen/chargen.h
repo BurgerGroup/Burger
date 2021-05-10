@@ -26,7 +26,7 @@ public:
     void start();
 
 private:
-    void connHandler(CoTcpConnection::ptr conn);
+    void connHandler(const CoTcpConnection::ptr& conn);
     void printThroughput();
 
 private:
@@ -36,8 +36,5 @@ private:
     int64_t transferred_;
     Timestamp startTime_;
 };
-
-
-
 
 #endif // CHARGEN_H

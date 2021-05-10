@@ -11,7 +11,7 @@ void DiscardServer::start() {
     server_.start();
 }
 
-void DiscardServer::connHandler(CoTcpConnection::ptr conn) {
+void DiscardServer::connHandler(const CoTcpConnection::ptr& conn) {
     RingBuffer::ptr buffer = std::make_shared<RingBuffer>();
     while(conn->recv(buffer) > 0) {
         Timestamp ts = Timestamp::now();

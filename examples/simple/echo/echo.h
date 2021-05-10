@@ -20,7 +20,7 @@ public:
     EchoServer(Scheduler* sched, const InetAddress& listenAddr);
     void start();  
 private:
-    void connHandler(CoTcpConnection::ptr conn);
+    void connHandler(const CoTcpConnection::ptr& conn);
 private:    
     CoTcpServer server_;
 };

@@ -11,7 +11,7 @@ void EchoServer::start() {
     server_.start();
 }
 
-void EchoServer::connHandler(CoTcpConnection::ptr conn) {
+void EchoServer::connHandler(const CoTcpConnection::ptr& conn) {
     RingBuffer::ptr buffer = std::make_shared<RingBuffer>();
     while(conn->recv(buffer) > 0) {
         conn->send(buffer);

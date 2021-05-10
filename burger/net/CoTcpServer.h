@@ -18,7 +18,7 @@ class Socket;
 
 class CoTcpServer : boost::noncopyable {
 public:
-    using ConnectionHandler = std::function<void (CoTcpConnection::ptr)>;
+    using ConnectionHandler = std::function<void (const CoTcpConnection::ptr&)>;
 
     CoTcpServer(Scheduler* sched, const InetAddress& listenAddr, 
                             const std::string& name = "CoTcpServer", bool reuseport = true);

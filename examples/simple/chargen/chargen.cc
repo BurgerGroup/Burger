@@ -31,7 +31,7 @@ void ChargenServer::start() {
     server_.getScheduler()->runEvery(3.0, std::bind(&ChargenServer::printThroughput, this));
 }
 
-void ChargenServer::connHandler(CoTcpConnection::ptr conn) {
+void ChargenServer::connHandler(const CoTcpConnection::ptr& conn) {
     conn->setTcpNoDelay(true); // 设置true为了测试吞吐量  有数据就立刻发送，不需要等待
     while(conn->isConnected()) {
         conn->send(message_);  // 然后发送94行的数据过去
