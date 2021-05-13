@@ -9,6 +9,7 @@
 #include <vector>
 #include "burger/base/Coroutine.h"
 #include "CoEpoll.h"
+#include "burger/base/MpscQueue.h"
 
 namespace burger {
 namespace net {
@@ -62,7 +63,7 @@ private:
     // std::unique_ptr<CoEpoll> epoll_; // https://stackoverflow.com/questions/20268482/binding-functions-with-unique-ptr-arguments-to-stdfunctionvoid
     std::unique_ptr<CoTimerQueue> timerQueue_;
     int wakeupFd_;
-    std::queue<Coroutine::ptr> runnableCoQue_;
+    MpscQueue<Coroutine::ptr> runnableCoQue_;
     std::queue<Coroutine::ptr> idleCoQue_;
     std::vector<task> pendingTasks_;
     const pid_t threadId_;  // 当前对象所属线程Id

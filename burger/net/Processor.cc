@@ -70,8 +70,7 @@ void Processor::run() {
             cur = epollCo;
             epoll_.setEpolling(true);
         } else {
-            cur = runnableCoQue_.front(); 
-            runnableCoQue_.pop();
+            runnableCoQue_.dequeue(cur);
         } 
 		cur->swapIn();
 		if (cur->getState() == Coroutine::State::TERM) {
@@ -109,7 +108,7 @@ Coroutine::ptr Processor::resetAndGetCo(const Coroutine::Callback& cb, const std
 
 void Processor::addTask(Coroutine::ptr co) {
     co->setState(Coroutine::State::EXEC);
-	runnableCoQue_.push(co);
+	runnableCoQue_.enqueue(co);
     load_++;
 	DEBUG("add task <{}>, total task = {}", co->getName(), load_);
     if(epoll_.isEpolling()) {
