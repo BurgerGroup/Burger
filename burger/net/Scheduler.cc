@@ -39,11 +39,10 @@ Scheduler::~Scheduler() {
 
 void Scheduler::start() {
     if(running_) return;
-    std::unique_ptr<Processor> mainProc;
-    if(workProcVec_.empty()) {
-        mainProc = util::make_unique<Processor>(this);
-        workProcVec_.push_back(mainProc.get());
-    }
+
+    std::unique_ptr<Processor> mainProc = util::make_unique<Processor>(this);
+    mainProc_ = mainProc.get();
+
     for(size_t i = 0; i < threadNum_ - 1; i++) {
         auto procThrd = std::make_shared<ProcessThread>(this);
         workThreadVec_.push_back(procThrd);
@@ -71,6 +70,8 @@ void Scheduler::wait() {
 void Scheduler::stop() {
     if(!running_) return;
     running_ = false;
+    mainProc_->stop();
+    mainProc_ = nullptr;
     for(const auto& proc : workProcVec_) {
         proc->stop();
     }
@@ -127,14 +128,18 @@ void Scheduler::cancel(TimerId timerId) {
 }
 
 Processor* Scheduler::pickOneProcesser() {
-    std::lock_guard<std::mutex> lock(mutex_);
-    if(workProcVec_.empty()) {
+    Processor* proc = mainProc_;
+    static size_t index = 0;
+    std::lock_guard<std::mutex> lock(mutex_);     // todo : 此处是否需要加锁
+    if(workProcVec_.empty() && mainProc_ == nullptr) {
         CRITICAL("start scheduler first");
     }
-    static size_t index = 0;
-    assert(index < workProcVec_.size());
-    Processor* proc = workProcVec_[index++];
-    index = index % workProcVec_.size();
+    if(!workProcVec_.empty()) {
+        // round robin
+        assert(index < workProcVec_.size());
+        proc = workProcVec_[index++];
+        index = index % workProcVec_.size();
+    }
     return proc;
 }
 

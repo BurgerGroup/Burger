@@ -44,9 +44,6 @@ private:
     const InetAddress peerAddr_;
     const std::string connName_;
     bool quit_;
-    // todo : 需要重新设计
-    // RingBuffer inputBuffer_;
-    // RingBuffer outputBuffer_;
 
 };
 

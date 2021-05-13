@@ -10,10 +10,10 @@ multiple reacotr : 多个IO线程
 
 one loop per thread + thread pool (多个IO线程 + 计算线程池)
 
-
 ## multiple reacotr
 
 main reactor : 负责listenfd accept
+
 sub reactor : 负责connfd
 
 round robin 轮叫

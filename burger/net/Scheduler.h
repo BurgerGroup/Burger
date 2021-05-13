@@ -52,7 +52,7 @@ private:
     bool running_ = false;
     bool quit_ = false;
     size_t threadNum_;
-    // std::unique_ptr<Processor> mainProc_;
+    Processor* mainProc_;
     std::vector<Processor *> workProcVec_;  // todo : 优先队列
     std::vector<std::shared_ptr<ProcessThread> > workThreadVec_;
     std::thread thread_;
