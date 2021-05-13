@@ -43,7 +43,7 @@ public:
     TimerId runEvery(double interval, TimerCallback cb, const std::string& name = "timer");
     void cancel(TimerId timerId);
     
-protected:
+// protected:
     Processor* pickOneProcesser();
 private:
     void start();

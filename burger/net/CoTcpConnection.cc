@@ -1,17 +1,20 @@
 #include "Socket.h"
 #include "SocketsOps.h"
 #include "IBuffer.h"
+#include "Processor.h"
 #include "CoTcpConnection.h"
 #include "burger/base/Util.h"
 
 using namespace burger;
 using namespace burger::net;
 
-CoTcpConnection::CoTcpConnection(int sockfd, 
+CoTcpConnection::CoTcpConnection(Processor* proc,
+            int sockfd, 
             const InetAddress& localAddr,
             const InetAddress& peerAddr,
             const std::string& connName) 
-    : socket_(util::make_unique<Socket>(sockfd)),
+    : proc_(proc),
+    socket_(util::make_unique<Socket>(sockfd)),
     localAddr_(localAddr),
     peerAddr_(peerAddr),
     connName_(connName),
@@ -42,27 +45,34 @@ void CoTcpConnection::shutdown() {
     DEBUG("CoTcpConn {} is shut down.", connName_);
 }
 
-ssize_t CoTcpConnection::send(RingBuffer::ptr buf) {
+void CoTcpConnection::send(RingBuffer::ptr buf) {
     size_t sendSize = buf->getReadableBytes();
-    ssize_t nSend = send(buf->peek(), sendSize);
+    send(buf->peek(), sendSize);
     buf->retrieve(sendSize);
-    return nSend;
 }
 
-ssize_t CoTcpConnection::send(RingBuffer::ptr buf, size_t sendSize) {
-    ssize_t nSend = send(buf->peek(), sendSize);
+void CoTcpConnection::send(RingBuffer::ptr buf, size_t sendSize) {
+    send(buf->peek(), sendSize);
     buf->retrieve(sendSize);
-    return nSend;
 }
 
-ssize_t CoTcpConnection::send(const std::string& msg) {
-    return send(msg.c_str(), msg.size());
+void CoTcpConnection::send(const std::string& msg) {
+    send(msg.c_str(), msg.size());
 }
 
-ssize_t CoTcpConnection::send(const char* start, size_t sendSize) {
+void CoTcpConnection::send(const char* start, size_t sendSize) {
+    if(proc_->isInProcThread()) {
+        sendInProc(start, sendSize);
+    } else {
+        proc_->addTask(std::bind(&CoTcpConnection::sendInProc, 
+            this, start, sendSize), "send Task");
+    }
+}
+
+void CoTcpConnection::sendInProc(const char* start, size_t sendSize) {
     if(quit_) {
         WARN("Disconnected, give up writing");
-        return 0;
+        return;
     }
     ssize_t sendBytes = 0;
     while(sendSize) {
@@ -87,8 +97,6 @@ ssize_t CoTcpConnection::send(const char* start, size_t sendSize) {
             }
         }
     } 
-    return sendBytes;
-
 }
 
 

@@ -36,7 +36,6 @@ private:
     Scheduler* sched_;
     InetAddress listenAddr_; 
     std::unique_ptr<Socket> listenSock_;    
-    // std::unique_ptr<Scheduler> sched_;
     ConnectionHandler connHandler_;  
     AtomicInt32 started_;
     const std::string hostIpPort_;

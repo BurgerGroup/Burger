@@ -59,10 +59,12 @@ void CoTcpServer::startAccept() {
         if(connfd > 0) {
             TRACE("Accept of {}", peerAddr.getIpPortStr());
             std::string connName = hostName_ + "-" + hostIpPort_ + "#" + std::to_string(nextConnId_++);
-            CoTcpConnection::ptr conn = std::make_shared<CoTcpConnection>(connfd, 
+            // 将conn交给一个sub processor
+            Processor* proc = sched_->pickOneProcesser();
+            CoTcpConnection::ptr conn = std::make_shared<CoTcpConnection>(proc, connfd,
                         listenAddr_, peerAddr, connName);
             // conn->setConnEstablishCallback(connEstablishCallback_);
-            sched_->addTask(std::bind(connHandler_, conn));
+            proc->addTask(std::bind(connHandler_, conn), "connHandler");
         } 
         // todo : idlefd
     }

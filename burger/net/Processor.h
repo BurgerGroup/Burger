@@ -39,13 +39,19 @@ public:
     void removeEvent(int fd);
     
     static Processor* GetProcesserOfThisThread();
+    void assertInProcThread();
+    bool isInProcThread() const;
 
     CoTimerQueue* getTimerQueue() { return timerQueue_.get(); }
 
     void wakeupEpollCo();
     ssize_t consumeWakeUp();
+
+
+
 private: 
     void addPendingTasksIntoQueue();
+    void abortNotInProcThread();
     std::shared_ptr<Coroutine> mainCo_;
     bool stop_ = false;
     bool addingPendingTasks_ = false;
@@ -59,6 +65,7 @@ private:
     std::queue<Coroutine::ptr> runnableCoQue_;
     std::queue<Coroutine::ptr> idleCoQue_;
     std::vector<task> pendingTasks_;
+    const pid_t threadId_;  // 当前对象所属线程Id
 
 };
 

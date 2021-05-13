@@ -21,7 +21,14 @@ Processor::Processor(Scheduler* scheduler)
     scheduler_(scheduler),
     epoll_(this),
     timerQueue_(util::make_unique<CoTimerQueue>(this)),
-    wakeupFd_(sockets::createEventfd()) {
+    wakeupFd_(sockets::createEventfd()),
+    threadId_(util::tid()) {
+    TRACE("Processor created {}", fmt::ptr(this));
+    if (t_proc) {
+    	CRITICAL("Another Processor {} exists in this Thread( tid = {} ) ...", fmt::ptr(t_proc), util::tid()); 
+	} else {
+		t_proc = this;
+	}
 	// 当有新事件来时唤醒Epoll 协程
     addTask([&]() {
         while (!stop_) {
@@ -37,27 +44,25 @@ Processor::Processor(Scheduler* scheduler)
             timerQueue_->dealWithExpiredTimer();
         }
     }, "timerQue");
-	DEBUG("Processor ctor");
+	
 }
 
 // https://zhuanlan.zhihu.com/p/321947743
 Processor::~Processor() {
 	::close(wakeupFd_);
-	DEBUG("Processor dtor");
+	TRACE("Processor {} dtor", fmt::ptr(this));
+    t_proc = nullptr;
 };
 
 void Processor::run() {
-	if (GetProcesserOfThisThread() != nullptr) {
-    	CRITICAL("Run two processers in one thread");
-	} else {
-		t_proc = this;
-	}
-    DEBUG("t_proc : {}", fmt::ptr(this));
+    assertInProcThread();
+    TRACE("Processor {} start running", fmt::ptr(this));
+    stop_ = false;
 	setHookEnabled(true);
 	//没有可以执行协程时调用epoll协程
 	Coroutine::ptr epollCo = std::make_shared<Coroutine>(std::bind(&CoEpoll::poll, &epoll_, kEpollTimeMs), "Epoll");
 	epollCo->setState(Coroutine::State::EXEC);
-	
+
 	Coroutine::ptr cur;
 	while (!stop_ || !runnableCoQue_.empty()) {
         //没有协程时执行epoll协程
@@ -77,11 +82,13 @@ void Processor::run() {
         // 避免在其他线程添加任务时错误地创建多余的协程（确保协程只在processor中）
         addPendingTasksIntoQueue();
 	}
+    TRACE("Processor {} stop running", fmt::ptr(this));
 	epollCo->swapIn();  // epoll进去把cb执行完
 }
 
 void Processor::stop() {
 	stop_ = true; 
+    // todo : 对比和判断isInLoopThread
 	if(epoll_.isEpolling()) {
 		wakeupEpollCo();
 	}
@@ -131,6 +138,16 @@ Processor* Processor::GetProcesserOfThisThread() {
     return t_proc;
 }
 
+void Processor::assertInProcThread() {
+    if(!isInProcThread()) {
+        abortNotInProcThread();
+    }
+}
+
+bool Processor::isInProcThread() const {
+    return threadId_ == util::tid();
+}
+
 void Processor::wakeupEpollCo() {
 	uint64_t one = 1;
 	ssize_t n = ::write(wakeupFd_, &one, sizeof one);
@@ -161,5 +178,10 @@ void Processor::addPendingTasksIntoQueue() {
     addingPendingTasks_ = false;
 }
 
+void Processor::abortNotInProcThread() {
+    CRITICAL("Processor::abortNotInLoopThread - processor {} was \
+        created in threadId_ = {}, and current id = {} ...", 
+        fmt::ptr(this), threadId_, util::tid());
+}
 
 
