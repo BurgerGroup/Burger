@@ -64,40 +64,16 @@ void connHandler(CoTcpConnection::ptr conn) {
 
 int main() {
     LOGGER(); LOG_LEVEL_DEBUG;
-    CoTcpServer server(8888, 2);
+    Scheduler sched;
+    InetAddress listenAddr(8888);
+
+    EchoServer server(&sched, listenAddr);
     server.setConnectionHandler(connHandler);
     server.start();
+
+    sched.wait();
     return 0;
 }
-```
-
-### reator模式echo server
-
-```cpp
-#include <burger/net/TcpServer.h>
-#include <burger/net/EventLoop.h>
-#include <burger/net/InetAddress.h>
-
-using namespace burger;
-using namespace burger::net;
-
-void onMessage(const TcpConnectionPtr& conn, 
-                Buffer& buf, 
-                Timestamp recieveTime) {
-    conn->send(buf.retrieveAllAsString());
-}   
-
-int main() {
-    InetAddress listenAddr(8888);
-    EventLoop loop;
-    TcpServer server(&loop, listenAddr, "TcpServer");
-
-    server.setMessageCallback(onMessage);
-    server.start();
-
-    loop.loop();
-}
-
 ```
 
 ## 💎 模块
@@ -165,5 +141,5 @@ hook系统底层和socket相关的API，socket io相关的API，以及sleep系�
 
 ## 致谢
 
-感谢[spdlog], [gtest] 等项目, Burger的reactor架构深度参考了muduo项目的实现和设计，将其作为良师并且为上层项目开发而保留，非常感谢Chen Shuo大佬!!!
+感谢[spdlog], [gtest] 等项目, Burger的reactor部分架构深度参考了muduo项目的实现和设计，为上层项目开发而保留，非常感谢Chen Shuo大佬!!!
 
