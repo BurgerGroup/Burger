@@ -4,13 +4,15 @@
 
 #include "burger/net/Scheduler.h"
 #include "burger/net/CoTcpServer.h"
-
+#include "burger/base/Log.h"
 #include <string>
 #include <stdio.h>
 #include <unistd.h>
 
 using namespace burger;
 using namespace burger::net;
+
+const char* g_file = nullptr;
 
 std::string readFile(const char* filename) {
     std::string content;
@@ -31,3 +33,27 @@ std::string readFile(const char* filename) {
     return content;
 }
 
+void connHandler(const CoTcpConnectionPtr& conn) {
+    INFO("File Server sending file {} to {}", g_file, conn->getPeerAddr().getIpPortStr());
+    std::string fileContent = readFile(g_file);
+    conn->send(fileContent);
+    conn->shutdown();
+    INFO("FileServer send done ...");
+}
+
+
+int main(int argc, char* argv[]) {
+    if (argc > 1) {
+        g_file = argv[1];
+
+        Scheduler sched;
+        InetAddress listenAddr(8888);
+        CoTcpServer server(&sched, listenAddr, "FileServer");
+        server.setConnectionHandler(connHandler);
+        server.start();
+        sched.wait();
+    }
+    else {
+        fprintf(stderr, "Usage: %s file_for_downloading\n", argv[0]);
+    }
+}
