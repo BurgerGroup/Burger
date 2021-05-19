@@ -88,8 +88,12 @@ void TcpConnection::handleWrite() {
 
 而此处的shutdown是得在send的上下文完毕后才执行，所以不存在reactor的考虑和状态设计
 
-2. 一块一块发送
+2. 一块一块发送, 并用shared_ptr管理FILE*
 
-3. 同2，shared_ptr管理FILE*
+我们使用setContext和getContext来保存conn的用户上下文(此处是std::shared_ptr<FILE>)
+
+reactor 通过 conn->setContext(fp), 将conn和fp绑定，通过这种方法，我们就不需要一个map容器来管理对应关系    
+
+3. 同2，
 
 
