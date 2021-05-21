@@ -10908,3 +10908,500 @@
 2021-05-10 12:21:10 [warning] [tid : 241] [CoTcpConnection.cc : 82 <send>] [coId : 6] peer is disconnected..
 2021-05-10 12:24:26 [error] [tid : 255] [CoTcpConnection.cc : 77 <send>] [coId : 7] CoTcpConnection can't send
 2021-05-10 12:24:26 [warning] [tid : 255] [CoTcpConnection.cc : 82 <send>] [coId : 7] peer is disconnected..
+2021-05-21 12:43:09 [trace] [tid : 2416] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 10, events = 3, stauts = kNew
+2021-05-21 12:43:09 [trace] [tid : 2416] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-05-21 12:43:09 [trace] [tid : 2416] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7fffffffe440
+2021-05-21 12:43:09 [trace] [tid : 2416] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 11, events = 3, stauts = kNew
+2021-05-21 12:43:09 [trace] [tid : 2416] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-05-21 12:43:09 [trace] [tid : 2427] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 13, events = 3, stauts = kNew
+2021-05-21 12:43:09 [trace] [tid : 2427] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-05-21 12:43:09 [trace] [tid : 2427] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff27b6ae0
+2021-05-21 12:43:09 [trace] [tid : 2427] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 3, stauts = kNew
+2021-05-21 12:43:09 [trace] [tid : 2427] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-05-21 12:43:09 [trace] [tid : 2427] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff27b6ae0 start looping
+2021-05-21 12:43:09 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:09 [trace] [tid : 2428] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 16, events = 3, stauts = kNew
+2021-05-21 12:43:09 [trace] [tid : 2428] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-05-21 12:43:09 [trace] [tid : 2428] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff1fb5ae0
+2021-05-21 12:43:09 [trace] [tid : 2428] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 17, events = 3, stauts = kNew
+2021-05-21 12:43:09 [trace] [tid : 2428] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-05-21 12:43:09 [trace] [tid : 2428] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff1fb5ae0 start looping
+2021-05-21 12:43:09 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:09 [debug] [tid : 2416] [Connector.cc : 17 <Connector>] [coId : 0] ctor[0x555555ad7d80]
+2021-05-21 12:43:09 [info] [tid : 2416] [TcpClient.cc : 39 <TcpClient>] [coId : 0] TcpClient::TcpClient[RecvFileClient] - connector 0x555555ad7d80
+2021-05-21 12:43:15 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:15 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:18 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:18 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:18 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:18 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:19 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:19 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:19 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:19 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:19 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:19 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:19 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:19 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:20 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:20 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:20 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:20 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:20 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:20 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:20 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:20 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:20 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:20 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:20 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:20 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:21 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:21 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:21 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:21 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:21 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:21 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:22 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:22 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:23 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:23 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:24 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:24 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:26 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:26 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:26 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:26 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:26 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:26 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:27 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:27 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:27 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:27 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:28 [trace] [tid : 2428] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:43:28 [trace] [tid : 2427] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:15 [trace] [tid : 2670] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 10, events = 3, stauts = kNew
+2021-05-21 12:50:15 [trace] [tid : 2670] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-05-21 12:50:15 [trace] [tid : 2670] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7fffffffe440
+2021-05-21 12:50:15 [trace] [tid : 2670] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 11, events = 3, stauts = kNew
+2021-05-21 12:50:15 [trace] [tid : 2670] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-05-21 12:50:15 [trace] [tid : 2681] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 13, events = 3, stauts = kNew
+2021-05-21 12:50:15 [trace] [tid : 2681] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-05-21 12:50:15 [trace] [tid : 2681] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff27b6ae0
+2021-05-21 12:50:15 [trace] [tid : 2681] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 3, stauts = kNew
+2021-05-21 12:50:15 [trace] [tid : 2681] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-05-21 12:50:15 [trace] [tid : 2681] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff27b6ae0 start looping
+2021-05-21 12:50:15 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:15 [trace] [tid : 2682] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 16, events = 3, stauts = kNew
+2021-05-21 12:50:15 [trace] [tid : 2682] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-05-21 12:50:15 [trace] [tid : 2682] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff1fb5ae0
+2021-05-21 12:50:15 [trace] [tid : 2682] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 17, events = 3, stauts = kNew
+2021-05-21 12:50:15 [trace] [tid : 2682] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-05-21 12:50:15 [trace] [tid : 2682] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff1fb5ae0 start looping
+2021-05-21 12:50:15 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:17 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:17 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:19 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:19 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:19 [debug] [tid : 2670] [Connector.cc : 17 <Connector>] [coId : 0] ctor[0x555555ad7d80]
+2021-05-21 12:50:19 [info] [tid : 2670] [TcpClient.cc : 39 <TcpClient>] [coId : 0] TcpClient::TcpClient[RecvFileClient] - connector 0x555555ad7d80
+2021-05-21 12:50:19 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:19 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:21 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:21 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:21 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:21 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:22 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:22 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:22 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:22 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:23 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:23 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:23 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:23 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:24 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:24 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:24 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:24 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:24 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:24 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:25 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:25 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:25 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:25 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:25 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:25 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:26 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:26 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:26 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:26 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:26 [trace] [tid : 2682] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:26 [trace] [tid : 2681] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:47 [trace] [tid : 2683] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 10, events = 3, stauts = kNew
+2021-05-21 12:50:47 [trace] [tid : 2683] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-05-21 12:50:47 [trace] [tid : 2683] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7fffffffe440
+2021-05-21 12:50:47 [trace] [tid : 2683] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 11, events = 3, stauts = kNew
+2021-05-21 12:50:47 [trace] [tid : 2683] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-05-21 12:50:47 [trace] [tid : 2691] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 13, events = 3, stauts = kNew
+2021-05-21 12:50:47 [trace] [tid : 2691] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-05-21 12:50:47 [trace] [tid : 2691] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff27b6ae0
+2021-05-21 12:50:47 [trace] [tid : 2691] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 3, stauts = kNew
+2021-05-21 12:50:47 [trace] [tid : 2691] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-05-21 12:50:47 [trace] [tid : 2691] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff27b6ae0 start looping
+2021-05-21 12:50:47 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:47 [trace] [tid : 2692] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 16, events = 3, stauts = kNew
+2021-05-21 12:50:47 [trace] [tid : 2692] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-05-21 12:50:47 [trace] [tid : 2692] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff1fb5ae0
+2021-05-21 12:50:47 [trace] [tid : 2692] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 17, events = 3, stauts = kNew
+2021-05-21 12:50:47 [trace] [tid : 2692] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-05-21 12:50:49 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:49 [trace] [tid : 2692] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff1fb5ae0 start looping
+2021-05-21 12:50:49 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:50 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:50 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:50 [debug] [tid : 2683] [Connector.cc : 17 <Connector>] [coId : 0] ctor[0x555555ad7d80]
+2021-05-21 12:50:50 [info] [tid : 2683] [TcpClient.cc : 39 <TcpClient>] [coId : 0] TcpClient::TcpClient[RecvFileClient] - connector 0x555555ad7d80
+2021-05-21 12:50:51 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:51 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:52 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:52 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:53 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:53 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:53 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:53 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:53 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:53 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:54 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:54 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:54 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:54 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:54 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:54 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:55 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:55 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:55 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:55 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:55 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:55 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:56 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:56 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:56 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:56 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:57 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:57 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:58 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:58 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:50:58 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:51:00 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:51:00 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:51:06 [trace] [tid : 2691] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:51:06 [trace] [tid : 2692] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:56:54 [trace] [tid : 2726] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 10, events = 3, stauts = kNew
+2021-05-21 12:56:54 [trace] [tid : 2726] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-05-21 12:56:54 [trace] [tid : 2726] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7fffffffe440
+2021-05-21 12:56:54 [trace] [tid : 2726] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 11, events = 3, stauts = kNew
+2021-05-21 12:56:54 [trace] [tid : 2726] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-05-21 12:56:54 [trace] [tid : 2737] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 13, events = 3, stauts = kNew
+2021-05-21 12:56:54 [trace] [tid : 2737] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-05-21 12:56:54 [trace] [tid : 2737] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff27b6ae0
+2021-05-21 12:56:54 [trace] [tid : 2737] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 3, stauts = kNew
+2021-05-21 12:56:54 [trace] [tid : 2737] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-05-21 12:56:54 [trace] [tid : 2737] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff27b6ae0 start looping
+2021-05-21 12:56:54 [trace] [tid : 2737] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:56:54 [trace] [tid : 2738] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 16, events = 3, stauts = kNew
+2021-05-21 12:56:54 [trace] [tid : 2738] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-05-21 12:56:54 [trace] [tid : 2738] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff1fb5ae0
+2021-05-21 12:56:54 [trace] [tid : 2738] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 17, events = 3, stauts = kNew
+2021-05-21 12:56:54 [trace] [tid : 2738] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-05-21 12:56:54 [debug] [tid : 2726] [Connector.cc : 17 <Connector>] [coId : 0] ctor[0x555555ad7d80]
+2021-05-21 12:56:54 [info] [tid : 2726] [TcpClient.cc : 39 <TcpClient>] [coId : 0] TcpClient::TcpClient[RecvFileClient] - connector 0x555555ad7d80
+2021-05-21 12:56:54 [trace] [tid : 2738] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff1fb5ae0 start looping
+2021-05-21 12:56:54 [trace] [tid : 2738] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:56:55 [trace] [tid : 2737] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:56:55 [trace] [tid : 2738] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:56:56 [trace] [tid : 2737] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:56:56 [trace] [tid : 2738] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:56:57 [trace] [tid : 2737] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:57:10 [trace] [tid : 2742] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 10, events = 3, stauts = kNew
+2021-05-21 12:57:10 [trace] [tid : 2742] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-05-21 12:57:10 [trace] [tid : 2742] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7fffffffe440
+2021-05-21 12:57:10 [trace] [tid : 2742] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 11, events = 3, stauts = kNew
+2021-05-21 12:57:10 [trace] [tid : 2742] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-05-21 12:57:10 [trace] [tid : 2753] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 13, events = 3, stauts = kNew
+2021-05-21 12:57:10 [trace] [tid : 2753] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-05-21 12:57:10 [trace] [tid : 2753] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff27b6ae0
+2021-05-21 12:57:10 [trace] [tid : 2753] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 3, stauts = kNew
+2021-05-21 12:57:10 [trace] [tid : 2753] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-05-21 12:57:10 [trace] [tid : 2753] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff27b6ae0 start looping
+2021-05-21 12:57:10 [trace] [tid : 2753] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:57:10 [trace] [tid : 2754] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 16, events = 3, stauts = kNew
+2021-05-21 12:57:10 [trace] [tid : 2754] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-05-21 12:57:10 [trace] [tid : 2754] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff1fb5ae0
+2021-05-21 12:57:10 [trace] [tid : 2754] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 17, events = 3, stauts = kNew
+2021-05-21 12:57:10 [trace] [tid : 2754] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-05-21 12:57:10 [debug] [tid : 2742] [Connector.cc : 17 <Connector>] [coId : 0] ctor[0x555555ad7d80]
+2021-05-21 12:57:10 [info] [tid : 2742] [TcpClient.cc : 39 <TcpClient>] [coId : 0] TcpClient::TcpClient[RecvFileClient] - connector 0x555555ad7d80
+2021-05-21 12:57:10 [trace] [tid : 2754] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff1fb5ae0 start looping
+2021-05-21 12:57:10 [trace] [tid : 2754] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:57:14 [trace] [tid : 2753] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:57:14 [trace] [tid : 2754] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:57:15 [trace] [tid : 2753] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:57:15 [trace] [tid : 2754] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 12:57:17 [trace] [tid : 2753] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:01:52 [trace] [tid : 2765] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 10, events = 3, stauts = kNew
+2021-05-21 13:01:52 [trace] [tid : 2765] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-05-21 13:01:52 [trace] [tid : 2765] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7fffffffe440
+2021-05-21 13:01:52 [trace] [tid : 2765] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 11, events = 3, stauts = kNew
+2021-05-21 13:01:52 [trace] [tid : 2765] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-05-21 13:01:52 [trace] [tid : 2776] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 13, events = 3, stauts = kNew
+2021-05-21 13:01:52 [trace] [tid : 2776] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-05-21 13:01:52 [trace] [tid : 2776] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff27b6ae0
+2021-05-21 13:01:52 [trace] [tid : 2776] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 3, stauts = kNew
+2021-05-21 13:01:52 [trace] [tid : 2776] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-05-21 13:01:52 [trace] [tid : 2776] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff27b6ae0 start looping
+2021-05-21 13:01:52 [trace] [tid : 2776] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:01:52 [trace] [tid : 2777] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 16, events = 3, stauts = kNew
+2021-05-21 13:01:52 [trace] [tid : 2777] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-05-21 13:01:52 [trace] [tid : 2777] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff1fb5ae0
+2021-05-21 13:01:52 [trace] [tid : 2777] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 17, events = 3, stauts = kNew
+2021-05-21 13:01:52 [trace] [tid : 2777] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-05-21 13:01:52 [debug] [tid : 2765] [Connector.cc : 17 <Connector>] [coId : 0] ctor[0x555555ad7d80]
+2021-05-21 13:01:52 [info] [tid : 2765] [TcpClient.cc : 39 <TcpClient>] [coId : 0] TcpClient::TcpClient[RecvFileClient] - connector 0x555555ad7d80
+2021-05-21 13:01:52 [trace] [tid : 2777] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff1fb5ae0 start looping
+2021-05-21 13:01:52 [trace] [tid : 2777] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:01:53 [trace] [tid : 2776] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:01:53 [trace] [tid : 2777] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:02:36 [trace] [tid : 2776] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:02:36 [trace] [tid : 2777] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:02:38 [trace] [tid : 2776] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:02:38 [trace] [tid : 2777] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:02:43 [trace] [tid : 2776] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:04:36 [trace] [tid : 2790] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 10, events = 3, stauts = kNew
+2021-05-21 13:04:36 [trace] [tid : 2790] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 10, event = [10: IN PRI ]
+2021-05-21 13:04:36 [trace] [tid : 2790] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7fffffffe440
+2021-05-21 13:04:36 [trace] [tid : 2790] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 11, events = 3, stauts = kNew
+2021-05-21 13:04:36 [trace] [tid : 2790] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-05-21 13:04:36 [trace] [tid : 2801] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 13, events = 3, stauts = kNew
+2021-05-21 13:04:36 [trace] [tid : 2801] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 13, event = [13: IN PRI ]
+2021-05-21 13:04:36 [trace] [tid : 2801] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff27b6ae0
+2021-05-21 13:04:36 [trace] [tid : 2801] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 3, stauts = kNew
+2021-05-21 13:04:36 [trace] [tid : 2801] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-05-21 13:04:36 [trace] [tid : 2801] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff27b6ae0 start looping
+2021-05-21 13:04:36 [trace] [tid : 2801] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:04:36 [trace] [tid : 2802] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 16, events = 3, stauts = kNew
+2021-05-21 13:04:36 [trace] [tid : 2802] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-05-21 13:04:36 [trace] [tid : 2802] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7ffff1fb5ae0
+2021-05-21 13:04:36 [trace] [tid : 2802] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 17, events = 3, stauts = kNew
+2021-05-21 13:04:36 [trace] [tid : 2802] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 17, event = [17: IN PRI ]
+2021-05-21 13:04:36 [debug] [tid : 2790] [Connector.cc : 17 <Connector>] [coId : 0] ctor[0x555555ad7d80]
+2021-05-21 13:04:36 [info] [tid : 2790] [TcpClient.cc : 39 <TcpClient>] [coId : 0] TcpClient::TcpClient[RecvFileClient] - connector 0x555555ad7d80
+2021-05-21 13:04:36 [trace] [tid : 2802] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7ffff1fb5ae0 start looping
+2021-05-21 13:04:36 [trace] [tid : 2802] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:04:37 [trace] [tid : 2802] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:04:37 [trace] [tid : 2801] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:04:38 [trace] [tid : 2801] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:04:38 [trace] [tid : 2802] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:04:42 [trace] [tid : 2801] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:13:01 [trace] [tid : 3569] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 5, events = 3, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3569] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 5, event = [5: IN PRI ]
+2021-05-21 13:13:01 [trace] [tid : 3569] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7fff1316cc90
+2021-05-21 13:13:01 [trace] [tid : 3569] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 6, events = 3, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3569] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 6, event = [6: IN PRI ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 8, events = 3, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 8, event = [8: IN PRI ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7fc308721ae0
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 9, events = 3, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 9, event = [9: IN PRI ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7fc308721ae0 start looping
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 11, events = 3, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 11, event = [11: IN PRI ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 43 <EventLoop>] [coId : 0] EventLoop created 0x7fc307f20ae0
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 12, events = 3, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 12, event = [12: IN PRI ]
+2021-05-21 13:13:01 [debug] [tid : 3569] [Connector.cc : 17 <Connector>] [coId : 0] ctor[0x556cfb645d80]
+2021-05-21 13:13:01 [info] [tid : 3569] [TcpClient.cc : 39 <TcpClient>] [coId : 0] TcpClient::TcpClient[RecvFileClient] - connector 0x556cfb645d80
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7fc307f20ae0 start looping
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:13:01 [info] [tid : 3569] [TcpClient.cc : 73 <connect>] [coId : 0] TcpClient::connect[RecvFileClient] - connecting to 127.0.0.1:8888
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 9: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 9: IN 
+2021-05-21 13:13:01 [debug] [tid : 3569] [Connector.cc : 17 <Connector>] [coId : 0] ctor[0x556cfb645fb0]
+2021-05-21 13:13:01 [info] [tid : 3569] [TcpClient.cc : 39 <TcpClient>] [coId : 0] TcpClient::TcpClient[RecvFileClient] - connector 0x556cfb645fb0
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 4, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 14, event = [14: OUT ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 3
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 14: OUT  ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 14: OUT 
+2021-05-21 13:13:01 [trace] [tid : 3577] [Connector.cc : 133 <handleWrite>] [coId : 0] Connector::handleWrite 1
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 14, event = [14: ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 14 
+2021-05-21 13:13:01 [debug] [tid : 3577] [TcpConnection.cc : 40 <TcpConnection>] [coId : 0] TcpConnection::ctor[ RecvFileClient:127.0.0.1:8888#1 ] at 0x7fc300001160 fd = 14 
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 3, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 3
+2021-05-21 13:13:01 [info] [tid : 3569] [TcpClient.cc : 73 <connect>] [coId : 0] TcpClient::connect[RecvFileClient] - connecting to 127.0.0.1:8888
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 12: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 12: IN 
+2021-05-21 13:13:01 [debug] [tid : 3569] [Connector.cc : 17 <Connector>] [coId : 0] ctor[0x556cfb646200]
+2021-05-21 13:13:01 [info] [tid : 3569] [TcpClient.cc : 39 <TcpClient>] [coId : 0] TcpClient::TcpClient[RecvFileClient] - connector 0x556cfb646200
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 16, events = 4, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 16, event = [16: OUT ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 3
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 16: OUT  ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 16: OUT 
+2021-05-21 13:13:01 [trace] [tid : 3578] [Connector.cc : 133 <handleWrite>] [coId : 0] Connector::handleWrite 1
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 16, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 16, event = [16: ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 16 
+2021-05-21 13:13:01 [debug] [tid : 3578] [TcpConnection.cc : 40 <TcpConnection>] [coId : 0] TcpConnection::ctor[ RecvFileClient:127.0.0.1:8888#1 ] at 0x7fc2f8001160 fd = 16 
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 16, events = 3, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 16, event = [16: IN PRI ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 3
+2021-05-21 13:13:01 [info] [tid : 3569] [TcpClient.cc : 73 <connect>] [coId : 0] TcpClient::connect[RecvFileClient] - connecting to 127.0.0.1:8888
+2021-05-21 13:13:01 [debug] [tid : 3569] [Connector.cc : 17 <Connector>] [coId : 0] ctor[0x556cfb647a30]
+2021-05-21 13:13:01 [info] [tid : 3569] [TcpClient.cc : 39 <TcpClient>] [coId : 0] TcpClient::TcpClient[RecvFileClient] - connector 0x556cfb647a30
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 27 <wait>] [coId : 0] 2 events happended
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 9: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 14: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 9: IN 
+2021-05-21 13:13:01 [trace] [tid : 3577] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 14: IN 
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 19, events = 4, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 19, event = [19: OUT ]
+2021-05-21 13:13:01 [info] [tid : 3569] [TcpClient.cc : 73 <connect>] [coId : 0] TcpClient::connect[RecvFileClient] - connecting to 127.0.0.1:8888
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 4
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 27 <wait>] [coId : 0] 2 events happended
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 14: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 19: OUT  ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 14: IN 
+2021-05-21 13:13:01 [trace] [tid : 3577] [TcpConnection.cc : 197 <handleClose>] [coId : 0] fd = 14 status = kConnected
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3569] [EventLoop.cc : 70 <loop>] [coId : 0] EventLoop 0x7fff1316cc90 start looping
+2021-05-21 13:13:01 [trace] [tid : 3569] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 14, event = [14: ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 19: OUT 
+2021-05-21 13:13:01 [trace] [tid : 3577] [Connector.cc : 133 <handleWrite>] [coId : 0] Connector::handleWrite 1
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 19, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 19, event = [19: ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 19 
+2021-05-21 13:13:01 [debug] [tid : 3577] [TcpConnection.cc : 40 <TcpConnection>] [coId : 0] TcpConnection::ctor[ RecvFileClient:127.0.0.1:8888#1 ] at 0x7fc300003810 fd = 19 
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 19, events = 3, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 19, event = [19: IN PRI ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 14 
+2021-05-21 13:13:01 [debug] [tid : 3577] [TcpConnection.cc : 46 <~TcpConnection>] [coId : 0] TcpConnection::dtor[ RecvFileClient:127.0.0.1:8888#1 ] at 0x7fc300001160 fd = 14 status = kDisconnected 
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 3
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 19: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 19: IN 
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 3
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 19: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 19: IN 
+2021-05-21 13:13:01 [trace] [tid : 3577] [TcpConnection.cc : 197 <handleClose>] [coId : 0] fd = 19 status = kConnected
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 19, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 27 <wait>] [coId : 0] 2 events happended
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 19, event = [19: ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 16: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 12: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 16: IN 
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 19 
+2021-05-21 13:13:01 [trace] [tid : 3578] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 12: IN 
+2021-05-21 13:13:01 [debug] [tid : 3577] [TcpConnection.cc : 46 <~TcpConnection>] [coId : 0] TcpConnection::dtor[ RecvFileClient:127.0.0.1:8888#1 ] at 0x7fc300003810 fd = 19 status = kDisconnected 
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 4, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 14, event = [14: OUT ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 4
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 27 <wait>] [coId : 0] 2 events happended
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 16: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 14: OUT  ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 16: IN 
+2021-05-21 13:13:01 [trace] [tid : 3578] [TcpConnection.cc : 197 <handleClose>] [coId : 0] fd = 16 status = kConnected
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 16, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 16, event = [16: ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 14: OUT 
+2021-05-21 13:13:01 [trace] [tid : 3578] [Connector.cc : 133 <handleWrite>] [coId : 0] Connector::handleWrite 1
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 14, event = [14: ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 14 
+2021-05-21 13:13:01 [debug] [tid : 3578] [TcpConnection.cc : 40 <TcpConnection>] [coId : 0] TcpConnection::ctor[ RecvFileClient:127.0.0.1:8888#1 ] at 0x7fc2f8003810 fd = 14 
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 3, stauts = kNew
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = ADD, fd = 14, event = [14: IN PRI ]
+2021-05-21 13:13:01 [info] [tid : 3578] [fileTransfer_test.cc : 51 <onConnection>] [coId : 0] all connected
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 16 
+2021-05-21 13:13:01 [debug] [tid : 3578] [TcpConnection.cc : 46 <~TcpConnection>] [coId : 0] TcpConnection::dtor[ RecvFileClient:127.0.0.1:8888#1 ] at 0x7fc2f8001160 fd = 16 status = kDisconnected 
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 3
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 14: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 14: IN 
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 3
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 14: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 14: IN 
+2021-05-21 13:13:01 [trace] [tid : 3578] [TcpConnection.cc : 197 <handleClose>] [coId : 0] fd = 14 status = kConnected
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 14, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 14, event = [14: ]
+2021-05-21 13:13:01 [info] [tid : 3578] [fileTransfer_test.cc : 55 <onConnection>] [coId : 0] all disconnected
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 14 
+2021-05-21 13:13:01 [debug] [tid : 3578] [TcpConnection.cc : 46 <~TcpConnection>] [coId : 0] TcpConnection::dtor[ RecvFileClient:127.0.0.1:8888#1 ] at 0x7fc2f8003810 fd = 14 status = kDisconnected 
+2021-05-21 13:13:01 [trace] [tid : 3569] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3569] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 6: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3569] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 6: IN 
+2021-05-21 13:13:01 [trace] [tid : 3569] [EventLoop.cc : 89 <loop>] [coId : 0] EventLoop 0x7fff1316cc90 stop looping
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:13:01 [info] [tid : 3569] [TcpClient.cc : 43 <~TcpClient>] [coId : 0] TcpClient::~TcpClient[RecvFileClient] - connector 0x556cfb645d80
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 9: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 9: IN 
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:13:01 [info] [tid : 3569] [TcpClient.cc : 43 <~TcpClient>] [coId : 0] TcpClient::~TcpClient[RecvFileClient] - connector 0x556cfb645fb0
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 12: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 12: IN 
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:13:01 [info] [tid : 3569] [TcpClient.cc : 43 <~TcpClient>] [coId : 0] TcpClient::~TcpClient[RecvFileClient] - connector 0x556cfb646200
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 9: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 9: IN 
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:13:01 [info] [tid : 3569] [TcpClient.cc : 43 <~TcpClient>] [coId : 0] TcpClient::~TcpClient[RecvFileClient] - connector 0x556cfb647a30
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 9: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 9: IN 
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 12: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [EventLoop.cc : 89 <loop>] [coId : 0] EventLoop 0x7fc308721ae0 stop looping
+2021-05-21 13:13:01 [debug] [tid : 3577] [EventLoop.cc : 58 <~EventLoop>] [coId : 0] EventLoop 0x7fc308721ae0 of thread 3577 destructs
+2021-05-21 13:13:01 [trace] [tid : 3578] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 12: IN 
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 21 <wait>] [coId : 0] fd total count 2
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 9, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 9, event = [9: ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 9 
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 8, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 8, event = [8: ]
+2021-05-21 13:13:01 [trace] [tid : 3577] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 8 
+2021-05-21 13:13:01 [debug] [tid : 3577] [Connector.cc : 21 <~Connector>] [coId : 0] dtor[0x556cfb646200]
+2021-05-21 13:13:01 [debug] [tid : 3577] [Connector.cc : 21 <~Connector>] [coId : 0] dtor[0x556cfb645d80]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 27 <wait>] [coId : 0] 1 events happended
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 250 <printActiveChannels>] [coId : 0] [ 12: IN  ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Channel.cc : 78 <handleEventWithGuard>] [coId : 0] 12: IN 
+2021-05-21 13:13:01 [trace] [tid : 3578] [EventLoop.cc : 89 <loop>] [coId : 0] EventLoop 0x7fc307f20ae0 stop looping
+2021-05-21 13:13:01 [debug] [tid : 3578] [EventLoop.cc : 58 <~EventLoop>] [coId : 0] EventLoop 0x7fc307f20ae0 of thread 3578 destructs
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 12, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 12, event = [12: ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 12 
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 11, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 11, event = [11: ]
+2021-05-21 13:13:01 [trace] [tid : 3578] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 11 
+2021-05-21 13:13:01 [debug] [tid : 3578] [Connector.cc : 21 <~Connector>] [coId : 0] dtor[0x556cfb647a30]
+2021-05-21 13:13:01 [debug] [tid : 3578] [Connector.cc : 21 <~Connector>] [coId : 0] dtor[0x556cfb645fb0]
+2021-05-21 13:13:01 [debug] [tid : 3569] [EventLoop.cc : 58 <~EventLoop>] [coId : 0] EventLoop 0x7fff1316cc90 of thread 3569 destructs
+2021-05-21 13:13:01 [trace] [tid : 3569] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 6, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3569] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 6, event = [6: ]
+2021-05-21 13:13:01 [trace] [tid : 3569] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 6 
+2021-05-21 13:13:01 [trace] [tid : 3569] [Epoll.cc : 50 <updateChannel>] [coId : 0] fd = 5, events = 0, stauts = kAdded
+2021-05-21 13:13:01 [trace] [tid : 3569] [Epoll.cc : 122 <epollctl>] [coId : 0] epoll_ctl op = DEL, fd = 5, event = [5: ]
+2021-05-21 13:13:01 [trace] [tid : 3569] [Epoll.cc : 82 <removeChannel>] [coId : 0] fd = 5 
