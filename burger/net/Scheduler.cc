@@ -25,9 +25,7 @@ IgnoreSigPipe initObj;
 using namespace burger;
 using namespace burger::net;
 
-Scheduler::Scheduler(size_t threadNum) 
-    : threadNum_(threadNum) {
-    assert(threadNum_ > 0);
+Scheduler::Scheduler() {
     DEBUG("Scheduler ctor");
     assert(Processor::GetProcesserOfThisThread() == nullptr);
 }
@@ -35,6 +33,12 @@ Scheduler::Scheduler(size_t threadNum)
 Scheduler::~Scheduler() {
     stop();
     DEBUG("Scheduler dtor");
+}
+
+// before start to call 
+void Scheduler::setThreadNum(size_t threadNum)  {
+    assert(threadNum >= 1);
+    threadNum_ = threadNum;
 }
 
 void Scheduler::start() {

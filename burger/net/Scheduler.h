@@ -25,9 +25,10 @@ class ProcessThread;
 class Scheduler : boost::noncopyable {
 public:
     using ptr = std::shared_ptr<Scheduler>;
-    Scheduler(size_t threadNum = 1);
+    Scheduler();
     ~Scheduler();
 
+    void setThreadNum(size_t threadNum = 1);
     void startAsync();
     void wait();
     void stop();
@@ -51,7 +52,7 @@ private:
 private:
     bool running_ = false;
     bool quit_ = false;
-    size_t threadNum_;
+    size_t threadNum_ = 1;
     Processor* mainProc_;
     std::vector<Processor *> workProcVec_;  // todo : 优先队列
     std::vector<std::shared_ptr<ProcessThread> > workThreadVec_;
