@@ -1,5 +1,5 @@
 #include "discard.h"
-
+#include "burger/net/RingBuffer.h"
 using namespace std::placeholders;
 
 DiscardServer::DiscardServer(Scheduler* sched, const InetAddress& listenAddr)

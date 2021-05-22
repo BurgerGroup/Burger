@@ -6,7 +6,7 @@
 #include <boost/any.hpp>
 
 #include "InetAddress.h"
-#include "RingBuffer.h"
+#include "IBuffer.h"
 #include "Callbacks.h"
 
 namespace burger {
@@ -27,12 +27,12 @@ public:
             const std::string& connName);
     ~CoTcpConnection();
     // todo : more operation
-    ssize_t recv(RingBuffer::ptr buf);
-    void send(RingBuffer::ptr buf);
+    ssize_t recv(IBuffer::ptr buf);
+    void send(IBuffer::ptr buf);
     void send(const std::string& msg);
     void send(const char* start, size_t sendSize);  
 
-    void send(RingBuffer::ptr buf, size_t sendSize);
+    void send(IBuffer::ptr buf, size_t sendSize);
     const InetAddress& getLocalAddress() const { return localAddr_; }
     const InetAddress& getPeerAddr() const { return peerAddr_; }
     const std::string& getName() const { return connName_; }

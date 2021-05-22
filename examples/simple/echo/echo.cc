@@ -1,5 +1,5 @@
 #include "echo.h"
-
+#include "burger/net/RingBuffer.h"
 using namespace std::placeholders;
 
 EchoServer::EchoServer(Scheduler* sched, const InetAddress& listenAddr)

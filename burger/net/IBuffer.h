@@ -14,7 +14,7 @@ namespace net {
 
 class IBuffer : public burger::copyable {
 public:
-    using ptr = shared_ptr<IBuffer>;
+    using ptr = std::shared_ptr<IBuffer>;
     static const size_t kCheapPrepend;
     static const size_t kInitialSize;
 

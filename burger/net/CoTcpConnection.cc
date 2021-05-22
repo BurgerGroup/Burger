@@ -1,6 +1,5 @@
 #include "Socket.h"
 #include "SocketsOps.h"
-#include "IBuffer.h"
 #include "Processor.h"
 #include "CoTcpConnection.h"
 #include "burger/base/Util.h"
@@ -31,7 +30,7 @@ CoTcpConnection::~CoTcpConnection() {
              connName_, fmt::ptr(this), socket_->getFd());
 }
 
-ssize_t CoTcpConnection::recv(RingBuffer::ptr buf) {
+ssize_t CoTcpConnection::recv(IBuffer::ptr buf) {
     if(quit_) return 0;
     int savedErrno = 0;
     ssize_t n = buf->readFd(socket_->getFd(), savedErrno);
@@ -45,13 +44,13 @@ void CoTcpConnection::shutdown() {
     DEBUG("CoTcpConn {} is shut down.", connName_);
 }
 
-void CoTcpConnection::send(RingBuffer::ptr buf) {
+void CoTcpConnection::send(IBuffer::ptr buf) {
     size_t sendSize = buf->getReadableBytes();
     send(buf->peek(), sendSize);
     buf->retrieve(sendSize);
 }
 
-void CoTcpConnection::send(RingBuffer::ptr buf, size_t sendSize) {
+void CoTcpConnection::send(IBuffer::ptr buf, size_t sendSize) {
     send(buf->peek(), sendSize);
     buf->retrieve(sendSize);
 }

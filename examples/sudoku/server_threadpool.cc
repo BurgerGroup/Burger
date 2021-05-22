@@ -5,7 +5,7 @@
 #include "sudoku.h"
 #include "burger/base/Util.h"
 #include "burger/base/Log.h"
-
+#include "burger/net/RingBuffer.h"
 using namespace burger;
 using namespace burger::net;
 using namespace std::placeholders;
