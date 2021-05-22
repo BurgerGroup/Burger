@@ -1,0 +1,2 @@
+add_executable(chat_server server.cc)
+target_link_libraries(chat_server burger_net)

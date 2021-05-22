@@ -39,10 +39,6 @@ public:
     void setTcpNoDelay(bool on);
     bool isConnected() const { return !quit_; }
 
-    void setContext(const boost::any& context) { context_ = context; }
-    const boost::any& getContext() const { return context_; }
-    boost::any* getMutableContext() { return &context_; }
-
     void shutdown();
     // void close();
 private: 
@@ -54,8 +50,6 @@ private:
     const InetAddress peerAddr_;
     const std::string connName_;
     bool quit_;
-    boost::any context_;
-
 };
 
 

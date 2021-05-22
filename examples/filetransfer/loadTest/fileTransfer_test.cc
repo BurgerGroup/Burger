@@ -54,7 +54,7 @@ private:
             if (g_disaliveConnections.incrementAndGet() == g_connections) {
                 INFO("all disconnected");
                 g_loop->quit();
-                //exit(0);
+                //exit(0);  // 第二种退出方法
             }
         }
     }
