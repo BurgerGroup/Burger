@@ -24,7 +24,7 @@ public:
                             const std::string& name = "CoTcpServer", bool reuseport = true);
 
     ~CoTcpServer();
-
+    void setThreadNum(size_t threadNum);
     void start();
     void setConnectionHandler(const ConnectionHandler& handler);
     Scheduler* getScheduler() { return sched_; }

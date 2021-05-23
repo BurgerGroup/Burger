@@ -39,6 +39,11 @@ CoTcpServer::~CoTcpServer() {
     DEBUG("CoTcpServer destroyed {}", hostName_);
 }
 
+void CoTcpServer::setThreadNum(size_t threadNum) {
+    assert(threadNum > 0);
+    sched_->setThreadNum(threadNum);
+}
+
 // 多次调用无害
 void CoTcpServer::start() {
     if(started_.getAndSet(1) == 0) {

@@ -37,7 +37,6 @@ Scheduler::~Scheduler() {
 
 // before start to call 
 void Scheduler::setThreadNum(size_t threadNum)  {
-    assert(threadNum >= 1);
     threadNum_ = threadNum;
 }
 

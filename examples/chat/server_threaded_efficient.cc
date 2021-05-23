@@ -1,3 +1,5 @@
+// shared_ptr实现copy on write
+
 #include "burger/base/Log.h"
 #include "burger/net/CoTcpServer.h"
 #include "burger/net/Scheduler.h"
@@ -18,46 +20,69 @@ public:
     ChatServer(Scheduler* sched, const InetAddress& listenAddr)
         : sched_(sched),
         server_(sched, listenAddr, "ChatServer"),
-        codec_(std::bind(&ChatServer::onStringMsg, this, _1)) {
+        codec_(std::bind(&ChatServer::onStringMsg, this, _1)),
+        connSetPtr_(std::make_shared<ConnectionSet>()) {   // use_count 为 1 
         server_.setConnectionHandler(std::bind(&ChatServer::connHandler, this, _1));
     }
 
     void setThreadNum(size_t threadNum) {
         server_.setThreadNum(threadNum);
     }
+
     void start() {
         server_.start();
     }
 
     void connHandler(const CoTcpConnection::ptr& conn) {
         {
+            // 在复本上修改，不会影响读者，所以读者在遍历列表的时候，不需要用mutex保护
             std::lock_guard<std::mutex> lock(mutex_);
-            connSet_.insert(conn);
+            if(!connSetPtr_.unique()) {  // 引用计数大于1
+                connSetPtr_.reset(new ConnectionSet(*connSetPtr_)); // 此处是精髓
+            }
+            assert(connections_.unique());
+            connSetPtr_.insert(conn);
         }
         
         Buffer::ptr buffer = std::make_shared<Buffer>();
         while(conn->recv(buffer) > 0) {
             codec_.decode(conn, buffer);
         }
+
         {
             std::lock_guard<std::mutex> lock(mutex_);
-            connSet_.erase(conn);
+            if(!connSetPtr_.unique()) {  // 引用计数大于1
+                connSetPtr_.reset(new ConnectionSet(*connSetPtr_)); // 此处是精髓
+            }
+            assert(connections_.unique());
+            connSetPtr_.erase(conn);
         }
         
     } 
 
     void onStringMsg(const std::string& msg) {
-        std::lock_guard<std::mutex> lock(mutex_);
-        for(auto it = connSet_.begin(); it != connSet_.end(); ++it) {
+        // 引用计数加1，mutex保护的临界区大大缩短
+        // 写者是在另一个复本上修改，所以写者无需担心更改了连接的列表
+        ConnectionSetPtr connSetPtr = getConnSetPtr();
+        for(auto it = connSetPtr.begin(); it != connSetPtr.end(); ++it) {
             codec_.wrapAndsend(*it, msg);
         }
+        // 这个断言不一定成立, 不能确定之前到达reset没有
+        // assert(!connections.unique());
+        // 当ConnectionSetPtr这个栈上的变量销毁的时候，引用计数减1
+    }
+
+    ConnectionSetPtr getConnSetPtr() {
+        std::lock_guard<std::mutex> lock(mutex_);
+        return connSetPtr_;
     }
 private: 
     using ConnectionSet = std::set<CoTcpConnection::ptr>;
+    using ConnectionSetPtr = std::shared_ptr<ConnectionSet>;
     Scheduler* sched_;
     CoTcpServer server_;
     LengthHeaderCodec codec_;
-    ConnectionSet connSet_;  
+    ConnectionSetPtr connSetPtr_;
     std::mutex mutex_;
 };
 

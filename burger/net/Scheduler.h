@@ -28,7 +28,7 @@ public:
     Scheduler();
     ~Scheduler();
 
-    void setThreadNum(size_t threadNum = 1);
+    void setThreadNum(size_t threadNum);
     void startAsync();
     void wait();
     void stop();
