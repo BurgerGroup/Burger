@@ -39,8 +39,8 @@ public:
             if(!connSetPtr_.unique()) {  // 引用计数大于1
                 connSetPtr_.reset(new ConnectionSet(*connSetPtr_)); // 此处是精髓
             }
-            assert(connections_.unique());
-            connSetPtr_.insert(conn);
+            assert(connSetPtr_.unique());
+            connSetPtr_->insert(conn);
         }
         
         Buffer::ptr buffer = std::make_shared<Buffer>();
@@ -53,8 +53,8 @@ public:
             if(!connSetPtr_.unique()) {  // 引用计数大于1
                 connSetPtr_.reset(new ConnectionSet(*connSetPtr_)); // 此处是精髓
             }
-            assert(connections_.unique());
-            connSetPtr_.erase(conn);
+            assert(connSetPtr_.unique());
+            connSetPtr_->erase(conn);
         }
         
     } 
@@ -63,21 +63,22 @@ public:
         // 引用计数加1，mutex保护的临界区大大缩短
         // 写者是在另一个复本上修改，所以写者无需担心更改了连接的列表
         ConnectionSetPtr connSetPtr = getConnSetPtr();
-        for(auto it = connSetPtr.begin(); it != connSetPtr.end(); ++it) {
+        for(auto it = (*connSetPtr).begin(); it != (*connSetPtr).end(); ++it) {
             codec_.wrapAndsend(*it, msg);
         }
         // 这个断言不一定成立, 不能确定之前到达reset没有
         // assert(!connections.unique());
         // 当ConnectionSetPtr这个栈上的变量销毁的时候，引用计数减1
     }
+    using ConnectionSet = std::set<CoTcpConnection::ptr>;
+    using ConnectionSetPtr = std::shared_ptr<ConnectionSet>;
 
     ConnectionSetPtr getConnSetPtr() {
         std::lock_guard<std::mutex> lock(mutex_);
         return connSetPtr_;
     }
 private: 
-    using ConnectionSet = std::set<CoTcpConnection::ptr>;
-    using ConnectionSetPtr = std::shared_ptr<ConnectionSet>;
+
     CoTcpServer server_;
     LengthHeaderCodec codec_;
     ConnectionSetPtr connSetPtr_;

@@ -7,5 +7,5 @@ target_link_libraries(filetransfer_download2 burger_net)
 add_executable(filetransfer_download3 download3.cc)
 target_link_libraries(filetransfer_download3 burger_net)
 
-add_executable(fileTranTestClient loadTest/fileTransfer_test.cc)
-target_link_libraries(fileTranTestClient burger_net)
+add_executable(fileTran_loadtest loadtest.cc)
+target_link_libraries(fileTran_loadtest burger_net)

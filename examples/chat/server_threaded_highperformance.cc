@@ -49,7 +49,6 @@ public:
         for(auto it = workProcList_.begin(); it != workProcList_.end(); it++) {
             (*it)->addTask(std::bind(&ChatServer::distributeMsg, this, msg), "distribute msg");
         }
-        
     }
 
     void distributeMsg(const std::string& msg) {

@@ -4,8 +4,15 @@ target_link_libraries(chat_server burger_net)
 add_executable(chat_server_threaded server_threaded.cc)
 target_link_libraries(chat_server_threaded burger_net)
 
-add_executable(server_threaded_highperformance server_threaded_highperformance.cc)
-target_link_libraries(server_threaded_highperformance burger_net)
+add_executable(chat_server_threaded_efficient server_threaded_efficient.cc)
+target_link_libraries(chat_server_threaded_efficient burger_net)
+
+add_executable(chat_server_threaded_highperformance server_threaded_highperformance.cc)
+target_link_libraries(chat_server_threaded_highperformance burger_net)
 
 add_executable(chat_client client.cc)
 target_link_libraries(chat_client burger_net)
+
+
+add_executable(chat_loadtest loadtest.cc)
+target_link_libraries(chat_loadtest burger_net)

@@ -119,3 +119,19 @@ void onStringMsg(const std::string& msg) {
 
 ## 方案2 : thread_local 实现多线程高效转发
 
+C1 -> S hello T1线程转发消息给所有客户端
+
+C1 -> S hello T2 线程转发消息给C2, T3 线程转发消息给C3
+
+我们定义一个threadLocal connList,使得每个线程拥有不同的connList，这样就不用去加锁保护这个connList，分发任务给多个线程所拥有的conn
+
+```cpp
+// 我们在这里让所有的线程addTask -- 分发任务 -- 让各自线程所拥有的conn发送消息
+void onStringMsg(const std::string& msg) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    for(auto it = workProcList_.begin(); it != workProcList_.end(); it++) {
+        (*it)->addTask(std::bind(&ChatServer::distributeMsg, this, msg), "distribute msg");
+    }
+}
+```
+
