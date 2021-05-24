@@ -43,15 +43,15 @@
 
 ```cpp
 void Scheduler::addTask(const Coroutine::Callback& task, std::string name) {
-    Processor* proc = pickOneProcesser();
+    Processor* proc = pickOneWorkProcessor();
     assert(proc != nullptr);
     proc->addPendingTask(task, name);
 }
 ```
-我们在这里pickOneProcesser(),
+我们在这里pickOneWorkProcessor(),
 
 ```cpp
-Processor* Scheduler::pickOneProcesser() {
+Processor* Scheduler::pickOneWorkProcessor() {
     std::lock_guard<std::mutex> lock(mutex_);
     if(mainProc_ == nullptr) {
         mainProc_ = util::make_unique<Processor>(this);

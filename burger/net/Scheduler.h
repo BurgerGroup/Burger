@@ -34,7 +34,9 @@ public:
     void stop();
     
     void addTask(const Coroutine::Callback& task, const std::string& name = "");
-    
+    void addMainTask(const Coroutine::Callback& task, const std::string& name = "");
+
+    // todo: 这里是没有main Processor的
     // 定时完成协程任务（这里的协程一定是processor中已经存在的，而不是在其他地方新建的）
     TimerId runAt(Timestamp when, Coroutine::ptr co); 
     TimerId runAfter(double delay, Coroutine::ptr co);
@@ -45,7 +47,9 @@ public:
     void cancel(TimerId timerId);
     
 // protected:
-    Processor* pickOneProcesser();
+    Processor* getMainProcessor() { return mainProc_; }
+    std::vector<Processor *> getWorkProcList() { return workProcVec_; }
+    Processor* pickOneWorkProcessor();
 private:
     void start();
     void joinThread();

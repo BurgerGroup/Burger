@@ -16,8 +16,7 @@ using namespace std::placeholders;
 class ChatServer : boost::noncopyable {
 public:
     ChatServer(Scheduler* sched, const InetAddress& listenAddr)
-        : sched_(sched),
-        server_(sched, listenAddr, "ChatServer"),
+        : server_(sched, listenAddr, "ChatServer"),
         codec_(std::bind(&ChatServer::onStringMsg, this, _1)) {
         server_.setConnectionHandler(std::bind(&ChatServer::connHandler, this, _1));
     }
@@ -54,7 +53,6 @@ public:
     }
 private: 
     using ConnectionSet = std::set<CoTcpConnection::ptr>;
-    Scheduler* sched_;
     CoTcpServer server_;
     LengthHeaderCodec codec_;
     ConnectionSet connSet_;  

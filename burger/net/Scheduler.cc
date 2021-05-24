@@ -88,13 +88,20 @@ void Scheduler::stop() {
 }
 
 void Scheduler::addTask(const Coroutine::Callback& task, const std::string& name) {
-    Processor* proc = pickOneProcesser();
+    Processor* proc = pickOneWorkProcessor();
     assert(proc != nullptr);
     proc->addPendingTask(task, name);
 }
 
+void Scheduler::addMainTask(const Coroutine::Callback& task, const std::string& name) {
+    Processor* proc = getMainProcessor();
+    assert(proc != nullptr);
+    proc->addPendingTask(task, name);
+}
+
+
 TimerId Scheduler::runAt(Timestamp when, Coroutine::ptr co) {
-    Processor* proc = pickOneProcesser();
+    Processor* proc = pickOneWorkProcessor();
     return proc->getTimerQueue()->addTimer(co, when);
 }
 
@@ -104,13 +111,13 @@ TimerId Scheduler::runAfter(double delay, Coroutine::ptr co) {
 }
 
 TimerId Scheduler::runEvery(double interval, Coroutine::ptr co) {
-    Processor* proc = pickOneProcesser();
+    Processor* proc = pickOneWorkProcessor();
     Timestamp when = Timestamp::now() + interval; 
     return proc->getTimerQueue()->addTimer(co, when, interval);
 }
 
 TimerId Scheduler::runAt(Timestamp when, TimerCallback cb, const std::string& name) {
-    Processor* proc = pickOneProcesser();
+    Processor* proc = pickOneWorkProcessor();
     return proc->getTimerQueue()->addTimer(cb, name, when);
 }
 
@@ -120,7 +127,7 @@ TimerId Scheduler::runAfter(double delay, TimerCallback cb, const std::string& n
 }
 
 TimerId Scheduler::runEvery(double interval, TimerCallback cb, const std::string& name) {
-    Processor* proc = pickOneProcesser();
+    Processor* proc = pickOneWorkProcessor();
     Timestamp when = Timestamp::now() + interval; 
     return proc->getTimerQueue()->addTimer(cb, name, when, interval);
 }
@@ -130,10 +137,11 @@ void Scheduler::cancel(TimerId timerId) {
     return proc->getTimerQueue()->cancel(timerId);
 }
 
-Processor* Scheduler::pickOneProcesser() {
+// 如果只有一个线程，那么返回mainProc, 否则返回工作Proc
+Processor* Scheduler::pickOneWorkProcessor() {
     Processor* proc = mainProc_;
     static size_t index = 0;
-    std::lock_guard<std::mutex> lock(mutex_);     // todo : 此处是否需要加锁
+    std::lock_guard<std::mutex> lock(mutex_);     
     if(workProcVec_.empty() && mainProc_ == nullptr) {
         CRITICAL("start scheduler first");
     }

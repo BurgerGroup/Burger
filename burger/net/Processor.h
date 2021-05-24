@@ -48,8 +48,6 @@ public:
     void wakeupEpollCo();
     ssize_t consumeWakeUp();
 
-
-
 private: 
     void addPendingTasksIntoQueue();
     void abortNotInProcThread();
