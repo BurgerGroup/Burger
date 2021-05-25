@@ -56,7 +56,6 @@ public:
             assert(connSetPtr_.unique());
             connSetPtr_->erase(conn);
         }
-        
     } 
 
     void onStringMsg(const std::string& msg) {
@@ -64,12 +63,13 @@ public:
         // 写者是在另一个复本上修改，所以写者无需担心更改了连接的列表
         ConnectionSetPtr connSetPtr = getConnSetPtr();
         for(auto it = (*connSetPtr).begin(); it != (*connSetPtr).end(); ++it) {
-            codec_.wrapAndsend(*it, msg);
+            codec_.wrapAndSend(*it, msg);
         }
         // 这个断言不一定成立, 不能确定之前到达reset没有
         // assert(!connections.unique());
         // 当ConnectionSetPtr这个栈上的变量销毁的时候，引用计数减1
     }
+
     using ConnectionSet = std::set<CoTcpConnection::ptr>;
     using ConnectionSetPtr = std::shared_ptr<ConnectionSet>;
 
@@ -78,7 +78,6 @@ public:
         return connSetPtr_;
     }
 private: 
-
     CoTcpServer server_;
     LengthHeaderCodec codec_;
     ConnectionSetPtr connSetPtr_;

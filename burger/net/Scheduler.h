@@ -50,6 +50,9 @@ public:
     Processor* getMainProcessor() { return mainProc_; }
     std::vector<Processor *> getWorkProcList() { return workProcVec_; }
     Processor* pickOneWorkProcessor();
+
+    size_t getThreadNum() { return threadNum_; }
+
 private:
     void start();
     void joinThread();

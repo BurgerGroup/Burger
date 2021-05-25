@@ -36,7 +36,7 @@ public:
 
     void onStringMsg(const std::string& msg) {
         for(auto it = connections_.begin(); it != connections_.end(); ++it) {
-            codec_.wrapAndsend(*it, msg);
+            codec_.wrapAndSend(*it, msg);
         }
     }
 private: 

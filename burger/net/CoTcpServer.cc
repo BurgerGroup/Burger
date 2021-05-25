@@ -69,7 +69,8 @@ void CoTcpServer::startAccept() {
             CoTcpConnection::ptr conn = std::make_shared<CoTcpConnection>(proc, connfd,
                         listenAddr_, peerAddr, connName);
             // conn->setConnEstablishCallback(connEstablishCallback_);
-            proc->addTask(std::bind(connHandler_, conn), "connHandler");
+            // 此处跨线程调用
+            proc->addPendingTask(std::bind(connHandler_, conn), "connHandler");
         } 
         // todo : idlefd
     }

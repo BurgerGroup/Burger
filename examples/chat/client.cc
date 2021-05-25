@@ -34,7 +34,7 @@ public:
     void write(const std::string& msg) {
         std::lock_guard<std::mutex> lock(mutex_);
         if (connection_) {
-            wrapAndsend(connection_, msg);
+            wrapAndSend(connection_, msg);
         }
     }
 
@@ -77,7 +77,7 @@ private:
         std::cout << "<<< " << msg << std::endl; 
     }
 
-    void wrapAndsend(const TcpConnectionPtr& conn,
+    void wrapAndSend(const TcpConnectionPtr& conn,
                 const std::string& msg) {
         Buffer buf;
         buf.append(msg.data(), msg.size());

@@ -48,7 +48,7 @@ public:
     void onStringMsg(const std::string& msg) {
         std::lock_guard<std::mutex> lock(mutex_);
         for(auto it = connSet_.begin(); it != connSet_.end(); ++it) {
-            codec_.wrapAndsend(*it, msg);
+            codec_.wrapAndSend(*it, msg);
         }
     }
 private: 

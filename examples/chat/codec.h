@@ -40,7 +40,7 @@ public:
         }
     }
 
-    void wrapAndsend(const CoTcpConnection::ptr& conn, const std::string& msg) {
+    void wrapAndSend(const CoTcpConnection::ptr& conn, const std::string& msg) {
         Buffer::ptr buf = std::make_shared<Buffer>();
         buf->append(msg.data(), msg.size());
         int32_t len = static_cast<int32_t>(msg.size());

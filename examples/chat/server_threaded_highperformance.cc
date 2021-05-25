@@ -16,21 +16,23 @@ using namespace burger;
 using namespace burger::net;
 using namespace std::placeholders;
 
+// todo : 此处性能表现不佳，分析原因
+
 class ChatServer : boost::noncopyable {
 public:
     ChatServer(Scheduler* sched, const InetAddress& listenAddr)
-        : server_(sched, listenAddr, "ChatServer"),
+        : sched_(sched),
+        server_(sched, listenAddr, "ChatServer"),
         codec_(std::bind(&ChatServer::onStringMsg, this, _1)) {   // use_count 为 1 
         server_.setConnectionHandler(std::bind(&ChatServer::connHandler, this, _1));
     }
 
     void setThreadNum(size_t threadNum) {
-        server_.setThreadNum(threadNum);
+        sched_->setThreadNum(threadNum);
     }
 
     void start() {
         server_.start();
-        workProcList_ = server_.getScheduler()->getWorkProcList();
     }
 
     void connHandler(const CoTcpConnection::ptr& conn) {
@@ -46,8 +48,8 @@ public:
 
     void onStringMsg(const std::string& msg) {
         std::lock_guard<std::mutex> lock(mutex_);
-        for(auto it = workProcList_.begin(); it != workProcList_.end(); it++) {
-            (*it)->addTask(std::bind(&ChatServer::distributeMsg, this, msg), "distribute msg");
+        for(size_t i = 0; i < sched_->getThreadNum(); i++) {
+            sched_->addTask(std::bind(&ChatServer::distributeMsg, this, msg), "distribute msg");
         }
     }
 
@@ -55,7 +57,7 @@ public:
         DEBUG("BEGIN");
         for(auto it = connSetPerThrd::Instance().begin(); 
                 it != connSetPerThrd::Instance().end(); it++) {
-            codec_.wrapAndsend(*it, msg);        
+            codec_.wrapAndSend(*it, msg);        
         }
         DEBUG("END");
     }
@@ -63,10 +65,10 @@ public:
 private: 
     using ConnectionSet = std::set<CoTcpConnection::ptr>;
     using connSetPerThrd = SingletonPerThread<ConnectionSet>;
+    Scheduler *sched_;
     CoTcpServer server_;
     LengthHeaderCodec codec_;
     std::mutex mutex_;
-    std::vector<Processor *> workProcList_;
 };
 
 int main(int argc, char* argv[]) {

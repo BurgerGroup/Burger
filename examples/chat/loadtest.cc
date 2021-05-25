@@ -100,7 +100,7 @@ private:
         }
     }
 
-    void wrapAndsend(const TcpConnectionPtr& conn,
+    void wrapAndSend(const TcpConnectionPtr& conn,
                 const std::string& msg) {
         Buffer buf;
         buf.append(msg.data(), msg.size());
@@ -112,7 +112,7 @@ private:
 
     void send() {
         g_startTime = Timestamp::now();
-        wrapAndsend(connection_, "hello");
+        wrapAndSend(connection_, "hello");
         DEBUG("sent");
     }
 private:    

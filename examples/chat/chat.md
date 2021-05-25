@@ -1,4 +1,4 @@
-## 聊天服务器 
+## 聊天广播服务器 
 
 主要了解如何分包
 
@@ -38,7 +38,7 @@ server_threaded.cc中，由于mutex的存在，多线程不能并发执行，而
 void onStringMsg(const std::string& msg) {
     std::lock_guard<std::mutex> lock(mutex_);
     for(auto it = connections_.begin(); it != connections_.end(); ++it) {
-        codec_.wrapAndsend(*it, msg);
+        codec_.wrapAndSend(*it, msg);
     }
 }
 ```
@@ -70,7 +70,7 @@ ConnectionSetPtr getConnSetPtr() {
 void onStringMsg(const std::string& msg) {
     ConnectionSetPtr connSetPtr = getConnSetPtr();
     for(auto it = connSetPtr.begin(); it != connSetPtr.end(); ++it) {
-        codec_.wrapAndsend(*it, msg);
+        codec_.wrapAndSend(*it, msg);
     }
 }
 ```
@@ -108,7 +108,7 @@ void onStringMsg(const std::string& msg) {
 
     ConnectionSetPtr connSetPtr = getConnSetPtr();
     for(auto it = connSetPtr.begin(); it != connSetPtr.end(); ++it) {
-        codec_.wrapAndsend(*it, msg);
+        codec_.wrapAndSend(*it, msg);
     }
 }
 ```
