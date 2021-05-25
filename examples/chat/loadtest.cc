@@ -89,9 +89,10 @@ private:
     }
     void onStringMessage(const TcpConnectionPtr&,
                         const std::string& msg,
-                        Timestamp) {
+                        Timestamp receiveTime) {
         // printf("<<< %s\n", message.c_str());
-        receiveTime_ = loop_->epollWaitRetrunTime();
+        // receiveTime_ = loop_->epollWaitRetrunTime();
+        receiveTime_ = receiveTime;
         int received = g_messagesReceived.incrementAndGet();
         if (received == g_connections) {
             Timestamp endTime = Timestamp::now();
@@ -132,6 +133,8 @@ void statistic(const std::vector<std::unique_ptr<ChatClient>>& clients) {
         seconds[i] = timeDifference(clients[i]->receiveTime(), g_startTime);
         if(seconds[i] > 1.0) {
             printf("Abnormal value!!! Which is %.6f\n", seconds[i]);
+            printf("receiveTime is %s\n", clients[i]->receiveTime().toFormatTime().c_str());
+            printf("startTime is %s\n", g_startTime.toFormatTime().c_str());
         }
     }
 
@@ -143,8 +146,12 @@ void statistic(const std::vector<std::unique_ptr<ChatClient>>& clients) {
         printf("%6d%% %.6f\n", 99, seconds[clients.size() - clients.size()/100]);
     }
     printf("%6d%% %.6f\n", 100, seconds.back());
-    g_loop->quit();
-}
+    // why : ~Channel(): Assertion `!addedToEpoll_' failed.
+//     for(auto& client : clients) {
+//         client->disconnect();
+//     }
+//     g_loop->quit();
+// }
 
 int main(int argc, char* argv[]) {
     if (argc > 3) {
@@ -172,7 +179,6 @@ int main(int argc, char* argv[]) {
             usleep(200);
         }
         loop.loop();
-        // client.disconnect();
     } else {
         printf("Usage: %s host_ip port connections [threads]\n", argv[0]);
     }
