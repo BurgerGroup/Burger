@@ -68,9 +68,10 @@ private:
                     Timestamp receiveTime) {
         while (buf.getReadableBytes() >= kHeaderLen) {// kHeaderLen == 4
             // FIXME: use Buffer::peekInt32()
-            const void* data = buf.peek();
-            int32_t be32 = *static_cast<const int32_t*>(data); // SIGBUS
-            const int32_t len = sockets::networkToHost32(be32);
+            // const void* data = buf.peek();
+            // int32_t be32 = *static_cast<const int32_t*>(data); // SIGBUS
+            int32_t be32 = buf.peekInt32();
+            // const int32_t len = sockets::networkToHost32(be32);
             std::cout << len << std::endl;
             if (len > 65536 || len < 0) {
                 ERROR("Invalid length {}", len);

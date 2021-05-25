@@ -28,11 +28,13 @@ public:
     ~CoTcpConnection();
     // todo : more operation
     ssize_t recv(IBuffer::ptr buf);
+    
     void send(IBuffer::ptr buf);
-    void send(const std::string& msg);
-    void send(const char* start, size_t sendSize);  
-
+    void send(const std::string& msg); 
     void send(IBuffer::ptr buf, size_t sendSize);
+    // void send(const char* start, size_t sendSize);  
+   
+
     const InetAddress& getLocalAddress() const { return localAddr_; }
     const InetAddress& getPeerAddr() const { return peerAddr_; }
     const std::string& getName() const { return connName_; }

@@ -46,8 +46,9 @@ public:
         int32_t len = static_cast<int32_t>(msg.size());
         int32_t be32 = sockets::hostToNetwork32(len);
         buf->prepend(&be32, sizeof be32);
-        conn->send(buf);
+        conn->send(buf);  
     }
+    
 private:
     StringMsgCallBack msgCallback_;
     const static size_t kHeaderLen = sizeof(int32_t);

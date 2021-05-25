@@ -46,8 +46,7 @@ void CoTcpConnection::shutdown() {
 
 void CoTcpConnection::send(IBuffer::ptr buf) {
     if(proc_->isInProcThread()) {
-        sendInProc(buf->peek(), buf->getReadableBytes());
-        buf->retrieveAll();
+        sendInProc(std::move(buf->retrieveAllAsString()));
     } else {
         void (CoTcpConnection::*fp)(const std::string& message) = &CoTcpConnection::sendInProc;
         proc_->addTask(std::bind(fp, this, std::move(buf->retrieveAllAsString())), "send Task");
@@ -55,22 +54,31 @@ void CoTcpConnection::send(IBuffer::ptr buf) {
 }
 
 void CoTcpConnection::send(IBuffer::ptr buf, size_t sendSize) {
-    send(buf->peek(), sendSize);
-    buf->retrieve(sendSize);
+    if(proc_->isInProcThread()) {
+        sendInProc(std::move(buf->retrieveAsString(sendSize)));
+    } else {
+        void (CoTcpConnection::*fp)(const std::string& message) = &CoTcpConnection::sendInProc;
+        proc_->addTask(std::bind(fp, this, std::move(buf->retrieveAsString(sendSize))), "send Task");
+    }
 }
 
 void CoTcpConnection::send(const std::string& msg) {
-    send(msg.c_str(), msg.size());
-}
-
-void CoTcpConnection::send(const char* start, size_t sendSize) {
     if(proc_->isInProcThread()) {
-        sendInProc(start, sendSize);
+        sendInProc(msg);
     } else {
-        void (CoTcpConnection::*fp)(const char* start, size_t sendSize) = &CoTcpConnection::sendInProc;
-        proc_->addTask(std::bind(fp, this, start, sendSize), "send Task");
+        void (CoTcpConnection::*fp)(const std::string& message) = &CoTcpConnection::sendInProc;
+        proc_->addTask(std::bind(fp, this, std::move(msg)), "send Task");
     }
 }
+
+// void CoTcpConnection::send(const char* start, size_t sendSize) {
+//     if(proc_->isInProcThread()) {
+//         sendInProc(start, sendSize);
+//     } else {
+//         void (CoTcpConnection::*fp)(const char* start, size_t sendSize) = &CoTcpConnection::sendInProc;
+//         proc_->addTask(std::bind(fp, this, start, sendSize), "send Task");
+//     }
+// }
 
 void CoTcpConnection::sendInProc(const std::string& msg) {
     sendInProc(msg.c_str(), msg.size());
