@@ -35,6 +35,7 @@ public:
 
     void addTask(Coroutine::ptr co);
     void addTask(const Coroutine::Callback& cb, const std::string& name = "");
+    // 跨线程调用addTask
     void addPendingTask(const Coroutine::Callback& cb, const std::string& name = "");
     void updateEvent(int fd, int events, Coroutine::ptr co = nullptr);
     void removeEvent(int fd);
@@ -61,7 +62,8 @@ private:
     // std::unique_ptr<CoEpoll> epoll_; // https://stackoverflow.com/questions/20268482/binding-functions-with-unique-ptr-arguments-to-stdfunctionvoid
     std::unique_ptr<CoTimerQueue> timerQueue_;
     int wakeupFd_;
-    MpscQueue<Coroutine::ptr> runnableCoQue_;
+    // MpscQueue<Coroutine::ptr> runnableCoQue_;
+    std::queue<Coroutine::ptr> runnableCoQue_;
     std::queue<Coroutine::ptr> idleCoQue_;
     std::vector<task> pendingTasks_;
     const pid_t threadId_;  // 当前对象所属线程Id

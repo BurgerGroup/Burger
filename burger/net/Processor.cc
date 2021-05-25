@@ -70,14 +70,14 @@ void Processor::run() {
             cur = epollCo;
             epoll_.setEpolling(true);
         } else {
-            runnableCoQue_.dequeue(cur);
+            cur = runnableCoQue_.front();
+            runnableCoQue_.pop();
         } 
 		cur->swapIn();
 		if (cur->getState() == Coroutine::State::TERM) {
             --load_;
             idleCoQue_.push(cur);
 		}
-
         // 避免在其他线程添加任务时错误地创建多余的协程（确保协程只在processor中）
         addPendingTasksIntoQueue();
 	}
@@ -108,21 +108,28 @@ Coroutine::ptr Processor::resetAndGetCo(const Coroutine::Callback& cb, const std
 
 void Processor::addTask(Coroutine::ptr co) {
     co->setState(Coroutine::State::EXEC);
-	runnableCoQue_.enqueue(co);
+    runnableCoQue_.push(co);
     load_++;
 	DEBUG("add task <{}>, total task = {}", co->getName(), load_);
-    if(epoll_.isEpolling()) {
-        wakeupEpollCo();
-    }
+    // if(epoll_.isEpolling()) {
+    //     wakeupEpollCo();
+    // }
 }
 
 void Processor::addTask(const Coroutine::Callback& cb, const std::string& name) {
-    addTask(resetAndGetCo(cb, name));
+    if(isInProcThread()) 
+        addTask(resetAndGetCo(cb, name));
+    else 
+        addPendingTask(cb, name);
 }
 
 void Processor::addPendingTask(const Coroutine::Callback& cb, const std::string& name) {
-    pendingTasks_.emplace_back(cb, name);
-    wakeupEpollCo();
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        pendingTasks_.emplace_back(cb, name);
+    }
+    if(epoll_.isEpolling())
+        wakeupEpollCo();
 }
 
 void Processor::updateEvent(int fd, int events, Coroutine::ptr co) {

@@ -42,11 +42,16 @@ public:
 
     void wrapAndSend(const CoTcpConnection::ptr& conn, const std::string& msg) {
         Buffer::ptr buf = std::make_shared<Buffer>();
-        buf->append(msg.data(), msg.size());
+        buf->append(msg);
         int32_t len = static_cast<int32_t>(msg.size());
+        std::cout << "len :  " << len << std::endl;
         int32_t be32 = sockets::hostToNetwork32(len);
         buf->prepend(&be32, sizeof be32);
-        conn->send(buf);
+        std::cout << msg.size() << "   :  " << be32 << std::endl; 
+        std::string str =  buf->retrieveAllAsString();
+        std::cout << str << std::endl;
+        conn->send(str);
+        // conn->send(buf);
     }
 private:
     StringMsgCallBack msgCallback_;

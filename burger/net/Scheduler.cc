@@ -99,7 +99,6 @@ void Scheduler::addMainTask(const Coroutine::Callback& task, const std::string& 
     proc->addPendingTask(task, name);
 }
 
-
 TimerId Scheduler::runAt(Timestamp when, Coroutine::ptr co) {
     Processor* proc = pickOneWorkProcessor();
     return proc->getTimerQueue()->addTimer(co, when);
