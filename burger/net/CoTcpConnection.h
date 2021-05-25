@@ -43,6 +43,7 @@ public:
     // void close();
 private: 
     void sendInProc(const char* start, size_t sendSize);
+    void sendInProc(const std::string& msg);
 private:
     Processor* proc_;
     std::unique_ptr<Socket> socket_;

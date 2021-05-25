@@ -45,9 +45,13 @@ void CoTcpConnection::shutdown() {
 }
 
 void CoTcpConnection::send(IBuffer::ptr buf) {
-    size_t sendSize = buf->getReadableBytes();
-    send(buf->peek(), sendSize);
-    buf->retrieve(sendSize);
+    if(proc_->isInProcThread()) {
+        sendInProc(buf->peek(), buf->getReadableBytes());
+        buf->retrieveAll();
+    } else {
+        void (CoTcpConnection::*fp)(const std::string& message) = &CoTcpConnection::sendInProc;
+        proc_->addTask(std::bind(fp, this, std::move(buf->retrieveAllAsString())), "send Task");
+    }
 }
 
 void CoTcpConnection::send(IBuffer::ptr buf, size_t sendSize) {
@@ -63,9 +67,13 @@ void CoTcpConnection::send(const char* start, size_t sendSize) {
     if(proc_->isInProcThread()) {
         sendInProc(start, sendSize);
     } else {
-        proc_->addTask(std::bind(&CoTcpConnection::sendInProc, 
-            this, start, sendSize), "send Task");
+        void (CoTcpConnection::*fp)(const char* start, size_t sendSize) = &CoTcpConnection::sendInProc;
+        proc_->addTask(std::bind(fp, this, start, sendSize), "send Task");
     }
+}
+
+void CoTcpConnection::sendInProc(const std::string& msg) {
+    sendInProc(msg.c_str(), msg.size());
 }
 
 void CoTcpConnection::sendInProc(const char* start, size_t sendSize) {
@@ -97,6 +105,7 @@ void CoTcpConnection::sendInProc(const char* start, size_t sendSize) {
         }
     } 
 }
+
 
 
 
