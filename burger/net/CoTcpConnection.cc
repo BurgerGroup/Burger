@@ -71,14 +71,9 @@ void CoTcpConnection::send(const std::string& msg) {
     }
 }
 
-// void CoTcpConnection::send(const char* start, size_t sendSize) {
-//     if(proc_->isInProcThread()) {
-//         sendInProc(start, sendSize);
-//     } else {
-//         void (CoTcpConnection::*fp)(const char* start, size_t sendSize) = &CoTcpConnection::sendInProc;
-//         proc_->addTask(std::bind(fp, this, start, sendSize), "send Task");
-//     }
-// }
+void CoTcpConnection::send(const char* start, size_t sendSize) {
+    send(std::string(start, sendSize));
+}
 
 void CoTcpConnection::sendInProc(const std::string& msg) {
     sendInProc(msg.c_str(), msg.size());

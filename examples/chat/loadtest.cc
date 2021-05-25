@@ -72,7 +72,7 @@ private:
             // int32_t be32 = *static_cast<const int32_t*>(data); // SIGBUS
             const int32_t len = buf.peekInt32();
             // const int32_t len = sockets::networkToHost32(be32);
-            std::cout << len << std::endl;
+            // std::cout << len << std::endl;
             if (len > 65536 || len < 0) {
                 ERROR("Invalid length {}", len);
                 conn->shutdown();  // FIXME: disable reading
@@ -130,6 +130,9 @@ void statistic(const std::vector<std::unique_ptr<ChatClient>>& clients) {
     std::vector<double> seconds(clients.size());
     for (size_t i = 0; i < clients.size(); ++i) {
         seconds[i] = timeDifference(clients[i]->receiveTime(), g_startTime);
+        if(seconds[i] > 1.0) {
+            printf("Abnormal value!!! Which is %.6f\n", seconds[i]);
+        }
     }
 
     std::sort(seconds.begin(), seconds.end());
@@ -140,6 +143,7 @@ void statistic(const std::vector<std::unique_ptr<ChatClient>>& clients) {
         printf("%6d%% %.6f\n", 99, seconds[clients.size() - clients.size()/100]);
     }
     printf("%6d%% %.6f\n", 100, seconds.back());
+    g_loop->quit();
 }
 
 int main(int argc, char* argv[]) {
