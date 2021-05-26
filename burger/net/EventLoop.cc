@@ -131,14 +131,14 @@ void EventLoop::queueInLoop(const Func& func)  {
     // 如果不是当前线程(可能阻塞在wait)，需要唤醒 
     // 或者是当前线程但是在正在处理队列中的任务(使得处理完当前队列中的元素后立即在进行下一轮处理，因为在这里又添加了任务)需要唤醒
     // 只有当前IO线程的事件回调中调用queueInLoop才不需要唤醒(因为执行完handleEvent会自然执行loop()doQueueInLoopFuncs)
-    if(!isInLoopThread() || callingQueueFuncs_) {  // todo !looping
+    if(!isInLoopThread()) {  // todo !looping
         wakeup();
     }
 }
 
 void EventLoop::queueInLoop(Func&& func)  {
     queueFuncs_.enqueue(std::move(func));
-    if(!isInLoopThread() || callingQueueFuncs_) {  // todo !looping
+    if(!isInLoopThread()) {  // todo !looping
         wakeup();
     }
 }

@@ -23,6 +23,7 @@ Timestamp Epoll::wait(int timeoutMs, std::vector<Channel*>& activeChannels) {
                 static_cast<int>(eventList_.size()), timeoutMs);
     int savedErrno = errno;
     Timestamp now(Timestamp::now());
+    assert(now.valid());
     if(numEvents > 0) {
         TRACE("{} events happended", numEvents);
         fillActiveChannels(numEvents, activeChannels);

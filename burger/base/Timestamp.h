@@ -15,6 +15,7 @@ class Timestamp : public burger::copyable,
                   public boost::less_than_comparable<Timestamp> {    // 只需要实现<，自动实现>,>=,<=
 public:
     Timestamp();
+    Timestamp(const Timestamp& that);
     explicit Timestamp(uint64_t microSecondsSinceEpoch);
     void swap(Timestamp& that);
     std::string toString() const;

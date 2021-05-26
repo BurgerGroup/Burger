@@ -133,6 +133,7 @@ void TcpConnection::connectDestroyed() {
         connectionCallback_(shared_from_this()); // 回调用户的回调函数
     }
     channel_->remove();
+    TRACE("channel of conn {} is removed.", connName_);
 }
 
 const std::string TcpConnection::statusToStr() const {

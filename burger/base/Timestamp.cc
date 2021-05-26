@@ -9,6 +9,10 @@ Timestamp::Timestamp()
     : microSecondsSinceEpoch_(0) {
 }
 
+Timestamp::Timestamp(const Timestamp& that) 
+    : microSecondsSinceEpoch_(that.microSecondsSinceEpoch_) {
+}
+
 Timestamp::Timestamp(uint64_t microSecondsSinceEpoch)
     : microSecondsSinceEpoch_(microSecondsSinceEpoch) {
 }

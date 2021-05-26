@@ -47,6 +47,10 @@ public:
         client_.disconnect();
     }
 
+    void stop() {
+        client_.stop();
+    }
+
     Timestamp receiveTime() const { return receiveTime_; }
 
 private:
@@ -55,7 +59,7 @@ private:
             connection_ = conn;
             if (g_aliveConnections.incrementAndGet() == g_connections) {
                 INFO("all connected");
-                loop_->runAfter(10.0, std::bind(&ChatClient::send, this));
+                loop_->runAfter(5.0, std::bind(&ChatClient::send, this));
             }
         } else {
             connection_.reset();
@@ -92,7 +96,8 @@ private:
                         Timestamp receiveTime) {
         // printf("<<< %s\n", message.c_str());
         // receiveTime_ = loop_->epollWaitRetrunTime();
-        receiveTime_ = receiveTime;
+        receiveTime_.swap(receiveTime);
+        assert(receiveTime_.microSecondsSinceEpoch()>0);
         int received = g_messagesReceived.incrementAndGet();
         if (received == g_connections) {
             Timestamp endTime = Timestamp::now();
@@ -126,14 +131,15 @@ private:
     const static size_t kHeaderLen = sizeof(int32_t);
 };
 
-void statistic(const std::vector<std::unique_ptr<ChatClient>>& clients) {
+void statistic(std::vector<std::unique_ptr<ChatClient>>& clients) {
     INFO("statistic ");
     std::vector<double> seconds(clients.size());
     for (size_t i = 0; i < clients.size(); ++i) {
+        // assert(clients[i]->receiveTime().valid());
         seconds[i] = timeDifference(clients[i]->receiveTime(), g_startTime);
-        if(seconds[i] > 1.0) {
-            printf("Abnormal value!!! Which is %.6f\n", seconds[i]);
-            printf("receiveTime is %s\n", clients[i]->receiveTime().toFormatTime().c_str());
+        if(seconds[i] > 1) {
+
+            printf("Abnormal value!!! ReceiveTime is %s(%lu)\n", clients[i]->receiveTime().toFormatTime().c_str(), clients[i]->receiveTime().microSecondsSinceEpoch());
             printf("startTime is %s\n", g_startTime.toFormatTime().c_str());
         }
     }
@@ -147,13 +153,14 @@ void statistic(const std::vector<std::unique_ptr<ChatClient>>& clients) {
     }
     printf("%6d%% %.6f\n", 100, seconds.back());
     // why : ~Channel(): Assertion `!addedToEpoll_' failed.
-//     for(auto& client : clients) {
-//         client->disconnect();
-//     }
-//     g_loop->quit();
-// }
+    for(auto& client : clients) {
+        client->disconnect();
+    }
+    g_loop->runAfter(1.0, std::bind(&EventLoop::quit, g_loop));
+}
 
 int main(int argc, char* argv[]) {
+    LOG_LEVEL_ERROR;
     if (argc > 3) {
         uint16_t port = static_cast<uint16_t>(atoi(argv[2]));
         InetAddress serverAddr(argv[1], port);
