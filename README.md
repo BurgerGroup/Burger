@@ -143,6 +143,8 @@ hook系统底层和socket相关的API，socket io相关的API，以及sleep系�
 
 如有任何问题，请发送邮件ysyfrank@gmail.com交流学习
 
+讨论学习群 :  873966642
+
 ## 致谢
 
 感谢[spdlog], [gtest] 等项目, Burger的reactor部分架构深度参考了muduo项目的实现和设计，为上层项目开发而保留，非常感谢Chen Shuo大佬!!!
