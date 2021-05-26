@@ -138,7 +138,7 @@ void statistic(std::vector<std::unique_ptr<ChatClient>>& clients) {
         // assert(clients[i]->receiveTime().valid());
         seconds[i] = timeDifference(clients[i]->receiveTime(), g_startTime);
         if(seconds[i] > 1) {
-
+            std::cout << i << " clients ( " << clients.size() << " ) get : " << g_messagesReceived.get() << "msgs" << std::endl;
             printf("Abnormal value!!! ReceiveTime is %s(%lu)\n", clients[i]->receiveTime().toFormatTime().c_str(), clients[i]->receiveTime().microSecondsSinceEpoch());
             printf("startTime is %s\n", g_startTime.toFormatTime().c_str());
         }

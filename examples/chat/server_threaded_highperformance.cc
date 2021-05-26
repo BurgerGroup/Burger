@@ -37,20 +37,15 @@ public:
 
     void connHandler(const CoTcpConnection::ptr& conn) {
         connSetPerThrd::Instance().insert(conn);
-        
         Buffer::ptr buffer = std::make_shared<Buffer>();
         while(conn->recv(buffer) > 0) {
             codec_.decode(conn, buffer);
         }
-
         connSetPerThrd::Instance().erase(conn);
     } 
 
     void onStringMsg(const std::string& msg) {
-        std::lock_guard<std::mutex> lock(mutex_);
-        for(size_t i = 0; i < sched_->getThreadNum(); i++) {
-            sched_->addTask(std::bind(&ChatServer::distributeMsg, this, msg), "distribute msg");
-        }
+        sched_->distributeTask(std::bind(&ChatServer::distributeMsg, this, msg), "distribute msg");
     }
 
     void distributeMsg(const std::string& msg) {

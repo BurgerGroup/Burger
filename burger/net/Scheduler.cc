@@ -99,6 +99,12 @@ void Scheduler::addMainTask(const Coroutine::Callback& task, const std::string& 
     proc->addPendingTask(task, name);
 }
 
+void Scheduler::distributeTask(const Coroutine::Callback& task, const std::string& name) {
+    for(auto& proc : workProcVec_) {
+        proc->addPendingTask(task, name);
+    }
+}
+
 TimerId Scheduler::runAt(Timestamp when, Coroutine::ptr co) {
     Processor* proc = pickOneWorkProcessor();
     return proc->getTimerQueue()->addTimer(co, when);
@@ -136,11 +142,17 @@ void Scheduler::cancel(TimerId timerId) {
     return proc->getTimerQueue()->cancel(timerId);
 }
 
+size_t Scheduler::getWorkProcNum() {
+    if(workProcVec_.empty()) return 1;
+    return threadNum_ - 1;
+}
+
 // 如果只有一个线程，那么返回mainProc, 否则返回工作Proc
 Processor* Scheduler::pickOneWorkProcessor() {
     Processor* proc = mainProc_;
     static size_t index = 0;
-    std::lock_guard<std::mutex> lock(mutex_);     
+    // std::lock_guard<std::mutex> lock(mutex_); 
+    // 此处 workProcVec_ 都是读者，不用加锁
     if(workProcVec_.empty() && mainProc_ == nullptr) {
         CRITICAL("start scheduler first");
     }

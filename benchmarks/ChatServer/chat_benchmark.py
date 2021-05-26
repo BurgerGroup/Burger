@@ -1,6 +1,10 @@
 import os
-main = "../../build/debug-cpp11/chat_loadtest 127.0.0.1 8888 "
-
+# main = "../../build/debug-cpp11/chat_loadtest 127.0.0.1 8888 "
+## valgrind
+##  --tool=helgrind / --tool=drd  
+## --tool=memcheck --leak-check=full
+# main = "valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ../../build/chat_loadtest 127.0.0.1 8888 "
+main = "../../build/chat_loadtest 127.0.0.1 8888 "
 clientsNum = [10, 100] 
 
 # https://www.cnblogs.com/juandx/p/4962089.html

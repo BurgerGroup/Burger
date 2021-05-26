@@ -15,6 +15,10 @@ namespace net {
 #define DLSYM(name) \
 		name ## _f = (name ## _t)::dlsym(RTLD_NEXT, #name);
 
+
+// valgrind check 32 bytes leak from dlsym : 
+// https://bugzilla.redhat.com/show_bug.cgi?id=1624387
+
 struct HookIniter {
 	HookIniter() {
 		DLSYM(sleep);

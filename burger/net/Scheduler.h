@@ -35,7 +35,8 @@ public:
     
     void addTask(const Coroutine::Callback& task, const std::string& name = "");
     void addMainTask(const Coroutine::Callback& task, const std::string& name = "");
-
+    // distribute Task to all work Processor
+    void distributeTask(const Coroutine::Callback& task, const std::string& name = "");
     // todo: 这里是没有main Processor的
     // 定时完成协程任务（这里的协程一定是processor中已经存在的，而不是在其他地方新建的）
     TimerId runAt(Timestamp when, Coroutine::ptr co); 
@@ -47,10 +48,12 @@ public:
     void cancel(TimerId timerId);
     
 // protected:
+    
     Processor* getMainProcessor() { return mainProc_; }
     std::vector<Processor *> getWorkProcList() { return workProcVec_; }
+    size_t getWorkProcNum();
     Processor* pickOneWorkProcessor();
-
+    
     size_t getThreadNum() { return threadNum_; }
 
 private:
