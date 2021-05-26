@@ -100,8 +100,12 @@ void Scheduler::addMainTask(const Coroutine::Callback& task, const std::string& 
 }
 
 void Scheduler::distributeTask(const Coroutine::Callback& task, const std::string& name) {
-    for(auto& proc : workProcVec_) {
-        proc->addPendingTask(task, name);
+    if(workProcVec_.empty()) {  
+        mainProc_->addPendingTask(task, name);
+    }else {
+        for(auto& proc : workProcVec_) {
+            proc->addPendingTask(task, name);
+        }
     }
 }
 
