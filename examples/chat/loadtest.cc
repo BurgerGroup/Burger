@@ -156,10 +156,11 @@ void statistic(std::vector<std::unique_ptr<ChatClient>>& clients) {
     for(auto& client : clients) {
         client->disconnect();
     }
-    g_loop->runAfter(1.0, std::bind(&EventLoop::quit, g_loop));
+    g_loop->runAfter(5.0, std::bind(&EventLoop::quit, g_loop));
 }
 
 int main(int argc, char* argv[]) {
+    // LOGGER(); LOG_LEVEL_TRACE;
     LOG_LEVEL_ERROR;
     if (argc > 3) {
         uint16_t port = static_cast<uint16_t>(atoi(argv[2]));

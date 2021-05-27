@@ -31,8 +31,8 @@ public:
 
     void send(IBuffer::ptr buf);  // 堆上对象，适合发送大文件
     void send(IBuffer* buf);  // 栈上对象，适合发送状态信息等小数据
+    
     void send(IBuffer::ptr buf, size_t sendSize);
-    void send(IBuffer::ptr buf);
     void send(const std::string& msg); 
     void send(const char* start, size_t sendSize);
 
@@ -48,6 +48,8 @@ public:
 private: 
     void sendInProc(const char* start, size_t sendSize);
     void sendInProc(const std::string& msg);
+    void sendInProc(IBuffer::ptr buf, size_t sendSize);
+    
 private:
     Processor* proc_;
     std::unique_ptr<Socket> socket_;

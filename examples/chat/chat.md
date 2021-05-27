@@ -135,3 +135,17 @@ void onStringMsg(const std::string& msg) {
 }
 ```
 
+
+## todo : loadTest loop quit的问题
+
+为了方便我们benchmark运行多次，我们会在发送完后主动去断开连接
+
+```cpp
+// 如果为1s时，如果是burger的服务器会正常， muduo的服务器会~Channel(): Assertion `!addedToEpoll_' failed.
+// 这里为什么不同
+
+// 报错的原因容易理解，此处是优雅退出，1s后可能还没有来得及下epoll的二叉树关注从而报错，多等一会
+g_loop->runAfter(1.0, std::bind(&EventLoop::quit, g_loop));
+
+g_loop->runAfter(5.0, std::bind(&EventLoop::quit, g_loop));
+```
