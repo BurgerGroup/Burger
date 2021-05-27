@@ -59,7 +59,7 @@ private:
             connection_ = conn;
             if (g_aliveConnections.incrementAndGet() == g_connections) {
                 INFO("all connected");
-                loop_->runAfter(5.0, std::bind(&ChatClient::send, this));
+                loop_->runAfter(10.0, std::bind(&ChatClient::send, this));
             }
         } else {
             connection_.reset();
@@ -97,7 +97,7 @@ private:
         // printf("<<< %s\n", message.c_str());
         // receiveTime_ = loop_->epollWaitRetrunTime();
         receiveTime_.swap(receiveTime);
-        assert(receiveTime_.microSecondsSinceEpoch()>0);
+        // assert(receiveTime_.microSecondsSinceEpoch()>0);
         int received = g_messagesReceived.incrementAndGet();
         if (received == g_connections) {
             Timestamp endTime = Timestamp::now();
@@ -137,11 +137,11 @@ void statistic(std::vector<std::unique_ptr<ChatClient>>& clients) {
     for (size_t i = 0; i < clients.size(); ++i) {
         // assert(clients[i]->receiveTime().valid());
         seconds[i] = timeDifference(clients[i]->receiveTime(), g_startTime);
-        if(seconds[i] > 1) {
-            std::cout << i << " clients ( " << clients.size() << " ) get : " << g_messagesReceived.get() << "msgs" << std::endl;
-            printf("Abnormal value!!! ReceiveTime is %s(%lu)\n", clients[i]->receiveTime().toFormatTime().c_str(), clients[i]->receiveTime().microSecondsSinceEpoch());
-            printf("startTime is %s\n", g_startTime.toFormatTime().c_str());
-        }
+        // if(seconds[i] > 1) {
+        //     std::cout << i << " clients ( " << clients.size() << " ) get : " << g_messagesReceived.get() << "msgs" << std::endl;
+        //     printf("Abnormal value!!! ReceiveTime is %s(%lu)\n", clients[i]->receiveTime().toFormatTime().c_str(), clients[i]->receiveTime().microSecondsSinceEpoch());
+        //     printf("startTime is %s\n", g_startTime.toFormatTime().c_str());
+        // }
     }
 
     std::sort(seconds.begin(), seconds.end());

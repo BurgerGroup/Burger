@@ -29,14 +29,17 @@ public:
     // todo : more operation
     ssize_t recv(IBuffer::ptr buf);
 
-    void send(IBuffer::ptr buf);
-    void send(const char* start, size_t sendSize);
-    void send(const std::string& msg); 
+    void send(IBuffer::ptr buf);  // 堆上对象，适合发送大文件
+    void send(IBuffer* buf);  // 栈上对象，适合发送状态信息等小数据
     void send(IBuffer::ptr buf, size_t sendSize);
+    void send(IBuffer::ptr buf);
+    void send(const std::string& msg); 
+    void send(const char* start, size_t sendSize);
 
     const InetAddress& getLocalAddress() const { return localAddr_; }
     const InetAddress& getPeerAddr() const { return peerAddr_; }
     const std::string& getName() const { return connName_; }
+    Processor* getProc() const { return proc_; }
     void setTcpNoDelay(bool on);
     bool isConnected() const { return !quit_; }
 

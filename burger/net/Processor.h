@@ -29,7 +29,8 @@ public:
     virtual void run();
     void stop();
     bool stoped() { return stop_; }
-    size_t getLoad() { return load_; }
+    size_t getLoad() const { return load_; }
+    size_t getCreateTimes() const { return totolCoCreateTimes_; }  // for test
     Scheduler* getScheduler() { return scheduler_; }
     Coroutine::ptr resetAndGetCo(const Coroutine::Callback& cb, const std::string& name);
 
@@ -56,6 +57,7 @@ private:
     bool stop_ = false;
     bool addingPendingTasks_ = false;
     size_t load_ = 0;
+    size_t totolCoCreateTimes_ = 0;
     std::mutex mutex_;
     Scheduler* scheduler_;
     CoEpoll epoll_;
