@@ -95,6 +95,7 @@ void Processor::stop() {
 
 Coroutine::ptr Processor::resetAndGetCo(const Coroutine::Callback& cb, const std::string& name) {
         if(idleCoQue_.empty()) {
+            // ++totolCoCreateTimes_; // for test
             return std::make_shared<Coroutine>(cb, name);
         } else {
             Coroutine::ptr co = idleCoQue_.front();

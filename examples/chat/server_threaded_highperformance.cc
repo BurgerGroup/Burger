@@ -51,9 +51,12 @@ public:
     void distributeMsg(const std::string& msg) {
         DEBUG("BEGIN");
         for(auto it = connSetPerThrd::Instance().begin(); 
-                it != connSetPerThrd::Instance().end(); it++) {
+                it != connSetPerThrd::Instance().end(); ++it) {
             codec_.wrapAndSend(*it, msg);        
         }
+        // for test
+        // Processor* proc = (*(connSetPerThrd::Instance().begin()))->getProc();
+        // printf("Totol create times is : %lu\n", proc->getCreateTimes());
         DEBUG("END");
     }
 
@@ -63,7 +66,7 @@ private:
     Scheduler *sched_;
     CoTcpServer server_;
     LengthHeaderCodec codec_;
-    std::mutex mutex_;
+    // std::mutex mutex_;
 };
 
 int main(int argc, char* argv[]) {
