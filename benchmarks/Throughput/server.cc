@@ -20,13 +20,13 @@ void onConnection(const TcpConnectionPtr& conn) {
 
 void onMessage(const TcpConnectionPtr& conn, IBuffer& buf, Timestamp) {
     // printf("++++++++++++++ReadableBytes: %lu\n", buf.getReadableBytes());
-    buf.retrieve(50);
-    // printf("++++++++++++++WritableBytes: %lu\n", buf.getWritableBytes());
-    // printf("++++++++++++++ReadableBytes: %lu\n", buf.getReadableBytes());
-    buf.append(std::string(42, 's'));
-    // printf("++++++++++++++WritableBytes: %lu\n", buf.getWritableBytes());
-    std::string tmp(8, 's');
-    buf.prepend(reinterpret_cast<const void*>(tmp.c_str()), 8); // 把前面填满
+    // buf.retrieve(50);
+    // // printf("++++++++++++++WritableBytes: %lu\n", buf.getWritableBytes());
+    // // printf("++++++++++++++ReadableBytes: %lu\n", buf.getReadableBytes());
+    // buf.append(std::string(42, 's'));
+    // // printf("++++++++++++++WritableBytes: %lu\n", buf.getWritableBytes());
+    // std::string tmp(8, 's');
+    // buf.prepend(reinterpret_cast<const void*>(tmp.c_str()), 8); // 把前面填满
     conn->send(buf);
 }
 

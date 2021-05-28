@@ -62,10 +62,10 @@ private:
         // printf("Buffer.readablebytes() = %lu\n", buf.getReadableBytes());
         ++messagesRead_;
         bytesRead_ += buf.getReadableBytes();
-        buf.retrieve(50);
-        buf.append(std::string(42, 's'));
-        std::string tmp(8, 's');
-        buf.prepend(reinterpret_cast<const void*>(tmp.c_str()), 8); // 把前面填满
+        // buf.retrieve(50);
+        // buf.append(std::string(42, 's'));
+        // std::string tmp(8, 's');
+        // buf.prepend(reinterpret_cast<const void*>(tmp.c_str()), 8); // 把前面填满
         bytesWritten_ += buf.getReadableBytes();
         conn->send(buf);
         // printf("Client--------Send Over!!!!!!!!!!!!!!!!!!\n");
