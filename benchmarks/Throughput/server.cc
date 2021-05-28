@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
     }
     else {
         INFO("pid = {}, tid = {}", getpid(), util::tid());
-        Logger::Instance().setLevel(spdlog::level::warn);
+        LOGGER(); LOG_LEVEL_WARN;
 
         const char* ip = argv[1];
         uint16_t port = static_cast<uint16_t>(atoi(argv[2]));

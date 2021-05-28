@@ -26,7 +26,7 @@ c++11基于协程和reator的高性能Linux服务器框架
 ## ⌛️ 构建
 
 ```
-$ sudo apt install g++ cmake make libboost-all-dev mysql-server libmysqlclient-dev libcurl4-openssl-dev
+$ sudo apt install g++ cmake make libboost-all-dev mysql-server libmysqlclient-dev libcurl4-openssl-dev libbenchmark-dev
  
 $ git clone https://github.com/BurgerGroup/Burger.git
 
