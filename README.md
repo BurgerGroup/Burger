@@ -130,7 +130,11 @@ hook系统底层和socket相关的API，socket io相关的API，以及sleep系�
   * [文件传输](./examples/filetransfer/readme.md)
   * [聊天广播](./examples/chat/chat.md)
   * [round trip](./examples/chat/chat.md)
-
+  * [最大连接数](./examples/maxconnection)
+  * [timing wheel](./examples/timingWheel/readme.md)
+* 工具
+  * [性能分析工具](./docs/profiling.md)
+  
 ## 基于Burger的项目
 
 - [BurgerChat](https://github.com/chanchann/BurgerChat) - 🍔 Console-based chat IM for Linux

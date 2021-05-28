@@ -119,9 +119,6 @@ void CoTcpConnection::sendInProc(const char* start, size_t sendSize) {
     } 
 }
 
-
-
-
 void CoTcpConnection::setTcpNoDelay(bool on) {
     socket_->setTcpNoDelay(on);
 }
@@ -129,3 +126,4 @@ void CoTcpConnection::setTcpNoDelay(bool on) {
 
 
 
+ 

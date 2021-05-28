@@ -1,0 +1,28 @@
+2021-05-28 10:57:35 [info] [tid : 1353] [main.cc : 14 <main>] [coId : 0] maxConnections : 5
+2021-05-28 10:57:42 [info] [tid : 1361] [echo.cc : 17 <connHandler>] [coId : 6] numConnected = 1
+2021-05-28 10:57:43 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 6] EchoServer-0.0.0.0:8888#1 echo 11 bytes
+2021-05-28 10:57:44 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 6] EchoServer-0.0.0.0:8888#1 echo 18 bytes
+2021-05-28 10:57:58 [info] [tid : 1361] [echo.cc : 17 <connHandler>] [coId : 7] numConnected = 2
+2021-05-28 10:57:59 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 7] EchoServer-0.0.0.0:8888#2 echo 12 bytes
+2021-05-28 10:58:03 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 7] EchoServer-0.0.0.0:8888#2 echo 12 bytes
+2021-05-28 10:58:28 [info] [tid : 1361] [echo.cc : 17 <connHandler>] [coId : 8] numConnected = 3
+2021-05-28 10:58:32 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 8] EchoServer-0.0.0.0:8888#3 echo 9 bytes
+2021-05-28 10:58:33 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 8] EchoServer-0.0.0.0:8888#3 echo 10 bytes
+2021-05-28 10:58:34 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 8] EchoServer-0.0.0.0:8888#3 echo 10 bytes
+2021-05-28 10:58:35 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 8] EchoServer-0.0.0.0:8888#3 echo 13 bytes
+2021-05-28 10:58:36 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 8] EchoServer-0.0.0.0:8888#3 echo 8 bytes
+2021-05-28 10:59:04 [info] [tid : 1361] [echo.cc : 17 <connHandler>] [coId : 9] numConnected = 4
+2021-05-28 10:59:06 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 9] EchoServer-0.0.0.0:8888#4 echo 23 bytes
+2021-05-28 10:59:08 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 9] EchoServer-0.0.0.0:8888#4 echo 15 bytes
+2021-05-28 10:59:09 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 9] EchoServer-0.0.0.0:8888#4 echo 15 bytes
+2021-05-28 10:59:10 [info] [tid : 1361] [echo.cc : 24 <connHandler>] [coId : 9] EchoServer-0.0.0.0:8888#4 echo 13 bytes
+2021-05-28 11:06:35 [info] [tid : 1643] [main.cc : 17 <main>] [coId : 0] maxConnections : 2
+2021-05-28 11:06:38 [info] [tid : 1651] [echo.cc : 17 <connHandler>] [coId : 6] numConnected = 1
+2021-05-28 11:06:40 [info] [tid : 1651] [echo.cc : 24 <connHandler>] [coId : 6] EchoServer-0.0.0.0:8888#1 echo 10 bytes
+2021-05-28 11:06:41 [info] [tid : 1651] [echo.cc : 17 <connHandler>] [coId : 7] numConnected = 2
+2021-05-28 11:06:43 [info] [tid : 1651] [echo.cc : 24 <connHandler>] [coId : 7] EchoServer-0.0.0.0:8888#2 echo 9 bytes
+2021-05-28 11:06:45 [info] [tid : 1651] [echo.cc : 17 <connHandler>] [coId : 8] numConnected = 3
+2021-05-28 11:06:45 [info] [tid : 1651] [echo.cc : 19 <connHandler>] [coId : 8] connected too many, shutdown this conn
+2021-05-28 11:06:50 [info] [tid : 1651] [echo.cc : 17 <connHandler>] [coId : 8] numConnected = 3
+2021-05-28 11:06:50 [info] [tid : 1651] [echo.cc : 19 <connHandler>] [coId : 8] connected too many, shutdown this conn
+2021-05-28 13:39:13 [warning] [tid : 3306] [client.cc : 112 <onConnect>] [coId : 0] all connected
