@@ -18,9 +18,9 @@
 
 5. logger 性能测试 done
 
-6. threadpool性能测试 
+6. threadpool性能测试 done
 
-7. 整体性能测试
+7. 整体性能测试 
 
 8. threadpool优化  
 
@@ -36,6 +36,9 @@
 
 14. 客户端挂掉会使服务器挂掉 done
 
+15. 协程同步
+
+16. 协程对比
 
 ## 思考 ：processor之间如何负载均衡
 
@@ -68,3 +71,4 @@ Processor* Scheduler::pickOneWorkProcessor() {
 这里是用了round robin,我们可以在这里建造一个小根堆(根据load),向load小的加入task，但是这里会带来建堆的开销,但是这里本来processor数量就很少，这里开销也是常数级的
 
 2. work steal -- 如何实现
+
