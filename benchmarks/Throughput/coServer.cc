@@ -16,7 +16,7 @@ void connHandler(CoTcpConnection::ptr conn) {
 
 int main(int argc, char* argv[]) {
     // LOGGER(); LOG_LEVEL_TRACE;
-    LOG_LEVEL_ERROR;
+    LOGGER("./pingpong_coServer.log", "pingpong coServer"); LOG_LEVEL_ERROR;
     if (argc < 4) {
         fprintf(stderr, "Usage: server <address> <port> <threads>\n");
     } else {

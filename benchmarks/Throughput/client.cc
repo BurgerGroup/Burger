@@ -166,6 +166,8 @@ void Session::onConnection(const TcpConnectionPtr& conn) {
 }
 
 int main(int argc, char* argv[]) {
+    LOGGER("./pingpong_client.log", "pingpong client");
+    LOG_LEVEL_ERROR;
     if (argc != 7) {
         fprintf(stderr, "Usage: client <host_ip> <port> <threads> <blocksize> ");
         fprintf(stderr, "<sessions> <time>\n");
