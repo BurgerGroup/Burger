@@ -80,3 +80,6 @@ bin/lib-bash
 .idea
 
 .vscode
+# logs
+*/logs/*
+*/*log*
