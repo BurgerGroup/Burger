@@ -1,6 +1,9 @@
 # Ignore all
 *
 
+# Ignore log
+*.log 
+
 # Unignore all with extensions
 !*.*
 

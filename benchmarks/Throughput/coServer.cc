@@ -16,12 +16,10 @@ void connHandler(CoTcpConnection::ptr conn) {
 
 int main(int argc, char* argv[]) {
     // LOGGER(); LOG_LEVEL_TRACE;
-    LOGGER("./pingpong_coServer.log", "pingpong coServer"); LOG_LEVEL_ERROR;
     if (argc < 4) {
         fprintf(stderr, "Usage: server <address> <port> <threads>\n");
     } else {
-
-        LOGGER(); LOG_LEVEL_WARN;
+        LOGGER("./pingpong_coServer.log", "pingpong coServer"); LOG_LEVEL_TRACE;
 
         const char* ip = argv[1];
         uint16_t port = static_cast<uint16_t>(atoi(argv[2]));

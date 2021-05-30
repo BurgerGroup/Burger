@@ -166,15 +166,15 @@ void Session::onConnection(const TcpConnectionPtr& conn) {
 }
 
 int main(int argc, char* argv[]) {
-    LOGGER("./pingpong_client.log", "pingpong client");
-    LOG_LEVEL_ERROR;
+
     if (argc != 7) {
         fprintf(stderr, "Usage: client <host_ip> <port> <threads> <blocksize> ");
         fprintf(stderr, "<sessions> <time>\n");
     }
     else {
         INFO("pid = {}, tid = {}", getpid(), util::tid());
-        Logger::Instance().setLevel(spdlog::level::warn);
+        LOGGER("./pingpong_client.log", "pingpong client");
+        LOG_LEVEL_ERROR;
 
         const char* ip = argv[1];
         uint16_t port = static_cast<uint16_t>(atoi(argv[2]));
