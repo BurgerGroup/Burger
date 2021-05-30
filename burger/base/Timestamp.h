@@ -16,7 +16,9 @@ class Timestamp : public burger::copyable,
 public:
     Timestamp();
     Timestamp(const Timestamp& that);
+    Timestamp& operator=(const Timestamp& t);
     explicit Timestamp(uint64_t microSecondsSinceEpoch);
+
     void swap(Timestamp& that);
     std::string toString() const;
     std::string toFormatTime() const;

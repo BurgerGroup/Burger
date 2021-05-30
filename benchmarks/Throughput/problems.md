@@ -18,9 +18,7 @@ cat /proc/sys/net/ipv4/ip_local_port_range
 ```
 todo : 为何我们1w多个连接就出现问题，而此处应该一样28000个端口可用
 
-
 https://blog.csdn.net/u010585120/article/details/80826999
-
 
 ## 单机tcp最大连接数是多少
 

@@ -17,6 +17,11 @@ Timestamp::Timestamp(uint64_t microSecondsSinceEpoch)
     : microSecondsSinceEpoch_(microSecondsSinceEpoch) {
 }
 
+Timestamp& Timestamp::operator=(const Timestamp& t) {
+    this->microSecondsSinceEpoch_ = t.microSecondsSinceEpoch_;
+    return *this;
+}
+
 void Timestamp::swap(Timestamp& that) {
     std::swap(microSecondsSinceEpoch_, that.microSecondsSinceEpoch_);
 }
