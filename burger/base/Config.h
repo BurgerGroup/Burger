@@ -11,7 +11,7 @@
 #include "Singleton.h"
 #include "ini/ini.h"
 #include "Env.h"
-#include "util.h"
+#include "Util.h"
 #include "Log.h"
 
 namespace burger {

@@ -104,7 +104,7 @@ void CoTcpConnection::sendInProc(const char* start, size_t sendSize) {
             sendSize -= nwrote;
         } else {  // nwrote < 0
             if(errno != EWOULDBLOCK) {
-                ERROR("CoTcpConnection can't send");
+                ERROR("CoTcpConnection can't send errno = {}", errno);
                 // 连接已经关闭导致
                 // socket write中，对方socket中断，发送端write会先返回已经发送的字节数,再次write时返回-1,errno号为ECONNRESET
                 // write一个已经接受到RST的socket，系统内核会发送SIGPIPE给发送进程，如果进程catch/ignore这个信号，write都返回EPIPE错误

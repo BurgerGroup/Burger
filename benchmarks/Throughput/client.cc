@@ -58,17 +58,10 @@ private:
     void onConnection(const TcpConnectionPtr& conn);
 
     void onMessage(const TcpConnectionPtr& conn, IBuffer& buf, Timestamp) {
-        // printf("Client--------Msg!!!!!!!!!!!!!!!!!!\n");
-        // printf("Buffer.readablebytes() = %lu\n", buf.getReadableBytes());
         ++messagesRead_;
         bytesRead_ += buf.getReadableBytes();
-        // buf.retrieve(50);
-        // buf.append(std::string(42, 's'));
-        // std::string tmp(8, 's');
-        // buf.prepend(reinterpret_cast<const void*>(tmp.c_str()), 8); // 把前面填满
         bytesWritten_ += buf.getReadableBytes();
         conn->send(buf);
-        // printf("Client--------Send Over!!!!!!!!!!!!!!!!!!\n");
     }
 
     TcpClient client_;
@@ -173,6 +166,8 @@ void Session::onConnection(const TcpConnectionPtr& conn) {
 }
 
 int main(int argc, char* argv[]) {
+    LOGGER("./pingpong_client.log", "pingpong client");
+    LOG_LEVEL_ERROR;
     if (argc != 7) {
         fprintf(stderr, "Usage: client <host_ip> <port> <threads> <blocksize> ");
         fprintf(stderr, "<sessions> <time>\n");

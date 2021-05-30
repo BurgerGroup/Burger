@@ -29,13 +29,16 @@ CoTcpServer::CoTcpServer(Scheduler* sched, const InetAddress& listenAddr,
     connHandler_(defualtHandler),
     hostIpPort_(listenAddr_.getIpPortStr()),
     hostName_(name),
-    nextConnId_(1) {
+    nextConnId_(1),
+    idleFd_(::open("/dev/null", O_RDONLY | O_CLOEXEC)) {
+    assert(idleFd_ > 0);
     listenSock_->setReuseAddr(true);
     listenSock_->bindAddress(listenAddr_);
     DEBUG("CoTcpServer created {}", hostName_);
 }
 
 CoTcpServer::~CoTcpServer() {
+    sockets::close(idleFd_);
     DEBUG("CoTcpServer destroyed {}", hostName_);
 }
 
@@ -71,8 +74,17 @@ void CoTcpServer::startAccept() {
             // conn->setConnEstablishCallback(connEstablishCallback_);
             // 此处跨线程调用
             proc->addTask(std::bind(connHandler_, conn), "connHandler");
-        } 
-        // todo : idlefd
+        } else {
+            ERROR("in Acceptor::handleRead");
+            // 当fd达到上限，先占住一个空的fd,然后当fd满了，就用这个接受然后关闭
+            // 这样避免一直水平电平一直触发，先去读走他
+            if(errno == EMFILE) {   
+                sockets::close(idleFd_);
+                idleFd_ = ::accept(listenSock_->getFd(), nullptr, nullptr);
+                sockets::close(idleFd_);
+                idleFd_ = ::open("/dev/null", O_RDONLY | O_CLOEXEC);
+            }
+        }
     }
 }
 

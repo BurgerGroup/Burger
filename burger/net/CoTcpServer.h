@@ -5,6 +5,8 @@
 #include <boost/noncopyable.hpp>
 #include <functional>
 #include <memory>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include "burger/base/Atomic.h"
 #include "InetAddress.h"
 #include "CoTcpConnection.h"
@@ -42,6 +44,7 @@ private:
     const std::string hostIpPort_;
     const std::string hostName_;
     int nextConnId_;
+    int idleFd_;   // 占位fd,用于fd满的情况，避免一直电平触发
     // CoConnEstablishCallback connEstablishCallback_;   // no need this
 };
 
