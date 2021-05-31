@@ -11,7 +11,7 @@ static thread_local Coroutine::ptr t_main_co = nullptr;
 static std::atomic<uint64_t> s_coId {0};
 static std::atomic<uint64_t> s_coNum {0};
 
-static size_t g_coStackSize = Config::Instance().getSize("coroutine", "stackSize", 1024*1024);
+static size_t g_coStackSize = Config::Instance().getSize("coroutine", "stackSize", 128*1024);
 
 class MallocStackAllocator {
 public:

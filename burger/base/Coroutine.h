@@ -16,9 +16,9 @@ public:
     using ptr = std::shared_ptr<Coroutine>;
 
     enum class State {
-        EXEC,  // 可运行，包括初始化，从epoll_wait()中返回，从wait()从返回
-        HOLD,  // 等待epoll中, 暂时没用
-        TERM   // 运行结束
+        EXEC,  // 运行状态
+        HOLD,  // 挂起状态
+        TERM   // 未执行状态
     };
     // why can't define private??
     Coroutine();

@@ -52,7 +52,7 @@ void CoTcpServer::start() {
     if(started_.getAndSet(1) == 0) {
         sched_->startAsync();
         listenSock_->listen();
-        sched_->addTask(std::bind(&CoTcpServer::startAccept, this), "Accept");
+        sched_->addMainTask(std::bind(&CoTcpServer::startAccept, this), "Accept");
     }
 }
 
