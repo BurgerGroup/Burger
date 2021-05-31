@@ -2,7 +2,7 @@
 # add_executable(timestamp_unittest Timestamp_unittest.cc)
 # target_link_libraries(timestamp_unittest burger_base)
 
-# add_executable(atomic_unittest Atomic_unittest.cc)
+add_executable(atomic_unittest Atomic_unittest.cc)
 
 # add_executable(exception_unittest Exception_unittest.cc)
 # target_link_libraries(exception_unittest burger_base)

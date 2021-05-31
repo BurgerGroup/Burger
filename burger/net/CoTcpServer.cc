@@ -44,7 +44,7 @@ CoTcpServer::~CoTcpServer() {
 
 void CoTcpServer::setThreadNum(size_t threadNum) {
     assert(threadNum > 0);
-    sched_->setThreadNum(threadNum);
+    sched_->setWorkProcNum(threadNum);
 }
 
 // 多次调用无害
@@ -61,7 +61,7 @@ void CoTcpServer::setConnectionHandler(const ConnectionHandler& handler) {
 }
 
 void CoTcpServer::startAccept() {
-    while(true) {
+    while(started_.get()) {
         InetAddress peerAddr;
         int connfd = listenSock_->accept(peerAddr);
         if(connfd > 0) {
@@ -75,10 +75,11 @@ void CoTcpServer::startAccept() {
             // 此处跨线程调用
             proc->addTask(std::bind(connHandler_, conn), "connHandler");
         } else {
-            ERROR("in Acceptor::handleRead");
+            ERROR("accept error");
             // 当fd达到上限，先占住一个空的fd,然后当fd满了，就用这个接受然后关闭
             // 这样避免一直水平电平一直触发，先去读走他
             if(errno == EMFILE) {   
+                ERROR("Exceed the maximum fd nums");
                 sockets::close(idleFd_);
                 idleFd_ = ::accept(listenSock_->getFd(), nullptr, nullptr);
                 sockets::close(idleFd_);

@@ -28,7 +28,7 @@ public:
     Scheduler();
     ~Scheduler();
 
-    void setThreadNum(size_t threadNum);
+    void setWorkProcNum(size_t workProcNum);
     void startAsync();
     void wait();
     void stop();
@@ -46,15 +46,11 @@ public:
     TimerId runAfter(double delay, TimerCallback cb, const std::string& name = "timer");
     TimerId runEvery(double interval, TimerCallback cb, const std::string& name = "timer");
     void cancel(TimerId timerId);
-    
-// protected:
-    
+
     Processor* getMainProcessor() { return mainProc_; }
     std::vector<Processor *> getWorkProcList() { return workProcVec_; }
     size_t getWorkProcNum();
     Processor* pickOneWorkProcessor();
-    
-    size_t getThreadNum() { return threadNum_; }
 
 private:
     void start();
@@ -62,10 +58,10 @@ private:
 private:
     bool running_ = false;
     bool quit_ = false;
-    size_t threadNum_ = 1;
+    size_t workProcNum_ = 0;
     Processor* mainProc_;
     std::vector<Processor *> workProcVec_;  // todo : 优先队列
-    std::vector<std::shared_ptr<ProcessThread> > workThreadVec_;
+    std::vector<std::unique_ptr<ProcessThread> > workThreadVec_;
     std::thread thread_;
     std::mutex mutex_;
     std::condition_variable cv_;

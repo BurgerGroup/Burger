@@ -1,5 +1,6 @@
 #include "burger/base/Atomic.h"
 #include <cassert>
+#include <iostream>
 
 int main()
 {
@@ -33,5 +34,19 @@ int main()
         assert(a1.addAndGet(-3) == 2);
         assert(a1.getAndSet(100) == 2);
         assert(a1.get() == 100);
+    }
+    {
+        burger::AtomicInt32 a2;
+        if(a2.get()) {
+            std::cout << "a2 is true" << std::endl; 
+        } else {
+            std::cout << "a2 is false" << std::endl;
+        }
+        a2.increment();
+        if(a2.get()) {
+            std::cout << "a2 increment is true" << std::endl; 
+        } else {
+            std::cout << "a2 increment is false" << std::endl;
+        }
     }
 }

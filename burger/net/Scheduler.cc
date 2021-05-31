@@ -36,8 +36,12 @@ Scheduler::~Scheduler() {
 }
 
 // before start to call 
-void Scheduler::setThreadNum(size_t threadNum)  {
-    threadNum_ = threadNum;
+void Scheduler::setWorkProcNum(size_t workProcNum) {
+    if(workProcNum > 100) {
+        ERROR("set too many processors");
+        workProcNum_ = 0;
+    }
+    workProcNum_ = workProcNum;
 }
 
 void Scheduler::start() {
@@ -46,10 +50,10 @@ void Scheduler::start() {
     std::unique_ptr<Processor> mainProc = util::make_unique<Processor>(this);
     mainProc_ = mainProc.get();
 
-    for(size_t i = 0; i < threadNum_ - 1; i++) {
-        auto procThrd = std::make_shared<ProcessThread>(this);
-        workThreadVec_.push_back(procThrd);
+    for(size_t i = 0; i < workProcNum_; i++) {
+        auto procThrd = util::make_unique<ProcessThread>(this);
         workProcVec_.push_back(procThrd->startProcess());
+        workThreadVec_.push_back(std::move(procThrd));
     }
     running_ = true;
     cv_.notify_one();  // todo : 无其他线程，有影响吗
@@ -148,7 +152,7 @@ void Scheduler::cancel(TimerId timerId) {
 
 size_t Scheduler::getWorkProcNum() {
     if(workProcVec_.empty()) return 1;
-    return threadNum_ - 1;
+    return workProcNum_;
 }
 
 // 如果只有一个线程，那么返回mainProc, 否则返回工作Proc
@@ -171,7 +175,7 @@ Processor* Scheduler::pickOneWorkProcessor() {
 
 void Scheduler::joinThread() {
     if(thread_.joinable()) thread_.join();
-    for(auto thrd : workThreadVec_) {
+    for(auto& thrd : workThreadVec_) {
         thrd->join();
     }
     quit_ = true;
