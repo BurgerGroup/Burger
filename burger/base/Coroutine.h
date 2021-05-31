@@ -44,7 +44,7 @@ public:
     void reset(const Callback& cb);
 private:
     static void RunInCo(intptr_t vp);
-    void checkCurCo();
+    static void ProduceMainCo();
 
     uint64_t coId_;
     size_t stackSize_ = 0; 

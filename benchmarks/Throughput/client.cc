@@ -173,7 +173,7 @@ int main(int argc, char* argv[]) {
     else {
         INFO("pid = {}, tid = {}", getpid(), util::tid());
         LOGGER("./pingpong_client.log", "pingpong client");
-        LOG_LEVEL_ERROR;
+        LOG_LEVEL_WARN;
 
         const char* ip = argv[1];
         uint16_t port = static_cast<uint16_t>(atoi(argv[2]));

@@ -53,7 +53,7 @@ public:
 private: 
     void addPendingTasksIntoQueue();
     void abortNotInProcThread();
-    std::shared_ptr<Coroutine> mainCo_;
+    
     bool stop_ = false;
     bool addingPendingTasks_ = false;
     size_t load_ = 0;

@@ -29,7 +29,7 @@ Coroutine::Coroutine(const Callback& cb, std::string name, size_t stackSize)
     : state_(State::TERM),
     name_(name + "-" +std::to_string(coId_)),
     cb_(cb) {
-    checkCurCo();
+    if(!t_main_co) ProduceMainCo();
     coId_ = ++s_coId;
     ++s_coNum;
     stackSize_ = stackSize? stackSize : g_coStackSize;
@@ -107,8 +107,8 @@ Coroutine::ptr Coroutine::GetCurCo() {
     return t_co->shared_from_this();
 }
 
-void Coroutine::checkCurCo() {
-    if(t_co) {
+void Coroutine::ProduceMainCo() {
+    if(t_main_co) {
         return;
     }
     // 当前无co的时候，创建一个无参的主协程

@@ -17,8 +17,7 @@ static thread_local Processor* t_proc = nullptr;
 
 
 Processor::Processor(Scheduler* scheduler) 
-    : mainCo_(Coroutine::GetCurCo()),
-    scheduler_(scheduler),
+    : scheduler_(scheduler),
     epoll_(this),
     timerQueue_(util::make_unique<CoTimerQueue>(this)),
     wakeupFd_(sockets::createEventfd()),
