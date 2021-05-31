@@ -1,9 +1,6 @@
 # Ignore all
 *
 
-# Ignore log
-*.log 
-
 # Unignore all with extensions
 !*.*
 
@@ -83,6 +80,8 @@ bin/lib-bash
 .idea
 
 .vscode
-# logs
+
+# Ignore log
+*.log 
 */logs/*
 */*log*

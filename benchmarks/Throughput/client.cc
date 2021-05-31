@@ -166,7 +166,6 @@ void Session::onConnection(const TcpConnectionPtr& conn) {
 }
 
 int main(int argc, char* argv[]) {
-
     if (argc != 7) {
         fprintf(stderr, "Usage: client <host_ip> <port> <threads> <blocksize> ");
         fprintf(stderr, "<sessions> <time>\n");
