@@ -74,7 +74,7 @@ void EventLoop::loop() {
         activeChannels_.clear();
         epollWaitReturnTime_ = epoll_->wait(kEpollTimesMs, activeChannels_);
         ++iteration_;
-        printActiveChannels();
+        // printActiveChannels();  // for test
         // TODO : sort channel by priority
         eventHandling_ = true;
         for(auto channel: activeChannels_) {

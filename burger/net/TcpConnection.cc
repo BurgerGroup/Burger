@@ -82,11 +82,27 @@ void TcpConnection::send(const std::string& message) {
 
 void TcpConnection::send(IBuffer& buf) {
     if(status_ == Status::kConnected) {
+        const std::type_info& info = typeid(buf);
         if(loop_->isInLoopThread()) {
-            sendInLoop(std::move(buf.retrieveAllAsString()));
+            if(info == typeid(Buffer)) {
+                sendInLoop(buf.peek(), buf.getReadableBytes());
+                buf.retrieveAll();
+            }
+            else if(info == typeid(RingBuffer)) {
+                // FIXME : send 2 parts separately by pointer
+                sendInLoop(std::move(buf.retrieveAllAsString()));
+            }
         } else {
-            void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
-            loop_->runInLoop(std::bind(fp, this, std::move(buf.retrieveAllAsString())));
+            if(info == typeid(Buffer)) {
+                void (TcpConnection::*fp)(const void* data, size_t len) = &TcpConnection::sendInLoop;
+                loop_->runInLoop(std::bind(fp, this, buf.peek(), buf.getReadableBytes()));
+                buf.retrieveAll();
+            }
+            else if(info == typeid(RingBuffer)) {
+                void (TcpConnection::*fp)(const std::string& message) = &TcpConnection::sendInLoop;
+                // FIXME : send 2 parts separately by pointer
+                loop_->runInLoop(std::bind(fp, this, std::move(buf.retrieveAllAsString())));
+            }
         }
     }
 }

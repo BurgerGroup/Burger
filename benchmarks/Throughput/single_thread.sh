@@ -12,6 +12,5 @@ for nosessions in 1 10 100 1000; do
   taskset -c 1 ../../build/release-cpp11/bin/pingpong_server 127.0.0.1 8888 $nothreads $bufsize & srvpid=$!
   sleep 1
   taskset -c 2 ../../build/release-cpp11/bin/pingpong_client 127.0.0.1 8888 $nothreads $bufsize $nosessions $timeout
-$timeout
   kill -9 $srvpid
 done

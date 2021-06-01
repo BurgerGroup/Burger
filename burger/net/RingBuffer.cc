@@ -87,6 +87,10 @@ size_t RingBuffer::getPrependableBytes() const {
     }
 }
 
+// size_t RingBuffer::getLenToBufferEnd() const {
+//     return totalSize_ -  readrIndex_;
+// }
+
 void RingBuffer::hasWritten(size_t len) {
     assert(len <= getWritableBytes());
     if(len > 0) hasData_ = true;

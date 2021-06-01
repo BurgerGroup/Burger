@@ -46,6 +46,9 @@ public:
     size_t getWritableBytes() const;
     size_t getPrependableBytes() const;
 
+    /* to send the first part*/
+    // size_t getLenToBufferEnd() const;
+
     char* beginRead() { return begin() + readrIndex_; }
     char* beginWrite() { return begin() + writerIndex_; }
     const char* beginWrite() const { return begin() + writerIndex_; }
