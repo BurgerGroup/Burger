@@ -49,6 +49,64 @@ main_co 负责切换，回收, 不分配栈空间
 
 go语言的协程就是对称线程，而腾讯的libco提供的协议就是非对称协程
 
+### 无栈协程（stackless）和有栈协程（stackful）
+
+有栈（stackful）协程，例如 goroutine；
+
+无栈（stackless）协程，例如 async/await。
+
+我们此处讨论x86 32位系统， DrawSquare 是 caller，DrawLine 是 callee
+
+![stack](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Call_stack_layout.svg/342px-Call_stack_layout.svg.png)
+
+Stack Pointer 即栈顶指针，总是指向调用栈的顶部地址，该地址由 esp 寄存器存储；Frame Pointer 即基址指针，总是指向当前栈帧（当前正在运行的子函数）的底部地址，该地址由 ebp 寄存器存储
+
+Return Address 则在是 callee 返回后，caller 将继续执行的指令所在的地址；而指令地址是由 eip 寄存器负责读取的，且 eip 寄存器总是预先读取了当前栈帧中下一条将要执行的指令的地址。
+
+```cpp 
+int callee() { // callee:
+               //   pushl %ebp
+               //   movl  %esp, %ebp
+               //   subl  $16, %esp
+    int x = 0; //   movl  $0, -4(%ebp)
+    return x;  //   movl -4(%ebp), %eax
+               //   leave
+               //   ret
+}
+
+int caller() { // caller:
+               //   pushl %ebp
+               //   movl  %esp, %ebp
+    callee();  //   call  callee
+    return 0;  //   movl  $0, %eax
+               //   popl  %ebp
+               //   ret
+}
+
+callee:
+    // 3. 将 caller 的栈帧底部地址入栈保存
+    pushl %ebp
+    // 4. 将此时的调用栈顶部地址作为 callee 的栈帧底部地址
+    movl  %esp, %ebp
+    // 5. 将调用栈顶部扩展 16 bytes 作为 callee 的栈帧空间；
+    //    在 x86 平台中，调用栈的地址增长方向是从高位向低位增长的，
+    //    所以这里用的是 subl 指令而不是 addl 指令
+    subl  $16, %esp
+    ...
+caller:
+    ...
+    // "call callee" 等价于如下两条指令：
+    // 1. 将 eip 存储的指令地址入栈保存；
+    //    此时的指令地址即为 caller 的 return address，
+    //    即 caller 的 "movl $0, %eax" 这条指令所在的地址
+    // 2. 然后跳转到 callee
+    pushl %eip
+    jmp callee
+    ...
+
+```
+
+
 
 ## 探究问题 ：协程框架的效率问题
 
@@ -232,3 +290,5 @@ https://github.com/wangbojing/NtyCo
 https://www.codenong.com/cs106804383/
 
 https://zhuanlan.zhihu.com/p/362621806
+
+https://mthli.xyz/stackful-stackless/
