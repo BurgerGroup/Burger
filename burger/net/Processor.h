@@ -64,7 +64,6 @@ private:
     // std::unique_ptr<CoEpoll> epoll_; // https://stackoverflow.com/questions/20268482/binding-functions-with-unique-ptr-arguments-to-stdfunctionvoid
     std::unique_ptr<CoTimerQueue> timerQueue_;
     int wakeupFd_;
-    // MpscQueue<Coroutine::ptr> runnableCoQue_;
     std::queue<Coroutine::ptr> runnableCoQue_;
     std::queue<Coroutine::ptr> idleCoQue_;
     std::vector<task> pendingTasks_;
