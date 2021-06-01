@@ -102,9 +102,48 @@ void Scheduler::addTask(const Coroutine::Callback& task, const std::string& name
 
 总的来说，Scheduler与上层交互去增加任务，在内部将其分发给各个Processor处理，隐藏底层怎么处理的细节。
 
-## 执行器Processor
+## 执行器Processor 职责
 
-多线程情况下Scheduler有一个mainProc 和多个workProc, mainProc的职责相当于一个包工头，因为mainProc所在线程主要负责accept连接，
+多线程情况下Scheduler有一个mainProc 和多个workProc, mainProc的职责相当于一个包工头，因为mainProc所在线程主要负责accept连接(和客户见面交接)
+
+```cpp 
+// https://github.com/BurgerGroup/Burger/blob/main/burger/net/CoTcpServer.cc
+void CoTcpServer::start() {
+    if(started_.getAndSet(1) == 0) {
+        sched_->startAsync();
+        listenSock_->listen();
+        sched_->addMainTask(std::bind(&CoTcpServer::startAccept, this), "Accept");
+    }
+}
+```
+
+然后将连接好的connFd生成conn, 和connHandler交给workProc去处理(打工人干活)
+
+```cpp 
+// https://github.com/BurgerGroup/Burger/blob/main/burger/net/CoTcpServer.cc
+void CoTcpServer::startAccept() {
+    while(started_.get()) {
+        InetAddress peerAddr;
+        int connfd = listenSock_->accept(peerAddr);
+        if(connfd > 0) {
+            ... 
+            // 将conn交给一个sub processor
+            Processor* proc = sched_->pickOneWorkProcessor();
+            CoTcpConnection::ptr conn = std::make_shared<CoTcpConnection>(proc, connfd,
+                        listenAddr_, peerAddr, connName);
+            proc->addTask(std::bind(connHandler_, conn), "connHandler");
+        } else {
+            ... 
+        }
+}
+
+```
+
+当然如果整个公司只有这么一个包工头，那么连接和工作的事都由mainProc来干。
+
+## Processor 细节
+
+Processor最为核心的
 
 
 ## Hook模块
