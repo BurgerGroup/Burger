@@ -66,13 +66,13 @@ void CoTcpServer::startAccept() {
         int connfd = listenSock_->accept(peerAddr);
         if(connfd > 0) {
             TRACE("Accept of {}", peerAddr.getIpPortStr());
-            std::string connName = hostName_ + "-" + hostIpPort_ + "#" + std::to_string(nextConnId_++);
+            std::string connName(hostName_ + "-" + hostIpPort_ + "#" + std::to_string(nextConnId_++));
             // 将conn交给一个sub processor
             Processor* proc = sched_->pickOneWorkProcessor();
             CoTcpConnection::ptr conn = std::make_shared<CoTcpConnection>(proc, connfd,
                         listenAddr_, peerAddr, connName);
             // conn->setConnEstablishCallback(connEstablishCallback_);
-            proc->addFdConn(connfd, conn);
+            proc->addToConnMap(connfd, conn);
             // 此处跨线程调用
             proc->addTask(std::bind(connHandler_, conn));
         } else {

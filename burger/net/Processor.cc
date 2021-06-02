@@ -69,7 +69,7 @@ void Processor::run() {
             cur = epollCo;
             epoll_.setEpolling(true);
         } else {
-            cur = runnableCoQue_.front();
+            cur = std::move(runnableCoQue_.front());
             runnableCoQue_.pop();
         } 
 		cur->swapIn();
@@ -179,7 +179,7 @@ ssize_t Processor::consumeWakeUp() {
 }
 
 // 保存conn，延长conn的生命周期
-void Processor::addFdConn(int fd, std::shared_ptr<CoTcpConnection> conn) {
+void Processor::addToConnMap(int fd, std::shared_ptr<CoTcpConnection> conn) {
     connMap_[fd] = conn;  // fixme need to check?
 }
 
