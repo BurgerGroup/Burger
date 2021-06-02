@@ -87,7 +87,7 @@ void CoEpoll::poll(int timeoutMs) {
                 auto co = coMap_[eventList_[i].data.fd];
                 assert(co != nullptr);
                 
-                removeEvent(eventList_[i].data.fd);
+                // removeEvent(eventList_[i].data.fd);
                 // co-d>setState(Coroutine::State::EXEC);
                 proc_->addTask(co);
             }
