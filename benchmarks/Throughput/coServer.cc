@@ -1,6 +1,6 @@
 #include "burger/net/CoTcpServer.h"
 #include "burger/base/Log.h"
-#include "burger/net/RingBuffer.h"
+#include "burger/net/Buffer.h"
 #include "burger/net/Scheduler.h"
 
 using namespace burger;
@@ -8,7 +8,7 @@ using namespace burger::net;
 
 void connHandler(CoTcpConnection::ptr conn) {
     conn->setTcpNoDelay(true);
-    RingBuffer::ptr buf = std::make_shared<RingBuffer>();
+    Buffer::ptr buf = std::make_shared<Buffer>();
     while(conn->recv(buf) > 0) {
         conn->send(buf);
     }

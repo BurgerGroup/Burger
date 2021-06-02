@@ -13,6 +13,7 @@
 #include <boost/noncopyable.hpp>
 #include <memory>
 #include <string>
+#include <typeinfo>
 #include "burger/base/Timestamp.h"
 #include "InetAddress.h"
 #include "Callbacks.h"
@@ -107,10 +108,10 @@ private:
     HighWaterMarkCallback highWaterMarkCallback_;  // output buffer 撑到一定程度回调
     CloseCallback closeCallback_;
     size_t highWaterMark_;
-    // Buffer inputBuffer_;
-    // Buffer outputBuffer_;
-    RingBuffer inputBuffer_;
-    RingBuffer outputBuffer_;
+    Buffer inputBuffer_;
+    Buffer outputBuffer_;
+    // RingBuffer inputBuffer_;
+    // RingBuffer outputBuffer_;
     // https://blog.csdn.net/Solstice/article/details/6384968
     // 可变类型解决方案 ： 1. void* 这种方法不是类型安全 2. boost::any  -- 任意类型的类型安全存储和安全的取回，在标准容器中存放不同类型的方法，比如vector<boost::any>
     std::shared_ptr<void> contextPtr_;

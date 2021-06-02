@@ -35,8 +35,7 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "Usage: server <address> <port> <threads>\n");
     }
     else {
-        INFO("pid = {}, tid = {}", getpid(), util::tid());
-        LOGGER(); LOG_LEVEL_WARN;
+        LOGGER("./pingpong_server.log", "pingpong coServer"); LOG_LEVEL_ERROR;
 
         const char* ip = argv[1];
         uint16_t port = static_cast<uint16_t>(atoi(argv[2]));
