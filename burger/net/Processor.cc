@@ -77,7 +77,12 @@ void Processor::run() {
             --load_;
             idleCoQue_.push(cur);
             int fd = cur->getFd();
-            if(fd != -1) epoll_.removeEvent(fd);
+            if(fd != -1) {
+                epoll_.removeEvent(fd);
+            } 
+            if(connMap_.count(fd)) {
+                connMap_.erase(fd);
+            }
 		}
         // 避免在其他线程添加任务时错误地创建多余的协程（确保协程只在processor中）
         addPendingTasksIntoQueue();
@@ -171,6 +176,11 @@ ssize_t Processor::consumeWakeUp() {
 		ERROR("READ {} instead of 8", n);
 	}
 	return n;
+}
+
+// 保存conn，延长conn的生命周期
+void Processor::addFdConn(int fd, std::shared_ptr<CoTcpConnection> conn) {
+    connMap_[fd] = conn;  // fixme need to check?
 }
 
 void Processor::addPendingTasksIntoQueue() {

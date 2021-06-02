@@ -6,6 +6,7 @@
 #include <memory>
 #include <functional>
 #include <queue>
+#include <unordered_map>
 #include <vector>
 #include "burger/base/Coroutine.h"
 #include "CoEpoll.h"
@@ -17,7 +18,7 @@ namespace net {
 class CoEpoll;
 class Scheduler;
 class CoTimerQueue;
-
+class CoTcpConnection;
 class Processor : boost::noncopyable {
 public:
     using ptr = std::shared_ptr<Processor>;
@@ -50,6 +51,8 @@ public:
     void wakeupEpollCo();
     ssize_t consumeWakeUp();
 
+    void addFdConn(int fd, std::shared_ptr<CoTcpConnection> conn);
+
 private: 
     void addPendingTasksIntoQueue();
     void abortNotInProcThread();
@@ -68,6 +71,7 @@ private:
     std::queue<Coroutine::ptr> idleCoQue_;
     std::vector<task> pendingTasks_;
     const pid_t threadId_;  // 当前对象所属线程Id
+    std::unordered_map<int, std::shared_ptr<CoTcpConnection> > connMap_;  
 
 };
 
