@@ -52,7 +52,7 @@ void CoTcpServer::start() {
     if(started_.getAndSet(1) == 0) {
         sched_->startAsync();
         listenSock_->listen();
-        sched_->addMainTask(std::bind(&CoTcpServer::startAccept, this), "Accept");
+        sched_->addMainTask(std::bind(&CoTcpServer::startAccept, this));
     }
 }
 
@@ -73,7 +73,7 @@ void CoTcpServer::startAccept() {
                         listenAddr_, peerAddr, connName);
             // conn->setConnEstablishCallback(connEstablishCallback_);
             // 此处跨线程调用
-            proc->addTask(std::bind(connHandler_, conn), "connHandler");
+            proc->addTask(std::bind(connHandler_, conn));
         } else {
             ERROR("accept error");
             // 当fd达到上限，先占住一个空的fd,然后当fd满了，就用这个接受然后关闭

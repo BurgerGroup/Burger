@@ -54,7 +54,7 @@ void CoTcpConnection::send(IBuffer* buf) {
         sendInProc(std::move(buf->retrieveAllAsString()));
     } else {
         void (CoTcpConnection::*fp)(const std::string& message) = &CoTcpConnection::sendInProc;
-        proc_->addTask(std::bind(fp, this, std::move(buf->retrieveAllAsString())), "send Task");
+        proc_->addTask(std::bind(fp, this, std::move(buf->retrieveAllAsString())));
     }
 }
 
@@ -63,7 +63,7 @@ void CoTcpConnection::send(IBuffer::ptr buf, size_t sendSize) {
         sendInProc(buf, sendSize);
     } else {
         void (CoTcpConnection::*fp)(IBuffer::ptr buf, size_t sendSize) = &CoTcpConnection::sendInProc;
-        proc_->addTask(std::bind(fp, this, buf, sendSize), "send Task");
+        proc_->addTask(std::bind(fp, this, buf, sendSize));
     }
 }
 
@@ -77,7 +77,7 @@ void CoTcpConnection::send(const std::string& msg) {
         sendInProc(msg);
     } else {
         void (CoTcpConnection::*fp)(const std::string& message) = &CoTcpConnection::sendInProc;
-        proc_->addTask(std::bind(fp, this, std::move(msg)), "send Task");
+        proc_->addTask(std::bind(fp, this, std::move(msg)));
     }
 }
 

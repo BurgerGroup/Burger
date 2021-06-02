@@ -29,6 +29,12 @@ CoEpoll::~CoEpoll() {
     DEBUG("CoEpoll dtor");
 }
 
+
+// void CoEpoll::updateEvent(int fd, int events, Coroutine::ptr co) {
+//     assert(co != nullptr);
+//     auto it
+// }
+
 void CoEpoll::updateEvent(int fd, int events, Coroutine::ptr co) {
     assert(co != nullptr);
     struct epoll_event event;

@@ -108,10 +108,8 @@ unsigned int sleep(unsigned int seconds) {
 	if (!burger::net::isHookEnable()) {
 		return sleep_f(seconds);
 	}
-
-	burger::net::Scheduler* sched = proc->getScheduler();
-	assert(sched != nullptr);
-	sched->runAt(burger::Timestamp::now() + static_cast<uint64_t>(seconds * burger::Timestamp::kMicroSecondsPerSecond), burger::Coroutine::GetCurCo());
+	// fixme how about mainCo
+	proc->getTimerQueue()->addTimer(burger::Coroutine::GetCurCo(), burger::Timestamp::now() + static_cast<uint64_t>(seconds * burger::Timestamp::kMicroSecondsPerSecond));
 	burger::Coroutine::SwapOut();
 	return 0;
 }

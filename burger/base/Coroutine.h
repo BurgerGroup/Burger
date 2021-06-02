@@ -22,7 +22,7 @@ public:
     };
     // why can't define private??
     Coroutine();
-    Coroutine(const Callback& cb, std::string name = "anonymous", size_t stackSize = 0);
+    Coroutine(const Callback& cb, std::string name = "", size_t stackSize = 0);
     ~Coroutine();
 
     static void SwapOut();  //切换到当前线程的主协程

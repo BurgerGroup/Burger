@@ -63,49 +63,7 @@ Stack Pointer 即栈顶指针，总是指向调用栈的顶部地址，该地址
 
 Return Address 则在是 callee 返回后，caller 将继续执行的指令所在的地址；而指令地址是由 eip 寄存器负责读取的，且 eip 寄存器总是预先读取了当前栈帧中下一条将要执行的指令的地址。
 
-```cpp 
-int callee() { // callee:
-               //   pushl %ebp
-               //   movl  %esp, %ebp
-               //   subl  $16, %esp
-    int x = 0; //   movl  $0, -4(%ebp)
-    return x;  //   movl -4(%ebp), %eax
-               //   leave
-               //   ret
-}
-
-int caller() { // caller:
-               //   pushl %ebp
-               //   movl  %esp, %ebp
-    callee();  //   call  callee
-    return 0;  //   movl  $0, %eax
-               //   popl  %ebp
-               //   ret
-}
-
-callee:
-    // 3. 将 caller 的栈帧底部地址入栈保存
-    pushl %ebp
-    // 4. 将此时的调用栈顶部地址作为 callee 的栈帧底部地址
-    movl  %esp, %ebp
-    // 5. 将调用栈顶部扩展 16 bytes 作为 callee 的栈帧空间；
-    //    在 x86 平台中，调用栈的地址增长方向是从高位向低位增长的，
-    //    所以这里用的是 subl 指令而不是 addl 指令
-    subl  $16, %esp
-    ...
-caller:
-    ...
-    // "call callee" 等价于如下两条指令：
-    // 1. 将 eip 存储的指令地址入栈保存；
-    //    此时的指令地址即为 caller 的 return address，
-    //    即 caller 的 "movl $0, %eax" 这条指令所在的地址
-    // 2. 然后跳转到 callee
-    pushl %eip
-    jmp callee
-    ...
-
-```
-
+[stack](https://www.bilibili.com/video/BV1By4y1x7Yh?from=search&seid=5540660959159115596)
 
 
 ## 探究问题 ：协程框架的效率问题
