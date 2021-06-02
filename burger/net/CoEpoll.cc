@@ -29,28 +29,23 @@ CoEpoll::~CoEpoll() {
     DEBUG("CoEpoll dtor");
 }
 
-
-// void CoEpoll::updateEvent(int fd, int events, Coroutine::ptr co) {
-//     assert(co != nullptr);
-//     auto it
-// }
-
-void CoEpoll::updateEvent(int fd, int events, Coroutine::ptr co) {
-    assert(co != nullptr);
+void CoEpoll::updateEvent(int fd, int events) {
     struct epoll_event event;
     bzero(&event, sizeof event);
     event.data.fd = fd;
     event.events = events;
     auto it = coMap_.find(fd);
-    if(it == coMap_.end()) {  // not find, add 
+    if(it == coMap_.end()) {  // not find, add current co 
+        auto co = Coroutine::GetCurCo();
+
         DEBUG("add event {} - {}", fd, co->getName());
         coMap_.insert({fd, co});
+        co->setFd(fd);
         int ret = epoll_ctl(epollFd_, EPOLL_CTL_ADD, fd, &event);
         if(ret == 1) {
             ERROR("CoEpoll add error");
         }
     } else {  // find mod
-        coMap_[fd] = co;
         int ret = epoll_ctl(epollFd_, EPOLL_CTL_MOD, fd, &event);
         if(ret == -1) {
             ERROR("CoEpoll mod error");
@@ -65,6 +60,8 @@ void CoEpoll::removeEvent(int fd) {
         return; // 未找到这个fd    
     } else {
         DEBUG("remove event {} - {}", fd, it->second->getName());
+        auto co = coMap_[fd];
+        co->setFd(-1);
         coMap_.erase(fd);
     }
     int ret = ::epoll_ctl(epollFd_, EPOLL_CTL_DEL, fd, nullptr);
@@ -87,8 +84,6 @@ void CoEpoll::poll(int timeoutMs) {
                 auto co = coMap_[eventList_[i].data.fd];
                 assert(co != nullptr);
                 
-                // removeEvent(eventList_[i].data.fd);
-                // co-d>setState(Coroutine::State::EXEC);
                 proc_->addTask(co);
             }
             if(static_cast<size_t>(numEvents) == eventList_.size()) {
