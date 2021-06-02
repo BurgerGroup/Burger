@@ -4,6 +4,7 @@
 #include "CoEpoll.h"
 #include "SocketsOps.h"
 #include "burger/base/Timestamp.h"
+#include "CoTimerQueue.h"
 #include <dlfcn.h>
 #include <errno.h>
 #include <memory>
@@ -69,8 +70,8 @@ retry:
 
 	if (n == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
 
-		//注册事件，事件到来后，将当前上下文作为一个新的协程进行调度
-		proc->updateEvent(fd, event, burger::Coroutine::GetCurCo());
+		//注册事件，事件到来后，poll出来将当前上下文再次入队执行
+		proc->updateEvent(fd, event);
 		burger::Coroutine::GetCurCo()->setState(burger::Coroutine::State::HOLD);
 		burger::Coroutine::SwapOut();
 
@@ -132,7 +133,7 @@ int connect(int sockfd, const struct sockaddr *addr,
 	int ret = ::connect_f(sockfd, addr, addrlen);
 
 	if (ret == -1 && errno == EINPROGRESS) {
-		proc->updateEvent(sockfd, burger::net::CoEpoll::kWriteEvent, burger::Coroutine::GetCurCo());
+		proc->updateEvent(sockfd, burger::net::CoEpoll::kWriteEvent);
 		burger::Coroutine::GetCurCo()->setState(burger::Coroutine::State::HOLD);
 		burger::Coroutine::SwapOut();
 

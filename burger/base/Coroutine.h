@@ -33,7 +33,8 @@ public:
     void setState(State state) { state_ = state; };
     void setCallback(const Callback& cb) { cb_ = cb; }
     void setName(const std::string& name) { name_ = name; }; 
-   
+    void setFd(int fd) { fd_ = fd; }
+    int getFd() const { return fd_; }
 
     uint64_t getCoId() const { return coId_; }
     static uint64_t GetCoId();
@@ -53,6 +54,7 @@ private:
     fcontext_t ctx_;
     void* stack_ = nullptr;
     Callback cb_ = nullptr;
+    int fd_ = -1;
 };
 
 } // namespace burger

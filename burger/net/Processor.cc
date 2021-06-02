@@ -132,8 +132,8 @@ void Processor::addPendingTask(const Coroutine::Callback& cb, const std::string&
         wakeupEpollCo();
 }
 
-void Processor::updateEvent(int fd, int events, Coroutine::ptr co) {
-	epoll_.updateEvent(fd, events, co);
+void Processor::updateEvent(int fd, int events) {
+	epoll_.updateEvent(fd, events);
 }
 
 void Processor::removeEvent(int fd) {
