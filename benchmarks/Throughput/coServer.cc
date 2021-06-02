@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
     if (argc < 4) {
         fprintf(stderr, "Usage: server <address> <port> <threads>\n");
     } else {
-        LOGGER("./pingpong_coServer.log", "pingpong coServer"); LOG_LEVEL_ERROR;
+        LOGGER("./pingpong_coServer.log", "pingpong coServer"); LOG_LEVEL_TRACE;
 
         const char* ip = argv[1];
         uint16_t port = static_cast<uint16_t>(atoi(argv[2]));

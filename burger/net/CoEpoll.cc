@@ -64,6 +64,7 @@ void CoEpoll::removeEvent(int fd) {
         co->setFd(-1);
         coMap_.erase(fd);
     }
+    WARN("fd = {}", fd);
     int ret = ::epoll_ctl(epollFd_, EPOLL_CTL_DEL, fd, nullptr);
     if(ret == -1) {
         ERROR("CoEpoll removeEvent error");

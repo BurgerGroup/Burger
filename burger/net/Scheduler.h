@@ -42,9 +42,9 @@ public:
     TimerId runAt(Timestamp when, Coroutine::ptr co); 
     TimerId runAfter(double delay, Coroutine::ptr co);
     TimerId runEvery(double interval, Coroutine::ptr co);
-    TimerId runAt(Timestamp when, TimerCallback cb, const std::string& name = "timer");
-    TimerId runAfter(double delay, TimerCallback cb, const std::string& name = "timer");
-    TimerId runEvery(double interval, TimerCallback cb, const std::string& name = "timer");
+    TimerId runAt(Timestamp when, TimerCallback cb, const std::string& name = "");
+    TimerId runAfter(double delay, TimerCallback cb, const std::string& name = "");
+    TimerId runEvery(double interval, TimerCallback cb, const std::string& name = "");
     void cancel(TimerId timerId);
 
     Processor* getMainProcessor() { return mainProc_; }

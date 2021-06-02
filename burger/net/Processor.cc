@@ -76,7 +76,8 @@ void Processor::run() {
 		if (cur->getState() == Coroutine::State::TERM) {
             --load_;
             idleCoQue_.push(cur);
-            epoll_.removeEvent()
+            int fd = cur->getFd();
+            if(fd != -1) epoll_.removeEvent(fd);
 		}
         // 避免在其他线程添加任务时错误地创建多余的协程（确保协程只在processor中）
         addPendingTasksIntoQueue();
