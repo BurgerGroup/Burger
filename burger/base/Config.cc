@@ -1,5 +1,6 @@
 #include "Config.h"
 #include <unistd.h>
+#include <stdlib.h>
 namespace burger {
 
 Config& Config::Instance(const std::string& relativePath) {
@@ -32,7 +33,11 @@ double Config::getDouble(const std::string& section, const std::string& search, 
 // todo: 这种方式不够好，修改灵活点，不要写死,或者写一个setConfigFile()
 Config::Config(const std::string& relativePath)
     : relativePath_(relativePath) {
-    std::string filePath = detail::getFilePath() + relativePath_;
+    // std::string filePath = detail::getFilePath() + relativePath_;
+     
+    std::string filePath(getenv("HOME"));
+    // printf("%s\n", filePath.c_str());   // for test
+    filePath += relativePath;
     // printf("%s\n", filePath.c_str());   // for test
     reader_ = util::make_unique<INIReader>(filePath);
     if(reader_->ParseError() != 0) {
@@ -147,23 +152,23 @@ int getIntFromStringExpression(const std::string& expression) {
 }
 
 
-std::string getFilePath() {
-    char buffer[1024];   
-    if(!getcwd(buffer, sizeof(buffer))) {
-        ERROR("Can't get current work directory.")
-        return "";
-    }
+// std::string getFilePath() {
+//     char buffer[1024];   
+//     if(!getcwd(buffer, sizeof(buffer))) {
+//         ERROR("Can't get current work directory.")
+//         return "";
+//     }
 
-    std::string path(buffer);
-    std::string mainPath("Burger");
-    size_t idx = path.rfind(mainPath);
-    if(idx == path.npos) {
-        ERROR("Can't get 'Burger' directory.")
-        return "";
-    }
+//     std::string path(buffer);
+//     std::string mainPath("Burger");
+//     size_t idx = path.rfind(mainPath);
+//     if(idx == path.npos) {
+//         ERROR("Can't get 'Burger' directory.")
+//         return "";
+//     }
 
-    path.resize(idx + mainPath.size());
-    return path;
-}
+//     path.resize(idx + mainPath.size());
+//     return path;
+// }
 }  // detail
 } // burger

@@ -32,7 +32,7 @@ int calculate(int left, int right, const std::string& op);
 // todo : 更加清爽的调用
 class Config {
 public:
-    static Config& Instance(const std::string& relativePath = "/.burger/config/conf.ini");
+    static Config& Instance(const std::string& relativePath = "~/.buger/config/conf.ini");
 
     int getInt(const std::string& section, const std::string& search, int defaultVal = 0);
     size_t getSize(const std::string& section, const std::string& search, int defaultVal = 0);
