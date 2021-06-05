@@ -51,7 +51,7 @@ public:
     void wakeupEpollCo();
     ssize_t consumeWakeUp();
 
-    void addFdConn(int fd, std::shared_ptr<CoTcpConnection> conn);
+    void addToConnMap(int fd, std::shared_ptr<CoTcpConnection> conn);
 
 private: 
     void addPendingTasksIntoQueue();

@@ -23,7 +23,7 @@ int getIntFromStringExpression(const std::string&);
 int getPriority(const char& ch);
 bool isOperator(const std::string& str);
 int calculate(int left, int right, const std::string& op);
-std::string getFilePath();
+// std::string getFilePath();
 
 } // namespace compute
     
@@ -32,9 +32,8 @@ std::string getFilePath();
 // todo : 更加清爽的调用
 class Config {
 public:
-    static Config& Instance(const std::string& relativePath = "/config/conf.ini");
+    static Config& Instance(const std::string& relativePath = "/.burger/config/conf.ini");
 
-    // bool init(const std::string fileName = "./conf.ini");
     int getInt(const std::string& section, const std::string& search, int defaultVal = 0);
     size_t getSize(const std::string& section, const std::string& search, int defaultVal = 0);
     std::string getString(const std::string& section, const std::string& search, const std::string& defaultVal = "");

@@ -43,8 +43,8 @@ bool Logger::init(const std::string& filePath,
         //     fs::create_directories(log_dir);
         // }
         // initialize spdlog
-        constexpr std::size_t log_buffer_size = 32 * 1024; // 32kb
-        spdlog::init_thread_pool(log_buffer_size, std::thread::hardware_concurrency());
+        // constexpr std::size_t log_buffer_size = 32 * 1024; // 32kb
+        // spdlog::init_thread_pool(log_buffer_size, std::thread::hardware_concurrency());
         // spdlog::set_level(level);  // todo 这里设置无法影响道logger 
         // spdlog::set_pattern("%Y-%m-%d %H:%M:%S [%l] [tid : %t] [%s : %# <%!>] %v");
         spdlog::flush_every(std::chrono::seconds(3));  // todo 这里能影响道logger吗

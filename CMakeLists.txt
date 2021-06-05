@@ -124,6 +124,7 @@ message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS} " " ${CMAKE_CXX_FLAGS_${BUILD_T
 
 add_subdirectory(burger/base)
 add_subdirectory(burger/net)
+add_subdirectory(config)
 # add_subdirectory(burger/db)
 # add_subdirectory(burger/http)
 
