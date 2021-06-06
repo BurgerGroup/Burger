@@ -84,7 +84,7 @@ void TcpConnection::handleWrite() {
 
 此处显示出这个状态的作用
 
-- 而协程模式下，我们会swapout出去，然后事件上epoll关注，等到可写事件触发，切换回上下文
+- 而协程模式下，我们会Yield出去，然后事件上epoll关注，等到可写事件触发，切换回上下文
 
 而此处的shutdown是得在send的上下文完毕后才执行，所以不存在reactor的考虑和状态设计
 

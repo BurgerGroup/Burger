@@ -70,7 +70,7 @@ Coroutine::~Coroutine() {
 }
 
 // 挂起当前正在执行的协程，切换到主协程执行，必须在非主协程调用
-void Coroutine::SwapOut() {
+void Coroutine::Yield() {
     // 必须在非主协程调用
     if (GetCurCo() == t_main_co) {
 	    return;
@@ -83,7 +83,7 @@ void Coroutine::SwapOut() {
 }
 
 // 挂起主协程，执行当前协程，只能在主协程调用
-void Coroutine::swapIn() {
+void Coroutine::resume() {
     SetThisCo(this);
     if(state_ == State::TERM) return;
     jump_fcontext(&GetMainCo()->ctx_, ctx_, 0);
@@ -151,6 +151,6 @@ void Coroutine::RunInCo(intptr_t vp) {
     cur->setState(State::TERM);
     DEBUG("Co : {} - {} run end", cur->getCoId(), cur->getName());
     cur.reset();  // 防止无法析构
-    Coroutine::SwapOut();   	//重新返回主协程
+    Coroutine::Yield();   	//重新返回主协程
 }
 

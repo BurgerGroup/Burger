@@ -58,7 +58,7 @@ void CoTcpServer::startAccept() {
 
 * 对比
   * 任务在协程中是作为一个整体添加的，而不是作为分散的回调函数来设置
-  * 在```Reactor```中，**我们设置好了各种回调，等待事件到来内核通知，程序去做对应的工作**————所以在一开始我们就需要让fd上树监听，由此进入我们的“状态机”的跳转；而在```Co```中，我们不会手动地去让连接对应的fd上树，而是在该任务执行到被阻塞的情况时，自动地上树监听，并SwapOut。
+  * 在```Reactor```中，**我们设置好了各种回调，等待事件到来内核通知，程序去做对应的工作**————所以在一开始我们就需要让fd上树监听，由此进入我们的“状态机”的跳转；而在```Co```中，我们不会手动地去让连接对应的fd上树，而是在该任务执行到被阻塞的情况时，自动地上树监听，并Yield。
 
 #### 2. 处理业务（echo)
 * ```Reactor``` 
@@ -124,7 +124,7 @@ retry:
 		//注册事件，事件到来后，将当前上下文作为一个新的协程进行调度
 		proc->updateEvent(fd, event, burger::Coroutine::GetCurCo());
 		burger::Coroutine::GetCurCo()->setState(burger::Coroutine::State::HOLD);
-		burger::Coroutine::SwapOut();
+		burger::Coroutine::Yield();
 
 		if(proc->stoped()) return 8;  // 当processor stop后，直接返回并且没有while，优雅走完函数并析构
 		

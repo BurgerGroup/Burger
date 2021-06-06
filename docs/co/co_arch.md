@@ -4,7 +4,7 @@
 
 Burger实现的是**非抢占式**的**非对称** **N : 1** 协程
 
-在特定的位置（比如阻塞I/O的调用点。协程通常都以I/O作为调度基础），由当前协程自己主动出让CPU（SwapOut), 如何阻塞后切出是有Hook函数决定的(下面讲)
+在特定的位置（比如阻塞I/O的调用点。协程通常都以I/O作为调度基础），由当前协程自己主动出让CPU（Yield), 如何阻塞后切出是有Hook函数决定的(下面讲)
 
 ### 协程架构
 
@@ -229,9 +229,9 @@ enum class State {
 };
 ```
 
-我们通过swapIn 从main_co切换到当前协程co执行
+我们通过resume 从main_co切换到当前协程co执行
 
-通过 SwapOut 挂起当前正在执行的协程，切换到主协程执行
+通过 Yield 挂起当前正在执行的协程，切换到主协程执行
 
 ### 协程中callBack的执行
 
@@ -244,11 +244,11 @@ void Coroutine::RunInCo(intptr_t vp) {
     cur->setState(State::TERM);
     DEBUG("Co : {} - {} run end", cur->getCoId(), cur->getName());
     cur.reset();  // 防止无法析构
-    Coroutine::SwapOut();   	//重新返回主协程
+    Coroutine::Yield();   	//重新返回主协程
 }
 ```
 
-我们在创建协程的时候设置了这个函数为上下文环境，当swapIn到当前协程时候，跳转到此上下文执行，去调用callBack执行，执行结束后注意此处将cur.reset()，因为这里我们执行完SwapOut切换出去，这里协程就算完成结束了，而此处的上下文环境还保存着，这里局部智能指针还在其中有一个引用计数
+我们在创建协程的时候设置了这个函数为上下文环境，当resume到当前协程时候，跳转到此上下文执行，去调用callBack执行，执行结束后注意此处将cur.reset()，因为这里我们执行完Yield切换出去，这里协程就算完成结束了，而此处的上下文环境还保存着，这里局部智能指针还在其中有一个引用计数
 
 ## 协程调度模块Scheduler
 
@@ -355,7 +355,7 @@ void Processor::run() {
             cur = runnableCoQue_.front();
             runnableCoQue_.pop();
         } 
-		cur->swapIn();
+		cur->resume();
 		if (cur->getState() == Coroutine::State::TERM) {
             --load_;
             idleCoQue_.push(cur);
@@ -364,13 +364,13 @@ void Processor::run() {
         addPendingTasksIntoQueue();
 	}
     TRACE("Processor {} stop running", fmt::ptr(this));
-	epollCo->swapIn();  // epoll进去把cb执行完
+	epollCo->resume();  // epoll进去把cb执行完
 }
 ```
 
 我们在run里创建一个epoll co，如果没其他协程等待执行就进入epoll::poll等待新事件到来，然后将跨线程和Scheduler添加的cb包装成co装入执行队列。
 
-最后我们epollCo->swapIn()进入epoll 跳出循环执行完。
+最后我们epollCo->resume()进入epoll 跳出循环执行完。
 
 
 ### Processor::other 

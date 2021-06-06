@@ -208,6 +208,7 @@ struct test_coroutine {
 };
 ```
 
+
 ## 探究问题 ：协程框架的效率问题
 
 相对于我们通常使用的异步回调模式网络编程，协程框架并不能对于网络编程带来效率的提升，反而会稍微损失一些效率，因为协程的创建和切换有个开销
@@ -381,7 +382,21 @@ void CoTcpConnection::sendInProc(const char* start, size_t sendSize) {
 
 我们此处如果没发完，就yield出去等下次到resume到此处继续执行即可，而不需要像muduo那样先把数据append到outputBuffer中，将channel设置关注write，当等发送缓冲区空了后触发，然后调用handleWrite将outputBuffer中数据继续发送出去。
 
-## 
+
+## 关于Burger协程的栈带来的问题
+
+我们Burger实现的为有栈协程
+
+```cpp
+stack_ = StackAllocator::Alloc(stackSize_);
+ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::RunInCo);
+```
+
+栈大小固定，有大小难以权衡的问题。
+
+设置大了，会造成浪费。比如采用Linux默认线程栈8M大小，启动1000个协程就需要8G内存，而每个协程实际仅需几百K甚至几K。
+
+设置小了，会有栈溢出问题。比如采用128K大小，在遇到类似某个有缓冲需求的函数就有可能会栈溢出
 
 ## reference 
 
