@@ -9,9 +9,9 @@ using namespace burger;
 
 void runInCo() {
     INFO("run_in_fiber begin");
-    Coroutine::SwapOut();
+    Coroutine::Yield();
     INFO("run_in_fiber end");
-    Coroutine::SwapOut();
+    Coroutine::Yield();
 }
 
 void testCo() {
@@ -19,11 +19,11 @@ void testCo() {
     {
         INFO("main begin");
         Coroutine::ptr co = std::make_shared<Coroutine>(runInCo);
-        co->swapIn();
-        INFO("main after swapIn");
-        co->swapIn();
+        co->resume();
+        INFO("main after resume");
+        co->resume();
         INFO("main after end");
-        co->swapIn();
+        co->resume();
     }
     INFO("main after end2");
 }

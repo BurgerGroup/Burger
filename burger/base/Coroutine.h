@@ -25,8 +25,8 @@ public:
     Coroutine(const Callback& cb, std::string name = "", size_t stackSize = 0);
     ~Coroutine();
 
-    static void SwapOut();  //切换到当前线程的主协程
-    void swapIn(); //执行当前协程
+    static void Yield();  //切换到当前线程的主协程
+    void resume(); //执行当前协程
     Callback getCallback() { return cb_; }
     std::string getName() const { return name_; }; 
     State getState() { return state_; }

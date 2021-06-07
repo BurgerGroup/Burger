@@ -24,7 +24,7 @@ CoEpoll::~CoEpoll() {
     ::close(epollFd_);
     // 关注的都进去
     for(auto it = coMap_.begin(); it != coMap_.end(); it++) {
-        it->second->swapIn();
+        it->second->resume();
     }
     DEBUG("CoEpoll dtor");
 }
@@ -98,7 +98,7 @@ void CoEpoll::poll(int timeoutMs) {
                 ERROR("CoEpoll:wait() error");
             }
         }
-        Coroutine::SwapOut();
+        Coroutine::Yield();
     }
 }
 

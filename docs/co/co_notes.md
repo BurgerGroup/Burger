@@ -49,21 +49,164 @@ main_co 负责切换，回收, 不分配栈空间
 
 go语言的协程就是对称线程，而腾讯的libco提供的协议就是非对称协程
 
-### 无栈协程（stackless）和有栈协程（stackful）
+## 无栈协程（stackless）和有栈协程（stackful）
 
 有栈（stackful）协程，例如 goroutine；
 
 无栈（stackless）协程，例如 async/await。
 
-我们此处讨论x86 32位系统， DrawSquare 是 caller，DrawLine 是 callee
+有栈 和 无栈 的含义不是指协程在运行时是否需要栈
 
-![stack](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Call_stack_layout.svg/342px-Call_stack_layout.svg.png)
+而是指协程是否可以在其任意嵌套函数中被挂起，此处的嵌套函数读者可以理解为子函数、匿名函数等。显然有栈协程是可以的，而无栈协程则不可以
 
-Stack Pointer 即栈顶指针，总是指向调用栈的顶部地址，该地址由 esp 寄存器存储；Frame Pointer 即基址指针，总是指向当前栈帧（当前正在运行的子函数）的底部地址，该地址由 ebp 寄存器存储
-
-Return Address 则在是 callee 返回后，caller 将继续执行的指令所在的地址；而指令地址是由 eip 寄存器负责读取的，且 eip 寄存器总是预先读取了当前栈帧中下一条将要执行的指令的地址。
+此处c语言的stack可见资料:
 
 [stack](https://www.bilibili.com/video/BV1By4y1x7Yh?from=search&seid=5540660959159115596)
+
+For example :
+
+```cpp
+int callee() { 
+    int x = 0; 
+    return x;  
+}
+
+int caller() { 
+    callee(); 
+    return 0; 
+
+}
+```
+
+通过[godbolt](https://godbolt.org/)编译参数-m32
+
+```asm
+callee():
+        push    ebp
+        mov     ebp, esp
+        sub     esp, 16  // 关于此处为何为16，https://stackoverflow.com/questions/49391001/why-does-the-x86-64-amd64-system-v-abi-mandate-a-16-byte-stack-alignment
+        mov     DWORD PTR [ebp-4], 0
+        mov     eax, DWORD PTR [ebp-4]
+        leave
+        ret
+
+    // "leave" 等价于如下两条指令：
+    // 6. 将调用栈顶部与 callee 栈帧底部对齐，释放 callee 栈帧空间
+    // 7. 将之前保存的 caller 的栈帧底部地址出栈并赋值给 ebp
+    // movl %ebp, %esp
+    // popl %ebp
+
+    // "ret" 等价如下指令：
+    // 8. 将之前保存的 caller 的 return address 出栈并赋值给 eip，
+    //    即 caller 的 "movl $0, %eax" 这条指令所在的地址
+    // popl eip
+caller():
+        push    ebp
+        mov     ebp, esp
+        call    callee()
+        mov     eax, 0
+        pop     ebp
+        ret
+
+    // "call callee" 等价于如下两条指令：
+    // 1. 将 eip 存储的指令地址入栈保存；
+    //    此时的指令地址即为 caller 的 return address，
+    //    即 caller 的 "movl $0, %eax" 这条指令所在的地址
+    // 2. 然后跳转到 callee
+    pushl %eip
+    jmp callee
+```
+
+可画图分析。
+
+## 有栈协程
+
+实现一个协程的关键点在于如何保存、恢复和切换上下文。
+
+已知函数运行在调用栈上，保存上下文即是保存从这个函数及其嵌套函数的（连续的）栈帧存储的值，以及此时寄存器存储的值；
+
+恢复上下文即是将这些值分别重新写入对应的栈帧和寄存器；
+
+切换上下文便是保存当前正在运行的函数的上下文，恢复下一个将要运行的函数的上下文。
+
+有栈协程是可以在其任意嵌套函数中被挂起的——毕竟它都能保存和恢复自己完整的上下文了，那自然是在哪里被挂起都可以
+
+### 无栈协程
+
+与有栈协程相反，无栈协程不会为各个协程开辟相应的调用栈。无栈协程通常是 基于状态机或闭包 来实现。
+
+状态机记录上次协程挂起时的位置，并基于此决定协程恢复时开始执行的位置。这个状态必须存储在栈以外的地方，从而避免状态与栈一同销毁。
+
+某种角度说，协程与函数无异，只不过前者会记录上次终端的位置，从而可以实现恢复执行的能力
+
+在实际过程中，恢复后的执行流可能会用到中断前的状态，因此无栈协程会将保存完整的状态，这些状态会被存储到堆上。
+
+可见一种无栈协程的实现[无栈协程实现](https://mthli.xyz/coroutines-in-c/)
+
+### 有栈协程 vs 无栈协程 
+
+由于不需要切换栈帧，无栈协程的性能倒是比有栈协程普遍要高一些, 协程恢复时，需要将运行时上下文从堆中拷贝至栈中，这里也存在一定的开销。
+
+但是无栈协程的实现还是存在比较多的限制，最大缺点就是，它无法实现在任意函数调用层级的位置进行挂起。
+
+代码例子:
+
+```cpp
+// libco有栈协程
+void* test(void* para){
+	co_enable_hook_sys();
+	int i = 0;
+	poll(0, 0, 0. 1000); // 协程切换执行权，1000ms后返回
+	i++;
+	poll(0, 0, 0. 1000); // 协程切换执行权，1000ms后返回
+	i--;
+	return 0;
+}
+
+int main(){
+	stCoRoutine_t* routine;
+	co_create(&routine, NULL, test, 0);// 创建一个协程
+	co_resume(routine); 
+	co_eventloop( co_get_epoll_ct(),0,0 );
+	return 0;
+}
+```
+
+```cpp
+// 对应无栈协程
+// 原本需要执行切换的语句处为界限，把函数划分为几个部分，并在某一个部分执行完以后进行状态转移，
+// 在下一次调用此函数的时候就会执行下一部分，这样的话我们就完全没有必要像有栈协程那样显式的执行上下文切换了，
+// 我们只需要一个简易的调度器来调度这些函数即可。
+// 从执行时栈的角度来看，其实所有的协程共用的都是一个栈，即系统栈
+// 因为是函数调用，我们当然也不必去显示的保存寄存器的值，
+// 而且相比有栈协程把局部变量放在新开的空间上，无栈协程直接使用系统栈使得CPU cache局部性更好
+// 同时也使得无栈协程的中断和函数返回几乎没有区别，这样也可以凸显出无栈协程的高效。
+struct test_coroutine {
+    int i;
+    int __state = 0;
+    void MoveNext() {
+        switch(__state) {
+        case 0:
+            return frist();
+        case 1:
+            return second();
+        case 2:
+        	return third();
+        }
+    }
+    void frist() {
+        i = 0;
+        __state = 1;
+    }
+    void second() {
+        i++;
+        _state = 2;
+    }
+    void third() {
+    	i--;
+    }
+};
+```
 
 
 ## 探究问题 ：协程框架的效率问题
@@ -239,6 +382,22 @@ void CoTcpConnection::sendInProc(const char* start, size_t sendSize) {
 
 我们此处如果没发完，就yield出去等下次到resume到此处继续执行即可，而不需要像muduo那样先把数据append到outputBuffer中，将channel设置关注write，当等发送缓冲区空了后触发，然后调用handleWrite将outputBuffer中数据继续发送出去。
 
+
+## 关于Burger协程的栈带来的问题
+
+我们Burger实现的为有栈协程
+
+```cpp
+stack_ = StackAllocator::Alloc(stackSize_);
+ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::RunInCo);
+```
+
+栈大小固定，有大小难以权衡的问题。
+
+设置大了，会造成浪费。比如采用Linux默认线程栈8M大小，启动1000个协程就需要8G内存，而每个协程实际仅需几百K甚至几K。
+
+设置小了，会有栈溢出问题。比如采用128K大小，在遇到类似某个有缓冲需求的函数就有可能会栈溢出
+
 ## reference 
 
 https://github.com/hunterhang/LibcoLearning
@@ -250,3 +409,5 @@ https://www.codenong.com/cs106804383/
 https://zhuanlan.zhihu.com/p/362621806
 
 https://mthli.xyz/stackful-stackless/
+
+https://zhuanlan.zhihu.com/p/347445164

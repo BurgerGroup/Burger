@@ -72,7 +72,7 @@ void Processor::run() {
             cur = std::move(runnableCoQue_.front());
             runnableCoQue_.pop();
         } 
-		cur->swapIn();
+		cur->resume();
 		if (cur->getState() == Coroutine::State::TERM) {
             --load_;
             idleCoQue_.push(cur);
@@ -88,7 +88,7 @@ void Processor::run() {
         addPendingTasksIntoQueue();
 	}
     TRACE("Processor {} stop running", fmt::ptr(this));
-	epollCo->swapIn();  // epoll进去把cb执行完
+	epollCo->resume();  // epoll进去把cb执行完
 }
 
 void Processor::stop() {

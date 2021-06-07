@@ -9,10 +9,10 @@ static int sum = 0;
 
 void test() {
     DEBUG("in Coroutine( {} )", Coroutine::GetCoId());
-	Coroutine::SwapOut();
+	Coroutine::Yield();
 	sum++;
     DEBUG("in Coroutine( {} )", Coroutine::GetCoId());
-	Coroutine::SwapOut();
+	Coroutine::Yield();
 }
 
 int main() {
@@ -24,15 +24,15 @@ int main() {
 	}
 
 	for (int i = 0; i < sz; ++i) {
-		coroutines[i]->swapIn();
+		coroutines[i]->resume();
         DEBUG("back to main Coroutine( {} ) ", Coroutine::GetCoId());
 	}
 	for (int i = 0; i < sz; ++i) {
-		coroutines[i]->swapIn();
+		coroutines[i]->resume();
         DEBUG("back to main Coroutine( {} ) ", Coroutine::GetCoId());
 	}
 	for (int i = 0; i < sz; ++i) {
-		coroutines[i]->swapIn();
+		coroutines[i]->resume();
         DEBUG("back to main Coroutine( {} ) ", Coroutine::GetCoId());
 	}
     DEBUG("All coroutine terminated, sum = {}", sum);

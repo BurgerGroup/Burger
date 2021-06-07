@@ -73,7 +73,7 @@ retry:
 		//注册事件，事件到来后，poll出来将当前上下文再次入队执行
 		proc->updateEvent(fd, event);
 		burger::Coroutine::GetCurCo()->setState(burger::Coroutine::State::HOLD);
-		burger::Coroutine::SwapOut();
+		burger::Coroutine::Yield();
 
 		if(proc->stoped()) return 8;  // 当processor stop后，直接返回并且没有while，优雅走完函数并析构
 		
@@ -111,7 +111,7 @@ unsigned int sleep(unsigned int seconds) {
 	}
 	// fixme how about mainCo
 	proc->getTimerQueue()->addTimer(burger::Coroutine::GetCurCo(), burger::Timestamp::now() + static_cast<uint64_t>(seconds * burger::Timestamp::kMicroSecondsPerSecond));
-	burger::Coroutine::SwapOut();
+	burger::Coroutine::Yield();
 	return 0;
 }
 
@@ -135,7 +135,7 @@ int connect(int sockfd, const struct sockaddr *addr,
 	if (ret == -1 && errno == EINPROGRESS) {
 		proc->updateEvent(sockfd, burger::net::CoEpoll::kWriteEvent);
 		burger::Coroutine::GetCurCo()->setState(burger::Coroutine::State::HOLD);
-		burger::Coroutine::SwapOut();
+		burger::Coroutine::Yield();
 
 		int err = burger::net::sockets::getSocketError(sockfd);
 		if (err == 0) {
