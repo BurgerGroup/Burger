@@ -83,6 +83,7 @@ bin/lib-bash
 .vscode
 
 # Ignore log
+*.txt
 *.log 
 */logs/*
 */*log*
