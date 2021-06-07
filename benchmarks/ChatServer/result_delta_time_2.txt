@@ -1,0 +1,49 @@
+Result of 10 clients (Iteration 5 times) :
+Average Begin time: 0.000888
+Average Delta time: 0.000229
+
+Result of 100 clients (Iteration 5 times) :
+Average Begin time: 0.000709
+Average Delta time: 0.000331
+
+Result of 10000 clients (Iteration 5 times) :
+Average Begin time: 0.002564
+Average Delta time: 0.045295
+
+Result of 20000 clients (Iteration 5 times) :
+Average Begin time: 0.004012
+Average Delta time: 0.108744
+
+----- not right
+Result of 10 clients (Iteration 5 times) :
+Average Begin time: 0.000733
+Average Delta time: 0.000052
+
+Result of 100 clients (Iteration 5 times) :
+Average Begin time: 0.001315
+Average Delta time: 0.003105
+
+Result of 10000 clients (Iteration 5 times) :
+Average Begin time: 0.002098
+Average Delta time: 0.148357
+
+Result of 20000 clients (Iteration 5 times) :
+Average Begin time: 0.003929
+Average Delta time: 0.320773
+----
+Result of 10 clients (Iteration 5 times) :
+Average Begin time: 0.000648
+Average Delta time: 0.000448
+
+Result of 100 clients (Iteration 5 times) :
+Average Begin time: 0.001143
+Average Delta time: 0.001726
+
+Result of 10000 clients (Iteration 5 times) :
+Average Begin time: 0.003857
+Average Delta time: 0.115555
+
+Result of 20000 clients (Iteration 5 times) :
+Average Begin time: 0.002982
+Average Delta time: 0.118471
+

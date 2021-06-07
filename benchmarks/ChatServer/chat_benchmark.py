@@ -1,6 +1,6 @@
 import os
 import string
-main = "../../build/debug-cpp11/chat_loadtest 127.0.0.1 8888 "
+main = "../../build/release-cpp11/bin/chat_loadtest 127.0.0.1 8888 "
 ## valgrind
 ##  --tool=helgrind / --tool=drd  
 ## --tool=memcheck --leak-check=full
@@ -12,7 +12,7 @@ iterations = 5
 
 # https://www.cnblogs.com/juandx/p/4962089.html
 
-output = open("result_delta_time.txt", "a")
+output = open("result_delta_time_2.txt", "a")
 
 for clients in clientsNum :  # 客户端个数
     command = main + str(clients)
