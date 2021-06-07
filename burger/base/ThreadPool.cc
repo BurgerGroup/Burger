@@ -32,7 +32,6 @@ void Threadpool::stop() {
         cvNotFull_.notify_all();
         // 包工头唤醒把所有活干完
         // 然后其他的生产者消费者再互相唤醒
-        // TODO : 这里还需要深刻理解
     }
     std::for_each(threads_.begin(), threads_.end(), 
                     std::mem_fn(&std::thread::join));
@@ -44,6 +43,7 @@ size_t Threadpool::queueSize() const {
 }
 
 // 增加一个task进来
+// 生产者
 void Threadpool::run(Task task) {
     //如果线程池为空，说明线程池未分配线程. 由当前线程执行
     if(threads_.empty()) task();  

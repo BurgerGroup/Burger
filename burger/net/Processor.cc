@@ -2,9 +2,11 @@
 #include "SocketsOps.h"
 #include "burger/base/Util.h"
 #include "burger/base/Log.h"
+#include "burger/base/Config.h"
 #include "Hook.h"
 #include "Scheduler.h"
 #include "CoTimerQueue.h"
+
 
 using namespace burger;
 using namespace burger::net;
@@ -43,7 +45,11 @@ Processor::Processor(Scheduler* scheduler)
             timerQueue_->dealWithExpiredTimer();
         }
     }, "timerQue");
-	
+    // 预先创建co存入idelQue中
+    size_t preCoNum = Config::Instance().getSize("coroutine", "preCoNum", 1000);
+	for(size_t i = 0; i < preCoNum; i++) {
+        idleCoQue_.emplace(std::make_shared<Coroutine>(nullptr));
+    }
 }
 
 // https://zhuanlan.zhihu.com/p/321947743
