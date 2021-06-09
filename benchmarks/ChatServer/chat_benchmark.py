@@ -18,7 +18,7 @@ for clients in clientsNum :  # 客户端个数
     command = main + str(clients)
     average_begin = 0.0
     average_delta = 0.0 
-        
+
     for i in range(iterations) :  # 迭代次数
         print(i)
         f = os.popen(command)    
@@ -28,14 +28,18 @@ for clients in clientsNum :  # 客户端个数
         end_time = 0.0
 
         for line in data:   
-            percentage = int(line[3:6].replace(" ", ""))
-            if percentage == 0 :
-                begin_time = float(line[-9:])
-                average_begin += begin_time
+            try: 
+                percentage = int(line[3:6].replace(" ", ""))
+            except ValueError:
+                continue
+            else:
+                if percentage == 0 :
+                    begin_time = float(line[-9:])
+                    average_begin += begin_time
 
-            if percentage == 100 :
-                end_time = float(line[-9:])
-                average_delta += end_time - begin_time
+                if percentage == 100 :
+                    end_time = float(line[-9:])
+                    average_delta += end_time - begin_time
 
     average_begin /= iterations
     average_delta /= iterations
