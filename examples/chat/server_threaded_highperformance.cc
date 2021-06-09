@@ -28,7 +28,7 @@ public:
     }
 
     void setThreadNum(size_t threadNum) {
-        sched_->setThreadNum(threadNum);
+        server_.setThreadNum(threadNum);
     }
 
     void start() {
