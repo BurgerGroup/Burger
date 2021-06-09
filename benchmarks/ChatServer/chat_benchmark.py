@@ -12,13 +12,13 @@ iterations = 5
 
 # https://www.cnblogs.com/juandx/p/4962089.html
 
-output = open("result_delta_time_2.txt", "a")
+output = open("result_delta_time_with_preCo.txt", "a")
 
 for clients in clientsNum :  # 客户端个数
     command = main + str(clients)
     average_begin = 0.0
     average_delta = 0.0 
-    
+        
     for i in range(iterations) :  # 迭代次数
         print(i)
         f = os.popen(command)    
