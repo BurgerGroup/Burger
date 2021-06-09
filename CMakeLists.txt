@@ -147,6 +147,7 @@ endif()
 
 if(BUILD_TYPE STREQUAL "RELEASE")
     set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+    add_subdirectory(examples)
     add_subdirectory(benchmarks)
 endif()
 

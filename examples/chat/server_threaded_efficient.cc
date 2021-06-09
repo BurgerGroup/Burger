@@ -85,6 +85,7 @@ private:
 };
 
 int main(int argc, char* argv[]) {
+    LOG_LEVEL_ERROR;
     if (argc > 1) {
         Scheduler sched;
         uint16_t port = static_cast<uint16_t>(atoi(argv[1]));

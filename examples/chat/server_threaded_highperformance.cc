@@ -28,7 +28,7 @@ public:
     }
 
     void setThreadNum(size_t threadNum) {
-        sched_->setThreadNum(threadNum);
+        server_.setThreadNum(threadNum);
     }
 
     void start() {
@@ -70,6 +70,7 @@ private:
 };
 
 int main(int argc, char* argv[]) {
+    LOG_LEVEL_ERROR;
     if (argc > 1) {
         Scheduler sched;
         uint16_t port = static_cast<uint16_t>(atoi(argv[1]));
