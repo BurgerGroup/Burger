@@ -140,10 +140,9 @@ if(BURGER_BUILD_EXAMPLES)
 #     endif()
 endif()
 
-if(BUILD_TYPE STREQUAL "RELEASE")
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+if(BUILD_TYPE STREQUAL "DEBUG")
+# set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 add_subdirectory(tests)
-add_subdirectory(examples)
 endif()
 
 if(BUILD_TYPE STREQUAL "RELEASE")

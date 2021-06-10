@@ -1,5 +1,7 @@
 import os
 import string
+import datetime
+
 main = "../../build/release-cpp11/bin/chat_loadtest 127.0.0.1 8888 "
 ## valgrind
 ##  --tool=helgrind / --tool=drd  
@@ -8,11 +10,12 @@ main = "../../build/release-cpp11/bin/chat_loadtest 127.0.0.1 8888 "
 
 # main = "../../build/chat_loadtest 127.0.0.1 8888 "
 clientsNum = [10, 100, 10000, 20000] 
-iterations = 5
+iterations = 20
 
 # https://www.cnblogs.com/juandx/p/4962089.html
-
 output = open("result_delta_time_with_preCo.txt", "a")
+
+print("Expriment time: " + datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n\n", file=output)  
 
 for clients in clientsNum :  # 客户端个数
     command = main + str(clients)
