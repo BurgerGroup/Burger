@@ -2,15 +2,20 @@ import os
 import string
 import datetime
 
-main = "../../build/release-cpp11/bin/chat_loadtest 127.0.0.1 8888 "
+# server : taskset -c 1 xxx
+main = "taskset -c 2 ../../build/release-cpp11/bin/chat_loadtest 127.0.0.1 8888 "
 ## valgrind
 ##  --tool=helgrind / --tool=drd  
 ## --tool=memcheck --leak-check=full
 # main = "valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ../../build/chat_loadtest 127.0.0.1 8888 "
 
+# fixme : 这样做实验是有问题
+# 暂时未用脚本跑实验
+# docker中 为什么establish状态20000， time_wait就变成了8192
+
 # main = "../../build/chat_loadtest 127.0.0.1 8888 "
-clientsNum = [10, 100, 10000, 20000] 
-iterations = 20
+clientsNum = [10, 100, 1000, 5000, 8000] 
+iterations = 5
 
 # https://www.cnblogs.com/juandx/p/4962089.html
 output = open("result_delta_time_with_preCo.txt", "a")

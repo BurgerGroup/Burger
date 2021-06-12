@@ -50,7 +50,8 @@ Processor::Processor(Scheduler* scheduler)
 	for(size_t i = 0; i < preCoNum; i++) {
         idleCoQue_.emplace(std::make_shared<Coroutine>(nullptr));
     }
-    INFO("Pre coroutine number : {}", preCoNum);
+    ERROR("Pre coroutine number : {}", preCoNum);
+    // INFO("Pre coroutine number : {}", preCoNum);
 }
 
 // https://zhuanlan.zhihu.com/p/321947743
