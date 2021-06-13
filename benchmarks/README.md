@@ -163,34 +163,61 @@ void rwBuffer(IBuffer& buf, size_t len) {
 在本部分测试中，使用的是`Burger/examples`中的示例程序。在各文件夹下，使用其中的脚本进行不同压力或不同场景下的测试。
 ## 1. Chat_server广播
 ### 实验环境
-实验在**MacBook Pro 13 2019**上进行，使用`Linux Ubuntu 16.04`Docker虚拟机环境.
+
+```
+Architecture:                    x86_64
+CPU op-mode(s):                  32-bit, 64-bit
+Byte Order:                      Little Endian
+Address sizes:                   48 bits physical, 48 bits virtual
+CPU(s):                          2
+On-line CPU(s) list:             0,1
+Thread(s) per core:              2
+Core(s) per socket:              1
+Socket(s):                       1
+NUMA node(s):                    1
+Vendor ID:                       AuthenticAMD
+CPU family:                      21
+Model:                           96
+Model name:                      AMD Opteron(tm) X3216 APU
+Stepping:                        1
+Frequency boost:                 enabled
+CPU MHz:                         1260.534
+CPU max MHz:                     1600.0000
+CPU min MHz:                     1200.0000
+BogoMIPS:                        3193.95
+Virtualization:                  AMD-V
+L1d cache:                       32 KiB
+L1i cache:                       96 KiB
+L2 cache:                        1 MiB
+NUMA node0 CPU(s):               0,1
+
+```
 
 ### 实验对象
 * Muduo示例程序中的`asio_chat_server`系列
 * Burger示例程序中的`chat_server`系列
 
 ### 实验内容
-这里的`Chat_server`将一条`Message`广播给$K$个`Client`，由`Client`端记录**最先和最后接收到消息的时间**。
+这里的`Chat_server`将一条`Message`广播给K个`Client`，由`Client`端记录**最先和最后接收到消息的时间**。
 我们关注5次实验的**广播消息的平均总用时**。
 具体程序见**examples/chat/loadtest.cc**。
 
 ### 实验结果
-这里我们挑选了两个效率较高的Server版本 **(Efficient/High-Performance)** 来进行压测对比，它们比单纯的多线程Server效率更高。具体请见`example/chat/chat.md`。
+这里我们挑选了效率最高的Server版本 **(High-Performance)** 来进行压测对比，它们比单纯的多线程Server效率更高。具体请见`example/chat/chat.md`。
 实验结果如下：
 
-* $K$:发起连接的客户端个数
+* K :发起连接的客户端个数
 * 表格中数据为完成广播消息的平均总时间（ms），数值越小代表性能越好。
+* 服务器线程数为4 
 
-|K|Burger::Efficient|Muduo::Efficient|Burger::HighPerformance|Muduo::HighPerformance|
-|:--:|:--:|:--:|:--:|:--:|
-|10|0.448|0.137|0.229|0.092|
-|100|1.726|1.104|0.331|0.536|
-|10000|115.555|87.410|45.295|42.398|
-|20000|118.471|120.553|108.744|129.347|
+|K|Burger::HighPerformance|Muduo::HighPerformance|
+|:--:|:--:|:--:|
+|5000|29.114|28.281|
+|10000|52.3604|49.4112|
+|20000|108.6002|102.0129|
 
-* 1. 通过上述数据可以看出，两者的性能较为接近，并且随着连接数的增加，差距逐渐缩小
+* 1. 通过上述数据可以看出，两者的性能较为接近
 * 2. 在实验中，发现**有时候实验结果波动较大**，推测是虚拟机的一些原因；所以在多次实验后，在**较为平稳的一段时间内完成了本次对比；但是也无法忽略其影响**。
-* 3. 由此，只能得出**Burger的协程库搭建的Server，在该场景下并不弱于Muduo的基于Reactor模型的Server**。
-* 4. 在用$20000$个Client对Muduo的server发起连接时，有时候server会出现无响应的现象；还需进一步研究该现象的原因。
+* 3. 由于有栈协程的局限性，**Burger的协程库搭建的Server，在该场景下稍逊Muduo的基于Reactor模型的Server**。
 
 
