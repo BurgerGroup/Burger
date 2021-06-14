@@ -40,3 +40,6 @@ target_link_libraries(Coroutine_test02 burger_base)
 
 add_executable(Coroutine_test03 Coroutine_test03.cc)
 target_link_libraries(Coroutine_test03 burger_base)
+
+add_executable(StringUtil_test StringUtil_test.cc)
+target_link_libraries(StringUtil_test burger_base)
