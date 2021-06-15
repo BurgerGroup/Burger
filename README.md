@@ -67,7 +67,7 @@ int main() {
     Scheduler sched;
     InetAddress listenAddr(8888);
 
-    EchoServer server(&sched, listenAddr);
+    CoTcpServer server(&sched, listenAddr);
     server.setConnectionHandler(connHandler);
     server.start();
 
