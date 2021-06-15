@@ -30,6 +30,17 @@ void StringUtil::split(const std::string& str, std::vector<std::string>& result,
     result.push_back( str.substr( j, len-j ) );
 }
 
+bool StringUtil::isdigit(const std::string& str) {
+    std::string::size_type len = str.size(), i;
+    if(len == 0) return false;
+    if(len == 1) return ::isdigit(str[0]);
+
+    for(i = 0; i < len; ++i) {
+        if (! ::isdigit(str[i])) return false;
+    }
+    return true;
+}
+
 void StringUtil::split_whitespace(const std::string& str, std::vector<std::string>& result, int maxsplit) {
     std::string::size_type i, j, len = str.size();
     for (i = j = 0; i < len; ) {
