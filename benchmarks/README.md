@@ -5,8 +5,9 @@
     > * Logger
     > * RingBuffer
 
-* 2. 网络库整体的压测(主要在各主流网络库之间进行比较)。
+* 2. 协程网络库整体的压测(主要在各主流网络库之间进行比较)。
     > * Chat_server简单广播
+    > * PingPong吞吐量对比
 
 ---
 # 组件性能测试
@@ -221,3 +222,32 @@ NUMA node0 CPU(s):               0,1
 * 3. 由于有栈协程的局限性，**Burger的协程库搭建的Server，在该场景下稍逊Muduo的基于Reactor模型的Server**。
 
 
+## 2.PingPong吞吐量对比
+### 实验环境
+实验在**VMWare Ubuntu 16.04**上进行，使用虚拟机环境，配置为4核2GB内存.
+
+### 实验对象
+* Muduo示例程序中的`pingpong_server`
+* Burger示例程序中的`pingpong_coServer`
+
+### 实验内容
+这里的`server`与`pingpong_client`相互配合，将一条`Message`不断地接收然后发送给对方；由`pingpong_client`端记录**收发消息的总耗费时间T、收发消息的总字节数B**。
+我们关注$T/B$，即**吞吐量**。
+* 同样的消息长度（16384Bytes）
+* 使用相同的工作线程数
+
+### 实验结果
+实验结果如下：
+
+* $K$:发起连接的客户端个数
+* 表格中数据为收发消息的吞吐量（MiB/s），数值越大代表性能越好。
+
+|K|Burger::pingpong_coServer|Muduo::pingpong_server|
+|:--:|:--:|:--:|
+|1|228.508|244.119|
+|10|1307.324|1487.525|
+|100|963.145|1233.903|
+|1000|786.643|894.875|
+|2000|772.053|865.173|
+
+* 实验的结果符合预期：`Burger::pingpong_coServer`的性能达到了`Muduo::pingpong_server`的$90\%$以上，这说明协程切换所带来的开销是可接受的。
