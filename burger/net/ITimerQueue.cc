@@ -101,7 +101,9 @@ void ITimerQueue::reset(const std::vector<Entry>& expiredList, Timestamp now) {
 }
 
 bool ITimerQueue::findFirstTimestamp(const Timestamp& now, Timestamp& ts) {
-    std::lock_guard<std::mutex> lock(mutex_);  // todo : need lock here?
+    // every processor / eventloop get own timerQueue
+    // so we don't need lock here
+    // std::lock_guard<std::mutex> lock(mutex_);  
     if(timers_.empty()) return false;
     ts = timers_.begin()->first;
     return true;

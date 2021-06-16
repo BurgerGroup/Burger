@@ -6,6 +6,10 @@
 namespace burger{
 namespace net {
 
+
+// todo : 没写好 -- addTimerInProc
+// todo : cancelTimerInProc
+
 CoTimerQueue::CoTimerQueue(Processor* proc) 
     : proc_(proc) {
 }
@@ -68,6 +72,7 @@ bool CoTimerQueue::insert(std::shared_ptr<Timer> timer) {
     return earliestChanged;
 }
 
+// todo: 需要重构，非常丑陋的代码，隐藏co，全部接口给cb
 void CoTimerQueue::dealWithExpiredTimer() {
     std::vector<Entry> expiredList;
     detail::readTimerfd(timerfd_, Timestamp::now());  

@@ -20,6 +20,7 @@ Buffer::Buffer(size_t initalSize) :
     assert(getPrependableBytes() == kCheapPrepend);
 }
 
+// 性能可能有损耗
 void Buffer::swap(IBuffer& rhs) {
     // 需要先将IBuffer&转换为Buffer&
     Buffer& that = dynamic_cast<Buffer&>(rhs);

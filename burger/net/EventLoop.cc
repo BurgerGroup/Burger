@@ -187,6 +187,7 @@ void EventLoop::wakeup() {
         ERROR("EventLoop::wakeup() writes {} bytes instead of 8", n);
     }
 } 
+
 void EventLoop::moveToCurrentThread() {
     if (isRunning()) {
         CRITICAL("EventLoop cannot be moved when running");
