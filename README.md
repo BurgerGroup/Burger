@@ -105,9 +105,11 @@ configManager.getString("coroutine", "stackSize");
 Coroutine::ptr co = std::make_shared<Coroutine>(func);
 ```
 
+实际上我们没有向用户暴露co这个概念，用户是不应该自己去创建co的，而是以callback的形式告诉希望完成什么任务。
+
 ### 协程调度模块
 
-schedule 负责整个系统的协程调度，协程的运行依赖于执行器 Processor, 一个scheduler 控制N个线程，每一个线程拥有一个Processor。每一个Processor拥有M个协程，是一个N-M的协程调度模型，N个线程，M个协程。
+schedule 负责整个系统的协程调度，Schduler带有一个线程池，而协程的运行依赖于执行器 Processor,每一个线程拥有一个Processor，可以算作一个per thread one processor模型，是一个1：N的协程调度模型。
 
 ### Hook模块
 
