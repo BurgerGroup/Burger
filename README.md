@@ -89,6 +89,7 @@ int main() {
 stackSize = 3 * 1024 * 1024
 ```
 利用Config::Instance去获取ini配置文件
+
 ```
 auto& configManager = Config::Instance("/NewConfig/conf.ini");
 
@@ -113,7 +114,7 @@ schedule 负责整个系统的协程调度，Schduler带有一个线程池，而
 
 ### Hook模块
 
-hook系统底层和socket相关的API，socket io相关的API，以及sleep系列的API。hook的开启控制是线程粒度的。可以自由选择。通过hook模块，可以使一些不具异步功能的API，展现出异步的性能。如（mysql）
+hook系统底层和socket相关的API，socket io相关的API，以及sleep系列的API。hook的开启控制是线程粒度的。可以自由选择。通过hook模块，可以使一些不具异步功能的API，展现出异步的性能。
 
 ## 📚 文档
 
@@ -153,7 +154,7 @@ hook系统底层和socket相关的API，socket io相关的API，以及sleep系�
 
 [@skyu98](https://github.com/skyu98).
 
-如有任何问题，请发送邮件ysyfrank@gmail.com交流学习
+如有任何问题，请发送邮件 syi78@gatech.edu 交流学习
 
 讨论学习群 :  873966642
 

@@ -46,3 +46,40 @@ retry:
 	return n;
 }
 ```
+
+## 关于 dlsym RTLD_NEXT
+
+man page 描述:
+
+There are two special pseudo-handles, RTLD_DEFAULT and RTLD_NEXT. The former will find the first occurrence of the desired symbol using the default library search order. The latter will find the next occurrence of a function in the search order after the current library. This allows one to provide a wrapper around a function in another shared library.
+
+```cpp
+// 我们摘录 libgo 源码部分来看
+
+sleep_t sleep_f = NULL;
+
+sleep_f = (sleep_t)dlsym(RTLD_NEXT, "sleep");
+
+unsigned int sleep(unsigned int seconds) {
+    if (!sleep_f) initHook();
+
+    Task* tk = Processer::GetCurrentTask();
+    DebugPrint(dbg_hook, "task(%s) hook sleep(seconds=%u). %s coroutine.",
+            tk->DebugInfo(), seconds,
+            Processer::IsCoroutine() ? "In" : "Not in");
+
+    if (!tk)
+        return sleep_f(seconds);
+
+    Processer::Suspend(std::chrono::seconds(seconds));
+    Processer::StaticCoYield();
+    return 0;
+}
+
+// find the next occurrence of a function in the search order
+// 找到的就是加载进来libc的函数地址，然后将其函数指针给xx_f
+// 我们在本模块中，肯定首先找到的是我们自定义的函数，保存库函数地址
+// 我们的包装逻辑是去判断本线程是否hook住，没有hook的话我们要去找到库中的函数，就是我们这里存储的函数地址xx_f
+// 通过这样的机制从而完成了对库函数的包装。
+```
+
