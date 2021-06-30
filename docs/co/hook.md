@@ -12,7 +12,7 @@
 
 操作系统提供了运行时加载和链接共享库的方式。其可以通过共享库的方式来让引用程序在下次运行时执行不同的代码，这也为应用程序 Hook 系统函数提供了基础。
 
-Unix-like 系统提供了 dlopen，dlsym 系列函数来供程序在运行时操作外部的动态链接库，从而获取动态链接库中的函数或者功能调用。我们通过 dlsym 来包装系统函数，从而实现 Hook 的功能。
+Unix-like 系统提供了 dlopen，dlsym 系列函数来供程序在运行时操作外部的动态链接库，从而获取动态链接库中的函数或者功能调用（运行时库打桩）。我们通过 dlsym 来包装系统函数，从而实现 Hook 的功能。
 
 比较核心的部分就是改变io的逻辑，当通过错误码知道在阻塞时，便注册事件，然后Yield出去。
 ```cpp
@@ -56,9 +56,14 @@ There are two special pseudo-handles, RTLD_DEFAULT and RTLD_NEXT. The former wil
 ```cpp
 // 我们摘录 libgo 源码部分来看
 
+typedef unsigned int (*sleep_t)(unsigned int seconds);
+
 sleep_t sleep_f = NULL;
 
-sleep_f = (sleep_t)dlsym(RTLD_NEXT, "sleep");
+/* find the next occurrence of a function in the search order
+   找到的就是加载进来libc.so的函数地址，然后将其函数指针给xx_f
+*/
+sleep_f = (sleep_t)dlsym(RTLD_NEXT, "sleep");  
 
 unsigned int sleep(unsigned int seconds) {
     if (!sleep_f) initHook();
@@ -75,11 +80,8 @@ unsigned int sleep(unsigned int seconds) {
     Processer::StaticCoYield();
     return 0;
 }
-
-// find the next occurrence of a function in the search order
-// 找到的就是加载进来libc的函数地址，然后将其函数指针给xx_f
-// 我们在本模块中，肯定首先找到的是我们自定义的函数，保存库函数地址
-// 我们的包装逻辑是去判断本线程是否hook住，没有hook的话我们要去找到库中的函数，就是我们这里存储的函数地址xx_f
-// 通过这样的机制从而完成了对库函数的包装。
 ```
-
+通过这样的机制完成了对库函数的包装:
+* 在本模块中，肯定首先找到的是我们自定义的函数，而通过`dlsym`保存库函数地址
+* 包装逻辑是去判断本线程是否hook住，没有hook的话我们要去找到库中的函数，就是我们这里存储的函数地址xx_f
+* 由于我们可以接触源代码，hook本质上是编译时库打桩和运行时库打桩的结合，所以不需要分开编译、也不需要额外生成动态库就能达到覆盖系统函数的作用。
