@@ -111,6 +111,32 @@ private:
   ::google::protobuf::RpcChannel* channel_;
 }
 
+// 我们可以看看RpcChnanel
+
+class LIBPROTOBUF_EXPORT RpcChannel {
+public:
+    // 是个纯虚函数, 需要我们去重写这个方法
+    virtual void CallMethod(const MethodDescriptor* method,
+                            RpcController* controller,
+                            const Message* request,
+                            Message* response,
+                            Closure* done) = 0;
+
+private:
+    GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(RpcChannel);
+};
+
+// 重写, 最终进行多态调用
+class MyRpcChannel : public RpcChannel {
+    void CallMethod(const MethodDescriptor* method,
+                            RpcController* controller,
+                            const Message* request,
+                            Message* response,
+                            Closure* done){
+        xxxxxxx;
+    }   
+}
+
 */
 
 

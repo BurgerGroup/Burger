@@ -67,7 +67,21 @@ json存储 ： name: "MITSK", pwd : "123"
 
 - protobuf没有提供任何rpc功能，只是做序列化和反序列化
 
+## protobuf rpc 流程剖析
 
+```cpp
+// Closure 是个抽象类
+class LIBPROTOBUF_EXPORT Closure {
+ public:
+  Closure() {}
+  virtual ~Closure();
+
+  virtual void Run() = 0;
+
+ private:
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(Closure);
+};
+```
 
 
 
