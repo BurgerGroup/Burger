@@ -57,7 +57,7 @@ local ret  <-- 反序列化<--  RPC通信(Burger) <--      序列化    <-- retu
 
 相对于json好处
 
-1. 二进制存储，xml和json是文本存储
+1. 二进制存储，xml(20倍)和json(10倍)是文本存储
 
 2. protobuf不需要存储额外的信息
 
@@ -65,7 +65,7 @@ json存储 ： name: "MITSK", pwd : "123"
 
 "zhang san""123456"
 
-## 
+- protobuf没有提供任何rpc功能，只是做序列化和反序列化
 
 
 

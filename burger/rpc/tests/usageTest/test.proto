@@ -1,0 +1,116 @@
+syntax = "proto3";   // 声明了protobuf版本
+
+package burgerProto; // 声明了代码所在的包(对c++来说是namespace)
+
+// 定义下面的选项，表示生成service服务类和rpc方法描述，默认不生成
+// typedef UserServiceRpc_Stub Stub; 还生成了stub
+option cc_generic_services = true;
+
+// 定义完了此配置文件，命令行中去生成 
+// protoc test.proto --cpp_out=./
+
+// 定义登录请求消息类型 name pwd
+message LoginRequest {
+    string name = 1;   // 定义第几个字段
+    string pwd = 2;
+}
+
+// 定义登录响应消息类型
+message LoginResponse {
+    int32 errcode = 1;
+    string errmsg = 2;
+    bool success = 3;
+}
+
+/***********************************/
+// 封装一下
+// 我们一般很少定义成string，一般定义为bytes
+message ResultCode {
+    int32 errcode = 1;
+    bytes errmsg = 2;
+}
+// 数据 列表 映射表
+
+message addFriendResponse {
+    ResultCode result = 1;
+    bool success = 2;
+    map<int32, string> test = 3;   // 这个是google自己实现的map
+}
+
+message GetFriendListRequest {
+    uint32 uid = 1;
+}
+
+message User {
+    bytes name = 1;
+    uint32 age = 2;
+    enum Sex {  // 枚举从0开始
+        MAN = 0;
+        WOMAN = 1;
+    }
+    Sex sex = 3;
+}
+// 返回一个列表
+message GetFriendListResponse {
+    ResultCode result = 1;
+    repeated User friendList = 2;   // 定义了一个列表类型
+}
+
+// 在protobuf中怎么定义描述rpc方法的类型 -- service
+// 只是定义描述，而不是提供rpc方法
+service UserServiceRpc {
+    rpc Login(LoginRequest) returns(LoginResponse);
+    rpc GetFriendList(GetFriendListRequest) returns(GetFriendListResponse);
+}
+
+
+/*
+LoginRequest 生s成的c++代码是个class
+class LoginRequest : public ::google::ptotobuf::Messages
+提供读方法 : name() pwd()
+写方法 set_name() set_pwd()
+
+
+// 我们这里定义了个服务类
+service UserServiceRpc {
+    rpc Login(LoginRequest) returns(LoginResponse);
+}
+-->
+
+// Callee ServiceProvider rpc 服务提供者
+class UserServiceRpc : public ::google::protobuf::Service {
+
+virtual void Login(::google::protobuf::RpcController* controller,
+                    const ::burgerProto::LoginRequest* request,
+                    ::burgerProto::LoginResponse* response,
+                    ::google::protobuf::Closure* done);
+}
+
+// 方法参数4个注意用法
+
+const ::google::protobuf::ServiceDescriptor* GetDescriptor();
+// 返回服务的描述。 
+*/
+
+/*
+// Caller ServiceConsumer rpc服务消费者
+class UserServiceRpc_Stub : public UserServiceRpc {
+public:
+    UserServiceRpc_Stub(::google::protobuf::RpcChannel* channel);
+
+    // 也有login
+    void Login(::google::protobuf::RpcController* controller,
+                    const ::burgerProto::LoginRequest* request,
+                    ::burgerProto::LoginResponse* response,
+                    ::google::protobuf::Closure* done) {
+        // 都是调用的CallMethod方法
+        channel_->CallMethod(descriptor()->method(0),
+                            controller, request, response, done);
+    }
+private:
+  ::google::protobuf::RpcChannel* channel_;
+}
+
+*/
+
+

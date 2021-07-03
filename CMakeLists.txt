@@ -106,15 +106,8 @@ if(THRIFT_COMPILER AND THRIFT_INCLUDE_DIR AND THRIFT_LIBRARY)
   message(STATUS "found thrift")
 endif()
 
-# set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")    
-# find_package(MySQL REQUIRED)
-# if(MYSQL_FOUND)
-#     include_directories(${MYSQL_INCLUDE_DIR})
-# endif()
-
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR})
-
 include_directories(
     ${CMAKE_SOURCE_DIR}/thirdparty    # find 3rd lib
 )
@@ -126,7 +119,10 @@ add_subdirectory(burger/base)
 add_subdirectory(burger/net)
 add_subdirectory(config)
 # add_subdirectory(burger/db)
-# add_subdirectory(burger/http)
+
+if(PROTOBUF_FOUND)
+  add_subdirectory(burger/rpc)
+endif()
 
 add_subdirectory(thirdparty/googletest)
 add_subdirectory(thirdparty/spdlog)
