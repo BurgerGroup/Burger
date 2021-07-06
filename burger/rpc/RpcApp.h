@@ -9,7 +9,7 @@ namespace rpc {
 
 class RpcApp {
 public:  
-    static void Init(int argc, char **argv);
+    static void Init();
     static RpcApp& GetInstance() {
         static RpcApp app;
         return app;

@@ -47,7 +47,7 @@ public:
 
 int main(int argc, char **argv) {
     // 调用框架的初始化操作
-    RpcApp::Init(argc, argv);
+    RpcApp::Init();
 
     // provider是一个rpc网络服务对象，把UserService对象发布到rpc结点上
     RpcProvider provider;
