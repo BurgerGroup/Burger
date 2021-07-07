@@ -10,8 +10,8 @@ add_executable(atomic_unittest Atomic_unittest.cc)
 # add_executable(mutex_test mutex_test.cc)
 # target_link_libraries(mutex_test burger_base)
 
-# add_executable(ThreadPool_test ThreadPool_test.cc)
-# target_link_libraries(ThreadPool_test burger_base)
+add_executable(ThreadPool_test ThreadPool_test.cc)
+target_link_libraries(ThreadPool_test burger_base)
 
 # add_executable(Singleton_test Singleton_test.cc)
 

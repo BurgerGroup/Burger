@@ -9,7 +9,7 @@ namespace rpc {
 
 class RpcApp {
 public:  
-    static void Init();
+    static void Init();  // need remove
     static RpcApp& GetInstance() {
         static RpcApp app;
         return app;

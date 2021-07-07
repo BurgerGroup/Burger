@@ -29,9 +29,13 @@ public:
     // void setThreadInitCallback(const Task&& cb) { threadInitCallback_ = cb; }
     void start(int numThreads);
     void stop();
-    const std::string& name() const { return name_; }
+    
+    void setName(const std::string& name) { name_ = name; }
+    const std::string& getName() const { return name_; }
     size_t queueSize() const;
-    void run(Task task);
+    // void run(Task task);
+    void run(const Task& task);
+    void run(Task&& task); 
 
 private:
     bool isFull() const;  // require lock

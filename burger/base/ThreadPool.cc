@@ -1,4 +1,5 @@
 #include "ThreadPool.h"
+#include "Log.h"
 
 using namespace burger;
 
@@ -42,19 +43,55 @@ size_t Threadpool::queueSize() const {
     return queue_.size();
 }
 
+// todo : meaning ?
+// There is no move-only version of std::function in C++ as of C++14.
+// So we don't need to overload a const& and an && versions
+// as we do in (Bounded)BlockingQueue.
+// https://stackoverflow.com/a/25408989
+// void Threadpool::run(Task task) {
+//     //如果线程池为空，说明线程池未分配线程. 由当前线程执行
+//     if(threads_.empty()) task();  
+//     else {
+//         std::unique_lock<std::mutex> lock(mutex_);
+//         cvNotFull_.wait(lock, [this] { return (!isFull() || !running_); });
+//         if(!running_) return;
+//         assert(!isFull());
+//         queue_.push_back(std::move(task));  
+//         cvNotEmpty_.notify_one();
+//     }
+// }
+
+
 // 增加一个task进来
 // 生产者
-void Threadpool::run(Task task) {
-    //如果线程池为空，说明线程池未分配线程. 由当前线程执行
+void Threadpool::run(const Task& task) {
+    // 如果线程池为空，说明线程池未分配线程. 由当前线程执行
+    // INFO("const reference");
     if(threads_.empty()) task();  
     else {
-        std::unique_lock<std::mutex> lock(mutex_);
-        cvNotFull_.wait(lock, [this] { return (!isFull() || !running_); });
-        if(!running_) return;
-        assert(!isFull());
-        queue_.push_back(std::move(task));  // TODO : WHY MOVE , WHY NOT emplace_bacl
+        {
+            std::unique_lock<std::mutex> lock(mutex_);
+            cvNotFull_.wait(lock, [this] { return (!isFull() || !running_); });
+            if(!running_) return;
+            assert(!isFull());
+            queue_.emplace_back(task); 
+        }
         cvNotEmpty_.notify_one();
     }
+}
+void Threadpool::run(Task&& task) {
+    // INFO("right value");
+    if(threads_.empty()) task();  
+    else {
+        {
+            std::unique_lock<std::mutex> lock(mutex_);
+            cvNotFull_.wait(lock, [this] { return (!isFull() || !running_); });
+            if(!running_) return;
+            assert(!isFull());
+            queue_.emplace_back(std::move(task));  
+        }
+        cvNotEmpty_.notify_one();
+    } 
 }
 
 bool Threadpool::isFull() const {
