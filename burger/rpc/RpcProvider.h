@@ -1,10 +1,13 @@
 #ifndef RPCPROVIDER_H
 #define RPCPROVIDER_H
+
 #include <google/protobuf/service.h>
 #include <memory>
-#include "burger/net/TcpServer.h"
-#include "burger/net/Scheduler.h"
 #include "burger/net/InetAddress.h"
+#include "burger/net/CoTcpServer.h"
+#include "burger/net/CoTcpConnection.h"
+#include "burger/net/Scheduler.h"
+#include "burger/base/Config.h"
 
 namespace burger {
 namespace rpc {
@@ -17,9 +20,10 @@ public:
     
     // 启动rpc服务接点，开始提供rpc远程网络调用服务
     void Run();
+private: 
+    void connHandler(const net::CoTcpConnection::ptr& conn);
 private:
-    std::unique_ptr<burger::net::TcpServer> tcpServerPtr_;
-    burger::net::Scheduler *sched_;
+    net::Scheduler sched_;
 };
 
 } // namespace rpc

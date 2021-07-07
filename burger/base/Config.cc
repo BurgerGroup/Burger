@@ -8,6 +8,10 @@ Config& Config::Instance(const std::string& relativePath) {
     return conf;
 }
 
+uint16_t Config::getUInt16(const std::string& section, const std::string& search, int defaultVal) {
+    return static_cast<uint16_t>(getInt(section, search, defaultVal));
+}
+
 int Config::getInt(const std::string& section, const std::string& search, int defaultVal) {
     std::string expression = reader_->Get(section, search, std::to_string(defaultVal));
     // return reader_->GetInteger(section, search, defaultVal);

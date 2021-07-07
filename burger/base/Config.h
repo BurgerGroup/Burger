@@ -34,6 +34,7 @@ class Config {
 public:
     static Config& Instance(const std::string& relativePath = "/.burger/config/conf.ini");
 
+    uint16_t getUInt16(const std::string& section, const std::string& search, int defaultVal = 0);
     int getInt(const std::string& section, const std::string& search, int defaultVal = 0);
     size_t getSize(const std::string& section, const std::string& search, int defaultVal = 0);
     std::string getString(const std::string& section, const std::string& search, const std::string& defaultVal = "");

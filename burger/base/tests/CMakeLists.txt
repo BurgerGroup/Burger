@@ -26,8 +26,8 @@ target_link_libraries(ThreadPool_test burger_base)
 # add_executable(util_test util_test.cc)
 # target_link_libraries(util_test burger_base)
 
-add_executable(config_test config_test.cc)
-target_link_libraries(config_test burger_base)
+add_executable(Config_test Config_test.cc)
+target_link_libraries(Config_test burger_base)
 
 # add_executable(env_test env_test.cc)
 # target_link_libraries(env_test burger_base)

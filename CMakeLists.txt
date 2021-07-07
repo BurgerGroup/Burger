@@ -120,9 +120,9 @@ add_subdirectory(burger/net)
 add_subdirectory(config)
 # add_subdirectory(burger/db)
 
-# if(PROTOBUF_FOUND)
-#   add_subdirectory(burger/rpc)
-# endif()
+if(PROTOBUF_FOUND)
+  add_subdirectory(burger/rpc)
+endif()
 
 add_subdirectory(thirdparty/googletest)
 add_subdirectory(thirdparty/spdlog)

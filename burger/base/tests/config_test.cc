@@ -13,4 +13,6 @@ int main() {
     std::cout << Config::Instance().getString("test", "test1", "null") << std::endl;
     std::cout << Config::Instance().getInt("test", "test1", 0) << std::endl;
 
+    std::cout << Config::Instance().getUInt16("rpc", "rpcServerPort", 8000) << std::endl;
+
 }
