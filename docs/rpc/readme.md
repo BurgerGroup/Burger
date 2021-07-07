@@ -55,7 +55,11 @@ local ret  <-- 反序列化<--  RPC通信(Burger) <--      序列化    <-- retu
 
 ## protobuf
 
-相对于json好处
+### protobuf 资料
+
+https://colobu.com/2015/01/07/Protobuf-language-guide/
+
+### 相对于json好处
 
 1. 二进制存储，xml(20倍)和json(10倍)是文本存储
 
@@ -83,5 +87,40 @@ class LIBPROTOBUF_EXPORT Closure {
 };
 ```
 
+## rpc发布服务
 
+```cpp
+// Service* 是个基类指针
 
+// RpcProvider的使用者，rpc服务方法的发布方
+
+class UserService : public UserServiceRpc {
+      login() <== 本地方法
+      
+      login(controller, request, response, done) <== 重写protobuf提供的virtual虚函数
+      {
+            // 网络先接收
+            1. 从LoginRequest 获取参数的值
+            2. 执行本地服务login, 并获取返回值
+            3. 用上面的返回值填写LoginResponse
+            4. 一个回调，把LoginResponse发送给rpc client
+            // 交给网络发送
+      }
+}
+
+// 问题 : 接收一个rpc调用请求时，它怎么知道要调用应用程序的哪个服务对象的哪个rpc方法呢？
+// 比如UserService的Login方法
+// 所以我们NotifyService 需要生成一张表，记录服务对象和其发布的所有服务方法
+// UserService Login Register 
+// FreindService AddFriend DelFriend GetFriendList
+// 这些都继承Service类(描述对象)
+// Method类(描述方法)
+```
+
+```cpp
+// 网络(收发)功能有Burger库实现
+// protobuf 实现数据的序列化和反序列化
+RpcProvider provider;
+provider.NotifyService(new UserService());
+provider.Run();
+```

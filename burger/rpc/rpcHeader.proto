@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package burger.rpc;
+
+// 消息类型
+message RpcHeader {
+    bytes serviceName = 1;
+    bytes methodName = 2;
+    uint32 argsSize = 3;
+}
+

@@ -2,6 +2,7 @@
 #include <string>
 #include "../user.pb.h"
 #include "burger/rpc/RpcProvider.h"
+#include "burger/base/Log.h"
 
 using namespace burger; 
 using namespace burger::rpc;
@@ -45,7 +46,7 @@ public:
 };
 
 int main(int argc, char **argv) {
-
+    LOGGER(); LOG_LEVEL_INFO;
     // provider是一个rpc网络服务对象，把UserService对象发布到rpc结点上
     RpcProvider provider;
     provider.NotifyService(new UserService());
