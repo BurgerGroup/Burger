@@ -124,3 +124,28 @@ RpcProvider provider;
 provider.NotifyService(new UserService());
 provider.Run();
 ```
+
+
+```cpp
+burgerRpc::UserServiceRpc_Stub stub(&rpcChannel);  
+
+stub.Login(nullptr, &request, &response, nullptr); 
+    
+--> 其实是 rpcChannel->callMethod(xxx);
+
+
+```
+
+```cpp
+class RpcChannel : public ::google::protobuf::RpcChannel {
+public:
+    // 重写此方法
+    void CallMethod(xxxx) override;
+    // rpc请求的数组组装，数据的序列化
+    // 发送rpc请求，wait
+    // 接收rpc响应
+    // 响应的反序列化
+};
+
+
+```
