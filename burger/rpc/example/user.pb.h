@@ -39,6 +39,8 @@ void protobuf_ShutdownFile_user_2eproto();
 
 class LoginRequest;
 class LoginResponse;
+class RegisterRequest;
+class RegisterResponse;
 class ResultCode;
 
 // ===================================================================
@@ -326,6 +328,204 @@ class LoginResponse : public ::google::protobuf::Message /* @@protoc_insertion_p
   void InitAsDefaultInstance();
   static LoginResponse* default_instance_;
 };
+// -------------------------------------------------------------------
+
+class RegisterRequest : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:burgerRpc.RegisterRequest) */ {
+ public:
+  RegisterRequest();
+  virtual ~RegisterRequest();
+
+  RegisterRequest(const RegisterRequest& from);
+
+  inline RegisterRequest& operator=(const RegisterRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RegisterRequest& default_instance();
+
+  void Swap(RegisterRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RegisterRequest* New() const { return New(NULL); }
+
+  RegisterRequest* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RegisterRequest& from);
+  void MergeFrom(const RegisterRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RegisterRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional uint32 id = 1;
+  void clear_id();
+  static const int kIdFieldNumber = 1;
+  ::google::protobuf::uint32 id() const;
+  void set_id(::google::protobuf::uint32 value);
+
+  // optional bytes name = 2;
+  void clear_name();
+  static const int kNameFieldNumber = 2;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  void set_name(const char* value);
+  void set_name(const void* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
+
+  // optional bytes pwd = 3;
+  void clear_pwd();
+  static const int kPwdFieldNumber = 3;
+  const ::std::string& pwd() const;
+  void set_pwd(const ::std::string& value);
+  void set_pwd(const char* value);
+  void set_pwd(const void* value, size_t size);
+  ::std::string* mutable_pwd();
+  ::std::string* release_pwd();
+  void set_allocated_pwd(::std::string* pwd);
+
+  // @@protoc_insertion_point(class_scope:burgerRpc.RegisterRequest)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
+  ::google::protobuf::internal::ArenaStringPtr pwd_;
+  ::google::protobuf::uint32 id_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_user_2eproto();
+  friend void protobuf_AssignDesc_user_2eproto();
+  friend void protobuf_ShutdownFile_user_2eproto();
+
+  void InitAsDefaultInstance();
+  static RegisterRequest* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class RegisterResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:burgerRpc.RegisterResponse) */ {
+ public:
+  RegisterResponse();
+  virtual ~RegisterResponse();
+
+  RegisterResponse(const RegisterResponse& from);
+
+  inline RegisterResponse& operator=(const RegisterResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RegisterResponse& default_instance();
+
+  void Swap(RegisterResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RegisterResponse* New() const { return New(NULL); }
+
+  RegisterResponse* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RegisterResponse& from);
+  void MergeFrom(const RegisterResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RegisterResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .burgerRpc.ResultCode result = 1;
+  bool has_result() const;
+  void clear_result();
+  static const int kResultFieldNumber = 1;
+  const ::burgerRpc::ResultCode& result() const;
+  ::burgerRpc::ResultCode* mutable_result();
+  ::burgerRpc::ResultCode* release_result();
+  void set_allocated_result(::burgerRpc::ResultCode* result);
+
+  // optional bool success = 2;
+  void clear_success();
+  static const int kSuccessFieldNumber = 2;
+  bool success() const;
+  void set_success(bool value);
+
+  // @@protoc_insertion_point(class_scope:burgerRpc.RegisterResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::burgerRpc::ResultCode* result_;
+  bool success_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_user_2eproto();
+  friend void protobuf_AssignDesc_user_2eproto();
+  friend void protobuf_ShutdownFile_user_2eproto();
+
+  void InitAsDefaultInstance();
+  static RegisterResponse* default_instance_;
+};
 // ===================================================================
 
 class UserServiceRpc_Stub;
@@ -344,6 +544,10 @@ class UserServiceRpc : public ::google::protobuf::Service {
   virtual void Login(::google::protobuf::RpcController* controller,
                        const ::burgerRpc::LoginRequest* request,
                        ::burgerRpc::LoginResponse* response,
+                       ::google::protobuf::Closure* done);
+  virtual void Register(::google::protobuf::RpcController* controller,
+                       const ::burgerRpc::RegisterRequest* request,
+                       ::burgerRpc::RegisterResponse* response,
                        ::google::protobuf::Closure* done);
 
   // implements Service ----------------------------------------------
@@ -377,6 +581,10 @@ class UserServiceRpc_Stub : public UserServiceRpc {
   void Login(::google::protobuf::RpcController* controller,
                        const ::burgerRpc::LoginRequest* request,
                        ::burgerRpc::LoginResponse* response,
+                       ::google::protobuf::Closure* done);
+  void Register(::google::protobuf::RpcController* controller,
+                       const ::burgerRpc::RegisterRequest* request,
+                       ::burgerRpc::RegisterResponse* response,
                        ::google::protobuf::Closure* done);
  private:
   ::google::protobuf::RpcChannel* channel_;
@@ -599,7 +807,173 @@ inline void LoginResponse::set_success(bool value) {
   // @@protoc_insertion_point(field_set:burgerRpc.LoginResponse.success)
 }
 
+// -------------------------------------------------------------------
+
+// RegisterRequest
+
+// optional uint32 id = 1;
+inline void RegisterRequest::clear_id() {
+  id_ = 0u;
+}
+inline ::google::protobuf::uint32 RegisterRequest::id() const {
+  // @@protoc_insertion_point(field_get:burgerRpc.RegisterRequest.id)
+  return id_;
+}
+inline void RegisterRequest::set_id(::google::protobuf::uint32 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:burgerRpc.RegisterRequest.id)
+}
+
+// optional bytes name = 2;
+inline void RegisterRequest::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RegisterRequest::name() const {
+  // @@protoc_insertion_point(field_get:burgerRpc.RegisterRequest.name)
+  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RegisterRequest::set_name(const ::std::string& value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:burgerRpc.RegisterRequest.name)
+}
+inline void RegisterRequest::set_name(const char* value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:burgerRpc.RegisterRequest.name)
+}
+inline void RegisterRequest::set_name(const void* value, size_t size) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:burgerRpc.RegisterRequest.name)
+}
+inline ::std::string* RegisterRequest::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:burgerRpc.RegisterRequest.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RegisterRequest::release_name() {
+  // @@protoc_insertion_point(field_release:burgerRpc.RegisterRequest.name)
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RegisterRequest::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:burgerRpc.RegisterRequest.name)
+}
+
+// optional bytes pwd = 3;
+inline void RegisterRequest::clear_pwd() {
+  pwd_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RegisterRequest::pwd() const {
+  // @@protoc_insertion_point(field_get:burgerRpc.RegisterRequest.pwd)
+  return pwd_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RegisterRequest::set_pwd(const ::std::string& value) {
+  
+  pwd_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:burgerRpc.RegisterRequest.pwd)
+}
+inline void RegisterRequest::set_pwd(const char* value) {
+  
+  pwd_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:burgerRpc.RegisterRequest.pwd)
+}
+inline void RegisterRequest::set_pwd(const void* value, size_t size) {
+  
+  pwd_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:burgerRpc.RegisterRequest.pwd)
+}
+inline ::std::string* RegisterRequest::mutable_pwd() {
+  
+  // @@protoc_insertion_point(field_mutable:burgerRpc.RegisterRequest.pwd)
+  return pwd_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RegisterRequest::release_pwd() {
+  // @@protoc_insertion_point(field_release:burgerRpc.RegisterRequest.pwd)
+  
+  return pwd_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RegisterRequest::set_allocated_pwd(::std::string* pwd) {
+  if (pwd != NULL) {
+    
+  } else {
+    
+  }
+  pwd_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), pwd);
+  // @@protoc_insertion_point(field_set_allocated:burgerRpc.RegisterRequest.pwd)
+}
+
+// -------------------------------------------------------------------
+
+// RegisterResponse
+
+// optional .burgerRpc.ResultCode result = 1;
+inline bool RegisterResponse::has_result() const {
+  return !_is_default_instance_ && result_ != NULL;
+}
+inline void RegisterResponse::clear_result() {
+  if (GetArenaNoVirtual() == NULL && result_ != NULL) delete result_;
+  result_ = NULL;
+}
+inline const ::burgerRpc::ResultCode& RegisterResponse::result() const {
+  // @@protoc_insertion_point(field_get:burgerRpc.RegisterResponse.result)
+  return result_ != NULL ? *result_ : *default_instance_->result_;
+}
+inline ::burgerRpc::ResultCode* RegisterResponse::mutable_result() {
+  
+  if (result_ == NULL) {
+    result_ = new ::burgerRpc::ResultCode;
+  }
+  // @@protoc_insertion_point(field_mutable:burgerRpc.RegisterResponse.result)
+  return result_;
+}
+inline ::burgerRpc::ResultCode* RegisterResponse::release_result() {
+  // @@protoc_insertion_point(field_release:burgerRpc.RegisterResponse.result)
+  
+  ::burgerRpc::ResultCode* temp = result_;
+  result_ = NULL;
+  return temp;
+}
+inline void RegisterResponse::set_allocated_result(::burgerRpc::ResultCode* result) {
+  delete result_;
+  result_ = result;
+  if (result) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:burgerRpc.RegisterResponse.result)
+}
+
+// optional bool success = 2;
+inline void RegisterResponse::clear_success() {
+  success_ = false;
+}
+inline bool RegisterResponse::success() const {
+  // @@protoc_insertion_point(field_get:burgerRpc.RegisterResponse.success)
+  return success_;
+}
+inline void RegisterResponse::set_success(bool value) {
+  
+  success_ = value;
+  // @@protoc_insertion_point(field_set:burgerRpc.RegisterResponse.success)
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

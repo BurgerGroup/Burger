@@ -24,5 +24,20 @@ int main() {
     } else {
         ERROR("RPC Login response error : {}", response.result().errmsg());
     }
+
+    // 演示调用远程发布的rpc方法Register
+    burgerRpc::RegisterRequest req;
+    req.set_id(2000);
+    req.set_name("MIT SK");
+    req.set_pwd("6666");
+    burgerRpc::RegisterResponse rsp;
+
+    // 以同步的方式发起rpc调用请求，等待返回结果
+    stub.Register(nullptr, &req, &rsp, nullptr);
+    if(0 == response.result().errcode()) {
+        INFO("RPC Register response success: {}", response.success());
+    } else {
+        ERROR("RPC Register response error : {}", response.result().errmsg());
+    }
     return 0;
 }

@@ -99,9 +99,13 @@ void RpcChannel::CallMethod(const ::google::protobuf::MethodDescriptor* method,
     }
     
     // 反序列化rpc调用的响应数据
-    std::string responseStr(recv_buf, 0, recv_size);
-    if(response->ParseFromString(responseStr)) {
-        ERROR("parse error! response string : {}", responseStr);
+
+    // bug 出现问题， rev_buf中遇到\0后面的数据就存不下来了
+    // gdb : p recv_buf vs p responseStr 对比下， string 构造函数里的坑
+    // std::string responseStr(recv_buf, 0, recv_size);   
+    // if(!response->ParseFromString(responseStr)) {
+    if(!response->ParseFromArray(recv_buf, static_cast<int>(recv_size))) {
+        ERROR("parse error! response string : {}", recv_buf);
         close(clientfd);
         return;
     }
