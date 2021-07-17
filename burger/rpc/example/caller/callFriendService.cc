@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../friend.pb.h"
 #include "burger/rpc/RpcChannel.h"
+#include "burger/rpc/RpcController.h"
 #include "burger/base/Log.h"
 
 using namespace burger;
@@ -15,16 +16,24 @@ int main() {
 
     burgerRpc::GetFriendListResponse response;
 
+    RpcController controller;
+
     stub.GetFriendList(nullptr, &request, &response, nullptr);
 
-    if(0 == response.result().errcode()) {
-        INFO("RPC GetFriendList response success");
-        int size = response.friends_size();
-        for(int i = 0; i < size; i++) {
-            INFO("index : {} - name : {}", i+1, response.friends(i));
-        }
+    if(controller.Failed()) {
+        ERROR("{}", controller.ErrorText());
     } else {
-        ERROR("RPC GetFriendList response error : {}", response.result().errmsg());
+        if(0 == response.result().errcode()) {
+            INFO("RPC GetFriendList response success");
+            int size = response.friends_size();
+            for(int i = 0; i < size; i++) {
+                INFO("index : {} - name : {}", i+1, response.friends(i));
+            }
+        } else {
+            ERROR("RPC GetFriendList response error : {}", response.result().errmsg());
+        }
     }
+
+
     return 0;
 }

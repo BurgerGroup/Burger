@@ -172,3 +172,88 @@ rpc 转到 channel的callMethod
 
 需要继承重写一下这些方法
 
+## 为什么需要zookeeper
+
+我们并不知道哪个rpc在哪个机器，所以我们需要一个服务配置中心，当启动rpc结点，我们向zk注册一下，
+
+提供分布式协调服务
+
+https://www.cnblogs.com/xinyonghu/p/11031729.html
+
+## zk的数据是怎么组织的 - znode 点
+
+zookeeper数据结构回顾
+
+node_1 path :/node_1
+
+node_1_1 path:/node_1/node_1_1
+
+
+## 启动zookeeper的结点
+
+conf目录
+
+mv zoo_sample.cfg zoo.cfg
+
+/Burger/thirdparty/zookeeper/conf/zoo.cfg
+
+修改dataDir路径 作为一个存储路径，还是写在磁盘上
+
+clientPort 也可改改
+
+然后进入bin目录
+
+/Burger/thirdparty/zookeeper/bin
+
+启动server脚本
+
+./zkServer.sh
+
+
+ubuntu直接apt install 
+
+```
+sudo apt-get update
+
+sudo apt-get install openjdk-8-jdk
+
+java -version
+```
+
+然后ps -ef | grep zookeeper 查看是否启动
+
+netstat -tanp 查看端口
+
+## 如果无法启动
+
+ ./zkServer.sh start-foreground
+
+ ./zkServer.sh: line 170: exec: java: not found
+
+ 说明java没装好
+
+ 
+ ## 启动zk 客户端
+
+ ./zkCli.sh
+
+ 常见命令
+
+```
+// 连接上
+Socket connection established to localhost/127.0.0.1:2181 
+```
+
+ls / 看结点
+
+get /zookeeper 查询结点数据
+
+(todo : 了解下字段)
+
+create /MITSK 20 创建结点 + 其数据
+
+set 
+
+delete 
+
+## 
