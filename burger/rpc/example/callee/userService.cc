@@ -16,6 +16,12 @@ public:
         std::cout << "name: " << name << " pwd: " << pwd << std::endl;
         return true;
     }
+
+    bool Register(uint32_t id, std::string name, std::string pwd) {
+        std::cout << "Doing local service : Register" << std::endl; 
+        std::cout << "id: " << id << " name: " << name << " pwd: " << pwd << std::endl;
+        return true;
+    }
     /*
     先写proto，定义好如何收发(service)的格式(是什么函数名，参数是什么字段，返回什么)
     1. Caller --> Login(LoginRequest) 序列化 --> Burger -->  callee 
@@ -41,6 +47,22 @@ public:
         response->set_success(login_reult);
 
         // 执行回调函数  执行响应对象数据的序列化和网络发送(都是由框架来完成的)
+        done->Run();
+    }
+
+    void Register(::google::protobuf::RpcController* controller,
+                       const ::burgerRpc::RegisterRequest* request,
+                       ::burgerRpc::RegisterResponse* response,
+                       ::google::protobuf::Closure* done) {
+        uint32_t id = request->id();
+        std::string name = request->name();
+        std::string pwd = request->pwd();
+
+        bool ret = Register(id, name, pwd);
+        
+        response->mutable_result()->set_errcode(0);
+        response->set_success(ret);
+
         done->Run();
     }
 };

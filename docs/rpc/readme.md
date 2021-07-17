@@ -124,3 +124,51 @@ RpcProvider provider;
 provider.NotifyService(new UserService());
 provider.Run();
 ```
+
+
+```cpp
+burgerRpc::UserServiceRpc_Stub stub(&rpcChannel);  
+
+stub.Login(nullptr, &request, &response, nullptr); 
+    
+--> 其实是 rpcChannel->callMethod(xxx);
+
+
+```
+
+```cpp
+class RpcChannel : public ::google::protobuf::RpcChannel {
+public:
+    // 重写此方法
+    void CallMethod(xxxx) override;
+    // rpc请求的数组组装，数据的序列化
+    // 发送rpc请求，wait
+    // 接收rpc响应
+    // 响应的反序列化
+};
+
+
+```
+
+## 总结下如何发布一个服务
+
+先写proto
+
+protoc生成了pb之后
+
+继承相应的类，然后重写方法，写业务函数
+
+## controller
+
+rpc服务的调用方
+
+rpc 转到 channel的callMethod
+
+如果中间出错直接return，网络没办法返回response
+
+从名字上看出，可以存储一些控制信息，知道当前是什么状态
+
+是个抽象类，里面都是纯虚函数
+
+需要继承重写一下这些方法
+

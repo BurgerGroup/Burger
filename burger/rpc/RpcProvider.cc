@@ -52,6 +52,7 @@ void RpcProvider::Run() {
 // header_size(4个字节) + header_str + args_str
 // 考虑粘包问题，所以我们不仅要记录service_name, method_name 还要记录 args_size
 // header_size 要存成二进制， 利用std::string 的copy
+// todo : 此处好好反复考虑粘包情况
 void RpcProvider::connHandler(const CoTcpConnection::ptr& conn) {
     Buffer::ptr buf = std::make_shared<Buffer>();
     while(conn->recv(buf) > 0) {
@@ -113,9 +114,16 @@ void RpcProvider::connHandler(const CoTcpConnection::ptr& conn) {
         google::protobuf::Message *response = service->GetResponsePrototype(method).New();
         
         // 下面的method方法的调用，绑定一个Closure的回调函数
+<<<<<<< HEAD
         google::protobuf::Closure *done = google::protobuf::NewCallback<RpcProvider,
                                                             const CoTcpConnection::ptr&,
                                                             google::protobuf::Message*>
+=======
+        // todo: 为何我们此处要手动去设置类型
+        google::protobuf::Closure *done = google::protobuf::NewCallback<RpcProvider,
+                                                            const CoTcpConnection::ptr&,
+                                                            google::protobuf::Message *>
+>>>>>>> 7ffcd9bef8095f65ca9a2e9f76f24a42810abd1e
                                                             (this, 
                                                             &RpcProvider::sendRpcResonse, 
                                                             conn, response);
@@ -127,5 +135,12 @@ void RpcProvider::connHandler(const CoTcpConnection::ptr& conn) {
 
 // Closure 的回调操作，用于序列化rpc的响应和网络发送
 void RpcProvider::sendRpcResonse(const CoTcpConnection::ptr& conn, google::protobuf::Message* response) {
-    
+    std::string responseStr;
+    if(response->SerializeToString(&responseStr)) {   // response进行序列化
+        // 序列化成功后，通过网络把rpc方法执行的结果发送回rpc的调用方
+        conn->send(responseStr);
+    } else {
+        ERROR("Serialize response string error");
+    }
+    conn->shutdown();   // 短连接，主动关闭
 }

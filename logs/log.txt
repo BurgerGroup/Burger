@@ -19732,3 +19732,19 @@ backtrace:
 2021-07-07 21:44:25 [info] [tid : 6671] [Processor.cc : 54 <Processor>] [coId : 4008] Pre coroutine number : 2000
 2021-07-07 21:44:25 [info] [tid : 6672] [Processor.cc : 54 <Processor>] [coId : 6012] Pre coroutine number : 2000
 2021-07-07 21:44:25 [info] [tid : 6673] [Processor.cc : 54 <Processor>] [coId : 8016] Pre coroutine number : 2000
+2021-07-09 00:15:43 [info] [tid : 8918] [RpcProvider.cc : 22 <NotifyService>] [coId : 0] Service Name : UserServiceRpc
+2021-07-09 00:15:43 [info] [tid : 8918] [RpcProvider.cc : 27 <NotifyService>] [coId : 0] Method Name : Login
+2021-07-09 00:15:43 [info] [tid : 8918] [RpcProvider.cc : 43 <Run>] [coId : 0] RpcProvider start service at 127.0.0.1 : 8000
+2021-07-09 00:15:43 [info] [tid : 8920] [Processor.cc : 54 <Processor>] [coId : 1] Pre coroutine number : 2000
+2021-07-09 00:15:43 [info] [tid : 8921] [Processor.cc : 54 <Processor>] [coId : 2004] Pre coroutine number : 2000
+2021-07-09 00:15:43 [info] [tid : 8922] [Processor.cc : 54 <Processor>] [coId : 4008] Pre coroutine number : 2000
+2021-07-09 00:15:43 [info] [tid : 8923] [Processor.cc : 54 <Processor>] [coId : 6012] Pre coroutine number : 2000
+2021-07-09 00:15:43 [info] [tid : 8924] [Processor.cc : 54 <Processor>] [coId : 8016] Pre coroutine number : 2000
+2021-07-09 00:16:10 [info] [tid : 8921] [RpcProvider.cc : 86 <connHandler>] [coId : 2007] ====================================
+2021-07-09 00:16:10 [info] [tid : 8921] [RpcProvider.cc : 87 <connHandler>] [coId : 2007] headerSize : 25
+2021-07-09 00:16:10 [info] [tid : 8921] [RpcProvider.cc : 88 <connHandler>] [coId : 2007] rpcHeaderStr : 
+UserServiceRpcLogin
+2021-07-09 00:16:10 [info] [tid : 8921] [RpcProvider.cc : 89 <connHandler>] [coId : 2007] serviceName : UserServiceRpc
+2021-07-09 00:16:10 [info] [tid : 8921] [RpcProvider.cc : 90 <connHandler>] [coId : 2007] methodName : Login
+2021-07-09 00:16:10 [info] [tid : 8921] [RpcProvider.cc : 91 <connHandler>] [coId : 2007] argsSize : 12
+2021-07-09 00:16:10 [info] [tid : 8921] [RpcProvider.cc : 92 <connHandler>] [coId : 2007] ====================================

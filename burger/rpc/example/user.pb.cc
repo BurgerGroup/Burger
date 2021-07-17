@@ -30,6 +30,12 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* LoginResponse_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   LoginResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RegisterRequest_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RegisterRequest_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RegisterResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RegisterResponse_reflection_ = NULL;
 const ::google::protobuf::ServiceDescriptor* UserServiceRpc_descriptor_ = NULL;
 
 }  // namespace
@@ -90,6 +96,39 @@ void protobuf_AssignDesc_user_2eproto() {
       sizeof(LoginResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LoginResponse, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LoginResponse, _is_default_instance_));
+  RegisterRequest_descriptor_ = file->message_type(3);
+  static const int RegisterRequest_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterRequest, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterRequest, name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterRequest, pwd_),
+  };
+  RegisterRequest_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RegisterRequest_descriptor_,
+      RegisterRequest::default_instance_,
+      RegisterRequest_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RegisterRequest),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterRequest, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterRequest, _is_default_instance_));
+  RegisterResponse_descriptor_ = file->message_type(4);
+  static const int RegisterResponse_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterResponse, result_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterResponse, success_),
+  };
+  RegisterResponse_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RegisterResponse_descriptor_,
+      RegisterResponse::default_instance_,
+      RegisterResponse_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RegisterResponse),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterResponse, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterResponse, _is_default_instance_));
   UserServiceRpc_descriptor_ = file->service(0);
 }
 
@@ -110,6 +149,10 @@ void protobuf_RegisterTypes(const ::std::string&) {
       LoginRequest_descriptor_, &LoginRequest::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       LoginResponse_descriptor_, &LoginResponse::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RegisterRequest_descriptor_, &RegisterRequest::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RegisterResponse_descriptor_, &RegisterResponse::default_instance());
 }
 
 }  // namespace
@@ -121,6 +164,10 @@ void protobuf_ShutdownFile_user_2eproto() {
   delete LoginRequest_reflection_;
   delete LoginResponse::default_instance_;
   delete LoginResponse_reflection_;
+  delete RegisterRequest::default_instance_;
+  delete RegisterRequest_reflection_;
+  delete RegisterResponse::default_instance_;
+  delete RegisterResponse_reflection_;
 }
 
 void protobuf_AddDesc_user_2eproto() GOOGLE_ATTRIBUTE_COLD;
@@ -135,17 +182,27 @@ void protobuf_AddDesc_user_2eproto() {
     "\007errcode\030\001 \001(\005\022\016\n\006errmsg\030\002 \001(\014\")\n\014LoginR"
     "equest\022\014\n\004name\030\001 \001(\014\022\013\n\003pwd\030\002 \001(\014\"G\n\rLog"
     "inResponse\022%\n\006result\030\001 \001(\0132\025.burgerRpc.R"
-    "esultCode\022\017\n\007success\030\002 \001(\0102L\n\016UserServic"
-    "eRpc\022:\n\005Login\022\027.burgerRpc.LoginRequest\032\030"
-    ".burgerRpc.LoginResponseB\003\200\001\001b\006proto3", 277);
+    "esultCode\022\017\n\007success\030\002 \001(\010\"8\n\017RegisterRe"
+    "quest\022\n\n\002id\030\001 \001(\r\022\014\n\004name\030\002 \001(\014\022\013\n\003pwd\030\003"
+    " \001(\014\"J\n\020RegisterResponse\022%\n\006result\030\001 \001(\013"
+    "2\025.burgerRpc.ResultCode\022\017\n\007success\030\002 \001(\010"
+    "2\221\001\n\016UserServiceRpc\022:\n\005Login\022\027.burgerRpc"
+    ".LoginRequest\032\030.burgerRpc.LoginResponse\022"
+    "C\n\010Register\022\032.burgerRpc.RegisterRequest\032"
+    "\033.burgerRpc.RegisterResponseB\003\200\001\001b\006proto"
+    "3", 481);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "user.proto", &protobuf_RegisterTypes);
   ResultCode::default_instance_ = new ResultCode();
   LoginRequest::default_instance_ = new LoginRequest();
   LoginResponse::default_instance_ = new LoginResponse();
+  RegisterRequest::default_instance_ = new RegisterRequest();
+  RegisterResponse::default_instance_ = new RegisterResponse();
   ResultCode::default_instance_->InitAsDefaultInstance();
   LoginRequest::default_instance_->InitAsDefaultInstance();
   LoginResponse::default_instance_->InitAsDefaultInstance();
+  RegisterRequest::default_instance_->InitAsDefaultInstance();
+  RegisterResponse::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_user_2eproto);
 }
 
@@ -1158,6 +1215,734 @@ void LoginResponse::clear_success() {
 
 // ===================================================================
 
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RegisterRequest::kIdFieldNumber;
+const int RegisterRequest::kNameFieldNumber;
+const int RegisterRequest::kPwdFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RegisterRequest::RegisterRequest()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:burgerRpc.RegisterRequest)
+}
+
+void RegisterRequest::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+RegisterRequest::RegisterRequest(const RegisterRequest& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:burgerRpc.RegisterRequest)
+}
+
+void RegisterRequest::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  id_ = 0u;
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  pwd_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+RegisterRequest::~RegisterRequest() {
+  // @@protoc_insertion_point(destructor:burgerRpc.RegisterRequest)
+  SharedDtor();
+}
+
+void RegisterRequest::SharedDtor() {
+  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  pwd_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void RegisterRequest::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RegisterRequest::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RegisterRequest_descriptor_;
+}
+
+const RegisterRequest& RegisterRequest::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_user_2eproto();
+  return *default_instance_;
+}
+
+RegisterRequest* RegisterRequest::default_instance_ = NULL;
+
+RegisterRequest* RegisterRequest::New(::google::protobuf::Arena* arena) const {
+  RegisterRequest* n = new RegisterRequest;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RegisterRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:burgerRpc.RegisterRequest)
+  id_ = 0u;
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  pwd_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool RegisterRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:burgerRpc.RegisterRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 id = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &id_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_name;
+        break;
+      }
+
+      // optional bytes name = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_name()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_pwd;
+        break;
+      }
+
+      // optional bytes pwd = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_pwd:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_pwd()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:burgerRpc.RegisterRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:burgerRpc.RegisterRequest)
+  return false;
+#undef DO_
+}
+
+void RegisterRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:burgerRpc.RegisterRequest)
+  // optional uint32 id = 1;
+  if (this->id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->id(), output);
+  }
+
+  // optional bytes name = 2;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      2, this->name(), output);
+  }
+
+  // optional bytes pwd = 3;
+  if (this->pwd().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      3, this->pwd(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:burgerRpc.RegisterRequest)
+}
+
+::google::protobuf::uint8* RegisterRequest::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:burgerRpc.RegisterRequest)
+  // optional uint32 id = 1;
+  if (this->id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->id(), target);
+  }
+
+  // optional bytes name = 2;
+  if (this->name().size() > 0) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        2, this->name(), target);
+  }
+
+  // optional bytes pwd = 3;
+  if (this->pwd().size() > 0) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        3, this->pwd(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:burgerRpc.RegisterRequest)
+  return target;
+}
+
+int RegisterRequest::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:burgerRpc.RegisterRequest)
+  int total_size = 0;
+
+  // optional uint32 id = 1;
+  if (this->id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->id());
+  }
+
+  // optional bytes name = 2;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->name());
+  }
+
+  // optional bytes pwd = 3;
+  if (this->pwd().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->pwd());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RegisterRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:burgerRpc.RegisterRequest)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const RegisterRequest* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const RegisterRequest>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:burgerRpc.RegisterRequest)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:burgerRpc.RegisterRequest)
+    MergeFrom(*source);
+  }
+}
+
+void RegisterRequest::MergeFrom(const RegisterRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:burgerRpc.RegisterRequest)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from.id() != 0) {
+    set_id(from.id());
+  }
+  if (from.name().size() > 0) {
+
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+  }
+  if (from.pwd().size() > 0) {
+
+    pwd_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.pwd_);
+  }
+}
+
+void RegisterRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:burgerRpc.RegisterRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RegisterRequest::CopyFrom(const RegisterRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:burgerRpc.RegisterRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RegisterRequest::IsInitialized() const {
+
+  return true;
+}
+
+void RegisterRequest::Swap(RegisterRequest* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RegisterRequest::InternalSwap(RegisterRequest* other) {
+  std::swap(id_, other->id_);
+  name_.Swap(&other->name_);
+  pwd_.Swap(&other->pwd_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RegisterRequest::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RegisterRequest_descriptor_;
+  metadata.reflection = RegisterRequest_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RegisterRequest
+
+// optional uint32 id = 1;
+void RegisterRequest::clear_id() {
+  id_ = 0u;
+}
+ ::google::protobuf::uint32 RegisterRequest::id() const {
+  // @@protoc_insertion_point(field_get:burgerRpc.RegisterRequest.id)
+  return id_;
+}
+ void RegisterRequest::set_id(::google::protobuf::uint32 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:burgerRpc.RegisterRequest.id)
+}
+
+// optional bytes name = 2;
+void RegisterRequest::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& RegisterRequest::name() const {
+  // @@protoc_insertion_point(field_get:burgerRpc.RegisterRequest.name)
+  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RegisterRequest::set_name(const ::std::string& value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:burgerRpc.RegisterRequest.name)
+}
+ void RegisterRequest::set_name(const char* value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:burgerRpc.RegisterRequest.name)
+}
+ void RegisterRequest::set_name(const void* value, size_t size) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:burgerRpc.RegisterRequest.name)
+}
+ ::std::string* RegisterRequest::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:burgerRpc.RegisterRequest.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RegisterRequest::release_name() {
+  // @@protoc_insertion_point(field_release:burgerRpc.RegisterRequest.name)
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RegisterRequest::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:burgerRpc.RegisterRequest.name)
+}
+
+// optional bytes pwd = 3;
+void RegisterRequest::clear_pwd() {
+  pwd_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& RegisterRequest::pwd() const {
+  // @@protoc_insertion_point(field_get:burgerRpc.RegisterRequest.pwd)
+  return pwd_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RegisterRequest::set_pwd(const ::std::string& value) {
+  
+  pwd_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:burgerRpc.RegisterRequest.pwd)
+}
+ void RegisterRequest::set_pwd(const char* value) {
+  
+  pwd_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:burgerRpc.RegisterRequest.pwd)
+}
+ void RegisterRequest::set_pwd(const void* value, size_t size) {
+  
+  pwd_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:burgerRpc.RegisterRequest.pwd)
+}
+ ::std::string* RegisterRequest::mutable_pwd() {
+  
+  // @@protoc_insertion_point(field_mutable:burgerRpc.RegisterRequest.pwd)
+  return pwd_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RegisterRequest::release_pwd() {
+  // @@protoc_insertion_point(field_release:burgerRpc.RegisterRequest.pwd)
+  
+  return pwd_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RegisterRequest::set_allocated_pwd(::std::string* pwd) {
+  if (pwd != NULL) {
+    
+  } else {
+    
+  }
+  pwd_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), pwd);
+  // @@protoc_insertion_point(field_set_allocated:burgerRpc.RegisterRequest.pwd)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RegisterResponse::kResultFieldNumber;
+const int RegisterResponse::kSuccessFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RegisterResponse::RegisterResponse()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:burgerRpc.RegisterResponse)
+}
+
+void RegisterResponse::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  result_ = const_cast< ::burgerRpc::ResultCode*>(&::burgerRpc::ResultCode::default_instance());
+}
+
+RegisterResponse::RegisterResponse(const RegisterResponse& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:burgerRpc.RegisterResponse)
+}
+
+void RegisterResponse::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  result_ = NULL;
+  success_ = false;
+}
+
+RegisterResponse::~RegisterResponse() {
+  // @@protoc_insertion_point(destructor:burgerRpc.RegisterResponse)
+  SharedDtor();
+}
+
+void RegisterResponse::SharedDtor() {
+  if (this != default_instance_) {
+    delete result_;
+  }
+}
+
+void RegisterResponse::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RegisterResponse::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RegisterResponse_descriptor_;
+}
+
+const RegisterResponse& RegisterResponse::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_user_2eproto();
+  return *default_instance_;
+}
+
+RegisterResponse* RegisterResponse::default_instance_ = NULL;
+
+RegisterResponse* RegisterResponse::New(::google::protobuf::Arena* arena) const {
+  RegisterResponse* n = new RegisterResponse;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RegisterResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:burgerRpc.RegisterResponse)
+  if (GetArenaNoVirtual() == NULL && result_ != NULL) delete result_;
+  result_ = NULL;
+  success_ = false;
+}
+
+bool RegisterResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:burgerRpc.RegisterResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .burgerRpc.ResultCode result = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_result()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_success;
+        break;
+      }
+
+      // optional bool success = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_success:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &success_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:burgerRpc.RegisterResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:burgerRpc.RegisterResponse)
+  return false;
+#undef DO_
+}
+
+void RegisterResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:burgerRpc.RegisterResponse)
+  // optional .burgerRpc.ResultCode result = 1;
+  if (this->has_result()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->result_, output);
+  }
+
+  // optional bool success = 2;
+  if (this->success() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->success(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:burgerRpc.RegisterResponse)
+}
+
+::google::protobuf::uint8* RegisterResponse::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:burgerRpc.RegisterResponse)
+  // optional .burgerRpc.ResultCode result = 1;
+  if (this->has_result()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        1, *this->result_, false, target);
+  }
+
+  // optional bool success = 2;
+  if (this->success() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->success(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:burgerRpc.RegisterResponse)
+  return target;
+}
+
+int RegisterResponse::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:burgerRpc.RegisterResponse)
+  int total_size = 0;
+
+  // optional .burgerRpc.ResultCode result = 1;
+  if (this->has_result()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->result_);
+  }
+
+  // optional bool success = 2;
+  if (this->success() != 0) {
+    total_size += 1 + 1;
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RegisterResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:burgerRpc.RegisterResponse)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const RegisterResponse* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const RegisterResponse>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:burgerRpc.RegisterResponse)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:burgerRpc.RegisterResponse)
+    MergeFrom(*source);
+  }
+}
+
+void RegisterResponse::MergeFrom(const RegisterResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:burgerRpc.RegisterResponse)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from.has_result()) {
+    mutable_result()->::burgerRpc::ResultCode::MergeFrom(from.result());
+  }
+  if (from.success() != 0) {
+    set_success(from.success());
+  }
+}
+
+void RegisterResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:burgerRpc.RegisterResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RegisterResponse::CopyFrom(const RegisterResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:burgerRpc.RegisterResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RegisterResponse::IsInitialized() const {
+
+  return true;
+}
+
+void RegisterResponse::Swap(RegisterResponse* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RegisterResponse::InternalSwap(RegisterResponse* other) {
+  std::swap(result_, other->result_);
+  std::swap(success_, other->success_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RegisterResponse::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RegisterResponse_descriptor_;
+  metadata.reflection = RegisterResponse_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RegisterResponse
+
+// optional .burgerRpc.ResultCode result = 1;
+bool RegisterResponse::has_result() const {
+  return !_is_default_instance_ && result_ != NULL;
+}
+void RegisterResponse::clear_result() {
+  if (GetArenaNoVirtual() == NULL && result_ != NULL) delete result_;
+  result_ = NULL;
+}
+const ::burgerRpc::ResultCode& RegisterResponse::result() const {
+  // @@protoc_insertion_point(field_get:burgerRpc.RegisterResponse.result)
+  return result_ != NULL ? *result_ : *default_instance_->result_;
+}
+::burgerRpc::ResultCode* RegisterResponse::mutable_result() {
+  
+  if (result_ == NULL) {
+    result_ = new ::burgerRpc::ResultCode;
+  }
+  // @@protoc_insertion_point(field_mutable:burgerRpc.RegisterResponse.result)
+  return result_;
+}
+::burgerRpc::ResultCode* RegisterResponse::release_result() {
+  // @@protoc_insertion_point(field_release:burgerRpc.RegisterResponse.result)
+  
+  ::burgerRpc::ResultCode* temp = result_;
+  result_ = NULL;
+  return temp;
+}
+void RegisterResponse::set_allocated_result(::burgerRpc::ResultCode* result) {
+  delete result_;
+  result_ = result;
+  if (result) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:burgerRpc.RegisterResponse.result)
+}
+
+// optional bool success = 2;
+void RegisterResponse::clear_success() {
+  success_ = false;
+}
+ bool RegisterResponse::success() const {
+  // @@protoc_insertion_point(field_get:burgerRpc.RegisterResponse.success)
+  return success_;
+}
+ void RegisterResponse::set_success(bool value) {
+  
+  success_ = value;
+  // @@protoc_insertion_point(field_set:burgerRpc.RegisterResponse.success)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
 UserServiceRpc::~UserServiceRpc() {}
 
 const ::google::protobuf::ServiceDescriptor* UserServiceRpc::descriptor() {
@@ -1178,6 +1963,14 @@ void UserServiceRpc::Login(::google::protobuf::RpcController* controller,
   done->Run();
 }
 
+void UserServiceRpc::Register(::google::protobuf::RpcController* controller,
+                         const ::burgerRpc::RegisterRequest*,
+                         ::burgerRpc::RegisterResponse*,
+                         ::google::protobuf::Closure* done) {
+  controller->SetFailed("Method Register() not implemented.");
+  done->Run();
+}
+
 void UserServiceRpc::CallMethod(const ::google::protobuf::MethodDescriptor* method,
                              ::google::protobuf::RpcController* controller,
                              const ::google::protobuf::Message* request,
@@ -1189,6 +1982,12 @@ void UserServiceRpc::CallMethod(const ::google::protobuf::MethodDescriptor* meth
       Login(controller,
              ::google::protobuf::down_cast<const ::burgerRpc::LoginRequest*>(request),
              ::google::protobuf::down_cast< ::burgerRpc::LoginResponse*>(response),
+             done);
+      break;
+    case 1:
+      Register(controller,
+             ::google::protobuf::down_cast<const ::burgerRpc::RegisterRequest*>(request),
+             ::google::protobuf::down_cast< ::burgerRpc::RegisterResponse*>(response),
              done);
       break;
     default:
@@ -1203,6 +2002,8 @@ const ::google::protobuf::Message& UserServiceRpc::GetRequestPrototype(
   switch(method->index()) {
     case 0:
       return ::burgerRpc::LoginRequest::default_instance();
+    case 1:
+      return ::burgerRpc::RegisterRequest::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *::google::protobuf::MessageFactory::generated_factory()
@@ -1216,6 +2017,8 @@ const ::google::protobuf::Message& UserServiceRpc::GetResponsePrototype(
   switch(method->index()) {
     case 0:
       return ::burgerRpc::LoginResponse::default_instance();
+    case 1:
+      return ::burgerRpc::RegisterResponse::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *::google::protobuf::MessageFactory::generated_factory()
@@ -1239,6 +2042,13 @@ void UserServiceRpc_Stub::Login(::google::protobuf::RpcController* controller,
                               ::burgerRpc::LoginResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(0),
+                       controller, request, response, done);
+}
+void UserServiceRpc_Stub::Register(::google::protobuf::RpcController* controller,
+                              const ::burgerRpc::RegisterRequest* request,
+                              ::burgerRpc::RegisterResponse* response,
+                              ::google::protobuf::Closure* done) {
+  channel_->CallMethod(descriptor()->method(1),
                        controller, request, response, done);
 }
 
