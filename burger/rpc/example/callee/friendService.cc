@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "../friend.pb.h"   // 如何优雅的不要相对路径
-#include "burger/rpc/RpcProvider.h"
+#include "friend.pb.h"   // 如何优雅的不要相对路径
+#include "burger/rpc/RpcServer.h"
 #include "burger/base/Log.h"
 
 using namespace burger; 
@@ -38,7 +38,7 @@ public:
 
 int main(int argc, char **argv) {
     LOGGER(); LOG_LEVEL_INFO;
-    RpcProvider provider;
+    RpcServer provider;
     provider.NotifyService(new FriendService());
     provider.Run();
     return 0;

@@ -18,7 +18,6 @@ message GetFriendListResponse {
     repeated bytes friends = 2;
 }
 
-// 好友模块
 service FriendServiceRpc {
     rpc GetFriendList(GetFriendListRequest) returns(GetFriendListResponse);
 }

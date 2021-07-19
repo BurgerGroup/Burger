@@ -29,9 +29,7 @@ message RegisterResponse {
     bool success = 2;
 }
 
-// 最重要的就是 函数名 函数参数 返回 三个部分
 service UserServiceRpc {
-    // 不一定和函数名相等，但是最好对应起来
     rpc Login(LoginRequest) returns(LoginResponse);
     rpc Register(RegisterRequest) returns(RegisterResponse);
 }

@@ -14,7 +14,7 @@
 
 每一台服务器独立运行一个工程的所有模块。
 
-优点: 用户的并发量提升了（水平拓展）， 简单
+优点: 用户的并发量提升了（水平拓展），简单
 
 缺点: 项目代码还是需要整体重新编译，而且需要多次部署
 
@@ -40,22 +40,31 @@
 
 我们的分布式框架就是要去隐藏这些细节，像是在本机一样调用函数一样
 
+## 认识RPC框架
+
+RPC : Remote Procedure Call 远程过程调用
+
+比如，我们的登录和聊天功能部署在不同的机器上，那么要完成上面的逻辑，需要依靠网络传输，将要调用的函数名以及参数通过网络序列化后打包发送给另一个机器，然后另一台机器调用后将结果发过来。
+
 ## RPC 通信原理 (分布式通信)
 
 ```
+// RPC 框架流程
+
       // server1                                   // server2
 local call ---> 序列化  --> RPC通信(Burger) -->     反序列化   --> call 
                                                                  |  
 local ret  <-- 反序列化<--  RPC通信(Burger) <--      序列化    <-- return
 
-
-// 序列化/反序列化 : protobuf 
-// 网络部分，包括寻找rpc服务主机，发起rpc调用请求和相应rpc调用结果，使用Burger网络库和zookeeper 服务配置中心
 ```
+
+我们其中序列化/反序列化 : protobuf 
+
+网络部分，包括寻找rpc服务主机，发起rpc调用请求和相应rpc调用结果，使用Burger网络库和zookeeper 服务配置中心
 
 ## protobuf
 
-### protobuf 资料
+### Link
 
 https://colobu.com/2015/01/07/Protobuf-language-guide/
 
@@ -70,6 +79,32 @@ json存储 ： name: "MITSK", pwd : "123"
 "zhang san""123456"
 
 - protobuf没有提供任何rpc功能，只是做序列化和反序列化
+
+## protobuf 作用
+
+protobuf 主要是作为 整个框架的传输协议， 我们可以看一下整个框架对于传输信息的格式定义
+
+```
+message RpcHeader {
+    bytes serviceName = 1;  // 类名
+    bytes methodName = 2;   // 方法名
+    uint32 argsSize = 3;    // 参数大小
+}
+```
+
+我们可以看出，它定义了要调用方法是哪一个类，哪一个方法以及方法所需的参数大小
+
+### 框架内传输的数据定义 
+
+4字节标识头部长度 + RpcHeader + args
+
+18UserServiceLogin15MITSK ligh12345
+
+18表示整个类名 + 方法名 + 参数长度的大小 (proto中的定义)
+
+从这个长度我们可以指导，从这个字符流中截取UserServiceLogin15 这18个字符，再根据RpcHeader来反序列化得出类名，方法名，以及参数长度三个重要数据
+
+15表示后面的参数长度, 我们就可以截取参数的字节流 MITSK ligh12345
 
 ## protobuf rpc 流程剖析
 
@@ -92,7 +127,7 @@ class LIBPROTOBUF_EXPORT Closure {
 ```cpp
 // Service* 是个基类指针
 
-// RpcProvider的使用者，rpc服务方法的发布方
+// RpcServer的使用者，rpc服务方法的发布方
 
 class UserService : public UserServiceRpc {
       login() <== 本地方法
@@ -120,7 +155,7 @@ class UserService : public UserServiceRpc {
 ```cpp
 // 网络(收发)功能有Burger库实现
 // protobuf 实现数据的序列化和反序列化
-RpcProvider provider;
+RpcServer provider;
 provider.NotifyService(new UserService());
 provider.Run();
 ```

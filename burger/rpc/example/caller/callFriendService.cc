@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../friend.pb.h"
+#include "friend.pb.h"
 #include "burger/rpc/RpcChannel.h"
 #include "burger/rpc/RpcController.h"
 #include "burger/base/Log.h"
