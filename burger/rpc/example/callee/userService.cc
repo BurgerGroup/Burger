@@ -1,15 +1,14 @@
 #include <iostream>
 #include <string>
-#include "../user.pb.h"
-#include "burger/rpc/RpcProvider.h"
+#include "user.pb.h"
+#include "burger/rpc/RpcServer.h"
 #include "burger/base/Log.h"
 
 using namespace burger; 
 using namespace burger::rpc;
 
-// UserService 原来是一个本地服务，提供了两个进程内的本地方法，Login 和GetFriendLists
-// 如何发布
-class UserService : public burgerRpc::UserServiceRpc {  // 使用在rpc服务发布端(rpc服务发布者)
+// 使用在rpc服务发布端(rpc服务发布者)
+class UserService : public burgerRpc::UserServiceRpc {  
 public:
     bool Login(std::string& name, std::string& pwd) {
         std::cout << "Doing local service : Login" << std::endl; 
@@ -22,11 +21,7 @@ public:
         std::cout << "id: " << id << " name: " << name << " pwd: " << pwd << std::endl;
         return true;
     }
-    /*
-    先写proto，定义好如何收发(service)的格式(是什么函数名，参数是什么字段，返回什么)
-    1. Caller --> Login(LoginRequest) 序列化 --> Burger -->  callee 
-    2. calee --> Login(LoginRequest)  --> 交到下面重写的Login方法上
-    */
+
     // 重写基类UserService 的虚函数, 下面这些方法可都是框架直接调用的
     // 这个Login是框架帮我们调用的
     void Login(::google::protobuf::RpcController* controller,
@@ -70,8 +65,9 @@ public:
 int main(int argc, char **argv) {
     LOGGER(); LOG_LEVEL_INFO;
     // provider是一个rpc网络服务对象，把UserService对象发布到rpc结点上
-    RpcProvider provider;
-    provider.NotifyService(new UserService());
+    RpcServer provider;
+    UserService userService;
+    provider.NotifyService(&userService);
     // 可以多次
     // provider.NotifyService(new ProductService);
     // 启动一个rpc服务发布节点, Run()以后，进程进入阻塞状态，等待远程的rpc调用请求

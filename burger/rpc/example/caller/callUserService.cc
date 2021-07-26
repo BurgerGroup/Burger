@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../user.pb.h"
+#include "user.pb.h"
 #include "burger/rpc/RpcChannel.h"
 #include "burger/base/Log.h"
 using namespace burger;
