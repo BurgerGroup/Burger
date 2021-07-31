@@ -26,14 +26,14 @@ sub_co, 分配默认128k栈空间，包含一个callBack，是一个执行体Tas
 
 ### 协程的创建和切换
 
-现有的 C++ 协程库均基于两种方案：
+现有的 **C++** 协程库均基于两种方案来实现协程上下文切换：
 
-利用汇编代码控制协程上下文的切换，以及利用操作系统提供的 API 来实现协程上下文切换
+* 利用**汇编代码**
+* 利用**操作系统提供的 `API`**
 
-我们此处采用Boost.context 的两个API来作为协程的创建和切换
+我们此处采用`Boost.context`的两个API`来作为协程的创建和切换
 
 ```C
-
 intptr_t jump_fcontext( fcontext_t * ofc, fcontext_t nfc, intptr_t vp, bool preserve_fpu = false);
 
 fcontext_t make_fcontext( void * sp, std::size_t size, void (* fn)( intptr_t) );
@@ -92,7 +92,7 @@ jump_fcontext(&curCo->ctx_, t_main_co->ctx_, 0);
  *
  * @return              the context pointer (rax)
 */
-// notes: 当参数少于7个时， 参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9。
+// notes: 当整形参数少于7个时， 参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9。
 // rax用于第一个返回寄存器
 fcontext_t make_fcontext( void * sp, std::size_t size, void (* fn)( intptr_t) );
 
@@ -229,9 +229,9 @@ enum class State {
 };
 ```
 
-我们通过resume 从main_co切换到当前协程co执行
+我们通过`resume()` 从`main_co`切换到当前协程`co`执行
 
-通过 Yield 挂起当前正在执行的协程，切换到主协程执行
+通过`Yield()`挂起当前正在执行的协程，切换到主协程执行
 
 ### 协程中callBack的执行
 
@@ -257,11 +257,11 @@ void Coroutine::RunInCo(intptr_t vp) {
 scheduler --> thread --> co
 ```
 
-内部带有一个线程池, 每一个IO线程都有一个独一无二的执行器Processor
+内部带有一个线程池, 每一个IO线程都有一个独一无二的执行器`Processor`
 
-协程调度器将协程分配到线程(Processor)上去执行
+协程调度器将协程分配到线程(`Processor`)上去执行
 
-我们对上层用户不暴露协程，上层只需要传入callBack，我们内部将callBack 交给一个工作Processor，并且调用的是proc->addPendingTask()，而不是直接addTask(下面Processor讲解为何)
+我们对上层用户不暴露协程，上层只需要传入`callBack`，我们内部将`callBack` 交给一个工作`Processo`r，并且调用的是`proc->addPendingTask()`，而不是直接`addTask`(下面Processor讲解为何)
 
 ```cpp
 void Scheduler::addTask(const Coroutine::Callback& task, const std::string& name) {
@@ -271,11 +271,11 @@ void Scheduler::addTask(const Coroutine::Callback& task, const std::string& name
 }
 ```
 
-总的来说，Scheduler与上层交互去增加任务，在内部将其分发给各个Processor处理，隐藏底层怎么处理的细节。
+总的来说，`Scheduler`与上层交互去增加任务，在内部将其分发给各个`Processor`处理，隐藏底层怎么处理的细节。
 
 ## 执行器Processor 职责
 
-多线程情况下Scheduler有一个mainProc 和多个workProc, mainProc的职责相当于一个包工头，因为mainProc所在线程主要负责accept连接(和客户见面交接)
+多线程情况下`Scheduler`有一个`mainProc`和多个`workProc`, `mainProc`的职责相当于一个包工头，因为`mainProc`所在线程主要负责`accept`连接(和客户见面交接)
 
 ```cpp 
 // https://github.com/BurgerGroup/Burger/blob/main/burger/net/CoTcpServer.cc
@@ -288,7 +288,7 @@ void CoTcpServer::start() {
 }
 ```
 
-然后将连接好的connFd生成conn, 和connHandler交给workProc去处理(打工人干活)
+然后将连接好的`connFd`生成`conn`, 和`connHandler`交给`workProc`去处理(打工人干活)
 
 ```cpp 
 // https://github.com/BurgerGroup/Burger/blob/main/burger/net/CoTcpServer.cc
@@ -314,11 +314,11 @@ void CoTcpServer::startAccept() {
 
 ## Processor 细节
 
-Processor名为运行器，是和协程的运行相关，其最核心功能在于run和addTask。
+`Processor`名为运行器，是和协程的运行相关，其最核心功能在于`run()`和`addTask()`。
 
 ### Processor::addTask
 
-addTask线程安全
+`addTask`线程安全
 
 ```cpp 
 void Processor::addTask(const Coroutine::Callback& cb, const std::string& name) {
@@ -329,9 +329,9 @@ void Processor::addTask(const Coroutine::Callback& cb, const std::string& name) 
 }
 ```
 
-其中我们本线程内会调用resetAndGetCo()来包装callback成协程，我们这里有两个queue，一个是等待执行队列 runnableCoQue_，一个是执行完后放入的idleCoQue_ ，等待我们复用这些已经执行的co，避免重复malloc, free。 
+其中我们本线程内会调用`resetAndGetCo()`来包装`callback`成协程，我们这里有两个`queue`，一个是等待执行队列 `runnableCoQue_`，一个是执行完后放入的`idleCoQue_` ，等待我们复用这些已经执行的co，避免重复malloc, free。 
 
-跨线程调用addPendingTask(), 在run中由该线程来将其包装成co。
+跨线程调用`addPendingTask()`, 在run中由该线程来将其包装成co。
 
 ### Processor::run
 
@@ -368,9 +368,9 @@ void Processor::run() {
 }
 ```
 
-我们在run里创建一个epoll co，如果没其他协程等待执行就进入epoll::poll等待新事件到来，然后将跨线程和Scheduler添加的cb包装成co装入执行队列。
+我们在`run()`里创建一个`epoll co`，如果没其他协程等待执行就进入`epoll::poll()`等待新事件到来，然后将跨线程和`Scheduler`添加的`cb`包装成`co`装入执行队列。
 
-最后我们epollCo->resume()进入epoll 跳出循环执行完。
+最后我们`epollCo->resume()`进入**epoll协程跳出循环执行完（否则其在析构时还在挂起状态，而不是正常结束状态）**。
 
 
 ### Processor::other 
