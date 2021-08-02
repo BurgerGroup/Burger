@@ -102,6 +102,10 @@ bool MySQLStmtRes::isNull(int idx) {
     return datas_[idx].is_null;
 }
 
+
+// todo : 考虑下type punning, 内存不对齐
+// todo : 建议使用memcpy
+// todo : https://blog.regehr.org/archives/959
 #define XX(type) \
     return *static_cast<type *>(datas_[idx].data)
     // return *(type*)datas_[idx].data  // old style cast

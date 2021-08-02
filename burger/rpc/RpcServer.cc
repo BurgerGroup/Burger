@@ -92,16 +92,12 @@ void RpcServer::connHandler(const CoTcpConnection::ptr& conn) {
         google::protobuf::Message *response = service->GetResponsePrototype(method).New();
         
         // 下面的method方法的调用，绑定一个Closure的回调函数
-<<<<<<< HEAD
-        google::protobuf::Closure *done = google::protobuf::NewCallback<RpcProvider,
-                                                            const CoTcpConnection::ptr&,
-                                                            google::protobuf::Message*>
-=======
+
         // todo: 为何我们此处要手动去设置类型
         google::protobuf::Closure *done = google::protobuf::NewCallback<RpcServer,
                                                             const CoTcpConnection::ptr&,
                                                             google::protobuf::Message *>
->>>>>>> 7ffcd9bef8095f65ca9a2e9f76f24a42810abd1e
+
                                                             (this, 
                                                             &RpcServer::sendRpcResonse, 
                                                             conn, response);
