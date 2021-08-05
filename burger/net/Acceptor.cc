@@ -38,6 +38,7 @@ void Acceptor::listen() {
 void Acceptor::handleRead() {
     loop_->assertInLoopThread();
     InetAddress peerAddr;
+    // todo: should we loop until no more new conn?
     int connfd = acceptSocket_->accept(peerAddr);
     if(connfd >= 0) {
         // TODO: 非阻塞poll检查
