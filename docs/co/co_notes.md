@@ -294,17 +294,20 @@ void connHandler(const CoTcpConnectionPtr& conn) {
 
 ```
 
-2. 由于每次回调都会切断栈上变量的生命周期，故而导致需要延续使用的变量必须申请到堆上，并手动存入上下文实体中。
+2. 每个回调函数当中，**只能处理当前的状态下能完成的工作**：
+    * 比如连接到来时，`onConn()`当中**只进行打开文件的动作，而不能进行下一步的动作（下一步的状态还没来到）**
+    * 当前状态的**回调函数结束后，退栈动作会销毁掉栈上变量**，故而导致**需要延续使用的变量（可以理解为只完成了一部分的工作）必须申请到堆上，并手动存入上下文实体中。**
+    * 因此，每个连接都需要有自己的`buffer`，否则发送/接收到一半的数据无法保存
 
 3. 在C/C++这种无GC的语言中，碎片化的流程给内存管理也带来了更多挑战。
 
-4. 由于回调式的逻辑是“不知何时会被触发”，用户状态管理也会有更多挑战。
-
-所以像muduo的TcpConnection特别复杂，其复杂性来源于他有太多的状态。
-
-比如他的handleWrite中，要考虑channel的状态，还要考虑outputBuffer是否发送完，还要考虑现在自身的状态，是否该去优雅退出
-
-
+4. 由于**回调式的逻辑是“不知何时会被触发”**，用户状态管理也会有更多挑战：
+    * `muduo`的`TcpConnection`特别复杂，其复杂性来源于他有太多的状态。
+    * 比如`handleWrite()`中，由于不确定可写事件到来时，整个Conn是哪一种状态：
+        * 要考虑`channel`的状态：正常关注可写？Send之后但还没断开连接之前？
+        * 要考虑`outputBuffer`的状态：是否发送完？是否需要回调`writeCompleteCallback_()`？
+        * 要考虑现在自身的状态，是否该去优雅退出
+    
 ```cpp 
 // https://github.com/chenshuo/muduo/blob/master/muduo/net/TcpConnection.cc
 void TcpConnection::handleWrite()
@@ -348,7 +351,7 @@ void TcpConnection::handleWrite()
 }
 ```
 
-而我们Burger中就不需要考虑这些问题，我们就是同步的写法
+而我们Burger中就不需要考虑这些问题，我们就是同步的写法，下一次恢复执行时上下文就像并没有改变
 
 ```cpp 
 // https://github.com/BurgerGroup/Burger/blob/main/burger/net/CoTcpConnection.cc
@@ -380,23 +383,25 @@ void CoTcpConnection::sendInProc(const char* start, size_t sendSize) {
 }
 ```
 
-我们此处如果没发完，就yield出去等下次到resume到此处继续执行即可，而不需要像muduo那样先把数据append到outputBuffer中，将channel设置关注write，当等发送缓冲区空了后触发，然后调用handleWrite将outputBuffer中数据继续发送出去。
+我们此处如果没发完，就`yield`出去等下次到`resume`到此处继续发送即可(**状态都保存在运行栈中**)，而不需要像muduo那样先把数据`append`到`outputBuffer`中，将`channel`设置关注`write`，当等发送缓冲区空了后触发，然后调用`handleWrite`将`outputBuffer`中数据继续发送出去。
 
 
 ## 关于Burger协程的栈带来的问题
 
-我们Burger实现的为有栈协程
+我们`Burger`实现的为有栈协程
 
 ```cpp
 stack_ = StackAllocator::Alloc(stackSize_);
 ctx_ = make_fcontext(static_cast<char*>(stack_) + stackSize_, stackSize_, &Coroutine::RunInCo);
 ```
 
-栈大小固定，有大小难以权衡的问题。
+栈大小固定，有**大小难以权衡**的问题。
 
 设置大了，会造成浪费。比如采用Linux默认线程栈8M大小，启动1000个协程就需要8G内存，而每个协程实际仅需几百K甚至几K。
 
-设置小了，会有栈溢出问题。比如采用128K大小，在遇到类似某个有缓冲需求的函数就有可能会栈溢出
+设置小了，会有栈溢出问题。比如采用128K大小，在遇到类似某个有缓冲需求的函数就有可能会栈溢出；所以我们要求用户尽量不要申请过大的局部变量，而是在堆上申请空间
+
+此处可以考虑采用**栈拷贝**：https://zhuanlan.zhihu.com/p/32431200
 
 ## reference 
 
