@@ -150,8 +150,9 @@ finish:
 
 ### jump_fcontext
 
-```asm
+```c
 jump_fcontext:  
+    // 实际上在call本函数时，就已经执行了pushq %rip，保存了返回后的下一条指令的地址
     // 保存寄存器
     pushq  %rbp  /* save RBP */
     pushq  %rbx  /* save RBX */
@@ -173,12 +174,11 @@ jump_fcontext:
     fnstcw   0x4(%rsp)
 
 1:
-    // 修改rsp 此时已经改变到其他栈
     // 将rsp 保存到第一参数（第一个参数保存在rdi）指向的内存。
     // fcontext_t *ofc 第一参数ofc指向的内存中保存是 rsp 的指针
     movq  %rsp, (%rdi)
 
-    // 实现了将第二个参数复制到 rsp.
+    // 实现了将第二个参数复制到 rsp.（此时通过改变%rsp，已经完成了运行栈的切换）
     movq  %rsi, %rsp
 
     // 判断是否保存了fpu，如果保存了就恢复保存在nfx 栈上的 fpu相关数据到响应的寄存器。
@@ -199,7 +199,7 @@ jump_fcontext:
     popq  %rbx  /* restrore RBX */
     popq  %rbp  /* restrore RBP */
 
-    // 设置返回值，实现指令跳转。
+    // 设置返回值，实现指令跳转。（刚刚提到调用前执行了push %rip, 所以这里就得到了下一条指令的地址）
     popq  %r8
 
     /* use third arg as return-value after jump */
@@ -207,7 +207,7 @@ jump_fcontext:
     /* use third arg as first arg in context function */
     movq  %rdx, %rdi
 
-    /* indirect jump to context */
+    /* indirect jump to context */（从下一条指令处开始执行， %rsp依然在协程的运行栈中）
     jmp  *%r8
 .size jump_fcontext,.-jump_fcontext
 
