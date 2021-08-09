@@ -11,7 +11,7 @@
 1. 注册一个每过1s，重复执行的定时器
 
 ```cpp
-Sheduler::runEvery(1s, func);
+Scheduler::runEvery(1s, func);
 
 // 每隔一秒, 遍历整个连接列表（费时），判断是否超时，如果超时，就断开
 foreach(conn in connList) {
