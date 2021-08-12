@@ -28,7 +28,8 @@ foreach(conn in connList) {
 但是可能连接较多，这样对timerQueue压力较大
 
 ## timing wheel
+* 环形队列(只用到tail指针)，有8个`bucket`，使用`circular-buffer`保存
 
-环形队列(只用到tail指针)，有8个bucket
+* 当创建连接/有数据到来时，将本连接放至队尾的`bucket`
 
-注册一个
+* 事件循环中添加**定时器**，每$1$s会弹出队首的`bucket`并析构之；显然若其中的连接引用计数递减后为0，则该连接被析构断开。
