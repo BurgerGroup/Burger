@@ -27,6 +27,7 @@ public:
 
     void connHandler(const CoTcpConnection::ptr& conn) {
         connections_.insert(conn);
+        codec_.wrapAndSend(conn, "Connected!");
         Buffer::ptr buffer = std::make_shared<Buffer>();
         while(conn->recv(buffer) > 0) {
             codec_.decode(conn, buffer);
