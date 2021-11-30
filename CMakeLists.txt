@@ -142,9 +142,11 @@ if(BUILD_TYPE STREQUAL "DEBUG")
 add_subdirectory(tests)
 endif()
 
+add_subdirectory(examples)
+
 if(BUILD_TYPE STREQUAL "RELEASE")
     set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-    add_subdirectory(examples)
+    # add_subdirectory(examples)
     add_subdirectory(benchmarks)
 endif()
 
